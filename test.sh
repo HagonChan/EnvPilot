@@ -11,17 +11,18 @@ embedding_dimensions=4096
 
 if [ "$model" = "deepseek-r1" ]; then
     model_name="deepseek/deepseek-reasoner"
-    api_key="sk-82d466d373bf4646ae00dce33b846918"
-    api_base="https://api.deepseek.com/v1"
+    api_key=$DEEPSEEK_API_KEY
+    api_base="https://api.deepseek.com"
 elif [ "$model" = "deepseek-v3" ]; then
     model_name="deepseek/deepseek-chat"
-    api_key="sk-82d466d373bf4646ae00dce33b846918"
-    api_base="https://ark.cn-beijing.volces.com/api/v3"
+    api_key=$DEEPSEEK_API_KEY
+    api_base="https://api.deepseek.com"
 elif [ "$model" = "debug" ]; then
     model_name="deepseek/deepseek-chat"
-    api_key="sk-82d466d373bf4646ae00dce33b846918"
-    api_base="https://ark.cn-beijing.volces.com/api/v3"
+    api_key=$DEEPSEEK_API_KEY
+    api_base="https://api.deepseek.com"
     num_workers=1
+    save_name="deepseek-v3_memory_top${embed_topk}_debug"
 else
     echo "Invalid model"
 fi

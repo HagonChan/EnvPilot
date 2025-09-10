@@ -15,9 +15,9 @@ class Config:
 
     def __init__(
         self,
-        api_base: str = "https://ark.cn-beijing.volces.com/api/v3",
-        api_key: str = "e1e81de4-a291-4aee-8c8b-d97f42f40969",
-        model: str = "deepseek-v3-250324",
+        api_base: str = "https://api.deepseek.com",
+        api_key: str = os.environ["DEEPSEEK_API_KEY"],
+        model: str = "deepseek-chat",
         max_retries: int = 3,
         max_workers: int = 8,
         temperature: float = 0.0,

@@ -1,0 +1,67 @@
+[
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "The installed CMake version was outdated and did not meet the project's minimum requirement",
+    "solution": "The project required CMake version 3.21 or higher, but the default Ubuntu 20.04 repository provided only version 3.16.3. The root cause was an outdated package in the system's default repositories. The solution involved adding the Kitware third-party repository, resolving GPG key verification issues by importing the repository's public key, and installing the updated CMake version.",
+    "action": "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16FAAD7AF99A65E2 && add-apt-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && apt-get update && apt-get install -y cmake"
+  },
+  {
+    "problem": "Linking failure during build due to missing zlib library",
+    "solution": "The build process encountered a linking error because the zlib development library was missing, which is a common dependency for many compilation tasks. The root cause was that zlib was not installed, leading to unresolved symbols. The solution was to install the zlib development package to resolve the linking issue.",
+    "action": "apt-get install -y zlib1g-dev"
+  },
+  {
+    "problem": "The C compiler (gcc) was missing in the Ubuntu environment",
+    "solution": "Compiling the C-based project requires gcc. The root cause was the absence of essential development tools in the environment configuration. Installing gcc enabled successful compilation of the project components.",
+    "action": "apt-get install -y gcc"
+  },
+  {
+    "problem": "Missing essential build tools (gcc, make) required for compiling the project from source",
+    "solution": "The root cause was the absence of build-essential packages in the Ubuntu environment, preventing compilation. The solution involved installing these dependencies via apt after resolving proxy configuration issues.",
+    "action": "apt-get install -y build-essential"
+  },
+  {
+    "problem": "The initial make command failed due to an outdated CMake version",
+    "solution": "The CMake version installed (3.10.2) was below the required minimum (3.15) for building the project. The root cause was an outdated package in the Ubuntu repositories. The solution involved building and installing a newer CMake version from source after resolving dependencies.",
+    "action": "wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz && tar -zxvf cmake-3.28.3.tar.gz && cd cmake-3.28.3 && ./bootstrap && make && make install"
+  },
+  {
+    "problem": "OpenSSL development headers were missing during compilation",
+    "solution": "The OpenSSL library headers were required for SSL support but were not present. The root cause was the absence of the OpenSSL development package. The solution was to install libssl-dev to provide the necessary headers.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Missing libexecinfo dependency required for Alpine Linux builds caused installation failures",
+    "solution": "The BUILD.md specified libexecinfo as a dependency for Alpine, but it was unavailable in default repositories. The root cause was repository version mismatch (Alpine 3.22 vs required 3.12 packages). The solution was adding Alpine 3.12 repositories and installing libexecinfo-dev/libexecinfo-static.",
+    "action": "echo \"https://dl-cdn.alpinelinux.org/alpine/v3.12/main\" >> /etc/apk/repositories && apk update && apk add libexecinfo-dev libexecinfo-static"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "Required build tools (g++, cmake, make) were missing for project compilation",
+    "solution": "The root cause was insufficient build dependencies as specified in the project documentation. The solution was to install the missing tools using the package manager to satisfy the build requirements.",
+    "action": "apt-get install -y g++ cmake make"
+  },
+  {
+    "problem": "The cmake command failed when configuring the project due to missing installation.",
+    "solution": "CMake was not installed on the Ubuntu system, which is required for building projects configured with CMake. The root cause was a missing build tool package in the environment configuration. The solution was to update the package index and install CMake using apt-get.",
+    "action": "apt-get update && apt-get install -y cmake"
+  },
+  {
+    "problem": "Linking failed due to missing zlib and ncurses development libraries",
+    "solution": "The linker reported missing zlib and ncurses libraries during the build phase. The root cause was the absence of development packages for these critical system libraries. The solution was to install zlib1g-dev and libncurses5-dev packages to provide the necessary headers and static libraries.",
+    "action": "apt-get install -y zlib1g-dev libncurses5-dev"
+  },
+  {
+    "problem": "Essential tools (gpg, curl) were missing during environment setup.",
+    "solution": "The gpg and curl commands were required for secure key retrieval and script downloads but were not present in the base environment. The root cause was incomplete initial package configuration. The solution was to install these utilities via the system package manager.",
+    "action": "apt-get install -y gnupg curl"
+  }
+]

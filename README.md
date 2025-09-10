@@ -71,7 +71,7 @@ python gen_env_dockerfile.py
 Configure Milvus Vector Databse:
 
 ```bash
-pip install pymilvus
+pip install pymilvus[model]
 cd sweagent/memory
 sudo docker compose up -d
 ```

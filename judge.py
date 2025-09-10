@@ -1,10 +1,11 @@
 from sweagent.run.hooks.LLM_judge3_2 import Config, EvaluationManager
+import os
 
 
 def main():
     """主函数"""
     # 初始化配置
-    config = Config("https://api.deepseek.com", "sk-82d466d373bf4646ae00dce33b846918", model="deepseek-chat")
+    config = Config("https://api.deepseek.com", os.environ["DEEPSEEK_API_KEY"], model="deepseek-chat")
 
     # 创建评估管理器
     evaluator = EvaluationManager(config)

@@ -3,6 +3,7 @@ from sweagent.run.hooks.abstract import RunHook
 from sweagent.run.batch_instances import BatchInstance
 from sweagent.types import AgentRunResult
 from sweagent.utils.log import get_logger
+import os
 
 
 class EnvBenchEvaluate(RunHook):
@@ -21,7 +22,7 @@ class EnvBenchEvaluate(RunHook):
 
         # self.logger.info(f"Evaluating EnvBench instances from {self.instances_path} with LLM Judge.")
         config = Config(
-            api_base="https://api.deepseek.com/", api_key="sk-82d466d373bf4646ae00dce33b846918", model="deepseek-chat"
+            api_base="https://api.deepseek.com/", api_key=os.environ["DEEPSEEK_API_KEY"], model="deepseek-chat"
         )
         evaluator = EvaluationManager(config)
         evaluator.run_evaluation(self.output_dir, self.instances_path)
