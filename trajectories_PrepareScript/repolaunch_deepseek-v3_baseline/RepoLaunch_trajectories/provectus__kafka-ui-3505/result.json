@@ -1,0 +1,17 @@
+{
+  "instance_id": "provectus__kafka-ui-3505",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-17-jdk maven",
+    "java -version && mvn -version",
+    "./mvnw clean test",
+    "apt-get install -y docker.io",
+    "service docker start && ./mvnw clean test -Pprod",
+    "systemctl start docker && ./mvnw clean test -Pprod",
+    "dockerd & ./mvnw clean test -Pprod"
+  ],
+  "test_commands": [],
+  "duration": 30,
+  "completed": null,
+  "exception": "Launch failed"
+}

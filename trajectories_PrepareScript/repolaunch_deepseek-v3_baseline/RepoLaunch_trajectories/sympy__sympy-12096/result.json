@@ -1,0 +1,30 @@
+{
+  "instance_id": "sympy__sympy-12096",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "python --version",
+    "apt-get update && apt-get install -y python3 python3-pip",
+    "ls -la",
+    "pip3 install mpmath>=0.19",
+    "pip3 install -e .",
+    "python setup.py test",
+    "python3 setup.py test",
+    "sed -i 's/from collections import Mapping/from collections.abc import Mapping/g' /testbed/sympy/core/basic.py",
+    "python3 setup.py test",
+    "sed -i 's/from collections import Callable/from collections.abc import Callable/g' /testbed/sympy/plotting/plot.py",
+    "python3 setup.py test",
+    "find /testbed -type f -name \"*.py\" -exec grep -l \"from collections import Callable\" {} + | xargs sed -i 's/from collections import Callable/from collections.abc import Callable/g'",
+    "find /testbed -type f -name \"*.py\" -exec grep -l \"collections.Callable\" {} + | xargs sed -i 's/collections.Callable/collections.abc.Callable/g'",
+    "python3 setup.py test",
+    "find /testbed -type f -name \"*.py\" -exec grep -l \"from collections import MutableMapping\" {} + | xargs sed -i 's/from collections import MutableMapping/from collections.abc import MutableMapping/g'",
+    "find /testbed -type f -name \"*.py\" -exec grep -l \"collections.Iterable\" {} + | xargs sed -i 's/collections.Iterable/collections.abc.Iterable/g'",
+    "sed -i 's/from time import clock/from time import perf_counter as clock/g' /testbed/examples/advanced/pidigits.py",
+    "python3 setup.py test",
+    "sed -i 's/from collections.abc import MutableMapping, defaultdict/from collections.abc import MutableMapping\\nfrom collections import defaultdict/g' /testbed/sympy/assumptions/sathandlers.py",
+    "python3 setup.py test"
+  ],
+  "test_commands": [],
+  "duration": 46,
+  "completed": null,
+  "exception": "Launch failed"
+}

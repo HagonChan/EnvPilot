@@ -1,0 +1,20 @@
+{
+  "instance_id": "prometheus__prometheus-16195",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y golang",
+    "go version",
+    "go mod download",
+    "apt-cache policy golang",
+    "wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz -O /tmp/go.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go.tar.gz && export PATH=$PATH:/usr/local/go/bin && go version",
+    "apt-get install -y wget",
+    "wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz -O /tmp/go.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go.tar.gz && export PATH=$PATH:/usr/local/go/bin && go version",
+    "export PATH=/usr/local/go/bin:$PATH && go version",
+    "go mod download",
+    "go test ./..."
+  ],
+  "test_commands": [],
+  "duration": 11,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,19 @@
+{
+  "instance_id": "dragonflydb__dragonfly-5598",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y ninja-build libunwind-dev libboost-context-dev libssl-dev autoconf-archive libtool cmake g++ bison zlib1g-dev git",
+    "./helio/blaze.sh -release && cd build-opt && ninja dragonfly",
+    "make configure && make build",
+    "git submodule update --init --recursive",
+    "make configure && make build",
+    "cd build-release && ninja -j2",
+    "cd build-release && ctest -V -L DFLY",
+    "ls -la",
+    "ctest -V -L DFLY"
+  ],
+  "test_commands": [],
+  "duration": 33,
+  "completed": null,
+  "exception": "Launch failed"
+}

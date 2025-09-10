@@ -1,0 +1,15 @@
+{
+  "instance_id": "google__libphonenumber-3877",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y cmake g++ openjdk-11-jdk maven",
+    "cat cpp/README",
+    "apt-get install -y libprotobuf-dev libgtest-dev libre2-dev libicu-dev libboost-dev libboost-thread-dev libboost-system-dev protobuf-compiler",
+    "mkdir -p cpp/build && cd cpp/build && cmake .. && make",
+    "./tools/generate_geocoding_data_test"
+  ],
+  "test_commands": [],
+  "duration": 13,
+  "completed": null,
+  "exception": "RetryError[<Future at 0x7e1d4b99a4b0 state=finished raised BadRequestError>]"
+}

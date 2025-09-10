@@ -1,0 +1,19 @@
+{
+  "instance_id": "checkstyle__checkstyle-15448",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "java -version && mvn -version",
+    "apt-get update && apt-get install -y openjdk-17-jdk",
+    "java -version && mvn -version",
+    "apt-get install -y maven",
+    "mvn -version && cat pom.xml",
+    "mvn test",
+    "apt-get install -y xvfb && Xvfb :1 -screen 0 1024x768x16 & export DISPLAY=:1 && mvn test -Dtest=\\!*MainFrameTest,\\!*TreeTableTest,\\!*MainTest",
+    "mvn test -Djacoco.skip=true -Dtest=\\!*MainFrameTest,\\!*TreeTableTest,\\!*MainTest",
+    "mvn test -Djacoco.skip=true -Dexec.skip=true -Dtest=\\!*MainFrameTest,\\!*TreeTableTest,\\!*MainTest"
+  ],
+  "test_commands": [],
+  "duration": 20,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,16 @@
+{
+  "instance_id": "concourse__concourse-9103",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "go version",
+    "apt-get update && apt-get install -y golang git yarn docker-compose postgresql",
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && dpkg -l | grep -E 'golang|git|yarn|docker-compose|postgresql'",
+    "ln -fs /usr/share/zoneinfo/UTC /etc/localtime && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && dpkg -l | grep -E 'golang|git|yarn|docker-compose|postgresql'",
+    "dpkg -l | grep -E 'golang|git|yarn|docker-compose|postgresql'",
+    "cat /etc/os-release"
+  ],
+  "test_commands": [],
+  "duration": 106,
+  "completed": null,
+  "exception": "Launch failed"
+}

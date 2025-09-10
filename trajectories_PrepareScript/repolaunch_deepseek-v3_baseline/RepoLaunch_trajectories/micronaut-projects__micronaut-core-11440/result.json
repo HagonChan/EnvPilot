@@ -1,0 +1,18 @@
+{
+  "instance_id": "micronaut-projects__micronaut-core-11440",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-17-jdk",
+    "apt-get install -y docker.io",
+    "systemctl start docker && docker --version",
+    "dockerd &",
+    "docker ps",
+    "./gradlew check",
+    "./gradlew test --tests \"io.micronaut.inject.*\"",
+    "./gradlew :inject:test --tests \"io.micronaut.inject.*\""
+  ],
+  "test_commands": [],
+  "duration": 15,
+  "completed": null,
+  "exception": "Launch failed"
+}

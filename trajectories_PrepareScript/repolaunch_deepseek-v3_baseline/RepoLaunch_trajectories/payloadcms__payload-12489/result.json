@@ -1,0 +1,23 @@
+{
+  "instance_id": "payloadcms__payload-12489",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "corepack enable && corepack prepare pnpm@latest --activate",
+    "apt-get update && apt-get install -y nodejs",
+    "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "corepack enable && corepack prepare pnpm@latest --activate",
+    "pnpm install",
+    "pnpm install --no-confirm",
+    "COREPACK_ENABLE_STRICT=0 pnpm install",
+    "npm install -g pnpm && pnpm install",
+    "npm install -g pnpm --force && pnpm install",
+    "pnpm test",
+    "NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm build",
+    "NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm test:int"
+  ],
+  "test_commands": [],
+  "duration": 92,
+  "completed": null,
+  "exception": "Launch failed"
+}

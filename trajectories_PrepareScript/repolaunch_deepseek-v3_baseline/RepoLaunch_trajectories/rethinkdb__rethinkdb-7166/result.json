@@ -1,0 +1,16 @@
+{
+  "instance_id": "rethinkdb__rethinkdb-7166",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y build-essential protobuf-compiler python3 python-is-python3 libprotobuf-dev libcurl4-openssl-dev libncurses5-dev libjemalloc-dev wget m4 g++ libssl-dev",
+    "./configure --allow-fetch",
+    "make -j4",
+    "test/run --verbose --jobs 4 -o test_output -H unit",
+    "make clean && make -j4 DEBUG=1",
+    "test/run --verbose --jobs 4 -o test_output -H unit"
+  ],
+  "test_commands": [],
+  "duration": 20,
+  "completed": null,
+  "exception": "Launch failed"
+}

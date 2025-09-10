@@ -1,0 +1,27 @@
+{
+  "instance_id": "halide__Halide-7506",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y python3 python3-venv python3-pip",
+    "python3 -m venv venv && . venv/bin/activate && pip install -U setuptools wheel && pip install -r requirements.txt",
+    "cat CMakeLists.txt",
+    "apt-get install -y cmake ninja-build llvm clang",
+    "mkdir -p build && cd build && cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release",
+    "apt-get install -y libclang-14-dev llvm-14-dev",
+    "cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release",
+    "apt-get install -y lld-14",
+    "cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release",
+    "apt-get install -y lld-14-dev",
+    "apt-cache search lld | grep 14",
+    "apt-get install -y liblld-14-dev",
+    "cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release",
+    "cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release -DHalide_SHARED_LLVM=YES",
+    "cmake .. -DWITH_PYTHON_BINDINGS=ON -DWITH_TESTS=ON -DCMAKE_BUILD_TYPE=Release -DHalide_SHARED_LLVM=YES -DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "make -j$(nproc) && ctest -L python",
+    "make -j2 && ctest -L python"
+  ],
+  "test_commands": [],
+  "duration": 53,
+  "completed": null,
+  "exception": "Launch failed"
+}

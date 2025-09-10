@@ -1,0 +1,23 @@
+{
+  "instance_id": "istio__istio-55229",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "go version",
+    "apt-get update && apt-get install -y golang",
+    "go version",
+    "go mod download",
+    "cat go.mod",
+    "sed -i 's/go 1.23.0/go 1.18/' go.mod",
+    "go mod download",
+    "go test ./...",
+    "apt-get remove -y golang && apt-get install -y wget && wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin",
+    "go version && go test ./...",
+    "export PATH=/usr/local/go/bin:$PATH && go version && go test ./...",
+    "sed -i 's/go 1.23.0/go 1.21/' go.mod && go mod download && go test ./...",
+    "apt-get install -y iptables iproute2 && go test ./..."
+  ],
+  "test_commands": [],
+  "duration": 24,
+  "completed": null,
+  "exception": "RetryError[<Future at 0x7e1d4b84b4d0 state=finished raised BadRequestError>]"
+}

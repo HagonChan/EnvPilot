@@ -1,0 +1,20 @@
+{
+  "instance_id": "composer__composer-12367",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y php php-cli php-zip php-zlib php-intl php-xml php-mbstring",
+    "apt-cache search php-zlib",
+    "php -v && apt-cache search php | grep -i zlib",
+    "apt-get install -y php8.1 php8.1-cli php8.1-zip php8.1-intl php8.1-xml php8.1-mbstring php8.1-curl",
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y php8.1 php8.1-cli php8.1-zip php8.1-intl php8.1-xml php8.1-mbstring php8.1-curl",
+    "echo \"tzdata tzdata/Areas select Etc\" | debconf-set-selections && echo \"tzdata tzdata/Zones/Etc select UTC\" | debconf-set-selections && DEBIAN_FRONTEND=noninteractive apt-get install -y php8.1 php8.1-cli php8.1-zip php8.1-intl php8.1-xml php8.1-mbstring php8.1-curl",
+    "apt-cache search php | grep -E \"^php[0-9]\" | head -10",
+    "apt-get update",
+    "php -v",
+    "ls -la /"
+  ],
+  "test_commands": [],
+  "duration": 425,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,16 @@
+{
+  "instance_id": "ggml-org__llama.cpp-14934",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y cmake build-essential git",
+    "cmake -B build",
+    "cmake -B build -DLLAMA_CURL=OFF",
+    "cmake --build build --config Release",
+    "ls build/bin/ | grep test",
+    "./build/bin/test-gguf"
+  ],
+  "test_commands": [],
+  "duration": 13,
+  "completed": null,
+  "exception": "Launch failed"
+}

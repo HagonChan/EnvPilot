@@ -1,0 +1,16 @@
+{
+  "instance_id": "labstack__echo-2717",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y golang",
+    "go version && go mod download",
+    "go test ./...",
+    "apt-get remove -y golang golang-go golang-1.18* && apt-get install -y golang-1.20",
+    "go version && go test ./...",
+    "export PATH=$PATH:/usr/lib/go-1.20/bin && go version && go test ./..."
+  ],
+  "test_commands": [],
+  "duration": 5,
+  "completed": null,
+  "exception": "Launch failed"
+}

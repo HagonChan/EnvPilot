@@ -1,0 +1,23 @@
+{
+  "instance_id": "beego__beego-5725",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y golang-go",
+    "apt-get install -y docker.io docker-compose",
+    "service docker start",
+    "systemctl start docker",
+    "dockerd &",
+    "go mod download && go test ./...",
+    "apt-get install -y wget && wget https://go.dev/dl/go1.20.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.20.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin",
+    "docker-compose -f scripts/test_docker_compose.yaml up -d",
+    "service docker start",
+    "dockerd &",
+    "sleep 10 && docker-compose -f scripts/test_docker_compose.yaml up -d",
+    "go test ./...",
+    "go test -short ./..."
+  ],
+  "test_commands": [],
+  "duration": 12,
+  "completed": null,
+  "exception": "Launch failed"
+}

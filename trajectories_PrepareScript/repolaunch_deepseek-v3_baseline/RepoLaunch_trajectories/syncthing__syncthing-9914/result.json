@@ -1,0 +1,25 @@
+{
+  "instance_id": "syncthing__syncthing-9914",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "go version",
+    "apt-get update && apt-get install -y golang",
+    "go version",
+    "go mod download",
+    "sudo add-apt-repository ppa:longsleep/golang-backports && sudo apt update && sudo apt install golang-1.22",
+    "add-apt-repository ppa:longsleep/golang-backports && apt update && apt install -y golang-1.22",
+    "apt-get update && apt-get install -y software-properties-common",
+    "add-apt-repository ppa:longsleep/golang-backports && apt update && apt install -y golang-1.22",
+    "add-apt-repository -y ppa:longsleep/golang-backports && apt update && apt install -y golang-1.22",
+    "go version && go env",
+    "update-alternatives --install /usr/bin/go go /usr/lib/go-1.22/bin/go 100",
+    "go version",
+    "go mod download && go test ./...",
+    "go generate github.com/syncthing/syncthing/lib/api/auto github.com/syncthing/syncthing/cmd/infra/strelaypoolsrv/auto",
+    "go test ./..."
+  ],
+  "test_commands": [],
+  "duration": 32,
+  "completed": null,
+  "exception": "Launch failed"
+}

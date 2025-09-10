@@ -1,0 +1,27 @@
+{
+  "instance_id": "psf__requests-1142",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y python3 python3-pip",
+    "pip install -r requirements.txt && pip install -e .",
+    "sed -i \"s/from collections import MutableMapping/from collections.abc import MutableMapping/g\" /testbed/requests/packages/urllib3/_collections.py",
+    "pip install -e .",
+    "sed -i \"s/collections.MutableMapping/collections.abc.MutableMapping/g\" /testbed/requests/cookies.py",
+    "pip install -e .",
+    "make test",
+    "find /testbed -type f -name \"*.py\" -exec sed -i \"s/collections.Callable/collections.abc.Callable/g\" {} \\;",
+    "find /testbed -type f -name \"*.py\" -exec sed -i \"s/collections.Callable/collections.abc.Callable/g\" {} \\;",
+    "grep -r \"collections.abc.Callable\" /testbed && make test",
+    "apt-get install -y python3.3 python3.3-dev && python3.3 -m pip install -r requirements.txt && python3.3 -m pip install -e . && make test",
+    "apt-get install -y python2.7 python2.7-dev && python2.7 -m pip install -r requirements.txt && python2.7 -m pip install -e . && make test",
+    "wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2.7 get-pip.py && python2.7 -m pip install -r requirements.txt && python2.7 -m pip install -e . && make test",
+    "apt-get install -y wget && wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2.7 get-pip.py && python2.7 -m pip install -r requirements.txt && python2.7 -m pip install -e . && make test",
+    "sed -i \"s/from collections.abc import MutableMapping/from collections import MutableMapping/g\" /testbed/requests/packages/urllib3/_collections.py && python2.7 -m pip install -e . && make test",
+    "sed -i \"s/collections.abc.MutableMapping/collections.MutableMapping/g\" /testbed/requests/cookies.py && python2.7 -m pip install -e . && make test",
+    "find /testbed -type f -name \"*.py\" -exec sed -i \"s/collections.abc.Callable/collections.Callable/g\" {} \\; && python2.7 -m pip install -e . && make test"
+  ],
+  "test_commands": [],
+  "duration": 11,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,22 @@
+{
+  "instance_id": "Graylog2__graylog2-server-14865",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-17-jdk maven",
+    "java -version && mvn -version",
+    "mvn clean install",
+    "mvn clean install -DskipTests",
+    "mvn clean install -DskipTests -pl '!graylog2-web-interface'",
+    "grep -A 5 \"web-interface\" pom.xml",
+    "ls -l | grep web",
+    "mvn clean install -DskipTests",
+    "mvn clean install -DskipTests -pl '!graylog2-web-interface'",
+    "mvn clean install -DskipTests",
+    "apt-get install -y libgbm1",
+    "mvn clean install"
+  ],
+  "test_commands": [],
+  "duration": 36,
+  "completed": null,
+  "exception": "Launch failed"
+}

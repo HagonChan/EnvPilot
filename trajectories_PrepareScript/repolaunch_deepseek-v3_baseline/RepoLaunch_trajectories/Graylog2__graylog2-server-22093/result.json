@@ -1,0 +1,22 @@
+{
+  "instance_id": "Graylog2__graylog2-server-22093",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-17-jdk maven",
+    "java -version && mvn -version",
+    "mvn clean install",
+    "wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -P /tmp && tar -xzf /tmp/apache-maven-3.9.6-bin.tar.gz -C /opt && ln -sf /opt/apache-maven-3.9.6/bin/mvn /usr/bin/mvn",
+    "apt-get install -y wget",
+    "wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -P /tmp && tar -xzf /tmp/apache-maven-3.9.6-bin.tar.gz -C /opt && ln -sf /opt/apache-maven-3.9.6/bin/mvn /usr/bin/mvn",
+    "wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz -P /tmp && tar -xzf /tmp/apache-maven-3.9.9-bin.tar.gz -C /opt && ln -sf /opt/apache-maven-3.9.9/bin/mvn /usr/bin/mvn",
+    "wget https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz -P /tmp && tar -xzf /tmp/apache-maven-3.9.9-bin.tar.gz -C /opt && ln -sf /opt/apache-maven-3.9.9/bin/mvn /usr/bin/mvn",
+    "mvn -version",
+    "mvn test",
+    "mvn test -Dskip.yarn=true -Dskip.npm=true -Dskip.web.build=true",
+    "mvn test -Dskip.yarn=true -Dskip.npm=true -Dskip.web.build=true -DskipTests=true"
+  ],
+  "test_commands": [],
+  "duration": 27,
+  "completed": null,
+  "exception": "Launch failed"
+}

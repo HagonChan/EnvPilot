@@ -1,0 +1,14 @@
+{
+  "instance_id": "taosdata__TDengine-32431",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y gcc cmake build-essential git libjansson-dev libsnappy-dev liblzma-dev zlib1g-dev pkg-config",
+    "mkdir -p debug && cd debug && cmake .. -DBUILD_TOOLS=true -DBUILD_TEST=true",
+    "make -j4",
+    "ctest --output-on-failure"
+  ],
+  "test_commands": [],
+  "duration": 30,
+  "completed": null,
+  "exception": "Launch failed"
+}

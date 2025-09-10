@@ -1,0 +1,19 @@
+{
+  "instance_id": "php__php-src-17835",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "./buildconf",
+    "apt-get update && apt-get install -y autoconf automake libtool bison re2c",
+    "./buildconf",
+    "./configure --help | head -20",
+    "apt-get install -y libxml2-dev libsqlite3-dev pkg-config && ./configure --enable-debug --enable-test",
+    "make -j$(nproc)",
+    "apt-get install -y build-essential",
+    "make -j$(nproc)",
+    "make test"
+  ],
+  "test_commands": [],
+  "duration": 30,
+  "completed": null,
+  "exception": "Launch failed"
+}

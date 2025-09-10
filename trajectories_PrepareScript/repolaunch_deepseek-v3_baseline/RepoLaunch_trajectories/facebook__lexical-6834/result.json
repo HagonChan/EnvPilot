@@ -1,0 +1,24 @@
+{
+  "instance_id": "facebook__lexical-6834",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "node --version",
+    "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "node --version && npm --version && npm ci",
+    "apt-get install -y npm",
+    "node --version && npm --version && npm ci",
+    "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "apt-get remove --purge -y nodejs npm && apt-get autoremove -y && apt-get install -y nodejs",
+    "node --version && npm --version",
+    "npm ci",
+    "cat package.json | grep -A 10 \"scripts\"",
+    "npm run test-unit",
+    "npm run test-unit -- --listTests",
+    "npm run test-unit -- packages/lexical-selection/src/__tests__/unit/LexicalSelection.test.tsx"
+  ],
+  "test_commands": [],
+  "duration": 45,
+  "completed": null,
+  "exception": "Launch failed"
+}

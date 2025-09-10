@@ -1,0 +1,25 @@
+{
+  "instance_id": "mpv-player__mpv-16604",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y meson ninja-build build-essential pkg-config libavcodec-dev libavformat-dev libswscale-dev libavfilter-dev libavutil-dev libass-dev libluajit-5.1-dev libjpeg-dev libuchardet-dev libplacebo-dev",
+    "apt-get install -y --fix-missing meson ninja-build build-essential pkg-config libavcodec-dev libavformat-dev libswscale-dev libavfilter-dev libavutil-dev libass-dev libluajit-5.1-dev libjpeg-dev libuchardet-dev libplacebo-dev",
+    "meson setup build && meson compile -C build && meson test -C build",
+    "pip install --upgrade meson",
+    "apt-get install -y python3-pip",
+    "pip3 install --upgrade meson",
+    "meson setup build && meson compile -C build && meson test -C build",
+    "add-apt-repository ppa:savoury1/ffmpeg4 -y && apt-get update && apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libavfilter-dev libavutil-dev",
+    "apt-get install -y software-properties-common",
+    "add-apt-repository ppa:savoury1/ffmpeg4 -y && apt-get update && apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libavfilter-dev libavutil-dev",
+    "meson setup build && meson compile -C build && meson test -C build",
+    "add-apt-repository ppa:ubuntuhandbook1/ffmpeg6 -y && apt-get update && apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libavfilter-dev libavutil-dev",
+    "meson setup build && meson compile -C build && meson test -C build",
+    "mkdir -p subprojects && git clone https://code.videolan.org/videolan/libplacebo.git --recurse-submodules --shallow-submodules --depth=1 --branch v6.338 subprojects/libplacebo && meson setup build -Dlibplacebo:subproject=true && meson compile -C build && meson test -C build",
+    "cd test && make test"
+  ],
+  "test_commands": [],
+  "duration": 21,
+  "completed": null,
+  "exception": "Launch failed"
+}

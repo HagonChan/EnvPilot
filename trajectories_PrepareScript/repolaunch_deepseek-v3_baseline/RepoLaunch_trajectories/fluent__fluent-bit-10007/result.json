@@ -1,0 +1,17 @@
+{
+  "instance_id": "fluent__fluent-bit-10007",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y build-essential cmake git make openssl pkg-config tar libssl-dev libsasl2-dev libsystemd-dev zlib1g-dev libpq-dev postgresql-server-dev-all flex bison libyaml-dev",
+    "apt-get update && apt-get install -y build-essential cmake git make openssl pkg-config tar libssl-dev libsasl2-dev libsystemd-dev zlib1g-dev libpq-dev postgresql-server-dev-all flex bison libyaml-dev",
+    "mkdir -p build && cd build && cmake .. && make",
+    "cd tests && ctest --output-on-failure",
+    "cd .. && cd tests && ctest --output-on-failure",
+    "cd .. && mkdir -p build && cd build && cmake -DFLB_TESTS_INTERNAL=On .. && make",
+    "cd tests/internal && ctest --output-on-failure"
+  ],
+  "test_commands": [],
+  "duration": 15,
+  "completed": null,
+  "exception": "Launch failed"
+}

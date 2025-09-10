@@ -1,0 +1,277 @@
+"{\"env\":{\"deployment\":{\"image\":\"mswebench_env/fatedier_frp:pr-3664\",\"port\"\
+  :null,\"docker_args\":[\"-e\",\"http_proxy=http://172.28.164.47:7890\",\"-e\",\"\
+  https_proxy=http://172.28.164.47:7890\",\"-e\",\"no_proxy=localhost,127.0.0.1\"\
+  ],\"startup_timeout\":180.0,\"pull\":\"missing\",\"remove_images\":false,\"python_standalone_dir\"\
+  :\"/root\",\"platform\":null,\"type\":\"docker\"},\"repo\":{\"repo_name\":\"frp\"\
+  ,\"base_commit\":\"df12cc2b9d24eb0cbf0b64078c97bf32d8c2da9c\",\"type\":\"preexisting\"\
+  },\"post_startup_commands\":[],\"name\":\"main\"},\"agent\":{\"name\":\"fatedier__frp-3664\"\
+  ,\"templates\":{\"system_template\":\"SETTING: You are an autonomous programmer,\
+  \ and you're working directly in the command line with a special interface.\\n\\\
+  nIn addition to typical bash commands, you can also use specific commands to help\
+  \ you navigate and edit files.\\nTo call a command, you need to invoke it with a\
+  \ function call/tool call. \\n\\nRESPONSE FORMAT:\\nYour shell prompt is formatted\
+  \ as follows:\\n(Open file: <path>)\\n(Current directory: <cwd>)\\nbash-$\\n\\nFirst,\
+  \ you should _always_ include a general thought about what you're going to do next.\\\
+  nThen, for every response, you must include exactly _ONE_ tool call/function call.\\\
+  n\\nRemember, you should always include a _SINGLE_ tool call/function call and then\
+  \ wait for a response from the shell before continuing with more discussion and\
+  \ commands. Everything you include in the DISCUSSION section will be saved for future\
+  \ reference.\\nIf you'd like to issue two commands at once, PLEASE DO NOT DO THAT!\
+  \ Please instead first submit just the first tool call, and then after receiving\
+  \ a response you'll be able to issue the second .\\nNote that the environment does\
+  \ NOT support interactive session commands (e.g. python, vim), so please do not\
+  \ invoke them.\",\"instance_template\":\"We are currently configuring the environment\
+  \ for the repository. Your task is to configure the environment and installs this\
+  \ project (on an Ubuntu Linux machine) from source code and runs test cases.\\n\\\
+  n{{Cross_repo_knowledge}}\\n\\n{{repo_related_info}}\\n\\nTASK TIPS:\\n1. It is\
+  \ prohibited to directly install this repository using dependency package management\
+  \ tools. For example, if current repository is Django, directly running pip install\
+  \ Django is strictly prohibited.\\n2. **PRIORITY ORDER for environment configuration\
+  \ discovery:**\\n  a) **First, check CI/CD configuration files** (.github/workflows/*.yml,\
+  \ .github/workflows/*.yaml, .gitlab-ci.yml, .circleci/config.yml, azure-pipelines.yml,\
+  \ Jenkinsfile, etc.) - these often contain the most reliable setup steps and test\
+  \ commands\\n  b) If no CI/CD files exist or they're insufficient, check dependency/environment\
+  \ files (requirements.txt, setup.py, pyproject.toml, package.json, Gemfile, Cargo.toml,\
+  \ etc.)\\n  c) Then examine README files (README.md, README.rst, etc.) for setup\
+  \ instructions\\n  d) Look for other configuration files (Makefile, tox.ini, environment.yml,\
+  \ etc.)\\n3. Always start by browsing the repository directory structure, with particular\
+  \ focus on the priority order above.\\n4. The choice of test framework should be\
+  \ determined by the repository's contents and CI/CD configurations.\\n5. It is strictly\
+  \ prohibited to modify the test cases in the code repository.\\n6. Do not create\
+  \ a new Dockerfile for environment isolation.\\n7. Commands can be run without sudo\
+  \ as the current session already has root privileges.\\n8. Based on the characteristics\
+  \ of the repository, it is possible to determine whether environment setup and test\
+  \ execution need to be performed within a virtual environment.\\n9. It may be necessary\
+  \ to install the repository from source before you can run code.\\n10. If you encounter\
+  \ package installation failures, try updating your local package index.\\n11. **Pay\
+  \ special attention to CI/CD matrix configurations** - they often test multiple\
+  \ Python/Node.js/etc. versions and can guide your environment setup.\\n\\nGENERAL\
+  \ TIPS:\\n1. If you run a command and it doesn't work, try running a different command.\
+  \ A command that did not work once will not work the second time unless you modify\
+  \ it!\\n2. If you open a file and need to get to an area around a specific line\
+  \ that is not in the first 100 lines, say line 583, don't just use the scroll_down\
+  \ command multiple times. Instead, use the goto 583 command. It's much quicker.\\\
+  n3. Always make sure to look at the currently open file and the current working\
+  \ directory (which appears right after the currently open file). The currently open\
+  \ file might be in a different directory than the working directory! Note that some\
+  \ commands, such as 'create', open files, so they might change the current open\
+  \ file.\\n4. When using the edit command, always quote both search and replace arguments\
+  \ to avoid argument parsing failures.\\n\\nINSTRUCTIONS:\\nNow, you're going to\
+  \ solve this issue on your own. Your terminal session has started and you're in\
+  \ the repository's root directory. You can use any bash commands or the special\
+  \ interface to help you. Edit all the files you need to and run any checks or tests\
+  \ that you want.\\nRemember, YOU SHOULD ALWAYS INCLUDE EXACTLY ONE TOOL CALL/FUNCTION\
+  \ CALL PER RESPONSE.\\nWhen you're satisfied with all of the changes you've made,\
+  \ you can submit your changes to the code base by simply running the submit command.\\\
+  nNote however that you cannot use any interactive session commands (e.g. python,\
+  \ vim) in this environment, but you can write scripts and run them. E.g. you can\
+  \ write a python script and then run it with the python command.\",\"next_step_template\"\
+  :\"{{observation}}\\n(Open file: {{open_file}})\\n(Current directory: {{working_dir}})\\\
+  nbash-$\",\"next_step_no_output_template\":\"Your command ran successfully and did\
+  \ not produce any output.\\n(Open file: {{open_file}})\\n(Current directory: {{working_dir}})\\\
+  nbash-$\",\"strategy_template\":null,\"demonstration_template\":null,\"success_reflection_template\"\
+  :\"You are an expert code assistant who just successfully repaired a software project\
+  \ in an automated programming session. Your task now is to reflect on this successful\
+  \ task and summarize key takeaways for future similar tasks.\\n\\nCONTEXT:\\nBelow\
+  \ is the full interaction history during the session, including commands issued,\
+  \ file edits, and observations returned. Use this history to extract useful insights.\\\
+  n\\n----------------\\n{{session_history}}\\n----------------\\n\\nPLEASE WRITE\
+  \ A REFLECTION INCLUDING:\\n1. **Problem Summary**:\\n  - What was the main problem\
+  \ or failure mode encountered?\\n\\n2. **Critical Fix Steps**:\\n  - List 2-5 concrete\
+  \ steps that were essential to achieving success.\\n  - For each step, describe\
+  \ what the agent did and why it was effective.\\n\\n3. **Heuristics or General Patterns**:\\\
+  n  - Are there any general rules or repeatable strategies that could help in future\
+  \ repairs?\\n\\n4. **Environment or Tooling Insights** (if applicable):\\n  - Any\
+  \ key observations about the build system, environment configuration, or command-line\
+  \ tools that helped?\\n\\nHere is the traj:\",\"demonstrations\":[],\"put_demos_in_history\"\
+  :false,\"shell_check_error_template\":\"Your bash command contained syntax errors\
+  \ and was NOT executed. Please fix the syntax errors and try again. This can be\
+  \ the result of not adhering to the syntax for multi-line commands. Here is the\
+  \ output of `bash -n`:\\n{{bash_stdout}}\\n{{bash_stderr}}\",\"command_cancelled_timeout_template\"\
+  :\"The command '{{command}}' was cancelled because it took more than {{timeout}}\
+  \ seconds. Please try a different command that completes more quickly.\"},\"tools\"\
+  :{\"filter\":{\"blocklist_error_template\":\"Operation '{{action}}' is not supported\
+  \ by this environment.\",\"blocklist\":[\"vim\",\"vi\",\"emacs\",\"nano\",\"nohup\"\
+  ,\"git\",\"gdb\",\"less\",\"tail -f\",\"python -m venv\"],\"blocklist_standalone\"\
+  :[\"python\",\"python3\",\"ipython\",\"bash\",\"sh\",\"/bin/bash\",\"/bin/sh\",\"\
+  nohup\",\"vi\",\"vim\",\"emacs\",\"nano\",\"su\"],\"block_unless_regex\":{\"radare2\"\
+  :\"\\\\b(?:radare2)\\\\b.*\\\\s+-c\\\\s+.*\",\"r2\":\"\\\\b(?:radare2)\\\\b.*\\\\\
+  s+-c\\\\s+.*\"}},\"bundles\":[{\"path\":\"/home/lhy/work/Env-Bench-Code/EnvBench/tools/registry\"\
+  ,\"hidden_tools\":[]},{\"path\":\"/home/lhy/work/Env-Bench-Code/EnvBench/tools/defaults\"\
+  ,\"hidden_tools\":[]},{\"path\":\"/home/lhy/work/Env-Bench-Code/EnvBench/tools/search\"\
+  ,\"hidden_tools\":[]},{\"path\":\"/home/lhy/work/Env-Bench-Code/EnvBench/tools/edit_replace\"\
+  ,\"hidden_tools\":[]},{\"path\":\"/home/lhy/work/Env-Bench-Code/EnvBench/tools/submits/stage3_2/submit\"\
+  ,\"hidden_tools\":[]}],\"env_variables\":{\"WINDOW\":100,\"OVERLAP\":2},\"submit_command\"\
+  :\"submit\",\"parse_function\":{\"error_message\":\"{%- if error_code == \\\"missing\\\
+  \" -%}\\nYour last output did not use any tool calls!\\nPlease make sure your output\
+  \ includes exactly _ONE_ function call!\\nYou must invoke the function directly\
+  \ using the function call format.\\nYou cannot invoke commands with ```, you have\
+  \ to use the function call format.\\nIf you think you have already resolved the\
+  \ issue, please submit your changes by running the `submit` command.\\nIf you think\
+  \ you cannot solve the problem, please run `exit_forfeit` (if available).\\nElse,\
+  \ please continue with a new tool call!\\n{%- elif error_code == \\\"multiple\\\"\
+  \ -%}\\nYour last output included multiple tool calls!\\nPlease make sure your output\
+  \ includes a thought and exactly _ONE_ function call.\\n{%- elif error_code == \\\
+  \"unexpected_arg\\\" -%}\\nYour action could not be parsed properly: {{exception_message}}.\\\
+  nMake sure your function call doesn't include any extra arguments that are not in\
+  \ the allowed arguments, and only use the allowed commands.\\n{%- else -%}\\nYour\
+  \ action could not be parsed properly: {{exception_message}}.\\n{% endif %}\\n\"\
+  ,\"type\":\"function_calling\"},\"enable_bash_tool\":true,\"format_error_template\"\
+  :\"{%- if error_code == \\\"missing\\\" -%}\\nYour last output did not use any tool\
+  \ calls!\\nPlease make sure your output includes exactly _ONE_ function call!\\\
+  nYou must invoke the function directly using the function call format.\\nYou cannot\
+  \ invoke commands with ```, you have to use the function call format.\\nIf you think\
+  \ you have already resolved the issue, please submit your changes by running the\
+  \ `submit` command.\\nIf you think you cannot solve the problem, please run `exit_forfeit`\
+  \ (if available).\\nElse, please continue with a new tool call!\\n{%- elif error_code\
+  \ == \\\"multiple\\\" -%}\\nYour last output included multiple tool calls!\\nPlease\
+  \ make sure your output includes a thought and exactly _ONE_ function call.\\n{%-\
+  \ elif error_code == \\\"unexpected_arg\\\" -%}\\nYour action could not be parsed\
+  \ properly: {{exception_message}}.\\nMake sure your function call doesn't include\
+  \ any extra arguments that are not in the allowed arguments, and only use the allowed\
+  \ commands.\\n{%- else -%}\\nYour action could not be parsed properly: {{exception_message}}.\\\
+  n{% endif %}\\n\",\"command_docs\":\"bash:\\n  docstring: runs the given command\
+  \ directly in bash\\n  signature: <command>\\n  arguments:\\n    - command (string)\
+  \ [required]: a command to run directly in the current shell\\n\\ngoto:\\n  docstring:\
+  \ moves the window to show <line_number>\\n  signature: goto <line_number>\\n  arguments:\\\
+  n    - line_number (integer) [required]: the line number to move the window to\\\
+  n\\nopen:\\n  docstring: opens the file at the given path in the editor. If line_number\
+  \ is provided, the window will be move to include that line\\n  signature: open\
+  \ \\\"<path>\\\" [<line_number>]\\n  arguments:\\n    - path (string) [required]:\
+  \ the path to the file to open\\n    - line_number (integer) [optional]: the line\
+  \ number to move the window to (if not provided, the window will start at the top\
+  \ of the file)\\n\\ncreate:\\n  docstring: creates and opens a new file with the\
+  \ given name\\n  signature: create <filename>\\n  arguments:\\n    - filename (string)\
+  \ [required]: the name of the file to create\\n\\nscroll_up:\\n  docstring: moves\
+  \ the window up 100 lines\\n  signature: scroll_up\\n\\nscroll_down:\\n  docstring:\
+  \ moves the window down 100 lines\\n  signature: scroll_down\\n\\nfind_file:\\n\
+  \  docstring: finds all files with the given name or pattern in dir. If dir is not\
+  \ provided, searches in the current directory\\n  signature: find_file <file_name>\
+  \ [<dir>]\\n  arguments:\\n    - file_name (string) [required]: the name of the\
+  \ file or pattern to search for. supports shell-style wildcards (e.g. *.py)\\n \
+  \   - dir (string) [optional]: the directory to search in (if not provided, searches\
+  \ in the current directory)\\n\\nsearch_dir:\\n  docstring: searches for search_term\
+  \ in all files in dir. If dir is not provided, searches in the current directory\\\
+  n  signature: search_dir <search_term> [<dir>]\\n  arguments:\\n    - search_term\
+  \ (string) [required]: the term to search for\\n    - dir (string) [optional]: the\
+  \ directory to search in (if not provided, searches in the current directory)\\\
+  n\\nsearch_file:\\n  docstring: searches for search_term in file. If file is not\
+  \ provided, searches in the current open file\\n  signature: search_file <search_term>\
+  \ [<file>]\\n  arguments:\\n    - search_term (string) [required]: the term to search\
+  \ for\\n    - file (string) [optional]: the file to search in (if not provided,\
+  \ searches in the current open file)\\n\\nedit:\\n  docstring: Replace first occurrence\
+  \ of <search> with <replace> in the currently displayed lines. If replace-all is\
+  \ True , replace all occurrences of <search> with <replace>.\\nFor example, if you\
+  \ are looking at this file:\\ndef fct():\\n    print(\\\"Hello world\\\")\\n\\nand\
+  \ you want to edit the file to read:\\ndef fct():\\n    print(\\\"Hello\\\")\\n\
+  \    print(\\\"world\\\")\\n\\nyou can search for `Hello world` and replace with\
+  \ `\\\"Hello\\\"\\\\n    print(\\\"world\\\")` (note the extra spaces before the\
+  \ print statement!).\\nTips:\\n1. Always include proper whitespace/indentation 2.\
+  \ When you are adding an if/with/try statement, you need to INDENT the block that\
+  \ follows, so make sure to include it in both your search and replace strings! 3.\
+  \ If you are wrapping code in a try statement, make sure to also add an 'except'\
+  \ or 'finally' block.\\nBefore every edit, please\\n1. Explain the code you want\
+  \ to edit and why it is causing the problem 2. Explain the edit you want to make\
+  \ and how it fixes the problem 3. Explain how the edit does not break existing functionality\\\
+  n\\n  signature: edit <search> <replace> [<replace-all>]\\n\\n  arguments:\\n  \
+  \  - search (string) [required]: the text to search for (make sure to include proper\
+  \ whitespace if needed)\\n    - replace (string) [required]: the text to replace\
+  \ the search with (make sure to include proper whitespace if needed)\\n    - replace-all\
+  \ (boolean) [optional]: replace all occurrences rather than the first occurrence\
+  \ within the displayed lines\\n\\ninsert:\\n  docstring: Insert <text> at the end\
+  \ of the currently opened file or after <line> if specified.\\n\\n  signature: insert\
+  \ <text> [<line>]\\n\\n  arguments:\\n    - text (string) [required]: the text to\
+  \ insert\\n    - line (integer) [optional]: the line number to insert the text as\
+  \ new lines after\\n\\nsubmit:\\n  docstring: submits the current file\\n  signature:\
+  \ submit\\n\\n\",\"multi_line_command_endings\":{},\"submit_command_end_name\":null,\"\
+  reset_commands\":[],\"execution_timeout\":32400,\"install_timeout\":3600},\"history_processors\"\
+  :[{\"n\":5,\"always_remove_output_for_tags\":[\"remove_output\"],\"always_keep_output_for_tags\"\
+  :[\"keep_output\"],\"type\":\"last_n_observations\"}],\"model\":{\"name\":\"deepseek/deepseek-chat\"\
+  ,\"per_instance_cost_limit\":3.0,\"total_cost_limit\":0.0,\"total_api_calls_limit\"\
+  :50,\"temperature\":0.0,\"top_p\":1.0,\"api_base\":\"https://api.deepseek.com/v1\"\
+  ,\"api_version\":\"2024-03-01-preview\",\"api_key\":\"**********\",\"stop\":[],\"\
+  completion_kwargs\":{},\"convert_system_to_user\":false,\"retry\":{\"retries\":5,\"\
+  min_wait\":1.0,\"max_wait\":15.0},\"delay\":0.0,\"fallbacks\":[]},\"embedding_model\"\
+  :{\"name\":\"huggingface/Qwen3/Qwen3-Embedding-0.6B\",\"per_instance_cost_limit\"\
+  :3.0,\"total_cost_limit\":0.0,\"total_api_calls_limit\":0,\"temperature\":0.0,\"\
+  top_p\":1.0,\"api_base\":\"http://127.0.0.1:8080\",\"api_version\":null,\"api_key\"\
+  :null,\"stop\":[],\"completion_kwargs\":{},\"convert_system_to_user\":false,\"retry\"\
+  :{\"retries\":5,\"min_wait\":1.0,\"max_wait\":15.0},\"delay\":0.0,\"fallbacks\"\
+  :[]},\"max_requeries\":3},\"problem_statement\":{\"text\":\"### Bug Description\\\
+  n\\n\u5F53\u6211\u5728\u4E00\u53F0\u62E5\u6709\u5916\u7F51IP\u7684\u817E\u8BAF\u4E91\
+  \u670D\u52A1\u5668\u90E8\u7F72\u4E86\u670D\u52A1\u7AEF\\r\\n\u652F\u6301TCP\u548C\
+  KCP\\r\\n\u6307\u5B9A\u4E86\u5BC6\u94A5\\r\\n\u5728\u5BB6\u91CCWindows\u7535\u8111\
+  \u4E0A\u914D\u7F6E\u4E86stcp\u548Cxtcp\u7684proxies\\r\\n\u542F\u52A8\u65E5\u5FD7\
+  \u6B63\u5E38\\r\\n\u7136\u540E\u5728\u516C\u53F8Windows\u7535\u8111\u4E0A\u518D\u914D\
+  \u7F6E\u4E86\u4E24\u4E2Avisitors\\r\\n\\r\\n[[visitors]]\\r\\nname = \\\"secret_tcp_visitor\\\
+  \"\\r\\ntype = \\\"stcp\\\"\\r\\n# the server name you want to visitor\\r\\nserverName\
+  \ = \\\"secret_tcp\\\"\\r\\nsecretKey = \\\"xxxxxx\\\"\\r\\n# connect this address\
+  \ to visitor stcp server\\r\\nbindAddr = \\\"127.0.0.1\\\"\\r\\n# bindPort can be\
+  \ less than 0, it means don't bind to the port and only receive connections redirected\
+  \ from\\r\\n# other visitors. (This is not supported for SUDP now)\\r\\nbindPort\
+  \ = 9000\\r\\n\\r\\n[[visitors]]\\r\\nname = \\\"p2p_tcp_visitor\\\"\\r\\ntype =\
+  \ \\\"xtcp\\\"\\r\\n# if the server user is not set, it defaults to the current\
+  \ user\\r\\nserverUser = \\\"user1\\\"\\r\\nserverName = \\\"p2p_tcp\\\"\\r\\nsecretKey\
+  \ = \\\"xxxxxxx\\\"\\r\\nbindAddr = \\\"127.0.0.1\\\"\\r\\n# bindPort can be less\
+  \ than 0, it means don't bind to the port and only receive connections redirected\
+  \ from\\r\\n# other visitors. (This is not supported for SUDP now)\\r\\nbindPort\
+  \ = 9001\\r\\n# when automatic tunnel persistence is required, set it to true\\\
+  r\\nkeepTunnelOpen = true\\r\\n# effective when keep_tunnel_open is set to true,\
+  \ the number of attempts to punch through per hour\\r\\nmaxRetriesAnHour = 8\\r\\\
+  nminRetryInterval = 90\\r\\nfallbackTo = \\\"secret_tcp\\\"\\r\\nfallbackTimeoutMs\
+  \ = 2000\\r\\n\\r\\n\u534F\u8BAE\u4F7F\u7528\u7684KCP\u542F\u52A8\u540E\\r\\n\\\
+  r\\n2023/10/11 09:46:26 [I] [root.go:139] start frpc service for config file [frpc.toml]\\\
+  r\\n2023/10/11 09:46:26 [I] [service.go:299] [da2533a6533a034b] login to server\
+  \ success, get run id [da2533a6533a034b]\\r\\n2023/10/11 09:46:26 [I] [visitor_manager.go:118]\
+  \ [da2533a6533a034b] start visitor success\\r\\n2023/10/11 09:46:26 [I] [visitor_manager.go:118]\
+  \ [da2533a6533a034b] start visitor success\\r\\n2023/10/11 09:46:26 [I] [visitor_manager.go:162]\
+  \ [da2533a6533a034b] visitor added: [office.secret_tcp_visitor office.p2p_tcp_visitor]\\\
+  r\\n2023/10/11 09:46:26 [W] [xtcp.go:280] [da2533a6533a034b] [office.p2p_tcp_visitor]\
+  \ nathole prepare error: discover error: write udp4 0.0.0.0:52431->:0: wsasendto:\
+  \ The requested address is not valid in its context.\\r\\n2023/10/11 09:47:56 [W]\
+  \ [xtcp.go:146] [da2533a6533a034b] [office.p2p_tcp_visitor] keepTunnelOpenWorker\
+  \ get tunnel connection error: no tunnel session\\r\\n2023/10/11 09:47:56 [W] [xtcp.go:280]\
+  \ [da2533a6533a034b] [office.p2p_tcp_visitor] nathole prepare error: discover error:\
+  \ write udp4 0.0.0.0:49894->:0: wsasendto: The requested address is not valid in\
+  \ its context.\\r\\n2023/10/11 09:49:26 [W] [xtcp.go:146] [da2533a6533a034b] [office.p2p_tcp_visitor]\
+  \ keepTunnelOpenWorker get tunnel connection error: no tunnel session\\r\\n2023/10/11\
+  \ 09:49:26 [W] [xtcp.go:280] [da2533a6533a034b] [office.p2p_tcp_visitor] nathole\
+  \ prepare error: discover error: write udp4 0.0.0.0:60851->:0: wsasendto: The requested\
+  \ address is not valid in its context.\\r\\n2023/10/11 09:50:56 [W] [xtcp.go:146]\
+  \ [da2533a6533a034b] [office.p2p_tcp_visitor] keepTunnelOpenWorker get tunnel connection\
+  \ error: no tunnel session\\r\\n2023/10/11 09:50:56 [W] [xtcp.go:280] [da2533a6533a034b]\
+  \ [office.p2p_tcp_visitor] nathole prepare error: discover error: write udp4 0.0.0.0:53243->:0:\
+  \ wsasendto: The requested address is not valid in its context.\\r\\n2023/10/11\
+  \ 09:52:26 [W] [xtcp.go:146] [da2533a6533a034b] [office.p2p_tcp_visitor] keepTunnelOpenWorker\
+  \ get tunnel connection error: no tunnel session\\r\\n2023/10/11 09:52:26 [W] [xtcp.go:280]\
+  \ [da2533a6533a034b] [office.p2p_tcp_visitor] nathole prepare error: discover error:\
+  \ write udp4 0.0.0.0:49665->:0: wsasendto: The requested address is not valid in\
+  \ its context.\\r\\n2023/10/11 09:53:56 [W] [xtcp.go:146] [da2533a6533a034b] [office.p2p_tcp_visitor]\
+  \ keepTunnelOpenWorker get tunnel connection error: no tunnel session\\r\\n2023/10/11\
+  \ 09:53:56 [W] [xtcp.go:280] [da2533a6533a034b] [office.p2p_tcp_visitor] nathole\
+  \ prepare error: discover error: write udp4 0.0.0.0:52782->:0: wsasendto: The requested\
+  \ address is not valid in its context.\\r\\n\\r\\n\u65E0\u6CD5\u8FDE\u63A5\\r\\\
+  n\u6211\u5C06\u4E24\u4E2AWindows\u4E0A\u7684transport.protocol = \\\"tcp\\\"\u548C\
+  kcp\u90FD\u8BD5\u8FC7\uFF0C\u90FD\u662F\u8FD9\u4E2A\u9519\u8BEF\uFF0C\u8BF7\u95EE\
+  \u8FD9\u662F\u4EC0\u4E48\u539F\u56E0\uFF0C\u770B\u8D77\u6765\u50CF\u662F\u5C11\u4E86\
+  \u67D0\u9879\u53C2\u6570\u5BFC\u81F4\u76EE\u6807\u670D\u52A1\u5668IP\u4E0D\u5B58\
+  \u5728\uFF1F\\n\\n### frpc Version\\n\\n0.52.0\\n\\n### frps Version\\n\\n0.52.0\\\
+  n\\n### System Architecture\\n\\nWindows/amd64\\n\\n### Configurations\\n\\n\u670D\
+  \u52A1\u7AEF\\r\\nbindAddr = \\\"0.0.0.0\\\"\\r\\nbindPort = 7000\\r\\n\\r\\nkcpBindPort\
+  \ = 7000\\r\\ntransport.maxPoolCount = 5\\r\\ntls.force = false\\r\\nwebServer.addr\
+  \ = \\\"0.0.0.0\\\"\\r\\nwebServer.port = 7500\\r\\nwebServer.user = \\\"admin\\\
+  \"\\r\\nwebServer.password = \\\"admin\\\"\\r\\nwebServer.pprofEnable = false\\\
+  r\\nenablePrometheus = false\\r\\nlog.to = \\\"./frps.log\\\"\\r\\nlog.level = \\\
+  \"info\\\"\\r\\nlog.maxDays = 3\\r\\nlog.disablePrintColor = false\\r\\n\\r\\ndetailedErrorsToClient\
+  \ = true\\r\\n\\r\\nauth.method = \\\"token\\\"\\r\\nauth.token = \\\"xxxxxxx\\\"\
+  \\r\\nallowPorts = [\\r\\n  { start = 2000, end = 3000 },\\r\\n  { single = 3001\
+  \ },\\r\\n  { single = 3003 },\\r\\n  { start = 4000, end = 50000 }\\r\\n]\\r\\\
+  nudpPacketSize = 1500\\r\\nnatholeAnalysisDataReserveHours = 168\\n\\n### Logs\\\
+  n\\n_No response_\\n\\n### Steps to reproduce\\n\\n1. \\r\\n2. \\r\\n3. \\r\\n...\\\
+  r\\n\\n\\n### Affected area\\n\\n- [ ] Docs\\n- [ ] Installation\\n- [ ] Performance\
+  \ and Scalability\\n- [ ] Security\\n- [ ] User Experience\\n- [ ] Test and Release\\\
+  n- [ ] Developer Infrastructure\\n- [ ] Client Plugin\\n- [ ] Server Plugin\\n-\
+  \ [ ] Extensions\\n- [ ] Others\",\"extra_fields\":{},\"type\":\"text\",\"id\":\"\
+  fatedier__frp-3664\"},\"output_dir\":\"DEFAULT\",\"actions\":{\"open_pr\":false,\"\
+  pr_config\":{\"skip_if_commits_reference_issue\":true},\"apply_patch_locally\":false},\"\
+  env_var_path\":null}"
