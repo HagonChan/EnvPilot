@@ -4,12 +4,12 @@ This guide will help you quickly set up and run the EnvPilot environment configu
 
 ## Overview
 
-Env-Bench is a benchmark testing system for evaluating automated code environment configuration capabilities. The system includes the following core components:
+EnvPilot is an automated environment configuration agent. The system includes the following core components:
 
--   **SWE-Agent**: Intelligent code environment configuration agent
+-   **SWE-Agent**: Agent with powerful Agent-computer interface (ACI).
 -   **SWE-ReX**: Remote execution runtime environment
--   **Multi-SWE-Bench**: Multi-language software engineering benchmark
 -   **Docker Environment**: Isolated test execution environment
+-   **Experience Memory**: Useful Experience for environment configuration
 
 ## Prerequisites
 
@@ -91,7 +91,11 @@ Edit the `test.sh` script to configure the following key parameters:
 1. **Run environment configuration tests**:
 
     ```bash
-    bash test.sh stage3_2 deepseek-chat
+    bash test.sh deepseek-v3
     ```
 
 2. **View results**: Check the generated evaluation reports and log files (you can find the results in the `trajectories_PrepareScript` directory)
+
+## Supplementary Material
+
+📄 [Supplementary Material](./Supplementary%20Material.pdf) - Click to download and view the PDF

@@ -444,52 +444,6 @@ class Agent:
 """
         return prompt
 
-    def _prepare_cross_repo_knowledge_abalation(self, knowledge: List[Dict]) -> str:
-        prompt = "Here is some helpful experience which can help you to configure this repository:\n"
-        for idx, item in enumerate(knowledge):
-            prompt += f"**{idx+1}**: {item['solution']}\n"
-        return prompt
-
-    def _search_repo_knowledge_naive_query(self):
-        metadata = self._get_metadata()
-        knowledge = self.long_memory_db.hybrid_query(
-            metadata["language_guidelines"], metadata["workflow_guidelines"], topk=self.topk
-        )
-        cross_repo_knowledge = self._prepare_cross_repo_knowledge(knowledge[: self.topk])
-        repo_related_info = "Here is the repository related information:\n"
-        iid = self._instance.problem_statement.id
-        if Path(f"repo_analysis_output/{iid}/repo_related_info.json").exists():
-            with open(f"repo_analysis_output/{iid}/repo_related_info.json", "r") as f:
-                repo_related_info += yaml.dump(json.load(f), indent=2)
-        else:
-            repo_related_info = ""
-        return repo_related_info, cross_repo_knowledge
-
-    def _search_repo_knowledge_abalation(self):
-        from sweagent.memory.retrieval_abalation import Retriever as RetrieverAbalation
-
-        save_dir = Path("repo_analysis_output") / self._instance.problem_statement.id
-        if (save_dir / "queries.json").exists():
-            with open(save_dir / "queries.json", "r") as f:
-                queries = json.load(f)
-            with open(save_dir / "repo_related_info.json", "r") as f:
-                profile = json.load(f)
-        else:
-            metadata = self._get_metadata()
-            query_generator = QueryGenerator()
-            queries, profile = query_generator.generate_queries_from_guidelines(metadata)
-            with open(save_dir / "queries.json", "w") as f:
-                json.dump(queries, f, indent=2)
-
-        retriever = RetrieverAbalation()
-        knowledge = retriever.retrieve_and_aggregate(queries)
-        project_profile = profile.model_dump()
-        cross_repo_knowledge = self._prepare_cross_repo_knowledge_abalation(knowledge[: self.topk])
-        repo_related_info = "Here is the repository related information:\n"
-        repo_related_info += yaml.dump(project_profile, indent=2)
-
-        return repo_related_info, cross_repo_knowledge
-
     def _search_repo_knowledge(self):
         save_dir = Path("repo_analysis_output") / self._instance.problem_statement.id
         if (save_dir / "repo_related_info.json").exists() and (save_dir / "cross_repo_knowledge.json").exists():
