@@ -65,7 +65,7 @@ class GitHubRepositoryAnalyzer:
             self.owner = self.org
             self.repo = self.repo
 
-        self.github_token = "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"
+        self.github_token = os.getenv("GITHUB_TOKEN", "")
         self.header = {
             "Authorization": f"token {self.github_token}",
             "Accept": "application/vnd.github.v3+json",
