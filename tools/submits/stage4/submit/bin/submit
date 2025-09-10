@@ -1,0 +1,25 @@
+main() {
+
+    local script_path=$(find . -name "test_commands.sh" -type f -print -quit)
+    local log_parse_path=$(find . -name "log_parse.py" -type f -print -quit)
+    
+    if [[ -z "$script_path" ]]; then
+        echo "Error: test_commands.sh not found" >&2
+        return 1
+    fi
+
+    if [[ -z "$log_parse_path" ]]; then
+        echo "Error: log_parse.py not found" >&2
+        return 1
+    fi
+
+    echo "<<SUBMISSION_TestCMD||"
+    cat "$script_path"
+    echo "||SUBMISSION_TestCMD>>"
+
+    echo "<<SUBMISSION_LogParse||"
+    cat "$log_parse_path"
+    echo "||SUBMISSION_LogParse>>"
+}
+
+main "$@"

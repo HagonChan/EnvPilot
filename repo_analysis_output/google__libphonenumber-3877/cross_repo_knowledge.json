@@ -1,0 +1,77 @@
+[
+  {
+    "problem": "Java and Maven were not installed on the Ubuntu system",
+    "solution": "The build required Java and Maven to compile and run the Maven-based project. The root cause was the absence of these development tools in the environment configuration. The solution was to install OpenJDK 17 JDK and Maven using the apt package manager.",
+    "action": "apt install -y openjdk-17-jdk maven"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "Required build tools (g++, cmake, make) were missing for project compilation",
+    "solution": "The root cause was insufficient build dependencies as specified in the project documentation. The solution was to install the missing tools using the package manager to satisfy the build requirements.",
+    "action": "apt-get install -y g++ cmake make"
+  },
+  {
+    "problem": "Google Test was not installed, preventing test compilation and execution",
+    "solution": "The root cause was the absence of the Google Test library, a dependency required for compiling and running tests in projects that use the Google Test framework. The solution was to install the Google Test development package to provide the necessary headers and libraries.",
+    "action": "apt-get install -y libgtest-dev"
+  },
+  {
+    "problem": "Dependency resolution selected incompatible libc version",
+    "solution": "The root cause was Cargo selecting a libc crate version requiring Rust 2021 edition, incompatible with Rust 1.36.0. The solution was to explicitly pin libc to version 0.2.54 in Cargo.toml, satisfying dependency constraints while maintaining compatibility.",
+    "action": "sed -i '/byteorder = \"=1.0.0\"/a libc = \"=0.2.54\"' Cargo.toml"
+  },
+  {
+    "problem": "The Maven build tool was not installed on the system, causing the 'mvn' command to be unavailable for building the Java project.",
+    "solution": "The root cause was the absence of Maven in the environment configuration. The solution was to install Maven using the system package manager, which resolved the unavailability of the build tool.",
+    "action": "apt-get install -y maven"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "The system lacked essential build tools required for compiling C++ projects",
+    "solution": "The root cause was the absence of build-essential (which includes compilers like g++), CMake, and Ninja on the Ubuntu system, as these tools are necessary for building projects that use CMake and Ninja build systems. The solution was to install these packages using the apt package manager to ensure the environment could compile and build the project successfully.",
+    "action": "apt-get install -y build-essential cmake ninja-build"
+  },
+  {
+    "problem": "The CMake configuration step failed to locate the GTest framework required for building tests",
+    "solution": "GTest was not installed in the Ubuntu environment, preventing CMake from finding necessary components (GTEST_LIBRARY, GTEST_INCLUDE_DIR, GTEST_MAIN_LIBRARY) for test compilation. The root cause was missing test framework dependencies. The solution was to install the libgtest-dev package via apt.",
+    "action": "apt-get install -y libgtest-dev"
+  },
+  {
+    "problem": "Missing libexecinfo dependency required for Alpine Linux builds caused installation failures",
+    "solution": "The BUILD.md specified libexecinfo as a dependency for Alpine, but it was unavailable in default repositories. The root cause was repository version mismatch (Alpine 3.22 vs required 3.12 packages). The solution was adding Alpine 3.12 repositories and installing libexecinfo-dev/libexecinfo-static.",
+    "action": "echo \"https://dl-cdn.alpinelinux.org/alpine/v3.12/main\" >> /etc/apk/repositories && apk update && apk add libexecinfo-dev libexecinfo-static"
+  },
+  {
+    "problem": "Java runtime not installed, causing Maven build failures",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) in the environment, which is required for compiling and running Java projects. The solution was to install OpenJDK 17 using the system package manager, providing the necessary Java runtime and development tools.",
+    "action": "apt-get update && apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing compilation failures for native dependencies",
+    "solution": "The root cause was the lack of core development packages such as compilers, libraries, and configuration tools, which are necessary for compiling Rust crates with native code. This led to errors during the build process. The solution was to install the required build dependencies using the system package manager.",
+    "action": "apt-get install -y build-essential pkg-config libssl-dev"
+  },
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "Missing OpenSSL development libraries caused linker errors during test execution",
+    "solution": "The project's cryptographic functionality required OpenSSL development headers and libraries. The root cause was incomplete cryptographic toolchain installation. The solution was to install the OpenSSL development package.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Dependency conflicts prevented successful installation of development dependencies",
+    "solution": "The root cause was incompatible peer dependencies between packages, specifically rollup and rollup-plugin-babel, as indicated by the ERESOLVE error. The solution was to bypass strict peer dependency checks using the --legacy-peer-deps flag, enabling the installation to complete despite potential version mismatches.",
+    "action": "npm install --only=dev --legacy-peer-deps"
+  }
+]

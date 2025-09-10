@@ -1,0 +1,62 @@
+[
+  {
+    "problem": "Python 3.13 was incompatible with project dependencies",
+    "solution": "The default Python version (3.13) lacked compatibility with critical dependencies like PyYAML. The root cause was unsupported Python versions in dependency wheels. The solution was to install Python 3.11 and create a virtual environment to isolate the project runtime.",
+    "action": "apt-get install -y python3.11 python3.11-venv python3.11-dev && python3.11 -m venv venv"
+  },
+  {
+    "problem": "The project's engine constraint rejected the installed Node.js version during dependency installation",
+    "solution": "The root cause was the project's package.json specifying Node.js >=20.11.1 and <22, which conflicted with the upgraded version (22.16.0). Installing a Node.js version within the required range (21.7.3) resolved the engine incompatibility.",
+    "action": "nvm install 21.7.3 && nvm use 21.7.3"
+  },
+  {
+    "problem": "Package installation failed due to externally managed environment restrictions.",
+    "solution": "System policies blocked global Python package installation to prevent conflicts. The root cause was the OS enforcing virtual environments for package management. The solution was creating a virtual environment to isolate dependencies.",
+    "action": "python3.11 -m venv .venv"
+  },
+  {
+    "problem": "Python 3.9 was unavailable in the system package repositories",
+    "solution": "The base Docker image's default repositories did not provide Python 3.9 packages. The root cause was the absence of compatible packages in the configured repositories. The solution was to install pyenv to manage Python versions and build Python 3.9 from source, requiring installation of build dependencies.",
+    "action": "apt-get update && apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev git && git clone https://github.com/pyenv/pyenv.git ~/.pyenv && echo 'export PYENV_ROOT=\"$HOME/.pyenv\"' >> ~/.bashrc && echo 'export PATH=\"$PYENV_ROOT/bin:$PATH\"' >> ~/.bashrc && export PYENV_ROOT=\"$HOME/.pyenv\" && export PATH=\"$PYENV_ROOT/bin:$PATH\""
+  },
+  {
+    "problem": "Node.js and npm were not installed, preventing JavaScript toolchain execution",
+    "solution": "The root cause was the missing Node.js runtime, required for npm-based installations. After apt-get installation attempts failed due to a dpkg interruption, the system package state was repaired before successfully installing Node.js from the Ubuntu repositories.",
+    "action": "apt-get install -y nodejs"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "PyYAML dependency installation failed due to version incompatibility with Python 3.13",
+    "solution": "The required PyYAML version (<6.0) specified in requirements files is incompatible with Python 3.13. The root cause was outdated package constraints. The solution was installing a compatible PyYAML version (>=6.0) and excluding it from requirements files during dependency installation.",
+    "action": "python3 -m pip install 'PyYAML>=6.0' --break-system-packages && grep -iv pyyaml conans/requirements.txt > /tmp/req1.txt && grep -iv pyyaml conans/requirements_server.txt > /tmp/req2.txt && grep -iv pyyaml conans/requirements_dev.txt > /tmp/req3.txt && python3 -m pip install -r /tmp/req1.txt -r /tmp/req2.txt -r /tmp/req3.txt --break-system-packages"
+  },
+  {
+    "problem": "Test runner used an incompatible Python version (3.13) causing dependency resolution failures",
+    "solution": "The pytest command defaulted to Python 3.13, which lacked compatible dependencies. The root cause was incorrect Python version specification in the test execution environment. The solution was explicitly configuring the test command to use Python 3.11 for pytest execution.",
+    "action": "echo 'python3.11 -m pytest --no-header -rA --tb=no -p no:cacheprovider' > /home/conan/test_commands.sh"
+  },
+  {
+    "problem": "The required package manager pnpm and its prerequisite npm were not installed on the Ubuntu system",
+    "solution": "Node.js and npm were missing, preventing installation of pnpm which is required for the project. The root cause was an incomplete environment setup lacking essential JavaScript tooling. The solution involved installing Node.js via apt after resolving a dpkg interruption, then installing pnpm globally using npm.",
+    "action": "apt install -y nodejs && npm install -g pnpm@9.4.0"
+  },
+  {
+    "problem": "Failure to install dependencies using common package managers",
+    "solution": "The root cause was an incorrect package manager assumption for the operating system; the environment was Alpine Linux, which uses apk instead of apt-get, yum, or dnf. After identifying the OS via /etc/os-release, the solution was to use apk to install required build dependencies.",
+    "action": "apk add binutils-gold clang clang-dev cmake make"
+  },
+  {
+    "problem": "A dependency conflict occurred during npm installation due to incompatible package versions",
+    "solution": "The root cause was a peer dependency conflict, specifically rollup-plugin-babel requiring a rollup version higher than what was specified in the project, causing 'npm install' to fail. The solution was to bypass the conflict using the --legacy-peer-deps flag, which allows installation without resolving peer dependencies.",
+    "action": "npm install --legacy-peer-deps"
+  },
+  {
+    "problem": "Essential tools (gpg, curl) were missing during environment setup.",
+    "solution": "The gpg and curl commands were required for secure key retrieval and script downloads but were not present in the base environment. The root cause was incomplete initial package configuration. The solution was to install these utilities via the system package manager.",
+    "action": "apt-get install -y gnupg curl"
+  }
+]

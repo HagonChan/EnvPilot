@@ -1,0 +1,52 @@
+[
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "The system lacked essential build tools required for compiling C++ projects",
+    "solution": "The root cause was the absence of build-essential (which includes compilers like g++), CMake, and Ninja on the Ubuntu system, as these tools are necessary for building projects that use CMake and Ninja build systems. The solution was to install these packages using the apt package manager to ensure the environment could compile and build the project successfully.",
+    "action": "apt-get install -y build-essential cmake ninja-build"
+  },
+  {
+    "problem": "Required build tools (g++, cmake, make) were missing for project compilation",
+    "solution": "The root cause was insufficient build dependencies as specified in the project documentation. The solution was to install the missing tools using the package manager to satisfy the build requirements.",
+    "action": "apt-get install -y g++ cmake make"
+  },
+  {
+    "problem": "Building CMake from source failed due to missing OpenSSL development libraries",
+    "solution": "The CMake bootstrap process required OpenSSL headers and libraries, which were missing in the environment. The root cause was the lack of development packages for OpenSSL. The solution was to install the libssl-dev package.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "The clang compiler was not installed, which is required for building the project",
+    "solution": "The root cause was the missing clang package on the Ubuntu system, which is necessary for compiling C/C++ projects that specify clang as the supported compiler. The solution involved installing clang along with other build dependencies (cmake and make) using the system package manager.",
+    "action": "apt install -y clang cmake make"
+  },
+  {
+    "problem": "Missing libexecinfo dependency required for Alpine Linux builds caused installation failures",
+    "solution": "The BUILD.md specified libexecinfo as a dependency for Alpine, but it was unavailable in default repositories. The root cause was repository version mismatch (Alpine 3.22 vs required 3.12 packages). The solution was adding Alpine 3.12 repositories and installing libexecinfo-dev/libexecinfo-static.",
+    "action": "echo \"https://dl-cdn.alpinelinux.org/alpine/v3.12/main\" >> /etc/apk/repositories && apk update && apk add libexecinfo-dev libexecinfo-static"
+  },
+  {
+    "problem": "The C compiler (gcc) was missing in the Ubuntu environment",
+    "solution": "Compiling the C-based project requires gcc. The root cause was the absence of essential development tools in the environment configuration. Installing gcc enabled successful compilation of the project components.",
+    "action": "apt-get install -y gcc"
+  },
+  {
+    "problem": "Missing OpenSSL development libraries caused linker errors during test execution",
+    "solution": "The project's cryptographic functionality required OpenSSL development headers and libraries. The root cause was incomplete cryptographic toolchain installation. The solution was to install the OpenSSL development package.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing compilation failures for native dependencies",
+    "solution": "The root cause was the lack of core development packages such as compilers, libraries, and configuration tools, which are necessary for compiling Rust crates with native code. This led to errors during the build process. The solution was to install the required build dependencies using the system package manager.",
+    "action": "apt-get install -y build-essential pkg-config libssl-dev"
+  }
+]

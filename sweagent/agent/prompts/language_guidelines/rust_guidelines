@@ -1,0 +1,102 @@
+# General Guidelines:
+
+**General Guidelines for Rust Projects**
+
+1. **Read the README**  
+   Start by reading the project's README file on GitHub. It often contains important instructions for installation, usage, and any project-specific details, including Rust version requirements.
+
+2. **Check Dependencies**  
+   Look for dependencies listed in the README or in the `Cargo.toml` file. Ensure you have the required Rust version installed. Check the `rust-version` field in `Cargo.toml` for minimum version requirements.
+
+3. **Rust Toolchain**  
+   Ensure you have Rust installed. If not, install it using rustup:
+
+    ```sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+    Update to the latest version if needed:
+
+    ```sh
+    rustup update
+    ```
+
+4. **Build the Project**  
+   Use Cargo to build the project:
+
+    ```sh
+    cargo build
+    ```
+
+    For release builds (optimized):
+
+    ```sh
+    cargo build --release
+    ```
+
+5. **Configuration**  
+   Check if the project requires any configuration files (e.g., `.env` files, `config.toml` files) and set them up accordingly. Some projects may require specific feature flags to be enabled.
+
+6. **Run Tests (if available)**  
+   If the project provides tests, run them to ensure everything is working correctly:
+
+    ```sh
+    cargo test
+    ```
+
+    For running specific tests:
+
+    ```sh
+    cargo test test_name
+    ```
+
+7. **Run the Project**  
+   Follow the instructions in the README to run the project. Common commands include:
+
+    ```sh
+    cargo run
+    ```
+
+    For release builds:
+
+    ```sh
+    cargo run --release
+    ```
+
+    For specific binary targets:
+
+    ```sh
+    cargo run --bin binary_name
+    ```
+
+8. **Code Quality**  
+   Use Rust's built-in tools for code quality:
+
+    - Format code:
+        ```sh
+        cargo fmt
+        ```
+    - Run clippy for linting:
+        ```sh
+        cargo clippy
+        ```
+
+9. **Documentation**  
+   Generate and view documentation:
+
+    ```sh
+    cargo doc --open
+    ```
+
+10. **Troubleshooting**  
+    If you encounter issues during installation or while running the project, refer to the project's issue tracker on GitHub or search for similar issues. Check compiler error messages carefully as Rust provides helpful diagnostics.
+
+11. **Test Suite Results**  
+    When running a test suite, it is normal for some test cases to fail. If the percentage of failing test cases is less than 20% of the total number, it is considered acceptable, and further investigation is usually not necessary.
+
+12. **Cross-compilation**  
+    If the project needs to be compiled for different targets, use:
+    ```sh
+    rustup target add target_name
+    cargo build --target target_name
+    ```

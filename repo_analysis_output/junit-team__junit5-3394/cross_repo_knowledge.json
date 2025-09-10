@@ -1,0 +1,72 @@
+[
+  {
+    "problem": "Gradle version incompatible with the installed Java version",
+    "solution": "Gradle 5.2.1 was not compatible with Java 17, causing build failures. The root cause was an outdated build tool version in the project configuration. The solution was to update the Gradle wrapper to a compatible version (7.6.3) that supports Java 17.",
+    "action": "edit command to update distributionUrl in gradle-wrapper.properties to https://services.gradle.org/distributions/gradle-7.6.3-bin.zip"
+  },
+  {
+    "problem": "Package installation failed during editable mode build due to missing Java dependency",
+    "solution": "The build process required Java to run ANTLR for parser generation, but the Java Runtime Environment was not installed. The root cause was a missing build dependency in the environment configuration. The solution was to install the default JRE using the system package manager.",
+    "action": "apt-get update && apt-get install -y default-jre"
+  },
+  {
+    "problem": "The installed Java version is incompatible with the project's build tool.",
+    "solution": "The Gradle wrapper version was outdated and incompatible with the newer Java version (e.g., Java 21), causing build failures. The root cause was a version mismatch between the Java runtime and the build tool. The solution was to install an older, compatible Java version (OpenJDK 11).",
+    "action": "apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "The 'gradle' command was not found when attempting to run tests",
+    "solution": "Gradle was not installed on the Ubuntu system, which is required for building and testing Java projects. The root cause was a missing build tool in the environment configuration. The solution was to download the Gradle binary distribution, unzip it, and add its bin directory to the PATH environment variable.",
+    "action": "wget https://services.gradle.org/distributions/gradle-8.5-bin.zip && unzip gradle-8.5-bin.zip && export PATH=$PATH:/home/mockito/gradle-8.5/bin"
+  },
+  {
+    "problem": "Essential tools (gpg, curl) were missing during environment setup.",
+    "solution": "The gpg and curl commands were required for secure key retrieval and script downloads but were not present in the base environment. The root cause was incomplete initial package configuration. The solution was to install these utilities via the system package manager.",
+    "action": "apt-get install -y gnupg curl"
+  },
+  {
+    "problem": "Java and Maven were not installed on the Ubuntu system",
+    "solution": "The build required Java and Maven to compile and run the Maven-based project. The root cause was the absence of these development tools in the environment configuration. The solution was to install OpenJDK 17 JDK and Maven using the apt package manager.",
+    "action": "apt install -y openjdk-17-jdk maven"
+  },
+  {
+    "problem": "A build plugin required a newer Java version than was installed.",
+    "solution": "The root cause was an incompatible Java version (11) for a plugin requiring Java 17. The solution involved installing OpenJDK 17 to meet the dependency requirements.",
+    "action": "apt-get update && apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "The Gradle build failed due to an unsupported Java class version error",
+    "solution": "The root cause was a Java runtime version mismatch, where a project dependency required Java 17 (class file version 61.0), but the environment had only Java 11 installed (recognizing up to class file version 55.0). Java 17 was missing from the system. The solution was to install Java 17 using the package manager to resolve the compatibility issue.",
+    "action": "apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "The initial Gradle build failed due to missing Java Development Kit (JDK) installation",
+    "solution": "The root cause was the absence of a Java runtime environment required for Gradle operations. The Dockerfile specified 'openjdk-11-jdk-headless' as a dependency, but it was not installed in the environment. The solution involved updating the package index and installing the required JDK package using apt-get.",
+    "action": "apt-get install -y openjdk-11-jdk-headless"
+  },
+  {
+    "problem": "The curl command was not installed on the Ubuntu system, preventing the download of required tools.",
+    "solution": "curl is a utility for transferring data with URLs and is essential for downloading files in Unix-like systems. The root cause was a missing package in the environment configuration, as the system lacked curl for fetching installation scripts. The solution was to install curl using the system package manager after updating the package index to ensure availability.",
+    "action": "apt-get update && apt-get install -y curl"
+  },
+  {
+    "problem": "The Java runtime was not installed on the Ubuntu system",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) on the Ubuntu environment, which is required for building and running Java-based projects. The solution involved installing OpenJDK 17 using the apt package manager after ensuring the system package index was updated.",
+    "action": "apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "The initial Gradle test command failed due to missing Java Development Kit (JDK).",
+    "solution": "The JDK was not installed on the Ubuntu system, which is required for Java-based projects. The root cause was the absence of Java in the environment configuration. The solution involved installing the default JDK package using the system package manager.",
+    "action": "apt-get update && apt-get install -y default-jdk"
+  },
+  {
+    "problem": "The Gradle wrapper version was incompatible with the installed Java version, causing build failures.",
+    "solution": "The root cause was a version mismatch between the Gradle wrapper (4.4) and Java 11, which led to errors during project initialization. Updating the Gradle wrapper to a compatible version (5.0) resolved the incompatibility by aligning with Java 11's requirements.",
+    "action": "Edit gradle-wrapper.properties to change distributionUrl from 'gradle-4.4-all.zip' to 'gradle-5.0-all.zip'"
+  },
+  {
+    "problem": "The curl command was not available for downloading dependencies",
+    "solution": "The root cause was missing essential network utilities in the Ubuntu environment. The solution was to install curl using the apt package manager after updating the package index.",
+    "action": "apt-get update && apt-get install -y curl"
+  }
+]

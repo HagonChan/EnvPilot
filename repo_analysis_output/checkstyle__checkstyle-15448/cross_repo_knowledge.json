@@ -1,0 +1,57 @@
+[
+  {
+    "problem": "Java and Maven were not installed on the Ubuntu system",
+    "solution": "The build required Java and Maven to compile and run the Maven-based project. The root cause was the absence of these development tools in the environment configuration. The solution was to install OpenJDK 17 JDK and Maven using the apt package manager.",
+    "action": "apt install -y openjdk-17-jdk maven"
+  },
+  {
+    "problem": "The Maven wrapper script failed due to a missing required JAR file",
+    "solution": "The Maven wrapper requires maven-wrapper.jar to function, which was missing from the project's .mvn/wrapper directory. The root cause was an incomplete wrapper setup in the environment. The solution was to download the JAR from Maven Central using Python's urllib module, as standard download tools were unavailable.",
+    "action": "python3 -c \"import urllib.request; urllib.request.urlretrieve('https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.1/maven-wrapper-3.3.1.jar', '.mvn/wrapper/maven-wrapper.jar')\""
+  },
+  {
+    "problem": "The Maven build tool was missing, causing test failures during project execution",
+    "solution": "The root cause was the absence of the Maven package in the environment. Maven is required for running certain integration tests in the project, specifically for the jib-maven-plugin module. The solution was to install Maven using the system package manager, which resolved the command not found errors and allowed tests to pass.",
+    "action": "apt-get install -y maven"
+  },
+  {
+    "problem": "The Maven build tool was not available after Java installation",
+    "solution": "The root cause was the lack of the Maven build tool installation on the system, which is essential for compiling and managing Java projects with Maven. Without Maven, project builds and tests could not proceed. The solution was to install Maven via the package manager, enabling the execution of Maven commands.",
+    "action": "apt-get install -y maven"
+  },
+  {
+    "problem": "The openjdk-11-jre package installation failed due to missing repository candidates",
+    "solution": "The specific Java runtime package was unavailable in the environment's repositories. The root cause was repository configuration or package naming changes. The solution was to install the default Java runtime environment which provided compatible functionality.",
+    "action": "apt-get install -y default-jre"
+  },
+  {
+    "problem": "Maven dependency resolution failure during project build",
+    "solution": "The build failed because the required artifact 'org.apache.dubbo:dubbo-build-tools:jar:1.0.0' was unavailable in the Maven central repository. The root cause was missing project dependencies in the local environment. The solution was to install all dependencies locally using the Maven install goal with tests skipped.",
+    "action": "./mvnw clean install -DskipTests -Dstyle.color=never"
+  },
+  {
+    "problem": "Package installation failed during editable mode build due to missing Java dependency",
+    "solution": "The build process required Java to run ANTLR for parser generation, but the Java Runtime Environment was not installed. The root cause was a missing build dependency in the environment configuration. The solution was to install the default JRE using the system package manager.",
+    "action": "apt-get update && apt-get install -y default-jre"
+  },
+  {
+    "problem": "The Java Development Kit (JDK) was not installed, causing the initial Maven build command to fail.",
+    "solution": "The root cause was the absence of a JDK installation, which is required for compiling and running Java projects. The solution was to install OpenJDK 11 using the system package manager, ensuring the necessary Java runtime and development tools were available in the environment.",
+    "action": "apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "The mvn command was not found when checking the Maven installation",
+    "solution": "The Maven build tool was not installed on the Ubuntu system, which is critical for compiling and testing Maven-based projects. The root cause was a missing build tool dependency in the environment setup. The solution was to install Maven via the apt package manager, enabling project builds and test execution.",
+    "action": "apt install -y maven"
+  },
+  {
+    "problem": "Java runtime not installed, causing Maven build failures",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) in the environment, which is required for compiling and running Java projects. The solution was to install OpenJDK 17 using the system package manager, providing the necessary Java runtime and development tools.",
+    "action": "apt-get update && apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "The initial compiler and build tool check failed due to missing software",
+    "solution": "The gcc and make tools were not installed on the Ubuntu system, which are essential for compiling and building C/C++ projects from source. The root cause was an incomplete environment setup lacking the basic build toolchain. The solution was to install the build-essential package using apt-get, which provides gcc, make, and related dependencies.",
+    "action": "apt-get install -y build-essential"
+  }
+]

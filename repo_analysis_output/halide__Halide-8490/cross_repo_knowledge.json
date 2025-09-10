@@ -1,0 +1,62 @@
+[
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "CMake configuration failed due to missing LLVM development files",
+    "solution": "The root cause was the absence of LLVM development packages required for building the project. The BUILD.md documentation specified LLVM as a dependency, but the system lacked the necessary headers and configuration files. Installing llvm-dev provided the missing components.",
+    "action": "apt-get update && apt-get -y install llvm-dev"
+  },
+  {
+    "problem": "The installed LLVM version was incompatible with project requirements",
+    "solution": "The default LLVM package version (3.8) did not match the project's supported versions (3.9.1+). The root cause was a version mismatch in the package repository. The solution was to uninstall the incompatible version and install the specific required version (LLVM 3.9) using the package manager.",
+    "action": "apt-get remove -y llvm llvm-dev && apt-get install -y llvm-3.9-dev"
+  },
+  {
+    "problem": "The clang++ compiler was unavailable for C++ compilation",
+    "solution": "The project required clang++ for compilation, but the compiler was not installed. The root cause was a missing C++ toolchain package. The solution was to install the Clang compiler suite.",
+    "action": "apt-get install -y clang"
+  },
+  {
+    "problem": "The pip installation of test dependencies failed due to missing build tools and Python development headers",
+    "solution": "The typed-ast package requires compilation of C extensions during installation, which failed because the Ubuntu environment lacked essential build tools and Python development headers. The root cause was an incomplete base environment configuration for compiling Python packages with native extensions. The solution was to install build-essential and python3-dev packages using apt-get.",
+    "action": "apt-get update && apt-get install -y build-essential python3-dev"
+  },
+  {
+    "problem": "The system lacked essential build tools required for compiling C++ projects",
+    "solution": "The root cause was the absence of build-essential (which includes compilers like g++), CMake, and Ninja on the Ubuntu system, as these tools are necessary for building projects that use CMake and Ninja build systems. The solution was to install these packages using the apt package manager to ensure the environment could compile and build the project successfully.",
+    "action": "apt-get install -y build-essential cmake ninja-build"
+  },
+  {
+    "problem": "Building project dependencies failed due to C++ standard compatibility issues",
+    "solution": "The root cause was compiler version incompatibility with the project's dependencies. The solution was to install and use an older GCC version (g++-9) that supported the required C++ standard.",
+    "action": "apt-get install -y g++-9; make libs CC=gcc-9 CXX=g++-9"
+  },
+  {
+    "problem": "Build failure due to missing Python 3 dependency",
+    "solution": "Python 3 is required for building LLVM in this project, and its absence caused the build to fail. The root cause was Python 3 not being installed in the environment. Installing Python 3 addressed the dependency requirement.",
+    "action": "apk add python3"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "LLVM version incompatibility caused build failures in generated code",
+    "solution": "Using LLVM 14 led to API mismatches (missing registerOptimizerEarlyEPCallback). The root cause was version-specific API changes in LLVM. Downgrading to LLVM 13 resolved compatibility issues as the project's codebase expected older LLVM APIs.",
+    "action": "apt-get remove -y llvm-14 clang-14 && apt-get install -y clang-13 llvm-13-dev"
+  },
+  {
+    "problem": "The Python interpreter was not available, causing CMake configuration to fail when Python-dependent scripts were required",
+    "solution": "The root cause was the absence of Python, which was needed for test-related scripts and CMake configuration steps in the project. The solution was to install Python 3 using the system package manager.",
+    "action": "apt-get install -y python3"
+  },
+  {
+    "problem": "The build system failed to locate the LLVM configuration tool",
+    "solution": "The build process required the LLVM_CONFIG environment variable to point to the llvm-config binary. The root cause was an unset environment variable after installing LLVM 3.9. The solution was to explicitly set LLVM_CONFIG to the correct binary path before building.",
+    "action": "export LLVM_CONFIG=/usr/bin/llvm-config-3.9"
+  }
+]

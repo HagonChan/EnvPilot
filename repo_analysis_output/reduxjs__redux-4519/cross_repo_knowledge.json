@@ -1,0 +1,62 @@
+[
+  {
+    "problem": "Dependency installation failed due to network issues with the Yarn registry",
+    "solution": "The root cause was a network conflict when accessing the default Yarn registry. The solution was to switch to the npm registry and retry the installation. This resolved the network conflict and allowed successful dependency installation.",
+    "action": "yarn config set registry https://registry.npmjs.org && yarn install"
+  },
+  {
+    "problem": "The command to install Yarn globally failed due to existing installation",
+    "solution": "Yarn was already installed in the environment, causing the 'npm install -g yarn' command to fail with an EEXIST error. The root cause was redundant installation attempts in a pre-configured environment. The solution was to skip installation and proceed with the existing Yarn version.",
+    "action": "Skipped global installation and used existing Yarn"
+  },
+  {
+    "problem": "Node.js and npm were not installed, preventing JavaScript toolchain execution",
+    "solution": "The root cause was the missing Node.js runtime, required for npm-based installations. After apt-get installation attempts failed due to a dpkg interruption, the system package state was repaired before successfully installing Node.js from the Ubuntu repositories.",
+    "action": "apt-get install -y nodejs"
+  },
+  {
+    "problem": "The project's engine constraint rejected the installed Node.js version during dependency installation",
+    "solution": "The root cause was the project's package.json specifying Node.js >=20.11.1 and <22, which conflicted with the upgraded version (22.16.0). Installing a Node.js version within the required range (21.7.3) resolved the engine incompatibility.",
+    "action": "nvm install 21.7.3 && nvm use 21.7.3"
+  },
+  {
+    "problem": "The test suite failed due to missing system dependencies during execution.",
+    "solution": "The root cause was the absence of essential build tools (Subversion for version control operations and GCC compiler suite for C/C++ tests) in the environment configuration. These dependencies were required by the test suite but not pre-installed. The solution involved installing the missing packages via the system package manager after updating the package index.",
+    "action": "apt-get update && apt-get install -y subversion build-essential"
+  },
+  {
+    "problem": "The build command failed due to a dependency compatibility issue with the Node.js environment",
+    "solution": "The root cause was an incompatible version of the rollup-plugin-typescript2 package (0.30.0) which lacked proper exports definition for './package.json' in the tslib dependency, causing a module resolution error in Node.js v18.20.8. The solution was to update the package to a compatible version (^0.34.1) that resolves the exports issue.",
+    "action": "edit '\"rollup-plugin-typescript2\": \"0.30.0\"' '\"rollup-plugin-typescript2\": \"^0.34.1\"' False"
+  },
+  {
+    "problem": "The node command was not found when checking the Node.js version",
+    "solution": "Node.js was not installed on the Ubuntu system, which is required for running JavaScript-based projects. The root cause was a missing Node.js installation in the environment. The solution was to install Node.js using the NodeSource script to configure the repository and then install it via the system package manager.",
+    "action": "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"
+  },
+  {
+    "problem": "The test runner command was unavailable despite dependency installation attempts",
+    "solution": "Pytest was not found in the PATH after dependency installation attempts failed due to unresolved package conflicts. The root cause was partial dependency installation failure preventing test runner availability. The solution was to explicitly install pytest and its required plugins separately to ensure the test command became executable.",
+    "action": "python3 -m pip install -U pytest pytest-xdist pytest-cov"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "The pnpm command was not found when attempting to install project dependencies",
+    "solution": "The pnpm package manager was not installed on the Ubuntu system, which is required for dependency management in Node.js projects. The root cause was the absence of both pnpm and npm (which could install pnpm) in the environment configuration. Standard installation via apt-get for npm faced timeouts due to environmental constraints, so the effective solution was to install pnpm directly using its official installation script.",
+    "action": "curl -fsSL https://get.pnpm.io/install.sh | sh -"
+  },
+  {
+    "problem": "A required tool for comprehensive testing was not installed in the environment",
+    "solution": "The cargo-hack tool was missing, which is essential for running the project's test suite as specified in its continuous integration configuration. The root cause was that this tool was not included in the initial environment setup, leading to command execution failures. The solution was to install cargo-hack using the Cargo package manager, resolving the dependency gap.",
+    "action": "cargo install cargo-hack"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing compilation failures for native dependencies",
+    "solution": "The root cause was the lack of core development packages such as compilers, libraries, and configuration tools, which are necessary for compiling Rust crates with native code. This led to errors during the build process. The solution was to install the required build dependencies using the system package manager.",
+    "action": "apt-get install -y build-essential pkg-config libssl-dev"
+  }
+]

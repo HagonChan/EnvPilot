@@ -1,0 +1,77 @@
+[
+  {
+    "problem": "The clang++ compiler was unavailable for C++ compilation",
+    "solution": "The project required clang++ for compilation, but the compiler was not installed. The root cause was a missing C++ toolchain package. The solution was to install the Clang compiler suite.",
+    "action": "apt-get install -y clang"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "The initial make command failed due to an outdated CMake version",
+    "solution": "The CMake version installed (3.10.2) was below the required minimum (3.15) for building the project. The root cause was an outdated package in the Ubuntu repositories. The solution involved building and installing a newer CMake version from source after resolving dependencies.",
+    "action": "wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz && tar -zxvf cmake-3.28.3.tar.gz && cd cmake-3.28.3 && ./bootstrap && make && make install"
+  },
+  {
+    "problem": "Essential build tools were missing in the environment",
+    "solution": "The environment lacked clang, cmake, make, and python3, which are required for building and testing the project based on its CMake and Make-based setup. The root cause was an incomplete initial system configuration, as the tools were not pre-installed. The solution was to install the missing packages using the system package manager after updating the package index to ensure availability.",
+    "action": "apt-get update && apt-get install -y clang cmake make python3"
+  },
+  {
+    "problem": "The Rust toolchain (cargo) was not installed, preventing project building and testing",
+    "solution": "The Rust development environment was absent, which is required for compiling and testing Rust projects. The root cause was a missing language toolchain in the environment configuration. The solution was to install Rust using the official rustup installer script via curl.",
+    "action": "curl https://sh.rustup.rs -sSf | sh -s -- -y"
+  },
+  {
+    "problem": "Unsupported GCC version in Conan profile settings",
+    "solution": "Conan's default profile detected GCC 12, which wasn't in its supported version list. The root cause was Conan's limited compiler version compatibility. The solution was to manually set the GCC version to 11 in the profile.",
+    "action": "conan profile update settings.compiler.version=11 default"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing compilation failures for native dependencies",
+    "solution": "The root cause was the lack of core development packages such as compilers, libraries, and configuration tools, which are necessary for compiling Rust crates with native code. This led to errors during the build process. The solution was to install the required build dependencies using the system package manager.",
+    "action": "apt-get install -y build-essential pkg-config libssl-dev"
+  },
+  {
+    "problem": "Required build tools (g++, cmake, make) were missing for project compilation",
+    "solution": "The root cause was insufficient build dependencies as specified in the project documentation. The solution was to install the missing tools using the package manager to satisfy the build requirements.",
+    "action": "apt-get install -y g++ cmake make"
+  },
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "The installed Java version is incompatible with the project's build tool.",
+    "solution": "The Gradle wrapper version was outdated and incompatible with the newer Java version (e.g., Java 21), causing build failures. The root cause was a version mismatch between the Java runtime and the build tool. The solution was to install an older, compatible Java version (OpenJDK 11).",
+    "action": "apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "The make command failed due to a missing C++ compiler (clang++)",
+    "solution": "The compilation process required clang++ for building C++ code, but the compiler was not installed. The root cause was the absence of the clang package. The solution was to install the clang compiler.",
+    "action": "apt-get install -y clang"
+  },
+  {
+    "problem": "Missing libexecinfo dependency required for Alpine Linux builds caused installation failures",
+    "solution": "The BUILD.md specified libexecinfo as a dependency for Alpine, but it was unavailable in default repositories. The root cause was repository version mismatch (Alpine 3.22 vs required 3.12 packages). The solution was adding Alpine 3.12 repositories and installing libexecinfo-dev/libexecinfo-static.",
+    "action": "echo \"https://dl-cdn.alpinelinux.org/alpine/v3.12/main\" >> /etc/apk/repositories && apk update && apk add libexecinfo-dev libexecinfo-static"
+  },
+  {
+    "problem": "The C++ compiler was missing, preventing CMake from identifying a valid compiler during project configuration",
+    "solution": "The root cause was the lack of a C++ compiler in the environment, which is essential for compiling C++ projects. The solution was to install the g++ package using the system package manager.",
+    "action": "apt-get install -y g++"
+  },
+  {
+    "problem": "Missing system build tools required for compiling and running tests",
+    "solution": "The test suite required build tools (GCC, CMake, pkg-config, etc.) not installed in the environment. The root cause was incomplete system dependencies in the base configuration. The solution was installing essential build packages via apt-get.",
+    "action": "apt-get update && apt-get install -y gcc-multilib g++-multilib wget unzip pkg-config cmake"
+  },
+  {
+    "problem": "The initial compiler and build tool check failed due to missing software",
+    "solution": "The gcc and make tools were not installed on the Ubuntu system, which are essential for compiling and building C/C++ projects from source. The root cause was an incomplete environment setup lacking the basic build toolchain. The solution was to install the build-essential package using apt-get, which provides gcc, make, and related dependencies.",
+    "action": "apt-get install -y build-essential"
+  }
+]

@@ -1,0 +1,54 @@
+RUN_LOG="/home/run.log"
+FIX_PATCH_LOG="/home/fix-patch-run.log"
+TEST_PATCH_LOG="/home/test-patch-run.log"
+
+# 运行测试函数
+run_test() {
+    local script=$1
+    local log_file=$2
+    
+    echo "Executing test and outputting to: $log_file"
+    bash "$script" > "$log_file" 2>&1
+    
+    if [[ $? -eq 0 ]]; then
+        echo "Test execution successful"
+    else
+        echo "Test execution failed, please check $log_file"
+    fi
+}
+
+main() {
+    local script_path=$(find . -name "test_commands.sh" -type f -print -quit)
+    
+    if [[ -z "$script_path" ]]; then
+        echo "Error: test_commands.sh file not found"
+        return 1
+    fi
+
+    echo "Found test script: $script_path"
+    
+    # 原始运行（无patch）
+    echo -e "\n===== Original Run ====="
+    run_test "$script_path" "$RUN_LOG"
+
+    # 应用test.patch并测试
+    echo -e "\n===== Testing with test.patch ====="
+    git apply --whitespace=nowarn /home/test.patch
+    run_test "$script_path" "$TEST_PATCH_LOG"
+    git apply -R --whitespace=nowarn /home/test.patch
+   
+    # 应用fix.patch并测试
+    echo -e "\n===== Testing with fix.patch ====="
+    git apply --whitespace=nowarn /home/fix.patch
+    run_test "$script_path" "$FIX_PATCH_LOG"
+    git apply -R --whitespace=nowarn /home/fix.patch
+    
+    echo -e "\n===== All tests completed ====="
+    echo "Original run log: $RUN_LOG"
+    echo "test.patch test log: $TEST_PATCH_LOG"
+    echo "fix.patch test log: $FIX_PATCH_LOG"
+
+}
+
+
+main "$@"

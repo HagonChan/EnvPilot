@@ -1,0 +1,67 @@
+[
+  {
+    "problem": "Unsupported GCC version in Conan profile settings",
+    "solution": "Conan's default profile detected GCC 12, which wasn't in its supported version list. The root cause was Conan's limited compiler version compatibility. The solution was to manually set the GCC version to 11 in the profile.",
+    "action": "conan profile update settings.compiler.version=11 default"
+  },
+  {
+    "problem": "Missing essential build tools (gcc, make) required for compiling the project from source",
+    "solution": "The root cause was the absence of build-essential packages in the Ubuntu environment, preventing compilation. The solution involved installing these dependencies via apt after resolving proxy configuration issues.",
+    "action": "apt-get install -y build-essential"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "Basic C development libraries (crti.o) were missing, causing linker failures.",
+    "solution": "The root cause was incomplete build tooling. Installing build-base, a meta-package for essential development tools, provided the missing libraries and resolved compilation issues.",
+    "action": "apk add build-base"
+  },
+  {
+    "problem": "Test execution failed due to missing OpenSSL and PCRE2 libraries",
+    "solution": "The test runner encountered linker errors for libcrypto, libpcre2-8, and libssl during test execution. The root cause was missing development packages for cryptography and regular expression functionality. The solution was to install libssl-dev and libpcre2-dev to resolve these dependencies.",
+    "action": "apt-get install -y libssl-dev libpcre2-dev"
+  },
+  {
+    "problem": "Dependency resolution selected incompatible libc version",
+    "solution": "The root cause was Cargo selecting a libc crate version requiring Rust 2021 edition, incompatible with Rust 1.36.0. The solution was to explicitly pin libc to version 0.2.54 in Cargo.toml, satisfying dependency constraints while maintaining compatibility.",
+    "action": "sed -i '/byteorder = \"=1.0.0\"/a libc = \"=0.2.54\"' Cargo.toml"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "The GCC compiler was not installed, causing the build command to fail",
+    "solution": "The GCC compiler was missing on the Ubuntu system, which is required for compiling C projects. The root cause was the absence of essential build tools in the environment configuration. The solution was to update the package index and install the build-essential package, which includes GCC, G++, and Make.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "The initial make command failed during project build due to missing g++ compiler",
+    "solution": "The build process required the g++ compiler for compiling C++ source files, which was not installed in the Ubuntu environment. The root cause was an incomplete build dependency setup, as g++ was not included in the initial package installation. The solution was to install the g++ package using the apt package manager.",
+    "action": "apt-get install -y g++"
+  },
+  {
+    "problem": "Missing OpenSSL development libraries caused linker errors during test execution",
+    "solution": "The project's cryptographic functionality required OpenSSL development headers and libraries. The root cause was incomplete cryptographic toolchain installation. The solution was to install the OpenSSL development package.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing Python package installation failures",
+    "solution": "The root cause was the absence of compilation tools and development headers required for building Python extensions. The solution was to install the core build-essential package and Python development headers.",
+    "action": "apt-get update && apt-get install -y python3-dev build-essential"
+  },
+  {
+    "problem": "A required shared library (libtinfo) was missing, causing errors during dependency checks in the build process.",
+    "solution": "The libtinfo library is essential for tools like llvm-config to load shared libraries. The root cause was the absence of the libtinfo5 package in the environment. The solution was to install the package via the package manager, which eliminated the missing library error.",
+    "action": "apt-get install -y libtinfo5"
+  },
+  {
+    "problem": "A required tool for comprehensive testing was not installed in the environment",
+    "solution": "The cargo-hack tool was missing, which is essential for running the project's test suite as specified in its continuous integration configuration. The root cause was that this tool was not included in the initial environment setup, leading to command execution failures. The solution was to install cargo-hack using the Cargo package manager, resolving the dependency gap.",
+    "action": "cargo install cargo-hack"
+  }
+]

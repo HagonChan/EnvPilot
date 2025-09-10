@@ -1,0 +1,72 @@
+[
+  {
+    "problem": "The test runner tool (tox) was not installed in the environment",
+    "solution": "The root cause was the absence of the tox package, which is required for executing the test suite as per the project's CI configuration. Tox manages virtual environments and test execution. The solution was to install tox using the Python package manager.",
+    "action": "pip install -U tox"
+  },
+  {
+    "problem": "The pytest command was unavailable after dependency installation failures",
+    "solution": "The initial pip install failed partially due to typed-ast compilation issues, leaving pytest uninstalled. The root cause was dependency installation not completing successfully. The solution was to install pytest individually using pip to enable test execution.",
+    "action": "python3 -m pip install pytest"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "SSL/TLS connection errors when downloading dependencies or updating packages",
+    "solution": "The root cause was likely outdated CA certificates or incorrect system time, which prevented secure connections to repositories. Attempts to update CA certificates failed due to repository configuration issues. The solution was to update CA certificates using apt-get, but it was ineffective because the repository itself was unreachable or misconfigured.",
+    "action": "apt-get update && apt-get install --only-upgrade ca-certificates -y"
+  },
+  {
+    "problem": "Test runner used an incompatible Python version (3.13) causing dependency resolution failures",
+    "solution": "The pytest command defaulted to Python 3.13, which lacked compatible dependencies. The root cause was incorrect Python version specification in the test execution environment. The solution was explicitly configuring the test command to use Python 3.11 for pytest execution.",
+    "action": "echo 'python3.11 -m pytest --no-header -rA --tb=no -p no:cacheprovider' > /home/conan/test_commands.sh"
+  },
+  {
+    "problem": "The nosetests command failed due to missing imp module in Python 3.13+",
+    "solution": "The nose test runner is incompatible with Python 3.13 and above because the imp module was removed. The solution is to switch to pytest as the test runner. The root cause was an outdated test framework dependency in the project configuration. The effective solution was installing pytest using pip.",
+    "action": "python3 -m pip install pytest --break-system-packages"
+  },
+  {
+    "problem": "Essential build tools were missing on the Ubuntu system, potentially required for compiling dependencies",
+    "solution": "The build-essential package, which includes compilers and build tools like gcc and make, was not installed in the Ubuntu environment. The root cause was an incomplete system package configuration. The solution was to update the local package index and install build-essential to provide the necessary tools for any compilation steps during environment setup.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "Virtual environment creation for Python 3.11 failed due to missing venv module",
+    "solution": "The Python 3.11 virtual environment module was not installed on the Debian/Ubuntu system, which is required for creating isolated Python environments. The root cause was a missing system package in the environment configuration. The solution was to install the python3.11-venv package using apt-get.",
+    "action": "apt-get install -y python3.11-venv"
+  },
+  {
+    "problem": "Python 3.13 was incompatible with project dependencies",
+    "solution": "The default Python version (3.13) lacked compatibility with critical dependencies like PyYAML. The root cause was unsupported Python versions in dependency wheels. The solution was to install Python 3.11 and create a virtual environment to isolate the project runtime.",
+    "action": "apt-get install -y python3.11 python3.11-venv python3.11-dev && python3.11 -m venv venv"
+  },
+  {
+    "problem": "The test runner failed due to missing 'pipes' module in Python 3.13",
+    "solution": "The 'pipes' module was removed in Python 3.13, causing compatibility issues. The project required an older Python version (3.11 or 3.12) that retains this module. The solution was to install Python 3.11, which supports the required module.",
+    "action": "apt-get install -y python3.11 python3.11-venv python3.11-distutils"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing Python package installation failures",
+    "solution": "The root cause was the absence of compilation tools and development headers required for building Python extensions. The solution was to install the core build-essential package and Python development headers.",
+    "action": "apt-get update && apt-get install -y python3-dev build-essential"
+  },
+  {
+    "problem": "Virtual environment creation failed due to missing package",
+    "solution": "The virtual environment could not be created because the ensurepip module was unavailable. The root cause was the absence of the python3.11-venv package in the environment. The solution was to install this package via the system package manager.",
+    "action": "apt-get install -y python3.11-venv"
+  },
+  {
+    "problem": "The pip installation of test dependencies failed due to missing build tools and Python development headers",
+    "solution": "The typed-ast package requires compilation of C extensions during installation, which failed because the Ubuntu environment lacked essential build tools and Python development headers. The root cause was an incomplete base environment configuration for compiling Python packages with native extensions. The solution was to install build-essential and python3-dev packages using apt-get.",
+    "action": "apt-get update && apt-get install -y build-essential python3-dev"
+  },
+  {
+    "problem": "Test tools used the wrong Python version due to PATH misconfiguration",
+    "solution": "The system PATH prioritized the old Python 3.6 binaries, causing tools like pytest to use the incorrect interpreter. The root cause was the PATH order in the environment. The solution was to prepend the Python 3.9 binary directory to PATH to ensure version consistency.",
+    "action": "export PATH=/usr/bin:$PATH"
+  }
+]

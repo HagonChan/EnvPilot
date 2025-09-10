@@ -1,0 +1,62 @@
+[
+  {
+    "problem": "Missing libexecinfo dependency required for Alpine Linux builds caused installation failures",
+    "solution": "The BUILD.md specified libexecinfo as a dependency for Alpine, but it was unavailable in default repositories. The root cause was repository version mismatch (Alpine 3.22 vs required 3.12 packages). The solution was adding Alpine 3.12 repositories and installing libexecinfo-dev/libexecinfo-static.",
+    "action": "echo \"https://dl-cdn.alpinelinux.org/alpine/v3.12/main\" >> /etc/apk/repositories && apk update && apk add libexecinfo-dev libexecinfo-static"
+  },
+  {
+    "problem": "The initial attempt to install dependencies using apt-get failed due to unsupported package manager on Alpine Linux",
+    "solution": "The Alpine Linux distribution uses apk instead of apt-get or yum for package management. The root cause was incorrect package manager selection for the environment. The solution was to identify the OS via /etc/os-release and use apk for dependency installation.",
+    "action": "apk add cmake g++ make"
+  },
+  {
+    "problem": "Essential build tools (clang, cmake, make) were missing in the Ubuntu environment.",
+    "solution": "The root cause was the absence of required compilers and build utilities needed to compile the project from source. The solution was to install these tools using the system package manager to meet the build dependencies.",
+    "action": "apt-get update && apt-get install -y clang cmake make"
+  },
+  {
+    "problem": "The initial make command failed due to an outdated CMake version",
+    "solution": "The CMake version installed (3.10.2) was below the required minimum (3.15) for building the project. The root cause was an outdated package in the Ubuntu repositories. The solution involved building and installing a newer CMake version from source after resolving dependencies.",
+    "action": "wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz && tar -zxvf cmake-3.28.3.tar.gz && cd cmake-3.28.3 && ./bootstrap && make && make install"
+  },
+  {
+    "problem": "The CMake configuration step failed to locate the GTest framework required for building tests",
+    "solution": "GTest was not installed in the Ubuntu environment, preventing CMake from finding necessary components (GTEST_LIBRARY, GTEST_INCLUDE_DIR, GTEST_MAIN_LIBRARY) for test compilation. The root cause was missing test framework dependencies. The solution was to install the libgtest-dev package via apt.",
+    "action": "apt-get install -y libgtest-dev"
+  },
+  {
+    "problem": "Building CMake from source failed due to missing OpenSSL development libraries",
+    "solution": "The CMake bootstrap process required OpenSSL headers and libraries, which were missing in the environment. The root cause was the lack of development packages for OpenSSL. The solution was to install the libssl-dev package.",
+    "action": "apt-get install -y libssl-dev"
+  },
+  {
+    "problem": "Missing essential build tools (gcc, make) required for compiling the project from source",
+    "solution": "The root cause was the absence of build-essential packages in the Ubuntu environment, preventing compilation. The solution involved installing these dependencies via apt after resolving proxy configuration issues.",
+    "action": "apt-get install -y build-essential"
+  },
+  {
+    "problem": "Test registration failed during CMake configuration, resulting in no tests being detected by CTest",
+    "solution": "The root cause was insufficient CMake configuration flags to enable test registration and development features. Specifically, the CATCH_DEVELOPMENT_BUILD option was required to activate test targets. The solution was to reconfigure CMake with the correct flags to enable test registration.",
+    "action": "cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DCATCH_BUILD_TESTING=ON -DCATCH_DEVELOPMENT_BUILD=ON"
+  },
+  {
+    "problem": "The initial dependency installation failed because the sudo command was not found",
+    "solution": "The environment lacked the sudo package, but since the session had root privileges, it was unnecessary. The root cause was an incorrect command syntax for the environment. The solution was to omit sudo from package installation commands.",
+    "action": "apt update && apt-get install -y libbrotli-dev"
+  },
+  {
+    "problem": "Required build tools (g++, cmake, make) were missing for project compilation",
+    "solution": "The root cause was insufficient build dependencies as specified in the project documentation. The solution was to install the missing tools using the package manager to satisfy the build requirements.",
+    "action": "apt-get install -y g++ cmake make"
+  },
+  {
+    "problem": "The ctest command failed due to missing test configuration.",
+    "solution": "The root cause was that the test suite was not enabled during the initial CMake configuration, as the CATCH_DEVELOPMENT_BUILD option was off by default, preventing test targets from being generated. This is a common issue in CMake-based projects where testing flags must be explicitly activated. The solution was to reconfigure CMake with the development build option enabled, ensuring tests are included in the build process.",
+    "action": "cmake -DCATCH_DEVELOPMENT_BUILD=ON .."
+  },
+  {
+    "problem": "Missing OpenSSL development libraries caused linker errors during test execution",
+    "solution": "The project's cryptographic functionality required OpenSSL development headers and libraries. The root cause was incomplete cryptographic toolchain installation. The solution was to install the OpenSSL development package.",
+    "action": "apt-get install -y libssl-dev"
+  }
+]

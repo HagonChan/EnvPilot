@@ -1,0 +1,52 @@
+[
+  {
+    "problem": "Package installation failed during editable mode build due to missing Java dependency",
+    "solution": "The build process required Java to run ANTLR for parser generation, but the Java Runtime Environment was not installed. The root cause was a missing build dependency in the environment configuration. The solution was to install the default JRE using the system package manager.",
+    "action": "apt-get update && apt-get install -y default-jre"
+  },
+  {
+    "problem": "A build tool requiring Java was missing from the environment.",
+    "solution": "The ANTLR parser generation step failed because the Java executable was not found, indicating that the Java Development Kit (JDK) was not installed. The root cause was the absence of JDK in the environment configuration. The solution was to install the default JDK using the system package manager to enable tools like ANTLR to run.",
+    "action": "apt-get update && apt-get install -y default-jdk"
+  },
+  {
+    "problem": "Essential build tools and dependencies were missing, causing project build and test failures.",
+    "solution": "The rollup build tool and vitest test runner were not installed globally, leading to 'command not found' errors during build and test execution. The root cause was incomplete environment tooling. The solution was to install these packages globally after configuring the pnpm environment.",
+    "action": "pnpm install -g rollup vitest"
+  },
+  {
+    "problem": "The initial build command failed due to Java not being installed on the Ubuntu system",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) in the environment, which is required for building and running Java-based projects. This prevented Maven commands from executing. The solution involved installing OpenJDK 11 using the system package manager to provide the necessary Java runtime and development tools.",
+    "action": "apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "The Java runtime was not installed on the Ubuntu system",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) on the Ubuntu environment, which is required for building and running Java-based projects. The solution involved installing OpenJDK 17 using the apt package manager after ensuring the system package index was updated.",
+    "action": "apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "The installed Java version is incompatible with the project's build tool.",
+    "solution": "The Gradle wrapper version was outdated and incompatible with the newer Java version (e.g., Java 21), causing build failures. The root cause was a version mismatch between the Java runtime and the build tool. The solution was to install an older, compatible Java version (OpenJDK 11).",
+    "action": "apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "Java runtime not installed, causing Maven build failures",
+    "solution": "The root cause was the absence of a Java Development Kit (JDK) in the environment, which is required for compiling and running Java projects. The solution was to install OpenJDK 17 using the system package manager, providing the necessary Java runtime and development tools.",
+    "action": "apt-get update && apt-get install -y openjdk-17-jdk"
+  },
+  {
+    "problem": "Java was not installed, causing the java command to fail",
+    "solution": "The root cause was the absence of Java Development Kit (JDK) on the Ubuntu system, which is required for running Java-based applications like Logstash. The solution was to install OpenJDK 11 using the apt package manager after updating the package index.",
+    "action": "apt-get update && apt-get install -y openjdk-11-jdk"
+  },
+  {
+    "problem": "The dependency lock file was missing, causing failure in resolving dependencies during project build.",
+    "solution": "The root cause was the absence of Cargo.lock, which is essential for consistent dependency resolution in Rust projects. Without it, cargo commands failed to parse dependencies. The solution was to regenerate the lock file using cargo generate-lockfile to ensure all dependencies are properly resolved and locked.",
+    "action": "cargo generate-lockfile"
+  },
+  {
+    "problem": "The Gradle wrapper version was incompatible with the installed Java version, causing build failures.",
+    "solution": "The root cause was a version mismatch between the Gradle wrapper (4.4) and Java 11, which led to errors during project initialization. Updating the Gradle wrapper to a compatible version (5.0) resolved the incompatibility by aligning with Java 11's requirements.",
+    "action": "Edit gradle-wrapper.properties to change distributionUrl from 'gradle-4.4-all.zip' to 'gradle-5.0-all.zip'"
+  }
+]

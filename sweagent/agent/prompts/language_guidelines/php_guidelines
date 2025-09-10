@@ -1,0 +1,127 @@
+# General Guidelines:
+**General Guidelines for PHP Projects**
+
+1. **Read the README**  
+   Start by reading the project's README file on GitHub. It often contains important instructions for installation, usage, PHP version requirements, and any project-specific details.  
+
+2. **Check Dependencies**  
+   Look for dependencies listed in the README or in the `composer.json` file. Ensure you have the required PHP version and any extensions installed. Check for system requirements and PHP modules needed.  
+
+3. **PHP Installation**  
+   Ensure you have PHP installed with the required version. Verify installation:  
+   ```sh
+   php --version  
+   ```  
+   For Ubuntu/Debian systems, you can install PHP:  
+   ```sh
+   sudo apt update  
+   sudo apt install php php-cli php-common  
+   ```  
+
+4. **Composer Installation**  
+   Most modern PHP projects use Composer for dependency management. Install Composer if not already available:  
+   ```sh
+   curl -sS https://getcomposer.org/installer | php  
+   sudo mv composer.phar /usr/local/bin/composer  
+   ```  
+   Verify installation:  
+   ```sh
+   composer --version  
+   ```  
+
+5. **Install Dependencies**  
+   Use Composer to install project dependencies:  
+   ```sh
+   composer install  
+   ```  
+   For production environment:  
+   ```sh
+   composer install --no-dev --optimize-autoloader  
+   ```  
+
+6. **Autoloading**  
+   Ensure the autoloader is properly set up. Most projects using Composer will have:  
+   ```php
+   require_once 'vendor/autoload.php';  
+   ```  
+
+7. **Configuration**  
+   Check if the project requires any configuration files (e.g., `.env` files, `config.php`, database configuration) and set them up accordingly. Look for example configuration files like `.env.example`.  
+
+8. **Database Setup**  
+   If the project uses a database, set up the database connection and run any migrations:  
+   ```sh
+   php artisan migrate  # For Laravel projects  
+   ```  
+   Or check for SQL files in the project that need to be imported.  
+
+9. **Web Server Setup**  
+   For web applications, you can use PHP's built-in server for development:  
+   ```sh
+   php -S localhost:8000  
+   ```  
+   Or for specific document root:  
+   ```sh
+   php -S localhost:8000 -t public/  
+   ```  
+   For production, configure Apache/Nginx as described in the project documentation.  
+
+10. **Run Tests (if available)**  
+    If the project provides tests, run them to ensure everything is working correctly. Common test commands include:  
+    ```sh
+    ./vendor/bin/phpunit  
+    ```  
+    Or if using Composer scripts:  
+    ```sh
+    composer test  
+    ```  
+
+11. **Code Quality Tools**  
+    Use code quality tools if available in the project:  
+    - PHP CodeSniffer for coding standards:  
+      ```sh
+      ./vendor/bin/phpcs  
+      ```  
+    - PHP Stan for static analysis:  
+      ```sh
+      ./vendor/bin/phpstan analyse  
+      ```  
+    - PHP CS Fixer for code formatting:  
+      ```sh
+      ./vendor/bin/php-cs-fixer fix  
+      ```  
+
+12. **Run the Project**  
+    Follow the instructions in the README to run the project. This could involve:  
+    - Starting a web server  
+    - Running specific PHP scripts  
+    - Using framework-specific commands (e.g., `php artisan serve` for Laravel)  
+
+13. **Common PHP Extensions**  
+    Install commonly required PHP extensions if missing:  
+    ```sh
+    sudo apt install php-mysql php-pgsql php-sqlite3 php-curl php-json php-mbstring php-xml php-zip  
+    ```  
+
+14. **Memory and Execution Limits**  
+    Some projects may require adjusting PHP settings. Check `php.ini` for:  
+    - `memory_limit`  
+    - `max_execution_time`  
+    - `upload_max_filesize`  
+
+15. **Troubleshooting**  
+    If you encounter issues during installation or while running the project:  
+    - Check PHP error logs  
+    - Verify all required PHP extensions are installed  
+    - Ensure proper file permissions  
+    - Refer to the project's issue tracker on GitHub  
+
+16. **Test Suite Results**  
+    When running a test suite, it is normal for some test cases to fail. If the percentage of failing test cases is less than 20% of the total number, it is considered acceptable, and further investigation is usually not necessary.  
+
+17. **Framework-Specific Commands**  
+    Be aware of framework-specific tools and commands:  
+    - Laravel: `php artisan`  
+    - Symfony: `php bin/console`  
+    - CakePHP: `bin/cake`  
+    - CodeIgniter: framework-specific setup instructions  

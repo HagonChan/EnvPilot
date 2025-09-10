@@ -1,0 +1,42 @@
+[
+  {
+    "problem": "Go language was not installed in the Ubuntu environment",
+    "solution": "The root cause was the absence of the Go programming language, required for building and testing the repository. The solution was to install the Golang package via apt-get, which resolved the dependency for compilation and test execution.",
+    "action": "apt-get install -y golang"
+  },
+  {
+    "problem": "The Go toolchain was not installed on the system",
+    "solution": "The root cause was a missing Go installation required for building and testing the Go project. The solution involved updating the package index and installing Go using the system package manager (apt-get). This addressed the initial 'go: command not found' error by providing the necessary compiler and tools.",
+    "action": "apt-get install -y golang"
+  },
+  {
+    "problem": "The Go test command failed due to missing dependencies required for building the project",
+    "solution": "The root cause was that the initial environment setup did not include all necessary Go dependencies for the project. When running 'go test -race ./...', the system attempted to download missing packages but encountered failures. This occurred because the Ubuntu environment lacked the required dependencies for building the project from source. The solution was to install the missing dependencies using 'go get' before running tests, ensuring the environment had all necessary packages.",
+    "action": "go get ./..."
+  },
+  {
+    "problem": "The go command was not found when attempting to download Go module dependencies",
+    "solution": "The Go programming language was not installed in the Ubuntu environment, which is required for building and testing Go projects. The root cause was a missing essential package in the environment configuration. The solution was to install Go using the apt package manager after updating the package index to ensure availability.",
+    "action": "apt-get install -y golang"
+  },
+  {
+    "problem": "The installed Go version was outdated and incompatible with module-based builds",
+    "solution": "The root cause was that the default package repository provided an older Go version (1.11) which lacked full support for Go modules, resulting in 'cannot use modules with build cache disabled' errors. The solution was to manually download and install a compatible version (1.13.15) from the official source, followed by updating the PATH to prioritize the new installation.",
+    "action": "wget https://dl.google.com/go/go1.13.15.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.13.15.linux-amd64.tar.gz && export PATH=/usr/local/go/bin:$PATH"
+  },
+  {
+    "problem": "Build failure due to outdated Go version incompatible with project dependencies",
+    "solution": "The installed Go version (1.11.13) was too old and lacked required packages like log/slog, causing module resolution failures. The root cause was an incompatible runtime environment. The solution was to install a compatible Go version (1.21.0) via direct download and update the PATH to include it.",
+    "action": "wget https://golang.org/dl/go1.21.0.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin"
+  },
+  {
+    "problem": "The cmake and golang tools were not installed on the system",
+    "solution": "The root cause was the absence of essential build tools required for compiling and running certain tests, as specified in the project documentation. The solution was to install cmake and golang using the system package manager after updating the package index to ensure availability.",
+    "action": "apt-get install -y cmake golang"
+  },
+  {
+    "problem": "The go install command failed due to missing standard library packages in the Go environment",
+    "solution": "The root cause was an outdated Go version (1.16.15) that lacked newer standard library packages like 'net/netip' and 'slices', which are required by project dependencies. This environment configuration issue prevented tool installation. The solution was to download all necessary dependencies using go mod download, which resolved the missing package errors and enabled successful test execution.",
+    "action": "go mod download"
+  }
+]

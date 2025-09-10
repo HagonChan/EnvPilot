@@ -1,0 +1,57 @@
+[
+  {
+    "problem": "Node.js and npm were not installed, preventing JavaScript toolchain execution",
+    "solution": "The root cause was the missing Node.js runtime, required for npm-based installations. After apt-get installation attempts failed due to a dpkg interruption, the system package state was repaired before successfully installing Node.js from the Ubuntu repositories.",
+    "action": "apt-get install -y nodejs"
+  },
+  {
+    "problem": "The system package manager command to install Node.js and npm timed out due to execution limits",
+    "solution": "The root cause was an unnecessary installation attempt on an environment where Node.js and npm were already pre-installed. The solution involved verifying existing installations using version checks instead of reinstalling, avoiding the timeout issue caused by redundant package management operations.",
+    "action": "node --version || echo \"Node.js not installed\" ; npm --version || echo \"npm not installed\""
+  },
+  {
+    "problem": "Node.js was not installed on the Ubuntu system",
+    "solution": "The Node.js runtime was missing, which is required for building and running the Express.js project. The root cause was the absence of the Node.js package in the environment configuration. The solution involved installing Node.js and npm using the system package manager after resolving a dpkg state issue.",
+    "action": "apt update && apt install -y nodejs npm"
+  },
+  {
+    "problem": "The node command was not found when checking the Node.js version",
+    "solution": "Node.js was not installed on the Ubuntu system, which is required for running JavaScript-based projects. The root cause was a missing Node.js installation in the environment. The solution was to install Node.js using the NodeSource script to configure the repository and then install it via the system package manager.",
+    "action": "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"
+  },
+  {
+    "problem": "A dependency conflict occurred during npm installation due to incompatible package versions",
+    "solution": "The root cause was a peer dependency conflict, specifically rollup-plugin-babel requiring a rollup version higher than what was specified in the project, causing 'npm install' to fail. The solution was to bypass the conflict using the --legacy-peer-deps flag, which allows installation without resolving peer dependencies.",
+    "action": "npm install --legacy-peer-deps"
+  },
+  {
+    "problem": "The pnpm global binary directory was not configured, preventing global package installations.",
+    "solution": "The pnpm setup command failed due to an unknown shell type, which is required to configure the global bin directory path. The root cause was the SHELL environment variable not being set. The solution was to explicitly set the SHELL variable to 'bash' and rerun the setup command, then source the updated configuration to apply the changes.",
+    "action": "export SHELL=bash && pnpm setup && source /root/.bashrc"
+  },
+  {
+    "problem": "npm install command failed due to 503 Service Unavailable errors from the npm registry",
+    "solution": "The root cause was network unavailability or instability in accessing the npm registry, preventing dependency installation. The solution involved retrying the command to resolve transient service disruptions, as registry errors are often temporary and may resolve on subsequent attempts.",
+    "action": "npm install"
+  },
+  {
+    "problem": "The required package manager pnpm and its prerequisite npm were not installed on the Ubuntu system",
+    "solution": "Node.js and npm were missing, preventing installation of pnpm which is required for the project. The root cause was an incomplete environment setup lacking essential JavaScript tooling. The solution involved installing Node.js via apt after resolving a dpkg interruption, then installing pnpm globally using npm.",
+    "action": "apt install -y nodejs && npm install -g pnpm@9.4.0"
+  },
+  {
+    "problem": "npm install failed with an ERESOLVE error due to unresolved dependency conflict.",
+    "solution": "The project dependencies had incompatible peer requirements, specifically rollup-plugin-babel required rollup >=0.60.0 but the project specified rollup@0.57.1. The root cause was a version mismatch in peer dependencies. The solution was to use the --legacy-peer-deps option to bypass peer dependency checks and allow installation to proceed.",
+    "action": "npm install --legacy-peer-deps"
+  },
+  {
+    "problem": "Dependency conflicts prevented successful installation of development dependencies",
+    "solution": "The root cause was incompatible peer dependencies between packages, specifically rollup and rollup-plugin-babel, as indicated by the ERESOLVE error. The solution was to bypass strict peer dependency checks using the --legacy-peer-deps flag, enabling the installation to complete despite potential version mismatches.",
+    "action": "npm install --only=dev --legacy-peer-deps"
+  },
+  {
+    "problem": "The initial npm installation via the system package manager timed out due to slow execution.",
+    "solution": "The root cause was the apt-get command taking longer than the environment's 180-second timeout limit, likely due to network latency or large package downloads. The solution was to bypass the package manager and install npm directly using an official installation script, ensuring compatibility and faster execution.",
+    "action": "curl -L https://www.npmjs.com/install.sh | sh"
+  }
+]

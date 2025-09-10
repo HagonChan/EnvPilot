@@ -1,0 +1,77 @@
+[
+  {
+    "problem": "The make command failed due to missing Python 3 during build",
+    "solution": "The build process required Python 3 to execute a script (split.py), but it was not installed in the environment. The root cause was the absence of Python 3. The solution was to install Python 3 using the system package manager.",
+    "action": "apt-get install -y python3"
+  },
+  {
+    "problem": "The pip command was not found when attempting Python-based installations",
+    "solution": "Python's package manager pip was missing despite Python being installed, preventing Python-based tool installations like Conan. The root cause was an incomplete Python environment setup. The solution was to install pip via system packages, but this failed due to repository access issues.",
+    "action": "apt install -y python3-pip (attempted but failed due to repository errors)"
+  },
+  {
+    "problem": "The pytest command was unavailable after dependency installation failures",
+    "solution": "The initial pip install failed partially due to typed-ast compilation issues, leaving pytest uninstalled. The root cause was dependency installation not completing successfully. The solution was to install pytest individually using pip to enable test execution.",
+    "action": "python3 -m pip install pytest"
+  },
+  {
+    "problem": "The alternative Python version lacked pip, preventing dependency installation.",
+    "solution": "The root cause was the absence of pip for Python 3.11. The solution was to install the pip package for the system, enabling dependency management for the compatible Python version.",
+    "action": "apt-get install -y python3-pip"
+  },
+  {
+    "problem": "Externally managed environment blocking pip installations",
+    "solution": "The environment enforced PEP 668 restrictions preventing system-wide pip installations. The root cause was security configurations blocking package installations. The solution was to create an isolated virtual environment to bypass these restrictions.",
+    "action": "apt-get install -y python3.11-venv && python3.11 -m venv venv3.11"
+  },
+  {
+    "problem": "The make command was not found when attempting to build the project",
+    "solution": "The make tool was missing in the Ubuntu environment, which is required for building projects using Makefiles. The root cause was an incomplete build toolchain installation. The solution was to install the build-essential package which includes make and other essential build tools.",
+    "action": "apt-get update && apt-get install -y build-essential"
+  },
+  {
+    "problem": "The pip installation of test dependencies failed due to missing build tools and Python development headers",
+    "solution": "The typed-ast package requires compilation of C extensions during installation, which failed because the Ubuntu environment lacked essential build tools and Python development headers. The root cause was an incomplete base environment configuration for compiling Python packages with native extensions. The solution was to install build-essential and python3-dev packages using apt-get.",
+    "action": "apt-get update && apt-get install -y build-essential python3-dev"
+  },
+  {
+    "problem": "The pytest command was not found when running the test suite",
+    "solution": "The required Python test dependencies, including pytest, were not installed in the environment. The root cause was missing package installations specified in test-requirements.txt. The solution was to install all dependencies using pip3 install -r test-requirements.txt.",
+    "action": "pip3 install -r test-requirements.txt"
+  },
+  {
+    "problem": "Pip was unavailable for the newly installed Python version, preventing dependency installation.",
+    "solution": "Debian/Ubuntu systems disable ensurepip for system Python installations. The root cause was missing pip in the Python 3.11 environment. The solution was to install the system's python3-pip package to enable pip functionality.",
+    "action": "apt-get install -y python3-pip"
+  },
+  {
+    "problem": "Test tools used the wrong Python version due to PATH misconfiguration",
+    "solution": "The system PATH prioritized the old Python 3.6 binaries, causing tools like pytest to use the incorrect interpreter. The root cause was the PATH order in the environment. The solution was to prepend the Python 3.9 binary directory to PATH to ensure version consistency.",
+    "action": "export PATH=/usr/bin:$PATH"
+  },
+  {
+    "problem": "The make command was not installed in the Ubuntu environment",
+    "solution": "The build process requires the make tool for compiling the project. The root cause was the absence of the build-essential package in the environment configuration. Installing make resolved the initial build failure.",
+    "action": "apt-get install -y make"
+  },
+  {
+    "problem": "Essential system build tools were missing, causing Python package installation failures",
+    "solution": "The root cause was the absence of compilation tools and development headers required for building Python extensions. The solution was to install the core build-essential package and Python development headers.",
+    "action": "apt-get update && apt-get install -y python3-dev build-essential"
+  },
+  {
+    "problem": "The installed pytest version was incompatible with the test code, causing import errors for RaisesContext",
+    "solution": "The test code required an older pytest version due to API changes in pytest 7.0.0 that removed RaisesContext. The root cause was an unpinned pytest dependency in requirements. The solution was to pin pytest to version 6.2.5 for compatibility.",
+    "action": "sed -i 's/^pytest$/pytest==6.2.5/' requirements/dev.txt"
+  },
+  {
+    "problem": "The installed Python version was outdated and caused dependency issues",
+    "solution": "The environment had Python 3.5 installed, which is deprecated and no longer supported. This caused dependency resolution failures and runtime errors during test execution. The root cause was an incompatible Python version in the environment configuration. The solution was to install a supported Python version (3.7) using the system package manager.",
+    "action": "apt-get install -y python3.7 python3.7-venv python3.7-dev python3.7-distutils"
+  },
+  {
+    "problem": "The initial test command failed because Python 3 and pip were not installed in the environment.",
+    "solution": "The root cause was a missing Python runtime and package manager in the Ubuntu system, which are essential for installing dependencies and running Python-based projects. Without these, pip-based installations and pytest executions failed. The solution was to install Python 3 and pip using the system package manager after updating the package index.",
+    "action": "apt-get update && apt-get install -y python3 python3-pip"
+  }
+]
