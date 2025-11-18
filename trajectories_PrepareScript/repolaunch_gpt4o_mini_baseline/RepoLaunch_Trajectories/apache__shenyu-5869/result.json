@@ -1,0 +1,23 @@
+{
+  "instance_id": "apache__shenyu-5869",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y maven",
+    "mvn dependency:resolve",
+    "cat pom.xml",
+    "mvn clean install -DskipTests",
+    "java -version",
+    "apt-get install -y openjdk-17-jdk",
+    "update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java",
+    "java -version",
+    "mvn dependency:resolve",
+    "cat pom.xml",
+    "cat README.md",
+    "mvn clean install -DskipTests -U",
+    "mvn test"
+  ],
+  "test_commands": [],
+  "duration": 36,
+  "completed": null,
+  "exception": "Launch failed"
+}
