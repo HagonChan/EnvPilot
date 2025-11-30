@@ -1,0 +1,27 @@
+{
+  "instance_id": "micronaut-projects__micronaut-core-11440",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "cat README.md",
+    "cat build.gradle",
+    "./gradlew --version",
+    "apt-get update && apt-get install -y openjdk-17-jdk",
+    "export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64",
+    "java -version",
+    "./gradlew --version",
+    "./gradlew dependencies",
+    "./gradlew check",
+    "ls /testbed/http-server-netty/src/test/resources/public",
+    "mv /testbed/http-server-netty/src/test/resources/public/''$'\\346\\265\\213\\350\\257\\225''-0.0.yml /testbed/http-server-netty/src/test/resources/public/missing-resource.yml",
+    "mv /testbed/http-server-netty/src/test/resources/public/*-0.0.yml /testbed/http-server-netty/src/test/resources/public/missing-resource.yml",
+    "./gradlew check",
+    "cat /testbed/http-client/build/reports/tests/test/index.html",
+    "cat /testbed/http-client/build/reports/tests/test/classes/io.micronaut.http.client.ClientScopeSpec.html",
+    "cat /testbed/http-client/build/reports/tests/test/classes/io.micronaut.http.client.ProxyHttpClientMutableRequestSpec.html",
+    "cat /testbed/http-client/build/reports/tests/test/classes/io.micronaut.http.client.netty.PcapLoggingSpec.html"
+  ],
+  "test_commands": [],
+  "duration": 83,
+  "completed": null,
+  "exception": "Launch failed"
+}
