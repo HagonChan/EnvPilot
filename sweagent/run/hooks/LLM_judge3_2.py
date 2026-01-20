@@ -85,6 +85,8 @@ The result is **FAILED** if ANY of the following occur:
 ## Task Requirements
 Based on the agent output trajectory I provide, judge whether the environment configuration meets the success criteria above.
 
+Pay attention to the log of the last executed test or compilation command in the trajectory, and don't be distracted by the previous agent trial and error information (because the agent may have been configured incorrectly before finally being configured successfully).
+
 ## Output Format
 1. First line: PASSED or FAILED (direct output, no other text)
 2. Following lines: Detailed reasoning explaining your judgment based on the two criteria above
