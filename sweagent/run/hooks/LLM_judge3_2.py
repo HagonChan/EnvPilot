@@ -16,7 +16,7 @@ class Config:
     def __init__(
         self,
         api_base: str = "https://api.deepseek.com",
-        api_key: str = os.environ["DEEPSEEK_API_KEY"],
+        api_key: str = os.environ["DEEPSEEK_API_KEY"] if os.environ.get("DEEPSEEK_API_KEY") else "null",
         model: str = "deepseek-chat",
         max_retries: int = 3,
         max_workers: int = 8,
@@ -28,36 +28,59 @@ class Config:
         self.max_retries = max_retries
         self.max_workers = max_workers
         self.temperature = temperature
-
         self.prompt = """
 # Agent Environment Configuration Evaluation Task
 
-## Background
-I have designed an Agent for automatically configuring the runtime environment of GitHub repositories.
+## Role Definition
+You are an expert Software Quality Assurance (QA) Judge. Your task is to evaluate whether an automated agent has successfully configured a software repository environment. Core Principle: You are judging the integrity of the environment, not the correctness of the code logic. The Test Lifecycle Completeness itself is the ultimate validater of the environment. Whether the test passes or fails reflects the correctness of the code logic.
 
-## Success Criteria 
-Environment configuration is considered **successful** when **BOTH** conditions are met:
+## Key Definitions (Crucial)
+Before evaluating, distinguish between these status types:
+- FAILED (Assertion Failure): The test ran, but the result did not match the expectation (e.g., assert 1 == 2). This is ACCEPTABLE.
+- ERROR (Runtime/Environment Error): The test could not run due to missing dependencies, syntax errors, or environment issues (e.g., ImportError, ModuleNotFound, ConnectionRefused caused by config). This is UNACCEPTABLE.
+- CRASH (Process Abort): The test runner stopped unexpectedly (e.g., Segmentation Fault, process killed) before generating a final report. This is UNACCEPTABLE.
 
-### Condition 1: Test Suite Execution
-- **At least one complete test suite** can start, execute, and finish successfully;Examples: unit tests, integration tests, functional tests, etc.
-- The testing framework must generate a complete test report structure
-- Individual test case failures are acceptable as long as the suite completes
+## Success Criteria (PASSED)
+The environment configuration is PASSED if and only if the following logical flow is satisfied:
 
-### Condition 2: Core Functionality Verification  
-- **Main functional modules** can be imported and used normally
-- Basic API calls return expected results
-- Core features demonstrated through example code execution
+1. Compilation/Build Phase (If Applicable)
+- Requirement: The core source code must compile.
+- Special Logic for "Build + Test" Commands:
+  - If the build command (e.g., mvn install, ./gradlew build) runs tests automatically and fails only because of Assertion Failures, but the compilation phase passed and a test report was generated, this counts as SUCCESS.
+  - If the build fails due to compilation errors or missing dependencies, it is FAILED.
 
-## Failure Conditions
-- Testing framework cannot start or execute normally
-- Core modules cannot be imported or are fundamentally broken
-- Agent exceeds maximum call limit without achieving basic functionality
-- No test suite can complete execution
+2. Test Execution Phase (Mandatory)
+- Requirement: The test suite MUST attempt to run. If no tests are executed, it is FAILED.
+- Stability: The testing process must complete a full lifecycle without crashing.
+- Report Integrity: A valid final test report or summary line must be generated (e.g., "5 passed, 2 failed, 0 errors").
 
-## Important Notes
-- Even if 100 test cases fail, if the test suite completes and core functions work, consider it SUCCESS
-- Focus on **framework operability** rather than test pass rates
-- Distinguish between critical errors (import failures) and non-critical errors (specific test failures)
+3. Final Verification (The "Golden Rule")
+The configuration is successful if the logs show:
+- Full Lifecycle: The test runner started and finished.
+- Zero Errors: The test report shows 0 Errors.
+- Allowed Failures: The test report can show > 0 Failures (Assertion faults).
+- Report Generated: A summary confirms the test run is complete.
+
+## Failure Scenarios (Critical)
+The result is **FAILED** if ANY of the following occur:
+1. **No Tests Run:** The agent set up the environment but never executed the test command.
+2. **Process Crash:** The test command exited abruptly without producing a final summary/report.
+3. **Environment/Runtime Errors:** The output contains `Error` status for tests (indicating environment issues rather than logic bugs) or tracebacks indicating missing modules/libraries.
+4. **Compilation Error:** The actual code compilation failed (syntax errors, missing headers), distinct from test assertion failures.
+5. **Incomplete Test Report:** The logs end mid-test without a final tally.
+6. **Tests Not Found:** Since the target repository contains tests, if no tests are found and therefore the tests are not executed, it is also considered a failure.
+
+## Evaluation Logic
+1. **Did the agent run a test command?**
+   - NO -> **FAILED**.
+2. **Did the build/test process crash or hang?**
+   - YES -> **FAILED**.
+3. **Did the process output a complete test report/summary?**
+   - NO -> **FAILED**.
+4. **Analyze the Report/Output:**
+   - Are there `Errors` (Runtime/Env issues)? -> **FAILED**.
+   - Are there `Failures` (Assertions)? -> **PASSED** (Environment is fine, code is just buggy).
+   - Is the exit code non-zero purely due to `Failures`? -> **PASSED**.
 
 ## Task Requirements
 Based on the agent output trajectory I provide, judge whether the environment configuration meets the success criteria above.
@@ -66,26 +89,6 @@ Based on the agent output trajectory I provide, judge whether the environment co
 1. First line: PASSED or FAILED (direct output, no other text)
 2. Following lines: Detailed reasoning explaining your judgment based on the two criteria above
 """
-
-
-class RuleEvaluator:
-    """规则评估器，负责基于规则的评估"""
-
-    def __init__(self, config: Config):
-        self.config = config
-
-    def evaluate_by_rule(self, info: Dict[str, Any]) -> Optional[str]:
-        """基于规则评估，返回 None 表示需要LLM评估，返回字符串表示规则已确定结果"""
-        if not info:
-            return None
-
-        exit_status = info.get("exit_status", "")
-
-        # 检查是否匹配失败规则
-        if exit_status in ["submitted (exit_rounds)", "exit_error", "", None]:
-            return f"FAILED\n规则判定失败: exit_status = {exit_status}"
-
-        return None
 
 
 class TrajectoryProcessor:
@@ -269,52 +272,6 @@ class EvaluationManager:
         self.trajectory_processor = TrajectoryProcessor(config)
         self.llm_judge = LLMJudge(config)
         self.report_manager = ReportManager(config)
-        self.rule_evaluator = RuleEvaluator(config)
-
-    def rule_evaluation_phase(self, root_dir: str, output_dir: str, pr_names: List[str]) -> List[str]:
-        """规则评估阶段，返回需要LLM评估的pr_names"""
-        logger.info("=== 开始规则评估阶段 ===")
-
-        rule_failed_count = 0
-        rule_failed_list = []
-        need_llm_evaluation = []
-
-        with tqdm(pr_names, desc="规则评估进度", unit="item") as pbar:
-            for pr_name in pbar:
-                # 如果已经评估过，跳过
-                if self.report_manager.is_already_evaluated(output_dir, pr_name):
-                    need_llm_evaluation.append(pr_name)
-                    continue
-
-                try:
-                    traj_file = os.path.join(root_dir, pr_name, f"{pr_name}.traj")
-                    info = self.trajectory_processor.extract_info(traj_file)
-
-                    rule_result = self.rule_evaluator.evaluate_by_rule(info)
-
-                    if rule_result is not None:
-                        # 规则判定为失败，直接保存结果
-                        self.report_manager.save_result_to_file(output_dir, pr_name, rule_result)
-                        rule_failed_count += 1
-                        rule_failed_list.append(pr_name)
-                        pbar.set_postfix({"当前": pr_name, "状态": "规则失败"})
-                    else:
-                        # 需要LLM评估
-                        need_llm_evaluation.append(pr_name)
-                        pbar.set_postfix({"当前": pr_name, "状态": "需要LLM"})
-
-                except Exception as e:
-                    logger.error(f"规则评估 {pr_name} 时发生错误: {e}")
-                    need_llm_evaluation.append(pr_name)
-                    pbar.set_postfix({"当前": pr_name, "状态": "错误"})
-
-        logger.info(f"规则评估完成:")
-        logger.info(f"  规则判定失败: {rule_failed_count} 个")
-        logger.info(f"  需要LLM评估: {len(need_llm_evaluation)} 个")
-        logger.info(f"规则判定失败的项目: {rule_failed_list}")
-        logger.info("=== 规则评估阶段完成 ===")
-
-        return need_llm_evaluation
 
     def generate_llm_judge_result(self, root_dir: str, pr_name: str, output_dir: str) -> str:
         """处理单个轨迹文件并生成评估结果"""
@@ -346,14 +303,9 @@ class EvaluationManager:
         """生成txt文件"""
         logger.info("=== 开始生成txt文件 ===")
 
-        # 先进行规则评估
-        need_llm_evaluation = self.rule_evaluation_phase(root_dir, output_dir, pr_names)
-
-        # 过滤出真正需要LLM评估的项目（排除已经评估过的）
+        # 过滤出真正需要评估的项目（排除已经评估过的）
         pending_items = [
-            pr_name
-            for pr_name in need_llm_evaluation
-            if not self.report_manager.is_already_evaluated(output_dir, pr_name)
+            pr_name for pr_name in pr_names if not self.report_manager.is_already_evaluated(output_dir, pr_name)
         ]
 
         if not pending_items:
@@ -420,27 +372,8 @@ class EvaluationManager:
 
         pr_names = [f"{item['org']}__{item['repo']}-{item['number']}" for item in data]
 
-        # 生成txt文件（包含规则评估和LLM评估）
+        # 生成txt文件
         self.generate_txt_files(root_dir, output_dir, pr_names)
 
         # 生成报告
         self.report_manager.generate_report_json(output_dir, pr_names)
-
-
-def main():
-    """主函数"""
-    # 初始化配置
-    config = Config()
-
-    # 创建评估管理器
-    evaluator = EvaluationManager(config)
-
-    # 运行评估
-    root_dir = "trajectories_PrepareScript/deepseek-v3_memory"
-    data_file = "data/stage3_2_new_simplified.jsonl"
-
-    evaluator.run_evaluation(root_dir, data_file)
-
-
-if __name__ == "__main__":
-    main()
