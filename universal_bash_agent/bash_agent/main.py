@@ -18,6 +18,28 @@ from .executor import DockerBashExecutor
 from .agent import SetupAgent
 
 
+class LazyFileHandler(logging.FileHandler):
+    """延迟创建文件的 FileHandler，只在首次写入时创建目录和文件"""
+    
+    def __init__(self, filename, mode='a', encoding=None, delay=True):
+        """使用 delay=True 来延迟文件创建"""
+        self.baseFilename = str(filename)
+        self.mode = mode
+        self.encoding = encoding
+        self.delay = delay
+        if delay:
+            logging.Handler.__init__(self)
+            self.stream = None
+        else:
+            Path(filename).parent.mkdir(parents=True, exist_ok=True)
+            logging.FileHandler.__init__(self, filename, mode, encoding, delay=False)
+    
+    def _open(self):
+        """在打开文件前确保目录存在"""
+        Path(self.baseFilename).parent.mkdir(parents=True, exist_ok=True)
+        return open(self.baseFilename, self.mode, encoding=self.encoding)
+
+
 def setup_logging(log_file: Optional[str] = None):
     """配置全局日志"""
     handlers = [logging.StreamHandler()]
@@ -48,10 +70,10 @@ def create_task_logger(task_id: str, output_dir: str) -> logging.Logger:
     console_handler.setFormatter(console_formatter)
     logger.addHandler(console_handler)
     
-    # 文件 handler，每个任务独立日志文件
+    # 文件 handler 将在首次写入日志时才创建文件夹和文件
+    # 使用延迟创建的自定义 handler
     log_path = Path(output_dir) / f"{task_id}" / "agent.log"
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    file_handler = logging.FileHandler(log_path)
+    file_handler = LazyFileHandler(log_path)
     file_handler.setLevel(logging.INFO)
     file_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     file_handler.setFormatter(file_formatter)
@@ -260,7 +282,6 @@ def main():
     parser.add_argument("--output", "-o", default="./output", help="Output directory")
     parser.add_argument("--repos-dir", default="./repos", help="Repository cache directory")
     parser.add_argument("--image", default="ubuntu:22.04", help="Docker image")
-    parser.add_argument("--model", default="gpt-4o", help="OpenAI model")
     parser.add_argument("--max-iterations", type=int, default=50, help="Max agent iterations")
     parser.add_argument("--bash-timeout", type=int, default=300, help="Bash command timeout")
     parser.add_argument("--concurrency", "-c", type=int, default=1, help="Number of concurrent tasks")
@@ -269,7 +290,6 @@ def main():
     
     config = AgentConfig(
         docker_image=args.image,
-        model_name=args.model,
         max_iterations=args.max_iterations,
         bash_timeout=args.bash_timeout,
         output_dir=args.output,

@@ -69,8 +69,7 @@ The repository can be in ANY programming language (Python, Java, Go, Rust, Node.
 - Summarize what was installed and configured
 - Report the test execution results (how many passed/failed/skipped)
 - Confirm that all tests were able to RUN completely
-- **CRITICAL: If you respond with text without calling a tool, the system interprets this as task completion**
-- **DO NOT provide a summary response until AFTER you have successfully run tests**
+- If you provide a summary without calling tools, you are declaring the task complete
 
 ## Important
 - You are root user in an Ubuntu 22.04 container
@@ -80,7 +79,6 @@ The repository can be in ANY programming language (Python, Java, Go, Rust, Node.
 - **NEVER skip running tests** - this is the validation of your work
 - **PERSISTENCE IS KEY** - if something fails, analyze the error and try a different approach
 - **Use your full iteration budget** - you have many attempts, use them wisely
-- **If you respond without tool calls, you are ending the task** - make sure tests ran first!
 """
 
 

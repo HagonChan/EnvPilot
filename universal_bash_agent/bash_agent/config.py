@@ -19,10 +19,10 @@ class AgentConfig:
     docker_image: str = "ubuntu:22.04"
     
     # LLM 配置
-    model_name: str = os.getenv("MODEL_NAME", "gpt-4o")
+    model_name: str = os.getenv("MODEL_NAME")
     temperature: float = 0.0
-    api_key: str = os.getenv("OPENAI_API_KEY", "")
-    base_url: str = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+    api_key: str = os.getenv("OPENAI_API_KEY")
+    base_url: str = os.getenv("OPENAI_BASE_URL")
     
     # 执行配置
     max_iterations: int = 50
