@@ -1,0 +1,22 @@
+{
+  "instance_id": "spring-projects__spring-security-18121",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "gradle -v",
+    "apt-get update && apt-get install -y gradle",
+    "gradle -v",
+    "./gradlew -v",
+    "./gradlew build",
+    "apt-get install -y openjdk-17-jdk",
+    "java -version",
+    "./gradlew build",
+    "cat /testbed/docs/build/tmp/api/javadoc.options",
+    "cat /testbed/test/src/main/java/org/springframework/security/test/web/reactive/server/SecurityMockServerConfigurers.java | head -n 60",
+    "grep -i \"author\" /testbed/test/src/main/java/org/springframework/security/test/web/reactive/server/SecurityMockServerConfigurers.java",
+    "./gradlew test"
+  ],
+  "test_commands": [],
+  "duration": 31,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,19 @@
+{
+  "instance_id": "facebook__folly-2432",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y python3 python3-pip cmake g++ git",
+    "apt-get install -y libboost-all-dev libgtest-dev libdouble-conversion-dev libevent-dev libssl-dev libfmt-dev libgflags-dev libgoogle-glog-dev liblz4-dev libzstd-dev libsnappy-dev libbz2-dev libdwarf-dev libiberty-dev libaio-dev liburing-dev",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "apt-get install -y linux-headers-generic liburing-dev",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build --extra-cmake-defines='-DFOLLY_HAVE_LIBURING=OFF'",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build --extra-cmake-defines='{\"FOLLY_HAVE_LIBURING\":\"OFF\"}'",
+    "apt-get remove -y liburing-dev && python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages test"
+  ],
+  "test_commands": [],
+  "duration": 50,
+  "completed": null,
+  "exception": "Launch failed"
+}

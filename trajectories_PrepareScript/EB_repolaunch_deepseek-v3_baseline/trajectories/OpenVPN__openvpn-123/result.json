@@ -1,0 +1,16 @@
+{
+  "instance_id": "OpenVPN__openvpn-123",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y build-essential cmake pkg-config libssl-dev liblzo2-dev libpam0g-dev libpkcs11-helper1-dev libcap-ng-dev libnl-genl-3-dev",
+    "mkdir build && cd build && cmake .. -DUNSUPPORTED_BUILDS=true -DBUILD_TESTING=ON && make -j$(nproc)",
+    "apt-get install -y python3 python3-dev",
+    "cmake .. -DUNSUPPORTED_BUILDS=true -DBUILD_TESTING=ON && make -j$(nproc)",
+    "apt-get install -y liblz4-dev liblzo2-dev libcmocka-dev",
+    "cmake .. -DUNSUPPORTED_BUILDS=true -DBUILD_TESTING=ON && make -j$(nproc)"
+  ],
+  "test_commands": [],
+  "duration": 12,
+  "completed": null,
+  "exception": "Launch failed"
+}

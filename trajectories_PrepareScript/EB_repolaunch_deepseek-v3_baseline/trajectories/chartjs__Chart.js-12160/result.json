@@ -1,0 +1,31 @@
+{
+  "instance_id": "chartjs__Chart.js-12160",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "cat package.json",
+    "npm install -g pnpm@8.13.0",
+    "apt-get update && apt-get install -y nodejs npm",
+    "apt-get update && apt-get install -y --fix-missing nodejs npm",
+    "npm install -g pnpm@8.13.0",
+    "curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs",
+    "apt-get install -y curl && apt-get remove -y nodejs && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs",
+    "apt-get remove -y nodejs libnode-dev && apt-get autoremove -y && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs",
+    "npm install -g pnpm@8.13.0 && pnpm install",
+    "cat package.json | jq .scripts",
+    "apt-get update && apt-get install -y jq",
+    "cat package.json | jq .scripts",
+    "pnpm install && pnpm test",
+    "apt-get install -y chromium-browser firefox",
+    "export CHROME_BIN=/usr/bin/chromium-browser && export FIREFOX_BIN=/usr/bin/firefox && pnpm test",
+    "apt-get install -y snapd && snap install chromium firefox",
+    "systemctl start snapd && snap install chromium firefox",
+    "apt-get install -y xvfb && xvfb-run --auto-servernum pnpm test",
+    "pnpm run test-unit",
+    "pnpm run build",
+    "pnpm run test-ci"
+  ],
+  "test_commands": [],
+  "duration": 39,
+  "completed": null,
+  "exception": "Launch failed"
+}

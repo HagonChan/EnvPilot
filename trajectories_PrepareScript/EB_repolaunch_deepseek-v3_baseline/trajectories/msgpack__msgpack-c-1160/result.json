@@ -1,0 +1,28 @@
+{
+  "instance_id": "msgpack__msgpack-c-1160",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y build-essential cmake clang valgrind g++-multilib lib32z1-dev",
+    "wget https://github.com/google/googletest/archive/v1.13.0.zip -O googletest-1.13.0.zip && unzip -q googletest-1.13.0.zip && cd googletest-1.13.0 && cmake -S . -DCMAKE_CXX_FLAGS=\"-m64\" --install-prefix=\"/testbed/usr\" && cmake --build . --verbose && cmake --install . --verbose && cd ..",
+    "apt-get install -y wget",
+    "wget https://github.com/google/googletest/archive/v1.13.0.zip -O googletest-1.13.0.zip && unzip -q googletest-1.13.0.zip && cd googletest-1.13.0 && cmake -S . -DCMAKE_CXX_FLAGS=\"-m64\" --install-prefix=\"/testbed/usr\" && cmake --build . --verbose && cmake --install . --verbose && cd ..",
+    "apt-get install -y unzip",
+    "wget https://github.com/google/googletest/archive/v1.13.0.zip -O googletest-1.13.0.zip && unzip -q googletest-1.13.0.zip && cd googletest-1.13.0 && cmake -S . -DCMAKE_CXX_FLAGS=\"-m64\" --install-prefix=\"/testbed/usr\" && cmake --build . --verbose && cmake --install . --verbose && cd ..",
+    "apt-get install -y lib32z1-dev && mkdir build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" .. && make VERBOSE=1 && ctest -VV",
+    "cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1 && ctest -VV",
+    "mkdir -p build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1 && ctest -VV",
+    "cd .. && rm -rf build && mkdir -p build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1 && ctest -VV",
+    "cd .. && rm -rf build && mkdir -p build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && ls -la && make VERBOSE=1",
+    "cd .. && rm -rf build && mkdir -p build && cd build && cmake .. && make",
+    "cd .. && rm -rf build && mkdir build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1",
+    "apt-get install -y libcjson-dev && cd .. && rm -rf build && mkdir build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1",
+    "cd .. && rm -rf build && mkdir build && cd build && cmake -DMSGPACK_BUILD_TESTS=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DMSGPACK_32BIT=OFF -DBUILD_SHARED_LIBS=ON -DMSGPACK_CHAR_SIGN=signed -DCMAKE_CXX_FLAGS=\"-m64\" -DCMAKE_C_FLAGS=\"-Werror -g -fsanitize=undefined -fno-sanitize-recover=all\" -DGTEST_ROOT=/testbed/usr .. && make VERBOSE=1",
+    "cd .. && rm -rf build && export CC=gcc && export CXX=g++ && export ACTION=\"ci/build_cmake.sh\" && export ARCH=\"64\" && export SHARED=\"ON\" && export SAN=\"-fsanitize=address -fno-omit-frame-pointer\" && export CHAR_SIGN=\"signed\" && bash ci/build_cmake.sh",
+    "cd /testbed && rm -rf build && export CC=gcc && export CXX=g++ && export ACTION=\"ci/build_cmake.sh\" && export ARCH=\"64\" && export SHARED=\"ON\" && export SAN=\"-fsanitize=address -fno-omit-frame-pointer\" && export CHAR_SIGN=\"signed\" && bash ci/build_cmake.sh",
+    "cd /testbed && rm -rf build && export CC=gcc && export CXX=g++ && export ACTION=\"ci/build_cmake.sh\" && export ARCH=\"64\" && export SHARED=\"ON\" && export SAN=\"-fsanitize=address -fno-omit-frame-pointer\" && export CHAR_SIGN=\"signed\" && export GTEST_ROOT=\"/testbed/usr\" && bash ci/build_cmake.sh"
+  ],
+  "test_commands": [],
+  "duration": 11,
+  "completed": null,
+  "exception": "Launch failed"
+}

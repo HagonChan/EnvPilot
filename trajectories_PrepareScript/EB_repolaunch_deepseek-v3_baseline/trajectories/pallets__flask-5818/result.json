@@ -1,0 +1,20 @@
+{
+  "instance_id": "pallets__flask-5818",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "python3 --version",
+    "apt-get update && apt-get install -y python3.10 python3-pip python3.10-venv",
+    "sed -i 's|http://archive.ubuntu.com|http://mirrors.edge.kernel.org/ubuntu|g' /etc/apt/sources.list && apt-get update && apt-get install -y python3.10 python3-pip python3.10-venv build-essential",
+    "python3 --version && pip install -e .",
+    "python -m pytest",
+    "python3 -m pytest",
+    "pip install pytest",
+    "python3 -m pytest",
+    "pip install -e \".[async]\"",
+    "python3 -m pytest"
+  ],
+  "test_commands": [],
+  "duration": 7,
+  "completed": null,
+  "exception": "Launch failed"
+}

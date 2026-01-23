@@ -1,0 +1,21 @@
+{
+  "instance_id": "microsoft__TypeScript-61376",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "node --version",
+    "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "node --version",
+    "apt-get remove -y nodejs && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "node --version && npm --version && npm ci",
+    "cat package.json | jq .scripts",
+    "apt-get install -y jq && cat package.json | jq .scripts",
+    "npm test",
+    "hereby runtests --tests=compiler",
+    "npx hereby runtests --tests=compiler"
+  ],
+  "test_commands": [],
+  "duration": 83,
+  "completed": null,
+  "exception": "Launch failed"
+}

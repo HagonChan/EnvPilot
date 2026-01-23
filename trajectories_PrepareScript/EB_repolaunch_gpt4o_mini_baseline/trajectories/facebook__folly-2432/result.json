@@ -1,0 +1,28 @@
+{
+  "instance_id": "facebook__folly-2432",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "cat README.md",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages install-system-deps",
+    "apt-get install -y python3 python3-pip",
+    "apt-get update",
+    "apt-get install -y python3 python3-pip",
+    "apt-get install -y --fix-missing python3 python3-pip",
+    "cat README.md",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages test",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "apt-get install -y libssl-dev",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "apt-get install -y m4",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build",
+    "free -h",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build -j 4",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build --num-jobs 4",
+    "python3 ./build/fbcode_builder/getdeps.py --allow-system-packages test",
+    "cat /testbed/folly/test/FileUtilTest.cpp"
+  ],
+  "test_commands": [],
+  "duration": 78,
+  "completed": null,
+  "exception": "Launch failed"
+}

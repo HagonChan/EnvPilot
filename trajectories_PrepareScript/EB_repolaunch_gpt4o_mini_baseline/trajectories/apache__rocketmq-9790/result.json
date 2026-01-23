@@ -1,0 +1,31 @@
+{
+  "instance_id": "apache__rocketmq-9790",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "mvn dependency:resolve",
+    "apt-get update && apt-get install -y maven",
+    "mvn dependency:resolve",
+    "mvn install",
+    "ls /testbed/store/target/surefire-reports",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.dledger.DLedgerCommitlogTest.xml",
+    "export JDK_JAVA_OPTIONS=\"--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED\"",
+    "mvn test",
+    "ls /testbed/store/target/surefire-reports",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.dledger.DLedgerCommitlogTest.xml",
+    "cat /testbed/store/src/test/java/org/apache/rocketmq/store/dledger/DLedgerCommitlogTest.java",
+    "mvn install",
+    "ls /testbed/store/target/surefire-reports",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.dledger.DLedgerCommitlogTest.xml",
+    "java -version",
+    "mvn test",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.dledger.DLedgerCommitlogTest.xml",
+    "export JDK_JAVA_OPTIONS=\"--add-opens java.base/jdk.internal.ref=ALL-UNNAMED\"",
+    "mvn test",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.DefaultMessageStoreCleanFilesTest.xml",
+    "mvn install -DskipTests"
+  ],
+  "test_commands": [],
+  "duration": 87,
+  "completed": null,
+  "exception": "Launch failed"
+}

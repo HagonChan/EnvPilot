@@ -1,0 +1,29 @@
+{
+  "instance_id": "apache__dubbo-15977",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "mvn --version",
+    "apt-get update && apt-get install -y maven openjdk-11-jdk",
+    "apt-get install -y maven openjdk-11-jdk --fix-missing",
+    "mvn --version",
+    "mvn dependency:resolve",
+    "mvn test",
+    "mvn -f pom.xml test",
+    "ls -l /testbed/pom.xml",
+    "mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false",
+    "cd my-app && cat pom.xml",
+    "cp /testbed/pom.xml /testbed/my-app/pom.xml",
+    "cp ../pom.xml pom.xml",
+    "ls -l /testbed",
+    "ls -l /testbed/my-app",
+    "mv pom.xml ../",
+    "mvn dependency:resolve",
+    "cd ..",
+    "mvn dependency:resolve",
+    "mvn test"
+  ],
+  "test_commands": [],
+  "duration": 13,
+  "completed": null,
+  "exception": "Launch failed"
+}

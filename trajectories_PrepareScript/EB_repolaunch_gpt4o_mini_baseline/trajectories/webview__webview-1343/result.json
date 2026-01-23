@@ -1,0 +1,19 @@
+{
+  "instance_id": "webview__webview-1343",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get install -y libgtk-4-dev libwebkitgtk-6.0-dev",
+    "apt-get update",
+    "apt-get install -y libgtk-4-dev libwebkitgtk-6.0-dev",
+    "cmake -G Ninja -B build -S . -D CMAKE_BUILD_TYPE=Release",
+    "apt-get install -y cmake ninja-build",
+    "cmake -G Ninja -B build -S . -D CMAKE_BUILD_TYPE=Release",
+    "cmake --build build",
+    "ctest --test-dir build",
+    "cat /testbed/build/Testing/Temporary/LastTest.log"
+  ],
+  "test_commands": [],
+  "duration": 40,
+  "completed": null,
+  "exception": "Launch failed"
+}

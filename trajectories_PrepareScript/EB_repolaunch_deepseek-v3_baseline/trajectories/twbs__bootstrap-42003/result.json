@@ -1,0 +1,27 @@
+{
+  "instance_id": "twbs__bootstrap-42003",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y nodejs npm",
+    "npm install",
+    "curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "apt-get remove -y libnode-dev && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "apt-get remove -y libnode-dev libnode72 && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "apt-get purge -y libnode-dev libnode72 && apt-get autoremove -y && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "rm -f /usr/share/systemtap/tapset/node.stp && apt-get purge -y libnode72 && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "apt-get purge -y nodejs libnode* && apt-get autoremove -y && rm -rf /usr/lib/node_modules /usr/share/systemtap/tapset/node.stp && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs",
+    "npm install && npm test",
+    "apt-get install -y chromium-browser",
+    "apt-get update && apt-get install -y chromium-browser",
+    "apt-get install -y firefox",
+    "npm test",
+    "apt-get install -y chromium-browser",
+    "sed -i 's/FirefoxHeadless/ChromeHeadless/g' js/tests/karma.conf.js && npm test",
+    "npm run lint && npm run dist && npm run docs-build && npm run docs-lint"
+  ],
+  "test_commands": [],
+  "duration": 31,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,30 @@
+{
+  "instance_id": "keras-team__keras-21966",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "python --version",
+    "apt-get update && apt-get install -y python3.11 python3-pip",
+    "apt-get update && apt-get install -y --fix-missing python3.11 python3-pip",
+    "update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && python --version",
+    "pip install -r requirements.txt",
+    "pip install \"jax[cpu]\"",
+    "pip install -e . && pytest keras",
+    "python -m pip install --upgrade pip && pip install -e .",
+    "pip install -e . --config-settings editable_mode=compat",
+    "echo \"from setuptools import setup; setup(name='keras', packages=['keras'])\" > setup.py && pip install -e .",
+    "pytest keras",
+    "pip install pytest && pytest keras",
+    "pip install optree && pytest keras",
+    "pip install \"tensorflow-cpu~=2.20.0\" && pytest keras",
+    "pip install -r requirements.txt && pytest keras",
+    "pip install \"jax[cpu]\" && pip install -r requirements.txt --ignore-installed && pytest keras",
+    "sed -i 's/jax\\[cpu\\]==0.8.1/jax\\[cpu\\]==0.6.2/' requirements.txt && pip install -r requirements.txt && pytest keras",
+    "sed -i 's/flax==0.12.2/flax==0.10.7/' requirements.txt && pip install -r requirements.txt && pytest keras",
+    "SKIP_APPLICATIONS_TESTS=True pytest keras",
+    "pytest keras/src/activations/activations_test.py -v"
+  ],
+  "test_commands": [],
+  "duration": 94,
+  "completed": null,
+  "exception": "Launch failed"
+}

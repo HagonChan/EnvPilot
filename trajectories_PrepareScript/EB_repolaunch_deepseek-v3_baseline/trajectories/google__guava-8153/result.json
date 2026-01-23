@@ -1,0 +1,26 @@
+{
+  "instance_id": "google__guava-8153",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-8-jdk maven",
+    "apt-get update && apt-get install -y --fix-missing openjdk-8-jdk maven",
+    "java -version && mvn --version",
+    "./mvnw --version",
+    "wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -O /tmp/maven.tar.gz && tar -xzf /tmp/maven.tar.gz -C /opt && ln -s /opt/apache-maven-3.9.6/bin/mvn /usr/local/bin/mvn",
+    "apt-get update && apt-get install -y wget",
+    "apt --fix-broken install -y",
+    "apt-get install -y wget",
+    "java -version && mvn --version",
+    "./mvnw clean install",
+    "apt-get install -y openjdk-8-jdk && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java && ./mvnw clean install",
+    "./mvnw clean install -Dmaven.compiler.release=8",
+    "apt-get install -y openjdk-8-jdk && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java && update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac && ./mvnw clean install -Dmaven.compiler.release=8",
+    "./mvnw clean install -Dmaven.compiler.release=8 -pl '!guava-testlib,!guava-tests'",
+    "apt-get install -y wget && wget https://download.oracle.com/java/8/archive/jdk-8u391-linux-x64.tar.gz -O /tmp/jdk8.tar.gz && mkdir -p /usr/lib/jvm && tar -xzf /tmp/jdk8.tar.gz -C /usr/lib/jvm && update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_391/bin/java 1 && update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.8.0_391/bin/javac 1 && update-alternatives --set java /usr/lib/jvm/jdk1.8.0_391/bin/java && update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_391/bin/javac && java -version && ./mvnw clean install -Dmaven.compiler.release=8",
+    "java -version && ./mvnw clean install -Dmaven.compiler.release=8 -DargLine=\"--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/sun.security.jca=ALL-UNNAMED\""
+  ],
+  "test_commands": [],
+  "duration": 41,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,17 @@
+{
+  "instance_id": "apache__flink-27388",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "apt-get update && apt-get install -y openjdk-17-jdk maven",
+    "java -version && mvn -version",
+    "apt-get install -y maven=3.8.6-1",
+    "mvn clean install -DskipTests",
+    "mvn test",
+    "cd flink-core && mvn test",
+    "mvn test -Denforcer.skip=true"
+  ],
+  "test_commands": [],
+  "duration": 22,
+  "completed": null,
+  "exception": "Launch failed"
+}

@@ -1,0 +1,28 @@
+{
+  "instance_id": "git__git-581",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "ls -l Makefile",
+    "apt-get update && apt-get install -y build-essential",
+    "make test",
+    "apt-get install -y libssl-dev",
+    "make test",
+    "apt-get install -y zlib1g-dev",
+    "make test",
+    "apt-get install -y libcurl4-openssl-dev",
+    "make test",
+    "apt-get install -y libexpat1-dev",
+    "make test",
+    "apt-get install -y gettext",
+    "make test",
+    "make NO_SVN=YesPlease test",
+    "make NO_SVN=YesPlease NO_PERL=YesPlease test",
+    "GIT_SKIP_TESTS=\"t9010-svn-fe.sh t9011-svn-da.sh t9020-remote-svn.sh\" make test",
+    "GIT_SKIP_TESTS=\"t9010-svn-fe.sh t9011-svn-da.sh t9020-remote-svn.sh t9135-svn-dump.sh\" make NO_SVN=YesPlease NO_PERL=YesPlease test",
+    "cd t && prove --state=slow,save -j2 $(ls t[0-9]*.sh | grep -v -e 't9010-svn-fe.sh' -e 't9011-svn-da.sh' -e 't9020-remote-svn.sh' -e 't9135-svn-dump.sh')"
+  ],
+  "test_commands": [],
+  "duration": 58,
+  "completed": null,
+  "exception": "Launch failed"
+}

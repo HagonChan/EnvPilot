@@ -1,0 +1,23 @@
+{
+  "instance_id": "denoland__deno-31792",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "cat rust-toolchain.toml",
+    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.92.0 --profile default --component rustfmt clippy",
+    "apt-get update && apt-get install -y curl",
+    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.92.0 --profile default --component rustfmt clippy",
+    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.92.0 --profile default --component rustfmt --component clippy",
+    "source \"$HOME/.cargo/env\"",
+    "cat Cargo.toml",
+    "apt-get install -y pkg-config libssl-dev python3 cmake",
+    "cargo build",
+    "apt-get install -y clang",
+    "cargo build",
+    "cargo test",
+    "cargo test --lib"
+  ],
+  "test_commands": [],
+  "duration": 81,
+  "completed": null,
+  "exception": "Launch failed"
+}

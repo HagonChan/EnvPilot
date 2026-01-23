@@ -1,0 +1,21 @@
+{
+  "instance_id": "pandas-dev__pandas-63610",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "python3 --version",
+    "apt-get update && apt-get install -y python3.11 python3.11-dev python3.11-venv",
+    "python3.11 -m venv venv && source venv/bin/activate && pip install -U pip setuptools wheel && pip install -r requirements-dev.txt && pip install -e .",
+    "apt-get install -y build-essential",
+    "source venv/bin/activate && pip install -e . && pytest",
+    "source venv/bin/activate && pip install . && pytest",
+    "apt-get install -y python3.11-full",
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y python3.11-full",
+    "ln -fs /usr/share/zoneinfo/UTC /etc/localtime && DEBIAN_FRONTEND=noninteractive apt-get install -y python3.11-full",
+    "source venv/bin/activate && pip install -e . && pytest",
+    "source venv/bin/activate && pytest -xvs pandas/tests/test_series.py"
+  ],
+  "test_commands": [],
+  "duration": 321,
+  "completed": null,
+  "exception": "Launch failed"
+}

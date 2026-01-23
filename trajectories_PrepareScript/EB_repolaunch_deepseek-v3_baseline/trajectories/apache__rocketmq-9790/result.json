@@ -1,0 +1,19 @@
+{
+  "instance_id": "apache__rocketmq-9790",
+  "base_image": "ubuntu:22.04",
+  "setup_commands": [
+    "cat pom.xml",
+    "apt-get update && apt-get install -y openjdk-8-jdk maven",
+    "mvn clean install -Dmaven.test.skip=true",
+    "mvn test",
+    "cat /testbed/store/target/surefire-reports/org.apache.rocketmq.store.DLedgerCommitlogTest.txt",
+    "ls -la /testbed/store/target/surefire-reports/",
+    "cat /testbed/store/target/surefire-reports/org.apache.rocketmq.store.dledger.DLedgerCommitlogTest.txt",
+    "mvn test -DargLine=\"--add-opens java.base/jdk.internal.ref=ALL-UNNAMED\"",
+    "cat /testbed/store/target/surefire-reports/TEST-org.apache.rocketmq.store.DefaultMessageStoreCleanFilesTest.xml"
+  ],
+  "test_commands": [],
+  "duration": 81,
+  "completed": null,
+  "exception": "Launch failed"
+}
