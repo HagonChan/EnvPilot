@@ -1,0 +1,11 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install required system packages but encountered an error: "E: Unable to correct problems, you have held broken packages." This indicates a failure in the environment setup phase before any tests could be run.
+
+2. The script never reached the test execution phase (pytest command) because the environment configuration failed at the package installation step. This means no tests were attempted or run.
+
+3. According to the success criteria, the environment configuration must complete both the build/installation phase and the test execution phase. In this case, the process failed during the initial setup, making it impossible to verify whether the test environment was properly configured.
+
+4. The error message indicates a system-level package management issue, which falls under "Environment/Runtime Errors" in the failure scenarios. This is considered unacceptable for a successful configuration.
+
+5. Since the test command was never executed and no test report was generated, this fails the "Golden Rule" of requiring a complete test lifecycle.

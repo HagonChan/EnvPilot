@@ -1,0 +1,8 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install Python 3.12.0 and succeeded in this step.
+2. The script then looked for either requirements.txt or setup.py to install dependencies, but neither file was found, causing the script to exit with status 1 (failure).
+3. Because the dependency installation failed, the test execution phase was never reached (the pytest command was never attempted).
+4. This meets the failure criteria of "Environment/Runtime Errors" as the process exited due to missing configuration files (requirements.txt or setup.py) that are necessary for proper environment setup.
+5. The test lifecycle was incomplete as it never reached the test execution phase, which violates the "Test Execution Phase (Mandatory)" requirement.
+6. No test report was generated, which violates the "Report Integrity" requirement.

@@ -1,0 +1,7 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install Python 3.12.0 and set it as the global version, which succeeded.
+2. The script then tried to install project dependencies using `pip install -e .`, but this failed with the error: "file:///data/project does not appear to be a Python project: neither 'setup.py' nor 'pyproject.toml' found." This indicates a critical environment configuration issue where the project's Python package structure is missing required files.
+3. Because the dependency installation failed, the subsequent test execution (which was conditional on pytest being available) was never attempted. The script exited with a non-zero status due to the pip installation error.
+4. The output shows no evidence of any tests being executed, and the process failed before reaching the test phase due to environment configuration issues.
+5. This meets the failure criteria of "Environment/Runtime Errors" and "No Tests Run" as defined in the evaluation guidelines. The environment was not properly configured to allow test execution to begin.

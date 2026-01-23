@@ -1,0 +1,14 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install Python 3.12.0 and set it as the global version, which succeeded.
+2. The script then tried to install project dependencies using `pip install -e .`, but this failed with the error: "ERROR: file:///data/project does not appear to be a Python project: neither 'setup.py' nor 'pyproject.toml' found."
+3. This is a critical environment configuration error because the project's dependencies could not be installed due to missing Python project configuration files.
+4. The script then attempted to run `yarn test`, but since the Python dependencies were not properly installed (as evidenced by the pip error), the test environment was not correctly configured.
+5. There is no evidence in the output that any tests were actually executed or that a test report was generated.
+6. The error message indicates a fundamental environment setup problem (missing project configuration files) rather than a test assertion failure.
+
+Based on the success criteria, this fails because:
+- The build/installation phase failed (pip install error)
+- There's no evidence that tests were executed
+- The environment was not properly configured due to missing project files
+- No test report was generated
