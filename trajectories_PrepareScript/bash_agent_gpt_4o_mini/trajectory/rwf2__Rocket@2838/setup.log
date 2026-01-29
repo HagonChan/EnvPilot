@@ -1,0 +1,2349 @@
+# Setup Log for rwf2/Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39
+# Issue/PR Number: 2838
+# Generated at: 2026-01-25T23:05:02.052139
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 212
+drwxr-xr-x 11 1000 1000   4096 Jan 25 14:43 .
+drwxr-xr-x  3 root root   4096 Jan 25 14:43 ..
+drwxr-xr-x  8 1000 1000   4096 Jan 25 14:43 .git
+-rw-r--r--  1 1000 1000    136 Jan 25 14:43 .gitattributes
+drwxr-xr-x  4 1000 1000   4096 Jan 25 14:43 .github
+-rw-r--r--  1 1000 1000    531 Jan 25 14:43 .gitignore
+-rw-r--r--  1 1000 1000     30 Jan 25 14:43 .rustfmt.toml
+-rw-r--r--  1 1000 1000 109613 Jan 25 14:43 CHANGELOG.md
+-rw-r--r--  1 1000 1000  19515 Jan 25 14:43 CONTRIBUTING.md
+-rw-r--r--  1 1000 1000    682 Jan 25 14:43 Cargo.toml
+-rw-r--r--  1 1000 1000  10834 Jan 25 14:43 LICENSE-APACHE
+-rw-r--r--  1 1000 1000   1080 Jan 25 14:43 LICENSE-MIT
+-rw-r--r--  1 1000 1000   4613 Jan 25 14:43 README.md
+drwxr-xr-x  4 1000 1000   4096 Jan 25 14:43 benchmarks
+drwxr-xr-x  6 1000 1000   4096 Jan 25 14:43 contrib
+drwxr-xr-x  5 1000 1000   4096 Jan 25 14:43 core
+drwxr-xr-x  4 1000 1000   4096 Jan 25 14:43 docs
+drwxr-xr-x 21 1000 1000   4096 Jan 25 14:43 examples
+drwxr-xr-x  2 1000 1000   4096 Jan 25 14:43 scripts
+drwxr-xr-x  3 1000 1000   4096 Jan 25 14:43 testbench
+----------------------------------------
+
+[Command 2]
+$ cat Cargo.toml
+Exit Code: 0
+Output:
+[workspace]
+resolver = "2"
+members = [
+  "core/lib/",
+  "core/codegen/",
+  "core/http/",
+  "contrib/db_pools/codegen/",
+  "contrib/db_pools/lib/",
+  "contrib/sync_db_pools/codegen/",
+  "contrib/sync_db_pools/lib/",
+  "contrib/dyn_templates/",
+  "contrib/ws/",
+  "docs/tests",
+]
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(nightly)'] }
+rust_2018_idioms = "warn"
+async_fn_in_trait = "allow"
+refining_impl_trait = "allow"
+# unreachable_pub = "warn"
+# single_use_lifetimes = "warn"
+# missing_docs = "warn"
+
+[workspace.lints.clippy]
+type_complexity = "allow"
+module_inception = "allow"
+multiple_bound_locations = "allow"
+manual_range_contains = "allow"
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y rustc cargo
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:5 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Fetched 43.8 MB in 1min 12s (612 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cargo-doc python3 cpp-doc gcc-11-locales gcc-multilib make
+  autoconf automake libtool flex bison gdb gcc-doc gcc-11-multilib gcc-11-doc
+  glibc-doc locales libgd-tools libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql man-browser llvm-17 lld-17 clang-17
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cargo cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto rustc ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 75 newly installed, 0 to remove and 2 not upgraded.
+Need to get 161 MB of archives.
+After this operation, 577 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libssh2-1 amd64 1.10.0-3 [109 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-1.75 amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [46.3 MB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+Ign:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-dev amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 rustc amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [3404 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 cargo amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [6700 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-dev amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [41.6 MB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 161 MB in 5min 43s (468 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../02-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../03-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../05-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../06-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../07-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../08-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../09-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../10-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../11-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../12-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../13-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../14-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../15-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../16-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../17-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../18-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../19-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../20-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../21-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../22-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../23-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../24-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../25-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../26-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../27-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../28-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../29-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../30-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../31-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../32-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../33-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../34-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../35-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../36-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../37-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../38-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../39-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../40-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../41-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../42-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../43-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../44-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../45-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../46-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../47-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../48-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../49-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../50-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../51-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../52-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../53-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../54-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../55-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../56-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../57-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../58-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../59-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../60-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../61-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../62-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../63-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../64-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../65-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../66-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../67-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../68-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../69-libssh2-1_1.10.0-3_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.10.0-3) ...
+Selecting previously unselected package libstd-rust-1.75:amd64.
+Preparing to unpack .../70-libstd-rust-1.75_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../71-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Selecting previously unselected package libstd-rust-dev:amd64.
+Preparing to unpack .../72-libstd-rust-dev_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package rustc.
+Preparing to unpack .../73-rustc_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package cargo.
+Preparing to unpack .../74-cargo_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libssh2-1:amd64 (1.10.0-3) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 4]
+$ cargo build
+Exit Code: 101
+Output:
+warning: /workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/Cargo.toml: unused manifest key: workspace.lints.rust.unexpected_cfgs.check-cfg
+    Updating crates.io index
+    Updating git repository `https://github.com/SergioBenitez/s2n-quic-h3.git`
+ Downloading crates ...
+  Downloaded aead v0.5.2
+  Downloaded block-buffer v0.10.4
+  Downloaded binascii v0.1.4
+  Downloaded asn1-rs-impl v0.2.0
+  Downloaded atoi v2.0.0
+  Downloaded async-stream-impl v0.3.6
+  Downloaded async-stream v0.3.6
+  Downloaded dunce v1.0.5
+  Downloaded crossbeam-queue v0.3.12
+  Downloaded globwalk v0.9.1
+  Downloaded devise v0.4.2
+  Downloaded chrono-tz-build v0.3.0
+  Downloaded generic-array v0.14.7
+  Downloaded crc-catalog v2.4.0
+  Downloaded futures-io v0.3.31
+  Downloaded asn1-rs-derive v0.5.1
+  Downloaded equivalent v1.0.2
+  Downloaded deadpool-runtime v0.1.4
+  Downloaded futures-core v0.3.31
+  Downloaded heck v0.5.0
+  Downloaded futures-sink v0.3.31
+  Downloaded fastrand v2.3.0
+  Downloaded atomic-waker v1.1.2
+  Downloaded crypto-common v0.1.7
+  Downloaded cfg-if v1.0.4
+  Downloaded ghash v0.5.1
+  Downloaded errno v0.3.14
+  Downloaded devise_codegen v0.4.2
+  Downloaded futures-task v0.3.31
+  Downloaded futures-macro v0.3.31
+  Downloaded cuckoofilter v0.5.0
+  Downloaded form_urlencoded v1.2.2
+  Downloaded universal-hash v0.5.1
+  Downloaded phf_shared v0.11.3
+  Downloaded proc-macro2-diagnostics v0.10.1
+  Downloaded rand_chacha v0.2.2
+  Downloaded rand_chacha v0.3.1
+  Downloaded scopeguard v1.2.0
+  Downloaded serde_spanned v0.6.9
+  Downloaded crc v3.4.0
+  Downloaded bitflags v1.3.2
+  Downloaded autocfg v1.5.0
+  Downloaded byteorder v1.5.0
+  Downloaded futures-executor v0.3.31
+  Downloaded either v1.15.0
+  Downloaded digest v0.10.7
+  Downloaded data-encoding v2.10.0
+  Downloaded displaydoc v0.2.5
+  Downloaded deadpool-postgres v0.14.1
+  Downloaded find-msvc-tools v0.1.8
+  Downloaded fnv v1.0.7
+  Downloaded fallible-iterator v0.2.0
+  Downloaded dotenvy v0.15.7
+  Downloaded cmake v0.1.57
+  Downloaded hash_hasher v2.0.4
+  Downloaded ctr v0.9.2
+  Downloaded glob v0.3.3
+  Downloaded cpufeatures v0.2.17
+  Downloaded foldhash v0.2.0
+  Downloaded cipher v0.4.4
+  Downloaded devise_core v0.4.2
+  Downloaded getrandom v0.1.16
+  Downloaded fs_extra v1.3.0
+  Downloaded futures-channel v0.3.31
+  Downloaded async-trait v0.1.89
+  Downloaded hashlink v0.9.1
+  Downloaded crossbeam-deque v0.8.6
+  Downloaded filetime v0.2.27
+  Downloaded rand_chacha v0.9.0
+  Downloaded postgres-protocol v0.6.10
+  Downloaded signal-hook-registry v1.4.8
+  Downloaded s2n-quic-crypto v0.72.0
+  Downloaded untrusted v0.9.0
+  Downloaded pin-utils v0.1.0
+  Downloaded serde_urlencoded v0.7.1
+  Downloaded bitflags v2.10.0
+  Downloaded deranged v0.5.5
+  Downloaded crossbeam-epoch v0.9.18
+  Downloaded getrandom v0.2.17
+  Downloaded event-listener v5.4.1
+  Downloaded crossbeam-utils v0.8.21
+  Downloaded concurrent-queue v2.5.0
+  Downloaded globset v0.4.18
+error: failed to download replaced source registry `crates-io`
+
+Caused by:
+  failed to parse manifest at `/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/globset-0.4.18/Cargo.toml`
+
+Caused by:
+  feature `edition2024` is required
+
+  The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.75.0).
+  Consider trying a more recent nightly release.
+  See https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#edition-2024 for more information about the status of this feature.
+----------------------------------------
+
+[Command 5]
+$ cargo +nightly build
+Exit Code: 101
+Output:
+error: no such command: `+nightly`
+
+	Cargo does not handle `+toolchain` directives.
+	Did you mean to invoke `cargo` through `rustup` instead?
+----------------------------------------
+
+[Command 6]
+$ rustup install nightly
+Exit Code: 127
+Output:
+/bin/bash: line 21: rustup: command not found
+----------------------------------------
+
+[Command 7]
+$ apt-get install -y rustup
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package rustup
+----------------------------------------
+
+[Command 8]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+Exit Code: 0
+Output:
+/bin/bash: line 29: curl: command not found
+----------------------------------------
+
+[Command 9]
+$ apt-get install -y curl
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcurl4
+The following NEW packages will be installed:
+  curl libcurl4
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 484 kB of archives.
+After this operation, 1262 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 curl amd64 7.81.0-1ubuntu1.21 [194 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 484 kB in 12s (41.6 kB/s)
+Selecting previously unselected package libcurl4:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 10400 files and directories currently installed.)
+Preparing to unpack .../libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../curl_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking curl (7.81.0-1ubuntu1.21) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up curl (7.81.0-1ubuntu1.21) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 10]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+Exit Code: 1
+Output:
+info: downloading installer
+error: Unable to run interactively. Run with -y to accept defaults, --help for additional options
+----------------------------------------
+
+[Command 11]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+Exit Code: 0
+Output:
+info: downloading installer
+warn: It looks like you have an existing installation of Rust at:
+warn: /usr/bin
+warn: It is recommended that rustup be the primary Rust installation.
+warn: Otherwise you may have confusion unless you are careful with your PATH.
+warn: If you are sure that you want both rustup and your already installed Rust
+warn: then please reply `y' or `yes' or set RUSTUP_INIT_SKIP_PATH_CHECK to yes
+warn: or pass `-y' to ignore all ignorable checks.
+error: cannot install while Rust is installed
+warn: continuing (because the -y flag is set and the error is ignorable)
+info: profile set to 'default'
+info: default host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+info: latest update on 2026-01-22, rust version 1.93.0 (254b59607 2026-01-19)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
+info: downloading component 'rustc'
+info: downloading component 'rustfmt'
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+info: installing component 'rust-std'
+info: installing component 'rustc'
+info: installing component 'rustfmt'
+
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.93.0 (254b59607 2026-01-19)
+
+
+Rust is installed now. Great!
+
+To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include
+Cargo's bin directory ($HOME/.cargo/bin).
+
+To configure your current shell, you need to source
+the corresponding env file under $HOME/.cargo.
+
+This is usually done by running one of the following (note the leading DOT):
+. "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
+source "$HOME/.cargo/env.fish"  # For fish
+source $"($nu.home-path)/.cargo/env.nu"  # For nushell
+----------------------------------------
+
+[Command 12]
+$ source $HOME/.cargo/env
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 13]
+$ cargo +nightly build
+Exit Code: 0
+Output:
+info: syncing channel updates for 'nightly-x86_64-unknown-linux-gnu'
+info: latest update on 2026-01-25, rust version 1.95.0-nightly (f134bbc78 2026-01-24)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
+info: downloading component 'rustc'
+info: downloading component 'rustfmt'
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+info: installing component 'rust-std'
+info: installing component 'rustc'
+info: installing component 'rustfmt'
+    Updating crates.io index
+    Updating git repository `https://github.com/SergioBenitez/s2n-quic-h3.git`
+ Downloading crates ...
+  Downloaded asn1-rs-impl v0.2.0
+  Downloaded crypto-common v0.1.7
+  Downloaded deadpool-runtime v0.1.4
+  Downloaded binascii v0.1.4
+  Downloaded cpufeatures v0.2.17
+  Downloaded devise_codegen v0.4.2
+  Downloaded futures-core v0.3.31
+  Downloaded fastrand v2.3.0
+  Downloaded futures-macro v0.3.31
+  Downloaded asn1-rs-derive v0.5.1
+  Downloaded block-buffer v0.10.4
+  Downloaded cuckoofilter v0.5.0
+  Downloaded crc v3.4.0
+  Downloaded devise v0.4.2
+  Downloaded aead v0.5.2
+  Downloaded async-stream v0.3.6
+  Downloaded globwalk v0.9.1
+  Downloaded crossbeam-queue v0.3.12
+  Downloaded generic-array v0.14.7
+  Downloaded equivalent v1.0.2
+  Downloaded heck v0.5.0
+  Downloaded futures-task v0.3.31
+  Downloaded fnv v1.0.7
+  Downloaded atomic-waker v1.1.2
+  Downloaded async-stream-impl v0.3.6
+  Downloaded ghash v0.5.1
+  Downloaded futures-sink v0.3.31
+  Downloaded errno v0.3.14
+  Downloaded cfg-if v1.0.4
+  Downloaded dunce v1.0.5
+  Downloaded form_urlencoded v1.2.2
+  Downloaded chrono-tz-build v0.3.0
+  Downloaded atoi v2.0.0
+  Downloaded hex-literal v0.4.1
+  Downloaded http-body v1.0.1
+  Downloaded deadpool-postgres v0.14.1
+  Downloaded ctr v0.9.2
+  Downloaded crc-catalog v2.4.0
+  Downloaded filetime v0.2.27
+  Downloaded digest v0.10.7
+  Downloaded cipher v0.4.4
+  Downloaded async-trait v0.1.89
+  Downloaded foldhash v0.2.0
+  Downloaded crossbeam-deque v0.8.6
+  Downloaded humansize v2.1.3
+  Downloaded httpdate v1.0.3
+  Downloaded hashlink v0.9.1
+  Downloaded deranged v0.5.5
+  Downloaded displaydoc v0.2.5
+  Downloaded globset v0.4.18
+  Downloaded either v1.15.0
+  Downloaded bitflags v1.3.2
+  Downloaded fallible-iterator v0.2.0
+  Downloaded dotenvy v0.15.7
+  Downloaded futures-io v0.3.31
+  Downloaded getrandom v0.1.16
+  Downloaded futures-channel v0.3.31
+  Downloaded devise_core v0.4.2
+  Downloaded data-encoding v2.10.0
+  Downloaded cmake v0.1.57
+  Downloaded hash_hasher v2.0.4
+  Downloaded byteorder v1.5.0
+  Downloaded glob v0.3.3
+  Downloaded futures-executor v0.3.31
+  Downloaded fs_extra v1.3.0
+  Downloaded cookie v0.18.1
+  Downloaded crossbeam-epoch v0.9.18
+  Downloaded concurrent-queue v2.5.0
+  Downloaded autocfg v1.5.0
+  Downloaded bitflags v2.10.0
+  Downloaded find-msvc-tools v0.1.8
+  Downloaded crossbeam-utils v0.8.21
+  Downloaded getrandom v0.3.4
+  Downloaded der-parser v9.0.0
+  Downloaded getrandom v0.2.17
+  Downloaded hmac v0.12.1
+  Downloaded httparse v1.10.1
+  Downloaded iana-time-zone v0.1.64
+  Downloaded deadpool v0.12.3
+  Downloaded event-listener v5.4.1
+  Downloaded ahash v0.8.12
+  Downloaded allocator-api2 v0.2.21
+  Downloaded idna_adapter v1.2.1
+  Downloaded inout v0.1.4
+  Downloaded itoa v1.0.17
+  Downloaded is-terminal v0.4.17
+  Downloaded lazy_static v1.5.0
+  Downloaded flume v0.11.1
+  Downloaded futures v0.3.31
+  Downloaded inotify-sys v0.1.5
+  Downloaded hex v0.4.3
+  Downloaded bytes v1.11.0
+  Downloaded base64 v0.22.1
+  Downloaded inotify v0.9.6
+  Downloaded inlinable_string v0.1.15
+  Downloaded asn1-rs v0.6.2
+  Downloaded matchers v0.2.0
+  Downloaded memoffset v0.9.1
+  Downloaded md-5 v0.10.6
+  Downloaded jobserver v0.1.34
+  Downloaded scopeguard v1.2.0
+  Downloaded ref-cast v1.0.25
+  Downloaded mime v0.3.17
+  Downloaded ref-cast-impl v1.0.25
+  Downloaded rand_chacha v0.2.2
+  Downloaded ref-swap v0.1.2
+  Downloaded figment v0.10.19
+  Downloaded cc v1.2.54
+  Downloaded base64 v0.21.7
+  Downloaded icu_locale_core v2.1.1
+  Downloaded crossbeam-channel v0.5.15
+  Downloaded h3 v0.0.6
+  Downloaded icu_provider v2.1.1
+  Downloaded futures-intrusive v0.5.0
+  Downloaded parking v2.2.1
+  Downloaded percent-encoding v2.3.2
+  Downloaded icu_collections v2.1.1
+  Downloaded icu_normalizer v2.1.1
+  Downloaded lock_api v0.4.14
+  Downloaded icu_properties v2.1.2
+  Downloaded sqlx-macros v0.8.0
+  Downloaded stable_deref_trait v1.2.1
+  Downloaded same-file v1.0.6
+  Downloaded scheduled-thread-pool v0.2.7
+  Downloaded icu_normalizer_data v2.1.1
+  Downloaded num-conv v0.2.0
+  Downloaded proc-macro2-diagnostics v0.10.1
+  Downloaded serde_urlencoded v0.7.1
+  Downloaded subtle v2.6.1
+  Downloaded siphasher v1.0.1
+  Downloaded num_cpus v1.17.0
+  Downloaded opaque-debug v0.3.1
+  Downloaded oid-registry v0.7.1
+  Downloaded time-core v0.1.8
+  Downloaded pear_codegen v0.2.9
+  Downloaded powerfmt v0.2.0
+  Downloaded rusticata-macros v4.1.0
+  Downloaded slug v0.1.6
+  Downloaded potential_utf v0.1.4
+  Downloaded sha1 v0.10.6
+  Downloaded ignore v0.4.25
+  Downloaded tinyvec_macros v0.1.1
+  Downloaded phf_generator v0.11.3
+  Downloaded phf_codegen v0.11.3
+  Downloaded phf_shared v0.11.3
+  Downloaded intrusive-collections v0.9.7
+  Downloaded litemap v0.8.1
+  Downloaded multer v3.1.0
+  Downloaded normpath v1.5.0
+  Downloaded nu-ansi-term v0.50.3
+  Downloaded num-rational v0.4.2
+  Downloaded num-integer v0.1.46
+  Downloaded paste v1.0.15
+  Downloaded polyval v0.6.2
+  Downloaded unicode-xid v0.2.6
+  Downloaded untrusted v0.7.1
+  Downloaded untrusted v0.9.0
+  Downloaded zerofrom v0.1.6
+  Downloaded rand_chacha v0.3.1
+  Downloaded rand_core v0.5.1
+  Downloaded aes v0.8.4
+  Downloaded r2d2 v0.8.10
+  Downloaded rand_core v0.6.4
+  Downloaded rand_core v0.9.5
+  Downloaded slab v0.4.11
+  Downloaded phf v0.13.1
+  Downloaded thiserror-impl v1.0.69
+  Downloaded pest_generator v2.8.5
+  Downloaded thiserror v1.0.69
+  Downloaded s2n-quic-rustls v0.72.0
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded pin-utils v0.1.0
+  Downloaded stable-pattern v0.1.0
+  Downloaded serde_spanned v0.6.9
+  Downloaded parking_lot v0.12.5
+  Downloaded http v1.4.0
+  Downloaded quote v1.0.44
+  Downloaded hyper-util v0.1.19
+  Downloaded s2n-quic-crypto v0.72.0
+  Downloaded thread_local v1.1.9
+  Downloaded log v0.4.29
+  Downloaded tokio-macros v2.6.0
+  Downloaded pear v0.2.9
+  Downloaded parking_lot_core v0.9.12
+  Downloaded once_cell v1.21.3
+  Downloaded notify v6.1.1
+  Downloaded phf_shared v0.13.1
+  Downloaded state v0.6.0
+  Downloaded toml_write v0.1.2
+  Downloaded synstructure v0.13.2
+  Downloaded s2n-codec v0.72.0
+  Downloaded tinystr v0.8.2
+  Downloaded stringprep v0.1.5
+  Downloaded sha2 v0.10.9
+  Downloaded postgres-protocol v0.6.10
+  Downloaded rand_chacha v0.9.0
+  Downloaded sqlx-macros-core v0.8.0
+  Downloaded sqlformat v0.2.6
+  Downloaded toml_datetime v0.6.11
+  Downloaded rustls-pemfile v2.2.0
+  Downloaded rustls-pemfile v1.0.4
+  Downloaded time-macros v0.2.26
+  Downloaded shlex v1.3.0
+  Downloaded pkg-config v0.3.32
+  Downloaded pest_derive v2.8.5
+  Downloaded phf v0.11.3
+  Downloaded pest_meta v2.8.5
+  Downloaded zeroize_derive v1.4.3
+  Downloaded ubyte v0.10.4
+  Downloaded s2n-codec v0.44.1
+  Downloaded num-traits v0.2.19
+  Downloaded tempfile v3.24.0
+  Downloaded uncased v0.9.10
+  Downloaded tracing-log v0.2.0
+  Downloaded aes-gcm v0.10.3
+  Downloaded signal-hook-registry v1.4.8
+  Downloaded rustls-pki-types v1.14.0
+  Downloaded rmp-serde v1.3.1
+  Downloaded rmp v0.8.15
+  Downloaded tokio-rustls v0.26.4
+  Downloaded sct v0.7.1
+  Downloaded postgres-types v0.2.12
+  Downloaded tokio-tungstenite v0.23.1
+  Downloaded smallvec v1.15.1
+  Downloaded tokio-stream v0.1.18
+  Downloaded universal-hash v0.5.1
+  Downloaded spin v0.9.8
+  Downloaded pin-project-lite v0.2.16
+  Downloaded zerovec-derive v0.11.2
+  Downloaded zerocopy-derive v0.7.35
+  Downloaded utf-8 v0.7.6
+  Downloaded utf8_iter v1.0.4
+  Downloaded sharded-slab v0.1.7
+  Downloaded version_check v0.9.5
+  Downloaded tinyvec v1.10.0
+  Downloaded yoke-derive v0.8.1
+  Downloaded serde_core v1.0.228
+  Downloaded serde_derive v1.0.228
+  Downloaded s2n-quic v1.72.0
+  Downloaded futures-util v0.3.31
+  Downloaded socket2 v0.6.2
+  Downloaded ryu v1.0.22
+  Downloaded indexmap v2.13.0
+  Downloaded tracing-attributes v0.1.31
+  Downloaded toml v0.8.23
+  Downloaded hashbrown v0.16.1
+  Downloaded zerofrom-derive v0.1.6
+  Downloaded hyper v1.8.1
+  Downloaded memchr v2.7.6
+  Downloaded proc-macro2 v1.0.106
+  Downloaded minimal-lexical v0.2.1
+  Downloaded parse-zoneinfo v0.3.1
+  Downloaded walkdir v2.5.0
+  Downloaded whoami v2.0.2
+  Downloaded writeable v0.6.2
+  Downloaded mio v0.8.11
+  Downloaded unicode-properties v0.1.4
+  Downloaded tracing-core v0.1.36
+  Downloaded deunicode v1.6.2
+  Downloaded aho-corasick v1.1.4
+  Downloaded yoke v0.8.1
+  Downloaded tungstenite v0.23.0
+  Downloaded hkdf v0.12.4
+  Downloaded idna v1.1.0
+  Downloaded zerotrie v0.2.3
+  Downloaded serde v1.0.228
+  Downloaded s2n-quic-platform v0.72.0
+  Downloaded rand v0.8.5
+  Downloaded sqlx-sqlite v0.8.0
+  Downloaded zmij v1.0.16
+  Downloaded zeroize v1.8.2
+  Downloaded num-bigint v0.4.6
+  Downloaded icu_properties_data v2.1.2
+  Downloaded unicode-ident v1.0.22
+  Downloaded mio v1.1.1
+  Downloaded rustls-webpki v0.103.9
+  Downloaded hashbrown v0.14.5
+  Downloaded h2 v0.4.13
+  Downloaded unicode-bidi v0.3.18
+  Downloaded unicode_categories v0.1.1
+  Downloaded url v2.5.8
+  Downloaded rand v0.7.3
+  Downloaded tokio-postgres v0.7.16
+  Downloaded rand v0.9.2
+  Downloaded typenum v1.19.0
+  Downloaded nom v7.1.3
+  Downloaded ucd-trie v0.1.7
+  Downloaded zerocopy-derive v0.8.33
+  Downloaded tera v1.20.1
+  Downloaded sqlx-core v0.8.0
+  Downloaded pest v2.8.5
+  Downloaded toml_edit v0.22.27
+  Downloaded libm v0.2.16
+  Downloaded aws-lc-rs v1.15.4
+  Downloaded yansi v1.0.1
+  Downloaded tokio-util v0.7.18
+  Downloaded sqlx v0.8.0
+  Downloaded x509-parser v0.16.0
+  Downloaded regex v1.12.2
+  Downloaded zerovec v0.11.5
+  Downloaded unicode-segmentation v1.12.0
+  Downloaded serde_json v1.0.149
+  Downloaded unicode-normalization v0.1.25
+  Downloaded chrono v0.4.43
+  Downloaded rustls-webpki v0.101.7
+  Downloaded time v0.3.46
+  Downloaded zerocopy v0.7.35
+  Downloaded winnow v0.7.14
+  Downloaded tracing-subscriber v0.3.22
+  Downloaded bstr v1.12.1
+  Downloaded chrono-tz v0.9.0
+  Downloaded vcpkg v0.2.15
+  Downloaded webpki-roots v0.25.4
+  Downloaded rustls v0.21.12
+  Downloaded zerocopy v0.8.33
+  Downloaded syn v2.0.114
+  Downloaded s2n-quic-transport v0.72.0
+  Downloaded regex-syntax v0.8.8
+  Downloaded tracing v0.1.44
+  Downloaded rustls v0.23.36
+  Downloaded rustix v1.1.3
+  Downloaded s2n-quic-core v0.44.1
+  Downloaded s2n-quic-core v0.72.0
+  Downloaded regex-automata v0.4.13
+  Downloaded libc v0.2.180
+  Downloaded tokio v1.49.0
+  Downloaded ring v0.17.14
+  Downloaded encoding_rs v0.8.35
+  Downloaded linux-raw-sys v0.11.0
+  Downloaded libsqlite3-sys v0.28.0
+  Downloaded aws-lc-sys v0.37.0
+   Compiling version_check v0.9.5
+   Compiling libc v0.2.180
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.44
+   Compiling unicode-ident v1.0.22
+   Compiling cfg-if v1.0.4
+   Compiling typenum v1.19.0
+   Compiling serde_core v1.0.228
+   Compiling itoa v1.0.17
+   Compiling parking_lot_core v0.9.12
+   Compiling scopeguard v1.2.0
+   Compiling subtle v2.6.1
+   Compiling yansi v1.0.1
+   Compiling smallvec v1.15.1
+   Compiling pin-project-lite v0.2.16
+   Compiling futures-core v0.3.31
+   Compiling hashbrown v0.16.1
+   Compiling equivalent v1.0.2
+   Compiling bytes v1.11.0
+   Compiling serde v1.0.228
+   Compiling lock_api v0.4.14
+   Compiling cpufeatures v0.2.17
+   Compiling futures-sink v0.3.31
+   Compiling zerocopy v0.8.33
+   Compiling memchr v2.7.6
+   Compiling once_cell v1.21.3
+   Compiling log v0.4.29
+   Compiling powerfmt v0.2.0
+   Compiling httparse v1.10.1
+   Compiling slab v0.4.11
+   Compiling time-core v0.1.8
+   Compiling generic-array v0.14.7
+   Compiling proc-macro2-diagnostics v0.10.1
+   Compiling num-conv v0.2.0
+   Compiling tracing-core v0.1.36
+   Compiling deranged v0.5.5
+   Compiling futures-channel v0.3.31
+   Compiling inlinable_string v0.1.15
+   Compiling bitflags v2.10.0
+   Compiling pin-utils v0.1.0
+   Compiling ref-cast v1.0.25
+   Compiling percent-encoding v2.3.2
+   Compiling time-macros v0.2.26
+   Compiling opaque-debug v0.3.1
+   Compiling uncased v0.9.10
+   Compiling cookie v0.18.1
+   Compiling futures-io v0.3.31
+   Compiling tinyvec_macros v0.1.1
+   Compiling futures-task v0.3.31
+   Compiling tinyvec v1.10.0
+   Compiling http v1.4.0
+   Compiling stable-pattern v0.1.0
+   Compiling state v0.6.0
+   Compiling getrandom v0.3.4
+   Compiling fnv v1.0.7
+   Compiling futures-util v0.3.31
+   Compiling toml_write v0.1.2
+   Compiling either v1.15.0
+   Compiling rustix v1.1.3
+   Compiling winnow v0.7.14
+   Compiling atomic-waker v1.1.2
+   Compiling indexmap v2.13.0
+   Compiling figment v0.10.19
+   Compiling multer v3.1.0
+   Compiling httpdate v1.0.3
+   Compiling lazy_static v1.5.0
+   Compiling linux-raw-sys v0.11.0
+   Compiling base64 v0.22.1
+   Compiling syn v2.0.114
+   Compiling sharded-slab v0.1.7
+   Compiling tracing-log v0.2.0
+   Compiling rocket v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/lib)
+   Compiling thread_local v1.1.9
+   Compiling encoding_rs v0.8.35
+   Compiling glob v0.3.3
+   Compiling unicode-xid v0.2.6
+   Compiling spin v0.9.8
+   Compiling mime v0.3.17
+   Compiling fastrand v2.3.0
+   Compiling ref-swap v0.1.2
+   Compiling binascii v0.1.4
+   Compiling crossbeam-utils v0.8.21
+   Compiling getrandom v0.2.17
+   Compiling errno v0.3.14
+   Compiling mio v1.1.1
+   Compiling block-buffer v0.10.4
+   Compiling socket2 v0.6.2
+   Compiling signal-hook-registry v1.4.8
+   Compiling rand_core v0.6.4
+   Compiling inout v0.1.4
+   Compiling is-terminal v0.4.17
+   Compiling time v0.3.46
+   Compiling http-body v1.0.1
+   Compiling parking_lot v0.12.5
+   Compiling num_cpus v1.17.0
+   Compiling thiserror v1.0.69
+   Compiling inotify-sys v0.1.5
+   Compiling crypto-common v0.1.7
+   Compiling data-encoding v2.10.0
+   Compiling byteorder v1.5.0
+   Compiling tracing-subscriber v0.3.22
+   Compiling digest v0.10.7
+   Compiling universal-hash v0.5.1
+   Compiling cipher v0.4.4
+   Compiling aead v0.5.2
+   Compiling polyval v0.6.2
+   Compiling bitflags v1.3.2
+   Compiling hmac v0.12.1
+   Compiling sha2 v0.10.9
+   Compiling ctr v0.9.2
+   Compiling aes v0.8.4
+   Compiling sha1 v0.10.6
+   Compiling utf-8 v0.7.6
+   Compiling same-file v1.0.6
+   Compiling inotify v0.9.6
+   Compiling ppv-lite86 v0.2.21
+   Compiling ghash v0.5.1
+   Compiling hkdf v0.12.4
+   Compiling crossbeam-channel v0.5.15
+   Compiling walkdir v2.5.0
+   Compiling scheduled-thread-pool v0.2.7
+   Compiling mio v0.8.11
+   Compiling filetime v0.2.27
+   Compiling rocket_sync_db_pools v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/sync_db_pools/lib)
+   Compiling normpath v1.5.0
+   Compiling rand_chacha v0.3.1
+   Compiling r2d2 v0.8.10
+   Compiling aes-gcm v0.10.3
+   Compiling notify v6.1.1
+   Compiling rand v0.8.5
+   Compiling tempfile v3.24.0
+   Compiling futures v0.3.31
+   Compiling devise_core v0.4.2
+   Compiling serde_derive v1.0.228
+   Compiling tokio-macros v2.6.0
+   Compiling pear_codegen v0.2.9
+   Compiling tracing-attributes v0.1.31
+   Compiling ref-cast-impl v1.0.25
+   Compiling async-stream-impl v0.3.6
+   Compiling async-trait v0.1.89
+   Compiling thiserror-impl v1.0.69
+   Compiling async-stream v0.3.6
+   Compiling devise_codegen v0.4.2
+   Compiling tokio v1.49.0
+   Compiling pear v0.2.9
+   Compiling devise v0.4.2
+   Compiling rocket_db_pools_codegen v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/db_pools/codegen)
+   Compiling rocket_sync_db_pools_codegen v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/sync_db_pools/codegen)
+   Compiling tracing v0.1.44
+   Compiling tungstenite v0.23.0
+   Compiling rocket_http v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/http)
+warning: eliding a lifetime that's named elsewhere is confusing
+  --> core/http/src/uri/uri.rs:82:63
+   |
+82 |     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'_>>
+   |                              --                    --         ^^ the same lifetime is elided here
+   |                              |                     |
+   |                              |                     the same lifetime is named here
+   |                              the lifetime is named here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: consistently use `'a`
+   |
+82 -     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'_>>
+82 +     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'a>>
+   |
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/http/src/uri/uri.rs:130:64
+    |
+130 |     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'_>> {
+    |                               --                    --         ^^ the same lifetime is elided here
+    |                               |                     |
+    |                               |                     the same lifetime is named here
+    |                               the lifetime is named here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: consistently use `'a`
+    |
+130 -     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'_>> {
+130 +     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'a>> {
+    |
+
+   Compiling toml_datetime v0.6.11
+   Compiling serde_spanned v0.6.9
+   Compiling ubyte v0.10.4
+   Compiling toml_edit v0.22.27
+warning: `rocket_http` (lib) generated 2 warnings (run `cargo fix --lib -p rocket_http` to apply 2 suggestions)
+   Compiling rocket_codegen v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/codegen)
+   Compiling toml v0.8.23
+   Compiling tokio-util v0.7.18
+   Compiling tokio-stream v0.1.18
+   Compiling tokio-tungstenite v0.23.1
+warning: `rocket_http` (lib) generated 2 warnings (2 duplicates)
+   Compiling h2 v0.4.13
+   Compiling hyper v1.8.1
+   Compiling hyper-util v0.1.19
+warning: unexpected `cfg` condition name: `rust_analyzer`
+  --> core/lib/src/listener/listener.rs:13:5
+   |
+13 |     #[crate::async_bound(Send)]
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, `nightly`, and `test` and 31 more
+   = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+   = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: requested on the command line with `-W unexpected-cfgs`
+   = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition name: `rust_analyzer`
+  --> core/lib/src/listener/listener.rs:16:5
+   |
+16 |     #[crate::async_bound(Send)]
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+   = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition name: `rust_analyzer`
+ --> core/lib/src/listener/bind.rs:9:5
+  |
+9 |     #[crate::async_bound(Send)]
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+  = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: use of deprecated method `tokio::net::TcpStream::set_linger`: `SO_LINGER` causes the socket to block the thread on drop
+  --> core/lib/src/listener/tcp.rs:59:22
+   |
+59 |         let _ = conn.set_linger(None);
+   |                      ^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/lib/src/form/context.rs:222:75
+    |
+222 |     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+    |                                 --                                        ^^^^^^^^^^    ^^ the same lifetime is elided here
+    |                                 |                                         |
+    |                                 the lifetime is named here                the same lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: consistently use `'a`
+    |
+222 -     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+222 +     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &'a Error<'v>> + 'a
+    |
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/lib/src/form/context.rs:270:81
+    |
+270 |     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+    |                                       --                                        ^^^^^^^^^^    ^^ the same lifetime is elided here
+    |                                       |                                         |
+    |                                       the lifetime is named here                the same lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: consistently use `'a`
+    |
+270 -     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+270 +     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &'a Error<'v>> + 'a
+    |
+
+   Compiling rocket_dyn_templates v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/dyn_templates)
+   Compiling rocket_docs_tests v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/docs/tests)
+   Compiling rocket_db_pools v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/db_pools/lib)
+   Compiling rocket_ws v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/ws)
+warning: unused variable: `templates`
+   --> contrib/dyn_templates/src/engine/mod.rs:101:24
+    |
+101 |     pub(crate) fn init(templates: &HashMap<String, TemplateInfo>) -> Option<Engines> {
+    |                        ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_templates`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `name`
+   --> contrib/dyn_templates/src/engine/mod.rs:132:9
+    |
+132 |         name: &str,
+    |         ^^^^ help: if this is intentional, prefix it with an underscore: `_name`
+
+warning: unused variable: `info`
+   --> contrib/dyn_templates/src/engine/mod.rs:133:9
+    |
+133 |         info: &TemplateInfo,
+    |         ^^^^ help: if this is intentional, prefix it with an underscore: `_info`
+
+warning: unused variable: `context`
+   --> contrib/dyn_templates/src/engine/mod.rs:134:9
+    |
+134 |         context: C,
+    |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_context`
+
+warning: trait `Engine` is never used
+  --> contrib/dyn_templates/src/engine/mod.rs:23:18
+   |
+23 | pub(crate) trait Engine: Send + Sync + Sized + 'static {
+   |                  ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `inner` is never used
+   --> contrib/dyn_templates/src/engine/mod.rs:102:12
+    |
+102 |         fn inner<E: Engine>(templates: &HashMap<String, TemplateInfo>) -> Option<E> {
+    |            ^^^^^
+
+warning: field `engine_ext` is never read
+  --> contrib/dyn_templates/src/template.rs:37:16
+   |
+33 | pub(crate) struct TemplateInfo {
+   |                   ------------ field in this struct
+...
+37 |     pub(crate) engine_ext: &'static str,
+   |                ^^^^^^^^^^
+   |
+   = note: `TemplateInfo` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `rocket_dyn_templates` (lib) generated 7 warnings (run `cargo fix --lib -p rocket_dyn_templates` to apply 4 suggestions)
+warning: `rocket` (lib) generated 6 warnings (run `cargo fix --lib -p rocket` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1m 47s
+----------------------------------------
+
+[Command 14]
+$ cargo +nightly test
+Exit Code: 0
+Output:
+Downloading crates ...
+  Downloaded target-triple v1.0.0
+  Downloaded toml_parser v1.0.6+spec-1.1.0
+  Downloaded serde_spanned v1.0.4
+  Downloaded toml_writer v1.0.6+spec-1.1.0
+  Downloaded toml_datetime v0.7.5+spec-1.1.0
+  Downloaded termcolor v1.4.1
+  Downloaded trybuild v1.0.114
+  Downloaded diff v0.1.13
+  Downloaded toml v0.9.11+spec-1.1.0
+  Downloaded pretty_assertions v1.4.1
+   Compiling proc-macro2 v1.0.106
+   Compiling unicode-ident v1.0.22
+   Compiling version_check v0.9.5
+   Compiling quote v1.0.44
+   Compiling serde_core v1.0.228
+   Compiling find-msvc-tools v0.1.8
+   Compiling shlex v1.3.0
+   Compiling autocfg v1.5.0
+   Compiling getrandom v0.3.4
+   Compiling serde v1.0.228
+   Compiling untrusted v0.9.0
+   Compiling minimal-lexical v0.2.1
+   Compiling zmij v1.0.16
+   Compiling zeroize v1.8.2
+   Compiling serde_json v1.0.149
+   Compiling rustls v0.23.36
+   Compiling oid-registry v0.7.1
+   Compiling glob v0.3.3
+   Compiling either v1.15.0
+   Compiling futures-io v0.3.31
+   Compiling unicode-xid v0.2.6
+   Compiling spin v0.9.8
+   Compiling cc v1.2.54
+   Compiling rustls-pki-types v1.14.0
+   Compiling futures-util v0.3.31
+   Compiling diff v0.1.13
+   Compiling siphasher v1.0.1
+   Compiling toml_parser v1.0.6+spec-1.1.0
+   Compiling toml_writer v1.0.6+spec-1.1.0
+   Compiling nom v7.1.3
+   Compiling target-triple v1.0.0
+   Compiling pretty_assertions v1.4.1
+   Compiling termcolor v1.4.1
+   Compiling stable_deref_trait v1.2.1
+   Compiling rand v0.8.5
+   Compiling generic-array v0.14.7
+   Compiling proc-macro2-diagnostics v0.10.1
+   Compiling uncased v0.9.10
+   Compiling num-traits v0.2.19
+   Compiling cookie v0.18.1
+   Compiling multer v3.1.0
+   Compiling figment v0.10.19
+   Compiling tempfile v3.24.0
+   Compiling rustls-pemfile v2.2.0
+   Compiling rocket v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/lib)
+   Compiling rand_core v0.9.5
+   Compiling syn v2.0.114
+   Compiling unicode-normalization v0.1.25
+   Compiling unicode-properties v0.1.4
+   Compiling unicode-bidi v0.3.18
+   Compiling subtle v2.6.1
+   Compiling rand_chacha v0.9.0
+   Compiling fallible-iterator v0.2.0
+   Compiling writeable v0.6.2
+   Compiling litemap v0.8.1
+   Compiling icu_normalizer_data v2.1.1
+   Compiling rand v0.9.2
+   Compiling icu_properties_data v2.1.2
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling inout v0.1.4
+   Compiling stringprep v0.1.5
+   Compiling phf_shared v0.13.1
+   Compiling digest v0.10.7
+   Compiling cipher v0.4.4
+   Compiling universal-hash v0.5.1
+   Compiling aead v0.5.2
+   Compiling ahash v0.8.12
+   Compiling phf_shared v0.11.3
+   Compiling num-integer v0.1.46
+   Compiling rmp v0.8.15
+   Compiling polyval v0.6.2
+   Compiling whoami v2.0.2
+   Compiling aes v0.8.4
+   Compiling ctr v0.9.2
+   Compiling phf v0.13.1
+   Compiling regex-syntax v0.8.8
+   Compiling sha2 v0.10.9
+   Compiling hmac v0.12.1
+   Compiling ghash v0.5.1
+   Compiling hkdf v0.12.4
+   Compiling num-bigint v0.4.6
+   Compiling phf_generator v0.11.3
+   Compiling form_urlencoded v1.2.2
+   Compiling aho-corasick v1.1.4
+   Compiling pkg-config v0.3.32
+   Compiling vcpkg v0.2.15
+   Compiling paste v1.0.15
+   Compiling ring v0.17.14
+   Compiling utf8_iter v1.0.4
+   Compiling rustls v0.21.12
+   Compiling aes-gcm v0.10.3
+   Compiling allocator-api2 v0.2.21
+   Compiling phf_codegen v0.11.3
+   Compiling rusticata-macros v4.1.0
+   Compiling md-5 v0.10.6
+   Compiling phf v0.11.3
+   Compiling rocket_sync_db_pools v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/sync_db_pools/lib)
+   Compiling concurrent-queue v2.5.0
+   Compiling base64 v0.21.7
+   Compiling crc-catalog v2.4.0
+   Compiling parking v2.2.1
+   Compiling unicode_categories v0.1.1
+   Compiling ucd-trie v0.1.7
+   Compiling hashbrown v0.14.5
+   Compiling event-listener v5.4.1
+   Compiling crc v3.4.0
+   Compiling rustls-pemfile v1.0.4
+   Compiling indexmap v2.13.0
+   Compiling libsqlite3-sys v0.28.0
+   Compiling sqlformat v0.2.6
+   Compiling pest v2.8.5
+   Compiling postgres-protocol v0.6.10
+   Compiling atoi v2.0.0
+   Compiling regex-automata v0.4.13
+   Compiling serde_spanned v1.0.4
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+   Compiling hashlink v0.9.1
+   Compiling toml v0.9.11+spec-1.1.0
+   Compiling futures v0.3.31
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-queue v0.3.12
+   Compiling futures-intrusive v0.5.0
+   Compiling bstr v1.12.1
+   Compiling webpki-roots v0.25.4
+   Compiling hex v0.4.3
+   Compiling ryu v1.0.22
+   Compiling libm v0.2.16
+   Compiling crossbeam-deque v0.8.6
+   Compiling futures-executor v0.3.31
+   Compiling postgres-types v0.2.12
+   Compiling pest_meta v2.8.5
+   Compiling flume v0.11.1
+   Compiling iana-time-zone v0.1.64
+   Compiling chrono v0.4.43
+   Compiling deunicode v1.6.2
+   Compiling sha1 v0.10.6
+   Compiling regex v1.12.2
+   Compiling slug v0.1.6
+   Compiling unicode-segmentation v1.12.0
+   Compiling synstructure v0.13.2
+   Compiling parse-zoneinfo v0.3.1
+   Compiling pest_generator v2.8.5
+   Compiling devise_core v0.4.2
+   Compiling humansize v2.1.3
+   Compiling chrono-tz-build v0.3.0
+   Compiling chrono-tz v0.9.0
+   Compiling serde_derive v1.0.228
+   Compiling tokio-macros v2.6.0
+   Compiling displaydoc v0.2.5
+   Compiling tracing-attributes v0.1.31
+   Compiling thiserror-impl v1.0.69
+   Compiling pear_codegen v0.2.9
+   Compiling asn1-rs-derive v0.5.1
+   Compiling ref-cast-impl v1.0.25
+   Compiling async-trait v0.1.89
+   Compiling asn1-rs-impl v0.2.0
+   Compiling async-stream-impl v0.3.6
+   Compiling rustls-webpki v0.103.9
+   Compiling devise_codegen v0.4.2
+   Compiling zerofrom-derive v0.1.6
+   Compiling ref-cast v1.0.25
+   Compiling yoke-derive v0.8.1
+   Compiling async-stream v0.3.6
+   Compiling zerovec-derive v0.11.2
+   Compiling tokio v1.49.0
+   Compiling sct v0.7.1
+   Compiling rustls-webpki v0.101.7
+   Compiling globset v0.4.18
+   Compiling pear v0.2.9
+   Compiling pest_derive v2.8.5
+   Compiling devise v0.4.2
+   Compiling rocket_db_pools_codegen v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/db_pools/codegen)
+   Compiling thiserror v1.0.69
+   Compiling rocket_sync_db_pools_codegen v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/sync_db_pools/codegen)
+   Compiling asn1-rs v0.6.2
+   Compiling tracing v0.1.44
+   Compiling ignore v0.4.25
+   Compiling tungstenite v0.23.0
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.8.1
+   Compiling zerovec v0.11.5
+   Compiling zerotrie v0.2.3
+   Compiling globwalk v0.9.1
+   Compiling tinystr v0.8.2
+   Compiling potential_utf v0.1.4
+   Compiling icu_collections v2.1.1
+   Compiling icu_locale_core v2.1.1
+   Compiling der-parser v9.0.0
+   Compiling x509-parser v0.16.0
+   Compiling toml_datetime v0.6.11
+   Compiling serde_spanned v0.6.9
+   Compiling ubyte v0.10.4
+   Compiling rmp-serde v1.3.1
+   Compiling trybuild v1.0.114
+   Compiling serde_urlencoded v0.7.1
+   Compiling tera v1.20.1
+   Compiling rocket_http v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/http)
+   Compiling toml_edit v0.22.27
+   Compiling icu_provider v2.1.1
+   Compiling icu_normalizer v2.1.1
+   Compiling icu_properties v2.1.2
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+warning: eliding a lifetime that's named elsewhere is confusing
+  --> core/http/src/uri/uri.rs:82:63
+   |
+82 |     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'_>>
+   |                              --                    --         ^^ the same lifetime is elided here
+   |                              |                     |
+   |                              |                     the same lifetime is named here
+   |                              the lifetime is named here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: consistently use `'a`
+   |
+82 -     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'_>>
+82 +     pub fn parse<T>(string: &'a str) -> Result<Uri<'a>, Error<'a>>
+   |
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/http/src/uri/uri.rs:130:64
+    |
+130 |     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'_>> {
+    |                               --                    --         ^^ the same lifetime is elided here
+    |                               |                     |
+    |                               |                     the same lifetime is named here
+    |                               the lifetime is named here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: consistently use `'a`
+    |
+130 -     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'_>> {
+130 +     pub fn parse_any(string: &'a str) -> Result<Uri<'a>, Error<'a>> {
+    |
+
+   Compiling url v2.5.8
+   Compiling toml v0.8.23
+   Compiling tokio-util v0.7.18
+   Compiling tokio-stream v0.1.18
+   Compiling tokio-rustls v0.26.4
+   Compiling deadpool-runtime v0.1.4
+   Compiling deadpool v0.12.3
+   Compiling sqlx-core v0.8.0
+   Compiling tokio-tungstenite v0.23.1
+   Compiling h2 v0.4.13
+   Compiling tokio-postgres v0.7.16
+warning: `rocket_http` (lib) generated 2 warnings (run `cargo fix --lib -p rocket_http` to apply 2 suggestions)
+   Compiling rocket_codegen v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/core/codegen)
+warning: `rocket_http` (lib) generated 2 warnings (2 duplicates)
+   Compiling sqlx-sqlite v0.8.0
+   Compiling deadpool-postgres v0.14.1
+   Compiling hyper v1.8.1
+   Compiling sqlx v0.8.0
+   Compiling hyper-util v0.1.19
+warning: unexpected `cfg` condition name: `rust_analyzer`
+  --> core/lib/src/listener/listener.rs:13:5
+   |
+13 |     #[crate::async_bound(Send)]
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, `nightly`, and `test` and 31 more
+   = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+   = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: requested on the command line with `-W unexpected-cfgs`
+   = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition name: `rust_analyzer`
+  --> core/lib/src/listener/listener.rs:16:5
+   |
+16 |     #[crate::async_bound(Send)]
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+   = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition name: `rust_analyzer`
+ --> core/lib/src/listener/bind.rs:9:5
+  |
+9 |     #[crate::async_bound(Send)]
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `crate::async_bound` crate for guidance on how handle this unexpected cfg
+  = help: the attribute macro `crate::async_bound` may come from an old version of the `rocket_codegen` crate, try updating your dependency with `cargo update -p rocket_codegen`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the attribute macro `crate::async_bound` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: use of deprecated method `tokio::net::TcpStream::set_linger`: `SO_LINGER` causes the socket to block the thread on drop
+  --> core/lib/src/listener/tcp.rs:59:22
+   |
+59 |         let _ = conn.set_linger(None);
+   |                      ^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/lib/src/form/context.rs:222:75
+    |
+222 |     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+    |                                 --                                        ^^^^^^^^^^    ^^ the same lifetime is elided here
+    |                                 |                                         |
+    |                                 the lifetime is named here                the same lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: consistently use `'a`
+    |
+222 -     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+222 +     pub fn field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &'a Error<'v>> + 'a
+    |
+
+warning: eliding a lifetime that's named elsewhere is confusing
+   --> core/lib/src/form/context.rs:270:81
+    |
+270 |     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+    |                                       --                                        ^^^^^^^^^^    ^^ the same lifetime is elided here
+    |                                       |                                         |
+    |                                       the lifetime is named here                the same lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: consistently use `'a`
+    |
+270 -     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &Error<'v>> + '_
+270 +     pub fn exact_field_errors<'a, N>(&'a self, name: N) -> impl Iterator<Item = &'a Error<'v>> + 'a
+    |
+
+   Compiling rocket_db_pools v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/db_pools/lib)
+warning: `rocket` (lib) generated 6 warnings (run `cargo fix --lib -p rocket` to apply 2 suggestions)
+   Compiling rocket_dyn_templates v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/dyn_templates)
+   Compiling rocket_ws v0.1.0 (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/contrib/ws)
+   Compiling rocket_docs_tests v0.6.0-dev (/workspace/rwf2__Rocket@de6632ea56cce497d23a8f2223b8f8721202ff39/docs/tests)
+warning: `rocket` (lib test) generated 6 warnings (6 duplicates)
+warning: `rocket` (lib) generated 6 warnings (6 duplicates)
+warning: struct `GenericBorrow` is never constructed
+   --> core/codegen/tests/uri_display.rs:270:16
+    |
+270 |     pub struct GenericBorrow<'a, A: ?Sized, B: 'a> {
+    |                ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rocket_codegen` (test "uri_display") generated 1 warning
+warning: `extern` declarations without an explicit ABI are deprecated
+ --> docs/tests/src/guide.rs:1:31
+  |
+1 | rocket::internal_guide_tests!("../guide/*.md");
+  |                               ^^^^^^^^^^^^^^^ help: explicitly specify the "C" ABI: `extern "C"`
+  |
+  = note: `#[warn(missing_abi)]` on by default
+  = note: this warning originates in the macro `doc_comment` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `extern` declarations without an explicit ABI are deprecated
+ --> docs/tests/src/guide.rs:1:31
+  |
+1 | rocket::internal_guide_tests!("../guide/*.md");
+  |                               ^^^^^^^^^^^^^^^ help: explicitly specify the "C" ABI: `extern "C"`
+  |
+  = note: this warning originates in the macro `doc_comment` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `extern` declarations without an explicit ABI are deprecated
+ --> docs/tests/src/readme.rs:1:31
+  |
+1 | rocket::internal_guide_tests!("../../README.md");
+  |                               ^^^^^^^^^^^^^^^^^ help: explicitly specify the "C" ABI: `extern "C"`
+  |
+  = note: this warning originates in the macro `doc_comment` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `rocket_docs_tests` (lib test) generated 17 warnings (14 duplicates) (run `cargo fix --lib -p rocket_docs_tests --tests` to apply 3 suggestions)
+warning: `rocket_http` (lib test) generated 2 warnings (2 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 49.22s
+     Running unittests src/lib.rs (target/debug/deps/rocket-d39d07cb7eab5c72)
+
+running 66 tests
+test data::io_stream::tests::is_unpin ... ok
+test local::asynchronous::client::test::test_local_client_impl_send_sync ... ok
+test form::parser::raw_str_parse_tests::test_skips_empty ... ok
+test form::tests::bool ... ok
+test form::parser::raw_str_parse_tests::test_decodes ... ok
+test form::tests::defaults ... ok
+test form::tests::time ... ok
+test response::stream::sse::sse_tests::test_bad_chars ... ok
+test response::stream::sse::sse_tests::test_event_stream ... ok
+test response::stream::sse::sse_tests::test_event_fields ... ok
+test response::stream::sse::sse_tests::test_event_data ... ok
+test router::collider::tests::catcher_collisions ... ok
+test route::uri::tests::test_route_uri_composition ... ok
+test router::collider::tests::catcher_non_collisions ... ok
+test router::collider::tests::collisions ... ok
+test router::collider::tests::non_collisions ... ok
+test router::collider::tests::test_content_type_collisions ... ok
+test router::collider::tests::test_route_content_type_collisions ... ok
+test form::tests::potpourri ... ok
+test data::transform::tests::test_transform_series ... ok
+test router::router::test::test_collision_when_ranked ... ok
+test router::router::test::test_collision_when_ranked_query ... ok
+test router::router::test::test_collisions_normalize ... ok
+test router::router::test::test_collisions_query ... ok
+test request::tests::test_multiple_headers_merge_into_one_from_hyp ... ok
+test config::tests::test_no_err_on_release_and_custom_secret_key ... ok
+test config::tests::test_toml_file ... ok
+test router::router::test::test_no_collision_when_ranked ... ok
+test router::router::test::test_no_collision_when_ranked_query ... ok
+test router::router::test::test_no_collisions ... ok
+test request::tests::test_multiple_headers_from_hyp ... ok
+test router::router::test::test_no_manual_ranked_collisions ... ok
+test router::router::test::test_ranked_collisions ... ok
+test router::router::test::test_default_ranked_routing ... ok
+test router::router::test::test_rankless_collisions ... ok
+test config::tests::test_no_err_on_debug_and_no_secret_key ... ok
+test sentinel::test::parent_works ... ok
+test sentinel::test::check_can_determine ... ok
+test shutdown::handle::tests::ensure_is_send_sync_clone_unpin ... ok
+test config::tests::test_precedence ... ok
+test shutdown::tripwire::tests::ensure_is_send_sync_clone_unpin ... ok
+test shutdown::tripwire::tests::simple_trip ... ok
+test config::tests::test_cli_colors ... ok
+test shutdown::tripwire::tests::single_stage_trip ... ok
+test config::tests::test_env_vars_merge ... ok
+test shutdown::tripwire::tests::general_trip ... ok
+test tls::config::tests::verify_load_certs_of_different_types ... ok
+test config::tests::test_err_on_non_debug2_and_no_secret_key ... ok
+test shutdown::tripwire::tests::staged_trip ... ok
+test config::tests::test_profiles_merge ... ok
+test config::tests::test_default_round_trip ... ok
+test config::tests::test_err_on_non_debug_and_no_secret_key ... ok
+test config::tests::test_figment_is_default ... ok
+test tls::config::tests::verify_load_private_keys_of_different_types ... ok
+test mtls::config::tests::test_mtls_config ... ok
+test config::tests::test_profile_env ... ok
+test tls::config::tests::test_tls_config_from_file ... ok
+test router::router::test::test_ranked_routing ... ok
+test router::router::test::test_default_ranking ... ok
+test router::router::test::test_err_routing ... ok
+test router::router::test::test_ok_routing ... ok
+test router::matcher::tests::test_req_route_mt_collisions ... ok
+test router::router::test::test_catcher_routing ... ok
+test router::matcher::tests::request_route_matching ... ok
+test shutdown::tripwire::tests::no_trip ... ok
+test response::stream::sse::sse_tests::test_heartbeat ... ok
+
+test result: ok. 66 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.12s
+
+     Running tests/absolute-uris-okay-issue-443.rs (target/debug/deps/absolute_uris_okay_issue_443-a8cd9d1ceb3b2d4d)
+
+running 1 test
+test test_absolute_uris_okay::redirect_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/adhoc-uri-normalizer.rs (target/debug/deps/adhoc_uri_normalizer-a79fa3e9e3dbd6da)
+
+running 1 test
+test test_adhoc_normalizer_works_as_expected ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/byte-slices-form-field-issue-2148.rs (target/debug/deps/byte_slices_form_field_issue_2148-3b2a97e80cd55e11)
+
+running 2 tests
+test test_from_form_fields_of_values_into_byte_slices ... ok
+test test_from_form_fields_of_multipart_files_into_byte_slices ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/can-correct-bad-local-uri.rs (target/debug/deps/can_correct_bad_local_uri-341294b980ea0858)
+
+running 1 test
+test can_correct_bad_local_uri ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/can-launch-tls.rs (target/debug/deps/can_launch_tls-1f739dec629427cb)
+
+running 1 test
+test can_launch_tls ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/catcher-cookies-1213.rs (target/debug/deps/catcher_cookies_1213-227cf9c2d3d49fd6)
+
+running 1 test
+test tests::error_catcher_sets_cookies ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/conditionally-set-server-header-996.rs (target/debug/deps/conditionally_set_server_header_996-cf8873ac5f0995ad)
+
+running 1 test
+test conditionally_set_server_header::do_not_overwrite_server_header ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/config-proxy-proto-header.rs (target/debug/deps/config_proxy_proto_header-9e48984b7fee1279)
+
+running 4 tests
+test tests::check_proxy_proto_header_works ... ok
+test tests::check_default_proxy_proto_header_works ... ok
+test tests::check_proxy_proto_header_works_again ... ok
+test tests::check_no_proxy_proto_header_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/config-real-ip-header.rs (target/debug/deps/config_real_ip_header-1f64808d71be7bb3)
+
+running 4 tests
+test tests::check_default_real_ip_header_works ... ok
+test tests::check_real_ip_header_works ... ok
+test tests::check_real_ip_header_works_again ... ok
+test tests::check_no_ip_header_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/config-secret-key-1500.rs (target/debug/deps/config_secret_key_1500-0165fee84a96a57e)
+
+running 1 test
+test secret_key_in_config_not_zero ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/content-length.rs (target/debug/deps/content_length-846300099a8c6612)
+
+running 1 test
+test content_length_header ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/cookies-private.rs (target/debug/deps/cookies_private-f7918d6d647a1585)
+
+running 3 tests
+test cookies_private_tests::test_cookie_add_private ... ok
+test cookies_private_tests::test_cookie_get_private ... ok
+test cookies_private_tests::test_cookie_get_ohno ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/derive-reexports.rs (target/debug/deps/derive_reexports-0e3
+
+[... truncated ...]
+
+.rs - guide::testing_md (line 37) - compile ... ok
+test docs/tests/src/guide.rs - guide::state_md (line 95) ... ok
+test docs/tests/src/guide.rs - guide::state_md (line 77) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 131) ... ok
+test docs/tests/src/guide.rs - guide::state_md (line 259) ... ok
+test docs/tests/src/guide.rs - guide::state_md (line 57) ... ok
+test docs/tests/src/readme.rs - readme::readme_md (line 11) ... ok
+test docs/tests/src/guide.rs - guide::responses_md (line 766) ... ok
+test docs/tests/src/guide.rs - guide::state_md (line 43) ... ok
+test docs/tests/src/guide.rs - guide::responses_md (line 822) ... ok
+test docs/tests/src/guide.rs - guide::responses_md (line 636) ... ok
+test docs/tests/src/guide.rs - guide::responses_md (line 722) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 180) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 216) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 193) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 235) ... ok
+test docs/tests/src/guide.rs - guide::testing_md (line 91) ... ok
+
+test result: ok. 153 passed; 0 failed; 5 ignored; 0 measured; 0 filtered out; finished in 5.85s
+
+   Doc-tests rocket_dyn_templates
+
+running 16 tests
+test contrib/dyn_templates/src/template.rs - template::Template::show (line 199) - compile ... ok
+test contrib/dyn_templates/src/engine/mod.rs - engine::Engines (line 39) ... ok
+test contrib/dyn_templates/src/template.rs - template::context (line 351) ... ok
+test contrib/dyn_templates/src/lib.rs - (line 122) ... ok
+test contrib/dyn_templates/src/metadata.rs - metadata::Metadata<'_>::reloading (line 69) ... ok
+test contrib/dyn_templates/src/template.rs - template::context (line 310) ... ok
+test contrib/dyn_templates/src/metadata.rs - metadata::Metadata<'_>::contains_template (line 49) ... ok
+test contrib/dyn_templates/src/lib.rs - (line 39) ... ok
+test contrib/dyn_templates/src/template.rs - template::context (line 327) ... ok
+test contrib/dyn_templates/src/metadata.rs - metadata::Metadata<'_>::render (line 91) ... ok
+test contrib/dyn_templates/src/template.rs - template::Template::render (line 154) ... ok
+test contrib/dyn_templates/src/template.rs - template::Template::fairing (line 59) ... ok
+test contrib/dyn_templates/src/template.rs - template::Template::render (line 164) ... ok
+test contrib/dyn_templates/src/template.rs - template::Template::custom (line 88) ... ok
+test contrib/dyn_templates/src/template.rs - template::Template::try_custom (line 119) ... ok
+test contrib/dyn_templates/src/metadata.rs - metadata::Metadata (line 18) ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.10s
+
+   Doc-tests rocket_http
+
+running 223 tests
+test core/http/src/header/accept.rs - header::accept::Accept (line 32) ... ok
+test core/http/src/header/accept.rs - header::accept::QMediaType::weight (line 305) ... ok
+test core/http/src/header/accept.rs - header::accept::QMediaType::weight_or (line 321) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::extension (line 300) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept (line 45) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::from_str (line 319) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::preferred (line 139) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::extension (line 312) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::first (line 186) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::add (line 110) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::from_extension (line 305) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::fmt (line 369) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::iter (line 204) ... ok
+test core/http/src/header/accept.rs - header::accept::QMediaType::media_type (line 340) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType (line 35) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType (line 22) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::from_extension (line 318) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::media_types (line 230) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::from_str (line 331) ... ok
+test core/http/src/header/accept.rs - header::accept::Accept::new (line 84) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::media_type (line 276) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::is_valid_value (line 131) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::is_valid_name (line 74) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::from_str (line 344) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::new (line 220) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::parse_flexible (line 262) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::parse_flexible (line 291) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::with_params (line 245) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::name (line 197) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::with_params (line 255) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::name (line 185) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h> (line 716) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::new (line 39) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::value (line 216) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::add (line 508) ... ok
+test core/http/src/header/content_type.rs - header::content_type::ContentType::parse_flexible (line 275) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::add_all (line 557) ... ok
+test core/http/src/header/header.rs - header::header::Header<'h>::new (line 29) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::contains (line 269) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::add_raw (line 531) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::get_one (line 361) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::get (line 331) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::is_empty (line 314) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::get_one (line 377) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::len (line 288) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::iter (line 655) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::const_new (line 345) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::exact_eq (line 474) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::extension (line 558) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::new (line 254) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::remove (line 589) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::extension (line 570) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::params (line 516) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::params (line 504) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::new (line 279) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::replace (line 405) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::replace_all (line 483) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::from_extension (line 459) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::replace (line 433) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::replace (line 417) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::remove_all (line 614) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::from_extension (line 472) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType (line 28) ... ok
+test core/http/src/header/header.rs - header::header::HeaderMap<'h>::replace_raw (line 457) ... ok
+test core/http/src/header/proxy_proto.rs - header::proxy_proto::ProxyProto<'_>::is_https (line 37) ... ok
+test core/http/src/method.rs - method::Method (line 28) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::specificity (line 442) ... ok
+test core/http/src/method.rs - method::Method::is_idempotent (line 16) ... ok
+test core/http/src/method.rs - method::Method::as_str (line 8) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::top (line 398) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::sub (line 417) ... ok
+test core/http/src/method.rs - method::Method::is_safe (line 19) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::as_ptr (line 557) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::parse_flexible (line 429) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::with_params (line 305) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::parse_flexible (line 445) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::parse_flexible (line 416) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::as_bytes (line 530) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::as_uncased_str (line 575) ... ok
+test core/http/src/header/media_type.rs - header::media_type::MediaType::with_params (line 315) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::find (line 683) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::as_str (line 514) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::contains (line 601) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::from_cow_str (line 107) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::is_empty (line 492) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::html_escape (line 389) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::into_cow_str (line 129) ... ok
+test core/http/src/method.rs - method::Method::allows_request_body (line 13) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::html_escape (line 374) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::new (line 88) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::len (line 476) ... ok
+test core/http/src/method.rs - method::Method::as_ref (line 8) ... ok
+test core/http/src/parse/uri/error.rs - parse::uri::error::Error<'_>::index (line 35) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_decode (line 171) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::parse (line 889) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_encode (line 268) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_decode_lossy (line 196) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_decode (line 160) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_decode_lossy (line 207) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::starts_with (line 629) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::trim (line 859) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_encode_bytes (line 284) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::ends_with (line 656) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::strip_prefix (line 809) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::strip_suffix (line 835) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::split (line 710) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::split_at_byte (line 745) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::percent_encode (line 257) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStrBuf::into_string (line 71) ... ok
+test core/http/src/status.rs - status::Status (line 102) ... ok
+test core/http/src/status.rs - status::Status (line 52) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::url_decode_lossy (line 334) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::url_decode (line 307) ... ok
+test core/http/src/status.rs - status::Status::from_code (line 293) ... ok
+test core/http/src/status.rs - status::Status::class (line 290) ... ok
+test core/http/src/raw_str.rs - raw_str::RawStr::url_decode_lossy (line 345) ... ok
+test core/http/src/status.rs - status::Status (line 83) ... ok
+test core/http/src/status.rs - status::Status::new (line 294) ... ok
+test core/http/src/status.rs - status::Status::reason_lossy (line 292) ... ok
+test core/http/src/status.rs - status::Status::reason (line 293) ... ok
+test core/http/src/status.rs - status::Status::reason (line 303) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute (line 74) ... ok
+test core/http/src/uri/asterisk.rs - uri::asterisk::Asterisk (line 10) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::scheme (line 169) ... ok
+test core/http/src/uri/asterisk.rs - uri::asterisk::Asterisk::parse_owned (line 52) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority (line 27) ... ok
+test core/http/src/status.rs - status::Status::from_code (line 303) ... ok
+test core/http/src/uri/asterisk.rs - uri::asterisk::Asterisk::parse (line 32) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::host (line 172) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::clear_query (line 237) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute (line 57) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::path (line 203) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::normalize (line 288) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute (line 36) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::parse (line 108) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::authority (line 183) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::into_normalized (line 327) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::with_authority (line 372) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::query (line 220) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::set_authority (line 350) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::parse_owned (line 139) ... ok
+test core/http/src/uri/absolute.rs - uri::absolute::Absolute<'a>::is_normalized (line 258) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::user_info (line 159) ... ok
+test core/http/src/uri/fmt/from_uri_param.rs - uri::fmt::from_uri_param::FromUriParam (line 45) ... ok
+test core/http/src/uri/fmt/from_uri_param.rs - uri::fmt::from_uri_param::FromUriParam (line 124) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 42) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter (line 61) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::Ignorable (line 551) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter<'i,P>::write_raw (line 182) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter (line 112) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter<'i,P>::refresh (line 272) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter<'_,Query>::write_named_value (line 369) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::parse (line 100) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::parse_owned (line 132) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::Ignorable (line 532) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 63) ... ok
+test core/http/src/uri/fmt/formatter.rs - uri::fmt::formatter::Formatter<'i,P>::write_value (line 236) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 179) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::port (line 192) ... ok
+test core/http/src/uri/authority.rs - uri::authority::Authority<'a>::set_port (line 214) ... ok
+test core/http/src/uri/host.rs - uri::host::Host (line 71) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 71) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 95) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::new (line 97) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::domain (line 180) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::has_trailing_slash (line 448) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin (line 95) ... ok
+test core/http/src/uri/fmt/from_uri_param.rs - uri::fmt::from_uri_param::FromUriParam (line 154) ... ok
+test core/http/src/uri/fmt/uri_display.rs - uri::fmt::uri_display::UriDisplay (line 237) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::port (line 202) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::parse_owned (line 163) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::parse (line 121) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::to_authority (line 230) ... ok
+test core/http/src/uri/host.rs - uri::host::Host<'a>::to_absolute (line 268) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin (line 35) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::into_normalized_nontrailing (line 499) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::clear_query (line 350) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::into_normalized (line 428) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin (line 74) ... ok
+test core/http/src/uri/host.rs - uri::host::Host (line 35) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin (line 57) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::is_normalized (line 370) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::map_path (line 309) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::is_normalized_nontrailing (line 469) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::path (line 269) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::normalize (line 407) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::parse (line 195) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference (line 53) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::fragment (line 288) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::parse_owned (line 245) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Path<'a>::raw (line 72) ... ok
+test core/http/src/uri/origin.rs - uri::origin::Origin<'a>::query (line 287) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Path<'a>::as_str (line 86) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Path<'a>::raw_segments (line 141) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Query<'a>::as_str (line 256) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Query<'a>::raw_segments (line 291) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Path<'a>::segments (line 184) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Query<'a>::raw (line 242) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::authority (line 233) ... ok
+test core/http/src/uri/path_query.rs - uri::path_query::Query<'a>::segments (line 342) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::scheme (line 213) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference (line 31) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'_,P>::num (line 53) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'_,P>::is_empty (line 79) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::normalize (line 348) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::into_normalized (line 384) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::parse (line 153) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::parse_owned (line 184) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::path (line 251) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::is_normalized (line 311) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments (line 16) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'a,Path>::get (line 123) ... ok
+test core/http/src/uri/reference.rs - uri::reference::Reference<'a>::query (line 265) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'_,P>::skip (line 99) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'a,Path>::prefix_of (line 144) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'a,Query>::get (line 258) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::absolute (line 195) ... ok
+test core/http/src/uri/segments.rs - uri::segments::Segments<'a,Path>::to_path_buf (line 205) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::authority (line 167) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::parse (line 63) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::parse_any (line 109) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::origin (line 139) ... ok
+test core/http/src/uri/uri.rs - uri::uri::Uri<'a>::reference (line 223) ... ok
+
+test result: ok. 223 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.16s
+
+   Doc-tests rocket_sync_db_pools
+
+running 12 tests
+test contrib/sync_db_pools/lib/src/lib.rs - (line 142) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 219) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 280) ... ok
+test contrib/sync_db_pools/lib/src/config.rs - config::Config::from (line 52) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 234) ... ok
+test contrib/sync_db_pools/lib/src/config.rs - config::Config::figment (line 94) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 205) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 261) ... ok
+test contrib/sync_db_pools/lib/src/config.rs - config::Config (line 19) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 51) ... ok
+test contrib/sync_db_pools/lib/src/lib.rs - (line 69) ... ok
+test contrib/sync_db_pools/lib/src/poolable.rs - poolable::Poolable (line 43) ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+   Doc-tests rocket_sync_db_pools_codegen
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rocket_ws
+
+running 14 tests
+test contrib/ws/src/lib.rs - Message (line 109) ... ok
+test contrib/ws/src/lib.rs - Stream (line 212) ... ok
+test contrib/ws/src/duplex.rs - duplex::DuplexStream (line 17) ... ok
+test contrib/ws/src/lib.rs - Stream (line 294) ... ok
+test contrib/ws/src/lib.rs - Message (line 92) ... ok
+test contrib/ws/src/websocket.rs - websocket::WebSocket::accept_key (line 176) ... ok
+test contrib/ws/src/lib.rs - (line 54) ... ok
+test contrib/ws/src/lib.rs - Stream (line 266) ... ok
+test contrib/ws/src/lib.rs - Config (line 132) ... ok
+test contrib/ws/src/lib.rs - Stream (line 280) ... ok
+test contrib/ws/src/websocket.rs - websocket::WebSocket::config (line 43) ... ok
+test contrib/ws/src/websocket.rs - websocket::WebSocket::stream (line 132) ... ok
+test contrib/ws/src/websocket.rs - websocket::WebSocket::channel (line 87) ... ok
+test contrib/ws/src/lib.rs - (line 20) ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+----------------------------------------
+

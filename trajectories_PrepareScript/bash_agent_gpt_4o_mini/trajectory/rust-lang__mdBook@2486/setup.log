@@ -1,0 +1,1570 @@
+# Setup Log for rust-lang/mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e
+# Issue/PR Number: 2486
+# Generated at: 2026-01-24T01:58:38.624712
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 220
+drwxr-xr-x 11 1000 1000  4096 Jan 22 07:34 .
+drwxr-xr-x  3 root root  4096 Jan 23 17:47 ..
+drwxr-xr-x  8 1000 1000  4096 Jan 23 17:47 .git
+-rw-r--r--  1 1000 1000   157 Jan 22 07:24 .gitattributes
+drwxr-xr-x  4 1000 1000  4096 Jan 22 07:24 .github
+-rw-r--r--  1 1000 1000   198 Jan 22 07:24 .gitignore
+-rw-r--r--  1 1000 1000 51574 Jan 22 07:24 CHANGELOG.md
+-rw-r--r--  1 1000 1000   131 Jan 22 07:24 CODE_OF_CONDUCT.md
+-rw-r--r--  1 1000 1000  9323 Jan 22 07:24 CONTRIBUTING.md
+-rw-r--r--  1 1000 1000 66838 Jan 22 07:24 Cargo.lock
+-rw-r--r--  1 1000 1000  2541 Jan 22 07:24 Cargo.toml
+-rw-r--r--  1 1000 1000 15921 Jan 22 07:24 LICENSE
+-rw-r--r--  1 1000 1000  1046 Jan 22 07:24 README.md
+drwxr-xr-x  2 1000 1000  4096 Jan 22 07:24 ci
+drwxr-xr-x  3 1000 1000  4096 Jan 22 07:24 examples
+drwxr-xr-x  3 1000 1000  4096 Jan 22 07:24 guide
+-rw-r--r--  1 1000 1000    59 Jan 22 07:24 release.toml
+drwxr-xr-x  8 1000 1000  4096 Jan 22 07:24 src
+drwxr-xr-x  4 root root  4096 Jan 22 07:34 target
+drwxr-xr-x  3 1000 1000  4096 Jan 22 07:24 test_book
+drwxr-xr-x  5 1000 1000  4096 Jan 22 07:24 tests
+-rw-r--r--  1 1000 1000   399 Jan 22 07:24 triagebot.toml
+----------------------------------------
+
+[Command 2]
+$ cat Cargo.toml
+Exit Code: 0
+Output:
+[workspace]
+members = [".", "examples/remove-emphasis/mdbook-remove-emphasis"]
+
+[package]
+name = "mdbook"
+version = "0.4.42"
+authors = [
+    "Mathieu David <mathieudavid@mathieudavid.org>",
+    "Michael-F-Bryan <michaelfbryan@gmail.com>",
+    "Matt Ickstadt <mattico8@gmail.com>"
+]
+documentation = "https://rust-lang.github.io/mdBook/index.html"
+edition = "2021"
+exclude = ["/guide/*"]
+keywords = ["book", "gitbook", "rustbook", "markdown"]
+license = "MPL-2.0"
+readme = "README.md"
+repository = "https://github.com/rust-lang/mdBook"
+description = "Creates a book from markdown files"
+rust-version = "1.74"
+
+[dependencies]
+anyhow = "1.0.71"
+chrono = { version = "0.4.24", default-features = false, features = ["clock"] }
+clap = { version = "4.3.12", features = ["cargo", "wrap_help"] }
+clap_complete = "4.3.2"
+once_cell = "1.17.1"
+env_logger = "0.11.1"
+handlebars = "6.0"
+log = "0.4.17"
+memchr = "2.5.0"
+opener = "0.7.0"
+pulldown-cmark = { version = "0.10.0", default-features = false, features = ["html"] } # Do not update, part of the public api.
+regex = "1.8.1"
+serde = { version = "1.0.163", features = ["derive"] }
+serde_json = "1.0.96"
+shlex = "1.3.0"
+tempfile = "3.4.0"
+toml = "0.5.11" # Do not update, see https://github.com/rust-lang/mdBook/issues/2037
+topological-sort = "0.2.2"
+
+# Watch feature
+notify = { version = "6.1.1", optional = true }
+notify-debouncer-mini = { version = "0.4.1", optional = true }
+ignore = { version = "0.4.20", optional = true }
+pathdiff = { version = "0.2.1", optional = true }
+walkdir = { version = "2.3.3", optional = true }
+
+# Serve feature
+futures-util = { version = "0.3.28", optional = true }
+tokio = { version = "1.28.1", features = ["macros", "rt-multi-thread"], optional = true }
+warp = { version = "0.3.6", default-features = false, features = ["websocket"], optional = true }
+
+# Search feature
+elasticlunr-rs = { version = "3.0.2", optional = true }
+ammonia = { version = "4.0.0", optional = true }
+
+[dev-dependencies]
+assert_cmd = "2.0.11"
+predicates = "3.0.3"
+select = "0.6.0"
+semver = "1.0.17"
+pretty_assertions = "1.3.0"
+walkdir = "2.3.3"
+
+[features]
+default = ["watch", "serve", "search"]
+watch = ["dep:notify", "dep:notify-debouncer-mini", "dep:ignore", "dep:pathdiff", "dep:walkdir"]
+serve = ["dep:futures-util", "dep:tokio", "dep:warp"]
+search = ["dep:elasticlunr-rs", "dep:ammonia"]
+
+[[bin]]
+doc = false
+name = "mdbook"
+
+[[example]]
+name = "nop-preprocessor"
+test = true
+
+[[example]]
+name = "remove-emphasis"
+path = "examples/remove-emphasis/test.rs"
+crate-type = ["lib"]
+test = true
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y rustc cargo
+Exit Code: 100
+Output:
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Fetched 43.8 MB in 39s (1116 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cargo-doc python3 cpp-doc gcc-11-locales gcc-multilib make
+  autoconf automake libtool flex bison gdb gcc-doc gcc-11-multilib gcc-11-doc
+  glibc-doc locales libgd-tools libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql man-browser llvm-17 lld-17 clang-17
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cargo cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto rustc ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 75 newly installed, 0 to remove and 2 not upgraded.
+Need to get 161 MB of archives.
+After this operation, 577 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Err:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6
+  502  Bad Gateway [IP: 91.189.91.81 80]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libssh2-1 amd64 1.10.0-3 [109 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-1.75 amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [46.3 MB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-dev amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [41.6 MB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 rustc amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [3404 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 cargo amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [6700 kB]
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/pool/main/b/brotli/libbrotli1_1.0.9-2build6_amd64.deb  502  Bad Gateway [IP: 91.189.91.81 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+Fetched 160 MB in 4min 50s (553 kB/s)
+----------------------------------------
+
+[Command 4]
+$ cargo build
+Exit Code: 127
+Output:
+/bin/bash: line 13: cargo: command not found
+----------------------------------------
+
+[Command 5]
+$ apt-get update --fix-missing
+Exit Code: 0
+Output:
+Hit:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Reading package lists...
+----------------------------------------
+
+[Command 6]
+$ apt-get install -y rustc cargo
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cargo-doc python3 cpp-doc gcc-11-locales gcc-multilib make
+  autoconf automake libtool flex bison gdb gcc-doc gcc-11-multilib gcc-11-doc
+  glibc-doc locales libgd-tools libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql man-browser llvm-17 lld-17 clang-17
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cargo cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto rustc ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 75 newly installed, 0 to remove and 2 not upgraded.
+Need to get 161 MB of archives.
+After this operation, 577 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Ign:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:55 http://security.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libssh2-1 amd64 1.10.0-3 [109 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-1.75 amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [46.3 MB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-dev amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [41.6 MB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 rustc amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [3404 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 cargo amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [6700 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 161 MB in 3min 30s (765 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../02-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../03-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../05-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../06-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../07-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../08-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../09-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../10-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../11-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../12-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../13-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../14-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../15-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../16-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../17-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../18-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../19-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../20-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../21-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../22-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../23-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../24-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../25-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../26-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../27-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../28-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../29-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../30-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../31-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../32-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../33-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../34-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../35-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../36-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../37-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../38-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../39-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../40-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../41-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../42-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../43-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../44-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../45-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../46-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../47-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../48-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../49-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../50-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../51-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../52-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../53-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../54-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../55-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../56-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../57-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../58-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../59-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../60-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../61-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../62-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../63-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../64-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../65-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../66-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../67-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../68-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../69-libssh2-1_1.10.0-3_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.10.0-3) ...
+Selecting previously unselected package libstd-rust-1.75:amd64.
+Preparing to unpack .../70-libstd-rust-1.75_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../71-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Selecting previously unselected package libstd-rust-dev:amd64.
+Preparing to unpack .../72-libstd-rust-dev_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package rustc.
+Preparing to unpack .../73-rustc_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package cargo.
+Preparing to unpack .../74-cargo_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libssh2-1:amd64 (1.10.0-3) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 7]
+$ cargo build
+Exit Code: 0
+Output:
+Updating crates.io index
+ Downloading crates ...
+  Downloaded anstyle-query v1.1.2
+  Downloaded equivalent v1.0.1
+  Downloaded anstyle v1.0.10
+  Downloaded cfg-if v1.0.0
+  Downloaded new_debug_unreachable v1.0.6
+  Downloaded generic-array v0.14.7
+  Downloaded futures-sink v0.3.31
+  Downloaded futures-task v0.3.31
+  Downloaded anstream v0.6.18
+  Downloaded http-body v0.4.6
+  Downloaded mime v0.3.17
+  Downloaded headers-core v0.2.0
+  Downloaded notify-debouncer-mini v0.4.1
+  Downloaded filetime v0.2.25
+  Downloaded httpdate v1.0.3
+  Downloaded idna_adapter v1.2.0
+  Downloaded percent-encoding v2.3.1
+  Downloaded block-buffer v0.10.4
+  Downloaded futf v0.1.5
+  Downloaded inotify-sys v0.1.5
+  Downloaded icu_provider_macros v1.5.0
+  Downloaded fastrand v2.1.1
+  Downloaded futures-macro v0.3.31
+  Downloaded form_urlencoded v1.2.1
+  Downloaded itoa v1.0.11
+  Downloaded pin-utils v0.1.0
+  Downloaded mac v0.1.1
+  Downloaded tower-service v0.3.3
+  Downloaded errno v0.3.9
+  Downloaded cpufeatures v0.2.14
+  Downloaded terminal_size v0.4.0
+  Downloaded scopeguard v1.2.0
+  Downloaded tokio-macros v2.4.0
+  Downloaded env_filter v0.1.2
+  Downloaded utf-8 v0.7.6
+  Downloaded futures-core v0.3.31
+  Downloaded is_terminal_polyfill v1.70.1
+  Downloaded colorchoice v1.0.3
+  Downloaded fnv v1.0.7
+  Downloaded version_check v0.9.5
+  Downloaded crypto-common v0.1.6
+  Downloaded precomputed-hash v0.1.1
+  Downloaded phf_shared v0.10.0
+  Downloaded phf_codegen v0.11.2
+  Downloaded clap_lex v0.7.2
+  Downloaded utf8parse v0.2.2
+  Downloaded autocfg v1.4.0
+  Downloaded lock_api v0.4.12
+  Downloaded mime_guess v2.0.5
+  Downloaded iana-time-zone v0.1.61
+  Downloaded displaydoc v0.2.5
+  Downloaded humantime v2.1.0
+  Downloaded digest v0.10.7
+  Downloaded crossbeam-deque v0.8.5
+  Downloaded stable_deref_trait v1.2.0
+  Downloaded icu_locid_transform v1.5.0
+  Downloaded byteorder v1.5.0
+  Downloaded env_logger v0.11.5
+  Downloaded same-file v1.0.6
+  Downloaded zerofrom v0.1.4
+  Downloaded want v0.3.1
+  Downloaded zerofrom-derive v0.1.4
+  Downloaded scoped-tls v1.0.1
+  Downloaded utf8_iter v1.0.4
+  Downloaded phf_generator v0.11.2
+  Downloaded globset v0.4.15
+  Downloaded futures-channel v0.3.31
+  Downloaded inotify v0.9.6
+  Downloaded pulldown-cmark-escape v0.10.1
+  Downloaded maplit v1.0.2
+  Downloaded bitflags v1.3.2
+  Downloaded ammonia v4.0.0
+  Downloaded anyhow v1.0.93
+  Downloaded getrandom v0.2.15
+  Downloaded anstyle-parse v0.2.6
+  Downloaded bitflags v2.6.0
+  Downloaded crossbeam-utils v0.8.20
+  Downloaded topological-sort v0.2.2
+  Downloaded try-lock v0.2.5
+  Downloaded clap_complete v4.5.37
+  Downloaded httparse v1.9.5
+  Downloaded siphasher v0.3.11
+  Downloaded serde_urlencoded v0.7.1
+  Downloaded markup5ever v0.12.1
+  Downloaded crossbeam-epoch v0.9.18
+  Downloaded litemap v0.7.3
+  Downloaded sha1 v0.10.6
+  Downloaded strsim v0.11.1
+  Downloaded utf16_iter v1.0.5
+  Downloaded notify v6.1.1
+  Downloaded yoke-derive v0.7.4
+  Downloaded clap v4.5.20
+  Downloaded write16 v1.0.0
+  Downloaded data-encoding v2.6.0
+  Downloaded icu_locid v1.5.0
+  Downloaded log v0.4.22
+  Downloaded icu_locid_transform_data v1.5.0
+  Downloaded icu_properties v1.5.1
+  Downloaded icu_provider v1.5.0
+  Downloaded phf_shared v0.11.2
+  Downloaded icu_normalizer v1.5.0
+  Downloaded rand_chacha v0.3.1
+  Downloaded icu_normalizer_data v1.5.0
+  Downloaded string_cache_codegen v0.5.2
+  Downloaded ignore v0.4.23
+  Downloaded num-modular v0.6.1
+  Downloaded shlex v1.3.0
+  Downloaded pest_generator v2.7.14
+  Downloaded num-order v1.2.0
+  Downloaded pathdiff v0.2.2
+  Downloaded parking_lot_core v0.9.10
+  Downloaded headers v0.3.9
+  Downloaded string_cache v0.8.7
+  Downloaded synstructure v0.13.1
+  Downloaded rand_core v0.6.4
+  Downloaded ppv-lite86 v0.2.20
+  Downloaded pin-project-internal v1.1.7
+  Downloaded zerovec-derive v0.10.3
+  Downloaded opener v0.7.2
+  Downloaded bytes v1.8.0
+  Downloaded phf v0.11.2
+  Downloaded icu_collections v1.5.0
+  Downloaded crossbeam-channel v0.5.13
+  Downloaded writeable v0.5.5
+  Downloaded tokio-tungstenite v0.21.0
+  Downloaded base64 v0.21.7
+  Downloaded memchr v2.7.4
+  Downloaded thiserror v1.0.68
+  Downloaded html5ever v0.27.0
+  Downloaded sha2 v0.10.8
+  Downloaded mio v1.0.2
+  Downloaded mio v0.8.11
+  Downloaded indexmap v2.6.0
+  Downloaded http v0.2.12
+  Downloaded http v1.1.0
+  Downloaded cc v1.1.36
+  Downloaded elasticlunr-rs v3.0.2
+  Downloaded handlebars v6.2.0
+  Downloaded dbus v0.9.7
+  Downloaded thiserror-impl v1.0.68
+  Downloaded walkdir v2.5.0
+  Downloaded tinystr v0.7.6
+  Downloaded hashbrown v0.15.1
+  Downloaded quote v1.0.37
+  Downloaded slab v0.4.9
+  Downloaded phf_generator v0.10.0
+  Downloaded yoke v0.7.4
+  Downloaded once_cell v1.20.2
+  Downloaded unicode-ident v1.0.13
+  Downloaded tendril v0.4.3
+  Downloaded pest_meta v2.7.14
+  Downloaded idna v1.0.3
+  Downloaded pkg-config v0.3.31
+  Downloaded clap_builder v4.5.20
+  Downloaded tempfile v3.13.0
+  Downloaded unicase v2.8.0
+  Downloaded smallvec v1.13.2
+  Downloaded pest_derive v2.7.14
+  Downloaded futures-util v0.3.31
+  Downloaded aho-corasick v1.1.3
+  Downloaded h2 v0.3.26
+  Downloaded pin-project-lite v0.2.15
+  Downloaded ucd-trie v0.1.7
+  Downloaded typenum v1.17.0
+  Downloaded hyper v0.14.31
+  Downloaded chrono v0.4.38
+  Downloaded icu_properties_data v1.5.0
+  Downloaded bstr v1.10.0
+  Downloaded zerocopy-derive v0.7.35
+  Downloaded ryu v1.0.18
+  Downloaded tungstenite v0.21.0
+  Downloaded pin-project v1.1.7
+  Downloaded tracing-core v0.1.32
+  Downloaded serde_derive v1.0.214
+  Downloaded toml v0.5.11
+  Downloaded url v2.5.3
+  Downloaded proc-macro2 v1.0.89
+  Downloaded num-traits v0.2.19
+  Downloaded parking_lot v0.12.3
+  Downloaded serde v1.0.214
+  Downloaded socket2 v0.5.7
+  Downloaded libc v0.2.161
+  Downloaded rand v0.8.5
+  Downloaded tracing v0.1.40
+  Downloaded libdbus-sys v0.2.5
+  Downloaded warp v0.3.7
+  Downloaded linux-raw-sys v0.4.14
+  Downloaded tokio-util v0.7.12
+  Downloaded pulldown-cmark v0.10.3
+  Downloaded zerovec v0.10.4
+  Downloaded pest v2.7.14
+  Downloaded zerocopy v0.7.35
+  Downloaded serde_json v1.0.132
+  Downloaded regex v1.11.1
+  Downloaded syn v2.0.87
+  Downloaded regex-syntax v0.8.5
+  Downloaded rustix v0.38.39
+  Downloaded tokio v1.41.0
+  Downloaded regex-automata v0.4.8
+   Compiling proc-macro2 v1.0.89
+   Compiling unicode-ident v1.0.13
+   Compiling cfg-if v1.0.0
+   Compiling libc v0.2.161
+   Compiling autocfg v1.4.0
+   Compiling memchr v2.7.4
+   Compiling log v0.4.22
+   Compiling stable_deref_trait v1.2.0
+   Compiling siphasher v0.3.11
+   Compiling itoa v1.0.11
+   Compiling once_cell v1.20.2
+   Compiling byteorder v1.5.0
+   Compiling smallvec v1.13.2
+   Compiling litemap v0.7.3
+   Compiling bytes v1.8.0
+   Compiling serde v1.0.214
+   Compiling writeable v0.5.5
+   Compiling version_check v0.9.5
+   Compiling typenum v1.17.0
+   Compiling thiserror v1.0.68
+   Compiling fnv v1.0.7
+   Compiling icu_locid_transform_data v1.5.0
+   Compiling regex-syntax v0.8.5
+   Compiling pin-project-lite v0.2.15
+   Compiling icu_properties_data v1.5.0
+   Compiling phf_shared v0.10.0
+   Compiling crossbeam-utils v0.8.20
+   Compiling icu_normalizer_data v1.5.0
+   Compiling utf8_iter v1.0.4
+   Compiling utf16_iter v1.0.5
+   Compiling write16 v1.0.0
+   Compiling phf_shared v0.11.2
+   Compiling futures-sink v0.3.31
+   Compiling futures-core v0.3.31
+   Compiling utf-8 v0.7.6
+   Compiling rustix v0.38.39
+   Compiling bitflags v2.6.0
+   Compiling parking_lot_core v0.9.10
+   Compiling percent-encoding v2.3.1
+   Compiling generic-array v0.14.7
+   Compiling utf8parse v0.2.2
+   Compiling linux-raw-sys v0.4.14
+   Compiling httparse v1.9.5
+   Compiling form_urlencoded v1.2.1
+   Compiling new_debug_unreachable v1.0.6
+   Compiling http v0.2.12
+   Compiling scopeguard v1.2.0
+   Compiling anstyle-parse v0.2.6
+   Compiling slab v0.4.9
+   Compiling lock_api v0.4.12
+   Compiling colorchoice v1.0.3
+   Compiling aho-corasick v1.1.3
+   Compiling serde_json v1.0.132
+   Compiling unicase v2.8.0
+   Compiling ucd-trie v0.1.7
+   Compiling mac v0.1.1
+   Compiling anstyle-query v1.1.2
+   Compiling futures-task v0.3.31
+   Compiling ryu v1.0.18
+   Compiling pin-utils v0.1.0
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling cpufeatures v0.2.14
+   Compiling anstyle v1.0.10
+   Compiling futf v0.1.5
+   Compiling tracing-core v0.1.32
+   Compiling hashbrown v0.15.1
+   Compiling same-file v1.0.6
+   Compiling equivalent v1.0.1
+   Compiling quote v1.0.37
+   Compiling anstream v0.6.18
+   Compiling precomputed-hash v0.1.1
+   Compiling walkdir v2.5.0
+   Compiling phf v0.11.2
+   Compiling mio v1.0.2
+   Compiling getrandom v0.2.15
+   Compiling socket2 v0.5.7
+   Compiling syn v2.0.87
+   Compiling rand_core v0.6.4
+   Compiling inotify-sys v0.1.5
+   Compiling tendril v0.4.3
+   Compiling tracing v0.1.40
+   Compiling parking_lot v0.12.3
+   Compiling mime_guess v2.0.5
+   Compiling num-traits v0.2.19
+   Compiling http v1.1.0
+   Compiling data-encoding v2.6.0
+   Compiling strsim v0.11.1
+   Compiling bitflags v1.3.2
+   Compiling httpdate v1.0.3
+   Compiling clap_lex v0.7.2
+   Compiling indexmap v2.6.0
+   Compiling try-lock v0.2.5
+   Compiling mime v0.3.17
+   Compiling want v0.3.1
+   Compiling inotify v0.9.6
+   Compiling http-body v0.4.6
+   Compiling headers-core v0.2.0
+   Compiling crossbeam-channel v0.5.13
+   Compiling crossbeam-epoch v0.9.18
+   Compiling mio v0.8.11
+   Compiling filetime v0.2.25
+   Compiling futures-channel v0.3.31
+   Compiling num-modular v0.6.1
+   Compiling pulldown-cmark v0.10.3
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling anyhow v1.0.93
+   Compiling base64 v0.21.7
+   Compiling tower-service v0.3.3
+   Compiling digest v0.10.7
+   Compiling crossbeam-deque v0.8.5
+   Compiling pulldown-cmark-escape v0.10.1
+   Compiling scoped-tls v1.0.1
+   Compiling regex-automata v0.4.8
+   Compiling notify v6.1.1
+   Compiling maplit v1.0.2
+   Compiling fastrand v2.1.1
+   Compiling sha1 v0.10.6
+   Compiling iana-time-zone v0.1.61
+   Compiling humantime v2.1.0
+   Compiling pathdiff v0.2.2
+   Compiling topological-sort v0.2.2
+   Compiling shlex v1.3.0
+   Compiling headers v0.3.9
+   Compiling num-order v1.2.0
+   Compiling notify-debouncer-mini v0.4.1
+   Compiling chrono v0.4.38
+   Compiling terminal_size v0.4.0
+   Compiling tempfile v3.13.0
+   Compiling clap_builder v4.5.20
+   Compiling regex v1.11.1
+   Compiling bstr v1.10.0
+   Compiling clap v4.5.20
+   Compiling clap_complete v4.5.37
+   Compiling env_filter v0.1.2
+   Compiling globset v0.4.15
+   Compiling opener v0.7.2
+   Compiling synstructure v0.13.1
+   Compiling env_logger v0.11.5
+   Compiling ignore v0.4.23
+   Compiling zerocopy-derive v0.7.35
+   Compiling zerofrom-derive v0.1.4
+   Compiling yoke-derive v0.7.4
+   Compiling zerovec-derive v0.10.3
+   Compiling displaydoc v0.2.5
+   Compiling icu_provider_macros v1.5.0
+   Compiling serde_derive v1.0.214
+   Compiling thiserror-impl v1.0.68
+   Compiling tokio-macros v2.4.0
+   Compiling futures-macro v0.3.31
+   Compiling html5ever v0.27.0
+   Compiling pin-project-internal v1.1.7
+   Compiling tokio v1.41.0
+   Compiling futures-util v0.3.31
+   Compiling zerocopy v0.7.35
+   Compiling pin-project v1.1.7
+   Compiling pest v2.7.14
+   Compiling zerofrom v0.1.4
+   Compiling yoke v0.7.4
+   Compiling zerovec v0.10.4
+   Compiling ppv-lite86 v0.2.20
+   Compiling rand_chacha v0.3.1
+   Compiling rand v0.8.5
+   Compiling pest_meta v2.7.14
+   Compiling tinystr v0.7.6
+   Compiling icu_collections v1.5.0
+   Compiling icu_locid v1.5.0
+   Compiling phf_generator v0.10.0
+   Compiling phf_generator v0.11.2
+   Compiling string_cache_codegen v0.5.2
+   Compiling phf_codegen v0.11.2
+   Compiling markup5ever v0.12.1
+   Compiling pest_generator v2.7.14
+   Compiling icu_provider v1.5.0
+   Compiling icu_locid_transform v1.5.0
+   Compiling pest_derive v2.7.14
+   Compiling icu_properties v1.5.1
+   Compiling tokio-util v0.7.12
+   Compiling h2 v0.3.26
+   Compiling string_cache v0.8.7
+   Compiling serde_urlencoded v0.7.1
+   Compiling toml v0.5.11
+   Compiling icu_normalizer v1.5.0
+   Compiling idna_adapter v1.2.0
+   Compiling idna v1.0.3
+   Compiling elasticlunr-rs v3.0.2
+   Compiling handlebars v6.2.0
+   Compiling url v2.5.3
+   Compiling tungstenite v0.21.0
+   Compiling ammonia v4.0.0
+   Compiling tokio-tungstenite v0.21.0
+   Compiling hyper v0.14.31
+   Compiling warp v0.3.7
+   Compiling mdbook v0.4.42 (/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e)
+    Finished dev [unoptimized + debuginfo] target(s) in 55.63s
+----------------------------------------
+
+[Command 8]
+$ cargo test
+Exit Code: 0
+Output:
+Downloading crates ...
+  Downloaded difflib v0.4.0
+  Downloaded bit-set v0.5.3
+  Downloaded wait-timeout v0.2.0
+  Downloaded termtree v0.4.1
+  Downloaded float-cmp v0.9.0
+  Downloaded predicates-core v1.0.8
+  Downloaded doc-comment v0.3.3
+  Downloaded phf_codegen v0.10.0
+  Downloaded predicates-tree v1.0.11
+  Downloaded phf v0.10.1
+  Downloaded normalize-line-endings v0.3.0
+  Downloaded bit-vec v0.6.3
+  Downloaded assert_cmd v2.0.16
+  Downloaded predicates v3.1.2
+  Downloaded diff v0.1.13
+  Downloaded xml5ever v0.17.0
+  Downloaded semver v1.0.23
+  Downloaded markup5ever v0.11.0
+  Downloaded select v0.6.0
+  Downloaded yansi v1.0.1
+  Downloaded html5ever v0.26.0
+  Downloaded pretty_assertions v1.4.1
+  Downloaded syn v1.0.109
+  Downloaded markup5ever_rcdom v0.2.0
+   Compiling syn v1.0.109
+   Compiling sha1 v0.10.6
+   Compiling phf v0.10.1
+   Compiling phf_codegen v0.10.0
+   Compiling doc-comment v0.3.3
+   Compiling predicates-core v1.0.8
+   Compiling float-cmp v0.9.0
+   Compiling difflib v0.4.0
+   Compiling bit-vec v0.6.3
+   Compiling semver v1.0.23
+   Compiling termtree v0.4.1
+   Compiling normalize-line-endings v0.3.0
+   Compiling assert_cmd v2.0.16
+   Compiling wait-timeout v0.2.0
+   Compiling diff v0.1.13
+   Compiling yansi v1.0.1
+   Compiling markup5ever v0.11.0
+   Compiling predicates-tree v1.0.11
+   Compiling tungstenite v0.21.0
+   Compiling headers v0.3.9
+   Compiling bit-set v0.5.3
+   Compiling predicates v3.1.2
+   Compiling pretty_assertions v1.4.1
+   Compiling tokio-tungstenite v0.21.0
+   Compiling warp v0.3.7
+   Compiling xml5ever v0.17.0
+   Compiling mdbook v0.4.42 (/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e)
+   Compiling html5ever v0.26.0
+   Compiling markup5ever_rcdom v0.2.0
+   Compiling select v0.6.0
+    Finished test [unoptimized + debuginfo] target(s) in 23.31s
+     Running unittests src/lib.rs (target/debug/deps/mdbook-3959ec8ee17ef38a)
+
+running 144 tests
+test book::book::tests::book_iter_iterates_over_sequential_items ... ok
+test book::book::tests::for_each_mut_visits_all_items ... ok
+test book::summary::tests::parse_a_link ... ok
+test book::book::tests::iterate_over_nested_book_items ... ok
+test book::summary::tests::add_space_for_multi_line_chapter_names ... ok
+test book::summary::tests::allow_space_in_link_destination ... ok
+test book::summary::tests::parse_numbered_chapters_separated_by_comment ... ok
+test book::summary::tests::an_empty_link_location_is_a_draft_chapter ... ok
+test book::summary::tests::can_have_a_subheader_between_nested_items ... ok
+test book::summary::tests::no_initial_title ... ok
+test book::summary::tests::parse_a_numbered_chapter ... ok
+test book::summary::tests::keep_numbering_after_separator ... ok
+test book::summary::tests::parse_nested_numbered_chapters ... ok
+test book::summary::tests::parse_prefix_items_with_a_separator ... ok
+test book::summary::tests::parse_some_prefix_items ... ok
+test book::summary::tests::parse_title_with_styling ... ok
+test book::summary::tests::convert_markdown_events_to_a_string ... ok
+test book::summary::tests::suffix_items_cannot_be_followed_by_a_list ... ok
+test book::summary::tests::skip_html_comments ... ok
+test book::tests::add_a_random_renderer_with_custom_command_to_the_config ... ok
+test book::tests::add_a_random_renderer_to_the_config ... ok
+test book::tests::config_defaults_to_html_renderer_if_empty ... ok
+test book::summary::tests::section_number_has_correct_dotted_representation ... ok
+test book::tests::config_defaults_to_link_and_index_preprocessor_if_not_set ... ok
+test book::summary::tests::parse_titled_parts ... ok
+test book::tests::can_determine_third_party_preprocessors ... ok
+test book::tests::config_respects_preprocessor_selection ... ok
+test book::summary::tests::parse_initial_title ... ok
+test book::tests::cyclic_dependencies_are_detected ... ok
+test book::tests::dependencies_dont_register_undefined_preprocessors ... ok
+test book::book::tests::cant_load_chapters_when_the_link_is_a_directory ... ok
+test config::tests::disable_runnable ... ok
+test config::tests::edition_2015 ... ok
+test config::tests::edition_2018 ... ok
+test book::tests::preprocessor_after_must_be_array ... ok
+test book::tests::preprocessor_before_must_be_array ... ok
+test book::tests::dependencies_dont_register_builtin_preprocessors_if_disabled ... ok
+test book::tests::preprocessor_should_run_falls_back_to_supports_renderer_method ... ok
+test config::tests::curly_quotes_or_smart_punctuation ... ok
+test config::tests::file_404_default ... ok
+test config::tests::file_404_custom ... ok
+test config::tests::invalid_language_type_error - should panic ... ok
+test config::tests::can_still_load_the_previous_format ... ok
+test book::book::tests::cant_load_a_nonexistent_chapter ... ok
+test book::tests::use_default_preprocessors_works ... ok
+test book::tests::preprocessor_order_is_honored ... ok
+test config::tests::edition_2021 ... ok
+test config::tests::invalid_rust_edition - should panic ... ok
+test book::tests::preprocessors_can_provide_their_own_commands ... ok
+test book::book::tests::cant_load_chapters_with_an_empty_path ... ok
+test book::book::tests::load_a_book_with_a_single_chapter ... ok
+test book::book::tests::load_recursive_link_with_separators ... ok
+test config::tests::invalid_build_dir_type - should panic ... ok
+test book::book::tests::load_a_single_chapter_from_disk ... ok
+test config::tests::parse_env_vars ... ok
+test book::book::tests::load_a_single_chapter_with_utf8_bom_from_disk ... ok
+test config::tests::print_config ... ok
+test config::tests::invalid_title_type - should panic ... ok
+test config::tests::mutate_some_stuff ... ok
+test config::tests::set_a_config_item ... ok
+test config::tests::test_text_direction ... ok
+test config::tests::load_arbitrary_output_type ... ok
+test config::tests::load_a_complex_config_file ... ok
+test config::tests::update_book_title_via_env ... ok
+test config::tests::text_direction_rtl ... ok
+test config::tests::update_config_using_env_var_and_complex_value ... ok
+test config::tests::text_direction_none ... ok
+test config::tests::text_direction_ltr ... ok
+test config::tests::update_config_using_env_var ... ok
+test preprocess::links::tests::parse_end_only_range ... ok
+test preprocess::links::tests::parse_start_only_range ... ok
+test preprocess::links::tests::parse_start_with_garbage_interpreted_as_start_only_range ... ok
+test preprocess::links::tests::parse_start_and_end_range ... ok
+test preprocess::links::tests::parse_with_anchor_followed_by_colon ... ok
+test preprocess::links::tests::parse_with_garbage_after_two_colons_includes_all ... ok
+test preprocess::links::tests::parse_with_floating_point_interpreted_as_anchor ... ok
+test preprocess::links::tests::parse_with_more_than_three_colons_ignores_everything_after_third_colon ... ok
+test preprocess::links::tests::parse_with_negative_interpreted_as_anchor ... ok
+test preprocess::index::tests::file_stem_exactly_matches_readme_case_insensitively ... ok
+test preprocess::links::tests::parse_with_nothing_after_colon_includes_all ... ok
+test preprocess::links::tests::parse_with_one_based_start_becomes_zero_based ... ok
+test preprocess::links::tests::parse_with_one_number_after_colon_only_that_line ... ok
+test preprocess::links::tests::parse_with_two_colons_includes_all ... ok
+test preprocess::links::tests::parse_with_zero_based_start_stays_zero_based_but_is_probably_an_error ... ok
+test preprocess::links::tests::parse_without_colon_includes_all ... ok
+test preprocess::links::tests::test_find_links_simple_link ... ok
+test preprocess::links::tests::test_find_all_link_types ... ok
+test preprocess::links::tests::test_find_links_escaped_link ... ok
+test preprocess::links::tests::test_find_links_partial_link ... ok
+test preprocess::links::tests::test_find_links_with_anchor ... ok
+test preprocess::links::tests::test_find_links_no_link ... ok
+test preprocess::links::tests::test_find_links_with_to_range ... ok
+test preprocess::links::tests::test_find_links_empty_link ... ok
+test preprocess::links::tests::test_find_links_with_line_number ... ok
+test preprocess::links::tests::test_find_playgrounds_with_properties ... ok
+test preprocess::links::tests::test_replace_all_escaped ... ok
+test preprocess::links::tests::test_set_chapter_title ... ok
+test renderer::html_handlebars::hbs_renderer::tests::add_playground ... ok
+test preprocess::links::tests::test_find_links_unknown_link_type ... ok
+test theme::tests::theme_uses_defaults_with_nonexistent_src_dir ... ok
+test renderer::html_handlebars::hbs_renderer::tests::hide_lines_language_rust ... ok
+test renderer::html_handlebars::helpers::navigation::tests::test_last ... ok
+test preprocess::links::tests::test_find_links_with_from_range ... ok
+test preprocess::links::tests::test_find_links_with_full_range ... ok
+test renderer::html_handlebars::hbs_renderer::tests::test_json_direction ... ok
+test preprocess::links::tests::test_find_links_with_range ... ok
+test renderer::html_handlebars::hbs_renderer::tests::add_playground_edition2018 ... ok
+test preprocess::links::tests::test_find_links_with_special_characters ... ok
+test preprocess::links::tests::test_find_links_with_no_range_specified ... ok
+test renderer::html_handlebars::hbs_renderer::tests::add_playground_edition2021 ... ok
+test renderer::html_handlebars::helpers::navigation::tests::test_first ... ok
+test utils::fs::tests::copy_files_except_ext_test ... ok
+test utils::tests::html_munging::it_normalizes_ids ... ok
+test utils::string::tests::take_lines_test ... ok
+test utils::tests::escaped_special ... ok
+test renderer::html_handlebars::hbs_renderer::tests::add_playground_edition2015 ... ok
+test utils::tests::render_markdown::it_can_keep_quotes_straight ... ok
+test utils::string::tests::take_rustdoc_include_lines_test ... ok
+test utils::tests::escaped_brackets ... ok
+test theme::tests::theme_dir_overrides_defaults ... ok
+test theme::tests::favicon_override ... ok
+test utils::tests::html_munging::it_generates_unique_ids_from_content ... ok
+test utils::tests::id_from_content::it_generates_anchors_from_non_ascii_initial ... ok
+test utils::tests::render_markdown::it_can_wrap_tables ... ok
+test utils::tests::id_from_content::it_generates_anchors ... ok
+test utils::tests::render_markdown::preserves_external_links ... ok
+test utils::tests::render_markdown::rust_code_block_without_properties_has_proper_html_class ... ok
+test utils::tests::render_markdown::rust_code_block_properties_are_passed_as_space_delimited_class ... ok
+test utils::tests::render_markdown::it_can_adjust_markdown_links ... ok
+test renderer::html_handlebars::helpers::navigation::tests::test_next_previous ... ok
+test utils::toml_ext::tests::delete_a_nested_item ... ok
+test utils::tests::render_markdown::whitespace_outside_of_codeblock_header_is_preserved ... ok
+test utils::toml_ext::tests::delete_a_top_level_item ... ok
+test utils::tests::render_markdown::rust_code_block_properties_with_whitespace_are_passed_as_space_delimited_class ... ok
+test utils::toml_ext::tests::read_nested_item ... ok
+test utils::toml_ext::tests::insert_nested_item ... ok
+test utils::toml_ext::tests::read_simple_table ... ok
+test renderer::html_handlebars::hbs_renderer::tests::original_build_header_links ... ok
+test utils::tests::render_markdown::it_can_make_quotes_curly_except_when_they_are_in_code ... ok
+test utils::toml_ext::tests::insert_item_at_top_level ... ok
+test renderer::html_handlebars::hbs_renderer::tests::hide_lines_language_other ... ok
+test utils::string::tests::take_anchored_lines_test ... ok
+test utils::string::tests::take_rustdoc_include_anchored_lines_test ... ok
+test preprocess::cmd::tests::round_trip_write_and_parse_input ... ok
+
+test result: ok. 144 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/main.rs (target/debug/deps/mdbook-ecedd9ba7bc49c0f)
+
+running 7 tests
+test verify_app ... ok
+test cmd::watch::native::tests::test_filter_ignored_files ... ok
+test cmd::watch::native::tests::filter_ignored_files_should_handle_parent_dir ... ok
+test cmd::watch::poller::tests::test_ignore ... ok
+test cmd::watch::poller::tests::test_ignore_in_parent ... ok
+test cmd::watch::poller::tests::test_ignore_canonical ... ok
+test cmd::watch::poller::tests::test_scan_extra_watch ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/alternative_backends.rs (target/debug/deps/alternative_backends-1952f68b3b930e50)
+
+running 7 tests
+test missing_backends_are_fatal ... ok
+test missing_optional_backends_are_not_fatal ... ok
+test passing_alternate_backend ... ok
+test failing_alternate_backend ... ok
+Hello World!
+test alternate_backend_with_arguments ... ok
+test backends_receive_render_context_via_stdin ... ok
+test relative_command_path ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+     Running tests/build_process.rs (target/debug/deps/build_process-1ce64d56705514fb)
+
+running 2 tests
+test mdbook_runs_preprocessors ... ok
+test mdbook_runs_renderers ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/cli_tests.rs (target/debug/deps/cli_tests-d8eda260ed1ef71a)
+
+running 4 tests
+test cli::init::base_mdbook_init_can_skip_confirmation_prompts ... ok
+test cli::build::mdbook_cli_dummy_book_generates_index_html ... ok
+test cli::test::mdbook_cli_can_correctly_test_a_passing_book ... ok
+test cli::test::mdbook_cli_detects_book_with_failing_tests ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+     Running tests/custom_preprocessors.rs (target/debug/deps/custom_preprocessors-7b8b6fe3dc1037f6)
+
+running 4 tests
+    Blocking    Blocking    Blocking waiting for file lock on package cache
+ waiting for file lock on package cache
+ waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Blocking waiting for file lock on build directory
+    Blocking waiting for file lock on build directory
+   Compiling mdbook v0.4.42 (/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.77s
+     Running `target/debug/examples/nop-preprocessor supports not-supported`
+test example_doesnt_support_not_supported ... ok
+    Finished dev [unoptimized + debuginfo] target(s) in 2.78s
+     Running `target/debug/examples/nop-preprocessor supports html`
+    Finished dev [unoptimized + debuginfo] target(s) in 2.79s
+     Running `target/debug/examples/nop-preprocessor supports html`
+    Finished dev [unoptimized + debuginfo] target(s) in 2.80s
+     Running `target/debug/examples/nop-preprocessor supports whatever`
+test example_supports_whatever ... ok
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Finished dev [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target/debug/examples/nop-preprocessor`
+Boom!!1!
+test ask_the_preprocessor_to_blow_up ... ok
+    Finished dev [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target/debug/examples/nop-preprocessor`
+test process_the_dummy_book ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.09s
+
+     Running tests/init.rs (target/debug/deps/init-6986a2d32d8d7d29)
+
+running 5 tests
+test base_mdbook_init_should_create_default_content ... ok
+test run_mdbook_init_with_custom_book_and_src_locations ... ok
+test run_mdbook_init_should_create_content_from_summary ... ok
+test copy_theme ... ok
+test book_toml_isnt_required ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/parse_existing_summary_files.rs (target/debug/deps/parse_existing_summary_files-2db4e18bd68a6365)
+
+running 4 tests
+test example_book ... ok
+test rust_ffi_guide ... ok
+test the_book_2nd_edition ... ok
+test rust_by_example ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rendered_output.rs (target/debug/deps/rendered_output-4d81ab83ea9acb6e)
+
+running 36 tests
+test chapter_files_were_rendered_to_html ... ok
+test create_missing_file_with_config ... ok
+test book_with_a_reserved_filename_does_not_build ... ok
+test failure_on_missing_file ... ok
+test edit_url_has_configured_src_dir_edit_url ... ok
+test by_default_mdbook_use_index_preprocessor_to_convert_readme_to_index ... ok
+test custom_header_attributes ... ok
+test anchors_include_text_between_but_not_anchor_comments ... ok
+test by_default_mdbook_generates_rendered_content_in_the_book_directory ... ok
+test check_correct_relative_links_in_print_page ... ok
+test able_to_include_files_in_chapters ... ok
+test check_correct_cross_links_in_nested_dir ... ok
+test check_link_target_js ... ok
+test chapter_content_appears_in_rendered_document ... ok
+test build_the_dummy_book ... ok
+test check_second_toc_level ... ok
+test able_to_include_playground_files_in_chapters ... ok
+test first_chapter_is_copied_as_index_even_if_not_first_elem ... ok
+test check_first_toc_level ... ok
+test check_spacers ... ok
+test edit_url_has_default_src_dir_edit_url ... ok
+test check_link_target_fallback ... ok
+test markdown_options ... ok
+test no_index_for_print_html ... ok
+test summary_with_markdown_formatting ... ok
+test recursive_includes_are_capped ... ok
+test rustdoc_include_hides_the_unspecified_part_of_the_file ... ok
+test rendered_code_does_not_have_playground_stuff_in_html_when_disabled_in_config ... ok
+test redirects_are_emitted_correctly ... ok
+test search::book_creates_reasonable_search_index ... ok
+test failure_on_missing_theme_directory ... ok
+test rendered_code_has_playground_stuff ... ok
+test search::search_index_hasnt_changed_accidentally ... ok
+test custom_fonts ... ok
+test example_book_can_build ... ok
+test theme_dir_overrides_work_correctly ... ok
+
+test result: ok. 36 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.62s
+
+     Running tests/testing.rs (target/debug/deps/testing-00b37f11b005f3a4)
+
+running 4 tests
+test mdbook_test_chapter_not_found ... ok
+test mdbook_test_chapter ... ok
+test mdbook_can_correctly_test_a_passing_book ... ok
+test mdbook_detects_book_with_failing_tests ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+     Running unittests examples/remove-emphasis/test.rs (target/debug/examples/remove_emphasis-f967391f5fb471e3)
+
+running 1 test
+ Downloading crates ...
+  Downloaded pulldown-cmark-to-cmark v18.0.0
+  Downloaded pulldown-cmark v0.12.2
+   Compiling pulldown-cmark v0.12.2
+   Compiling pulldown-cmark-to-cmark v18.0.0
+   Compiling mdbook-remove-emphasis v0.1.0 (/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e/examples/remove-emphasis/mdbook-remove-emphasis)
+    Finished dev [unoptimized + debuginfo] target(s) in 5.48s
+     Running `/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e/target/debug/mdbook-remove-emphasis supports html`
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `/workspace/rust-lang__mdBook@90960126e8b2da1dc1a7e460c2bdeb8073f1b81e/target/debug/mdbook-remove-emphasis`
+removed 2 emphasis
+test remove_emphasis_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.68s
+
+     Running unittests examples/nop-preprocessor.rs (target/debug/examples/nop_preprocessor-33d9c3309e36a104)
+
+running 1 test
+test nop_lib::test::nop_preprocessor_run ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests mdbook
+
+running 5 tests
+test src/book/mod.rs - book::MDBook::iter (line 149) - compile ... ok
+test src/lib.rs - (line 50) - compile ... ok
+test src/lib.rs - (line 30) - compile ... ok
+test src/utils/fs.rs - utils::fs::path_to_root (line 28) ... ok
+test src/config.rs - config (line 11) ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.63s
+----------------------------------------
+

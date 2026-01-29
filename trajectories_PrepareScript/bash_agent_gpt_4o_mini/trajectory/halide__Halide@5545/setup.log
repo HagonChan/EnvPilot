@@ -1,0 +1,3235 @@
+# Setup Log for halide/Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7
+# Issue/PR Number: 5545
+# Generated at: 2026-01-23T10:31:55.759412
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 348
+drwxr-xr-x 16 1000 1000   4096 Jan 21 15:04 .
+drwxr-xr-x  3 root root   4096 Jan 23 02:19 ..
+-rw-r--r--  1 1000 1000   1459 Jan 21 14:51 .clang-format
+-rw-r--r--  1 1000 1000    265 Jan 21 14:51 .clang-format-ignore
+-rw-r--r--  1 1000 1000   1865 Jan 21 14:51 .clang-tidy
+drwxr-xr-x  8 1000 1000   4096 Jan 23 02:19 .git
+-rw-r--r--  1 1000 1000    342 Jan 21 14:51 .gitattributes
+drwxr-xr-x  3 1000 1000   4096 Jan 21 14:51 .github
+-rw-r--r--  1 1000 1000   1123 Jan 21 14:51 .gitignore
+-rw-r--r--  1 1000 1000      0 Jan 21 14:51 .gitmodules
+-rw-r--r--  1 1000 1000   4339 Jan 21 14:51 CMakeLists.txt
+-rw-r--r--  1 1000 1000   2483 Jan 21 14:51 CMakePresets.json
+-rw-r--r--  1 1000 1000   3560 Jan 21 14:51 CODE_OF_CONDUCT.md
+-rw-r--r--  1 1000 1000   3265 Jan 21 14:51 LICENSE.txt
+-rw-r--r--  1 1000 1000 100713 Jan 21 14:51 Makefile
+-rw-r--r--  1 1000 1000  20665 Jan 21 14:51 README.md
+-rw-r--r--  1 1000 1000  70628 Jan 21 14:51 README_cmake.md
+-rw-r--r--  1 1000 1000  12354 Jan 21 14:51 README_rungen.md
+-rw-r--r--  1 1000 1000   7700 Jan 21 14:51 README_webassembly.md
+drwxr-xr-x 44 1000 1000   4096 Jan 21 14:51 apps
+drwxr-xr-x  3 root root   4096 Jan 21 15:04 bin
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:51 cmake
+drwxr-xr-x  6 1000 1000   4096 Jan 21 14:51 dependencies
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:51 doc
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:51 packaging
+drwxr-xr-x  7 1000 1000   4096 Jan 21 14:51 python_bindings
+-rwxr-xr-x  1 1000 1000   1397 Jan 21 14:51 run-clang-format.sh
+-rwxr-xr-x  1 1000 1000   3105 Jan 21 14:51 run-clang-tidy.sh
+drwxr-xr-x  4 1000 1000  20480 Jan 21 14:51 src
+drwxr-xr-x 11 1000 1000   4096 Jan 21 14:51 test
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:51 tools
+drwxr-xr-x  4 1000 1000   4096 Jan 21 14:51 tutorial
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:51 util
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+# Halide
+
+Halide is a programming language designed to make it easier to write
+high-performance image and array processing code on modern machines. Halide
+currently targets:
+
+- CPU architectures: X86, ARM, MIPS, Hexagon, PowerPC
+- Operating systems: Linux, Windows, Mac OS X, Android, iOS, Qualcomm QuRT
+- GPU Compute APIs: CUDA, OpenCL, OpenGL, OpenGL Compute Shaders, Apple Metal,
+  Microsoft Direct X 12
+
+Rather than being a standalone programming language, Halide is embedded in C++.
+This means you write C++ code that builds an in-memory representation of a
+Halide pipeline using Halide's C++ API. You can then compile this representation
+to an object file, or JIT-compile it and run it in the same process. Halide also
+provides a Python binding that provides full support for writing Halide embedded
+in Python without C++.
+
+For more detail about what Halide is, see http://halide-lang.org.
+
+For API documentation see http://halide-lang.org/docs
+
+To see some example code, look in the tutorials directory.
+
+If you've acquired a full source distribution and want to build Halide, see the
+[notes below](#building-halide-with-cmake).
+
+# Getting Halide
+
+## Binary tarballs
+
+The latest version of Halide is **Halide 10.0.0**. We provide binary releases
+for many popular platforms and architectures, including 32/64-bit x86 Windows,
+64-bit macOS, and 32/64-bit x86/ARM Ubuntu Linux. See the releases tab on the
+right (or click [here](https://github.com/halide/Halide/releases/tag/v10.0.0)).
+
+## Vcpkg
+
+If you use [vcpkg](https://github.com/microsoft/vcpkg) to manage dependencies,
+you can install Halide via:
+
+```
+$ vcpkg install halide:x64-windows # or x64-linux/x64-osx
+```
+
+Note two caveats: first, at time of writing,
+[MSVC mis-compiles LLVM](https://github.com/halide/Halide/issues/5039) on
+x86-windows, so Halide cannot be used in vcpkg on that platform at this time;
+second, vcpkg installs only the minimum Halide backends required to compile code
+for the active platform. If you want to include all the backends, you should
+install `halide[target-all]:x64-windows` instead. Note that since this will
+build LLVM, it will take a _lot_ of disk space (up to 100GB).
+
+## Homebrew
+
+Alternatively, if you use macOS, you can install Halide via
+[Homebrew](https://brew.sh/) like so:
+
+```
+$ brew install halide
+```
+
+## Other package managers
+
+We are interested in bringing Halide 10 to other popular package managers
+and Linux distribution repositories including, but not limited to, Conan,
+Debian, [Ubuntu (or PPA)](https://github.com/halide/Halide/issues/5285),
+CentOS/Fedora, and Arch. If you have experience publishing packages we
+would be happy to work with you!
+
+If you are a maintainer of any other package distribution platform, we would
+be excited to work with you, too.
+
+# Building Halide with Make
+
+### TL;DR
+
+Have llvm-9.0 (or greater) installed and run `make` in the root directory of the
+repository (where this README is).
+
+### Acquiring LLVM
+
+At any point in time, building Halide requires either the latest stable version
+of LLVM, the previous stable version of LLVM, and trunk. At the time of writing,
+this means versions 11.0 and 10.0 are supported, but 9.0 is not. The commands
+`llvm-config` and `clang` must be somewhere in the path.
+
+If your OS does not have packages for llvm, you can find binaries for it at
+http://llvm.org/releases/download.html. Download an appropriate package and then
+either install it, or at least put the `bin` subdirectory in your path. (This
+works well on OS X and Ubuntu.)
+
+If you want to build it yourself, first check it out from GitHub:
+
+```
+% git clone --depth 1 --branch llvmorg-11.0.0 https://github.com/llvm/llvm-project.git
+```
+
+(If you want to build LLVM 10.x, use branch `llvmorg-10.0.1`; for current trunk,
+use `master`)
+
+Then build it like so:
+
+```
+% cmake -DCMAKE_BUILD_TYPE=Release \
+        -DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra" \
+        -DLLVM_TARGETS_TO_BUILD="X86;ARM;NVPTX;AArch64;Mips;Hexagon" \
+        -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ASSERTIONS=ON \
+        -DLLVM_ENABLE_EH=ON -DLLVM_ENABLE_RTTI=ON -DLLVM_BUILD_32_BITS=OFF \
+        -S llvm-project/llvm -B llvm-build
+% cmake --build llvm-build
+% cmake --install llvm-build --prefix llvm-install
+```
+
+then to point Halide to it:
+
+```
+% export LLVM_ROOT=$PWD/llvm-install
+% export LLVM_CONFIG=$LLVM_ROOT/bin/llvm-config
+```
+
+Note that you _must_ add `clang` to `LLVM_ENABLE_PROJECTS`; adding `lld` to
+`LLVM_ENABLE_PROJECTS` is only required when using WebAssembly, and adding
+`clang-tools-extra` is only necessary if you plan to contribute code to Halide
+(so that you can run clang-tidy on your pull requests). We recommend enabling
+both in all cases, to simplify builds. You can disable exception handling (EH)
+and RTTI if you don't want the Python bindings.
+
+### Building Halide with make
+
+With `LLVM_CONFIG` set (or `llvm-config` in your path), you should be able to
+just run `make` in the root directory of the Halide source tree.
+`make run_tests` will run the JIT test suite, and `make test_apps` will make
+sure all the apps compile and run (but won't check their output).
+
+There is no `make install` yet. If you want to make an install package, run
+`make distrib`.
+
+### Building Halide out-of-tree with make
+
+If you wish to build Halide in a separate directory, you can do that like so:
+
+    % cd ..
+    % mkdir halide_build
+    % cd halide_build
+    % make -f ../Halide/Makefile
+
+# Building Halide with CMake
+
+### MacOS and Linux
+
+Follow the above instructions to build LLVM or acquire a suitable binary
+release. Then change directory to the Halide repository and run:
+
+```
+% cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=$LLVM_ROOT/lib/cmake/llvm -S . -B build
+% cmake --build build
+```
+
+`LLVM_DIR` is the folder in the LLVM installation tree **(do not use the build
+tree by mistake)** that contains `LLVMConfig.cmake`. It is not required to set
+this variable if you have a suitable system-wide version installed. If you have
+multiple system-wide versions installed, you can specify the version with
+`Halide_REQUIRE_LLVM_VERSION`. Add `-G Ninja` if you prefer to build with the
+Ninja generator.
+
+### Windows
+
+We suggest building with Visual Studio 2019. Your mileage may vary with earlier
+versions. Be sure to install the "C++ CMake tools for Windows" in the Visual
+Studio installer. For older versions of Visual Studio, do not install the CMake
+tools, but instead acquire CMake and Ninja from their respective project
+websites.
+
+These instructions start from the `D:` drive. We assume this git repo is cloned
+to `D:\Halide`. We also assume that your shell environment is set up correctly.
+For a 64-bit build, run:
+
+```
+D:\> "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+```
+
+For a 32-bit build, run:
+
+```
+D:\> "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64_x86
+```
+
+#### Managing dependencies with vcpkg
+
+The best way to get compatible dependencies on Windows is to use
+[vcpkg](https://github.com/Microsoft/vcpkg). Install it like so:
+
+```
+D:\> git clone https://github.com/Microsoft/vcpkg.git
+D:\> cd vcpkg
+D:\> .\bootstrap-vcpkg.bat
+D:\vcpkg> .\vcpkg integrate install
+...
+CMake projects should use: "-DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+```
+
+Then install the libraries. For a 64-bit build, run:
+
+```
+D:\vcpkg> .\vcpkg install libpng:x64-windows libjpeg-turbo:x64-windows llvm[target-all,clang-tools-extra]:x64-windows
+```
+
+To support 32-bit builds, also run:
+
+```
+D:\vcpkg> .\vcpkg install libpng:x86-windows libjpeg-turbo:x86-windows llvm[target-all,clang-tools-extra]:x86-windows
+```
+
+#### Building Halide
+
+Create a separate build tree and call CMake with vcpkg's toolchain. This will
+build in either 32-bit or 64-bit depending on the environment script (`vcvars`)
+that was run earlier.
+
+```
+D:\Halide> cmake -G Ninja ^
+                 -DCMAKE_BUILD_TYPE=Release ^
+                 -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake ^
+                 -S . -B build
+```
+
+**Note:** If building with Python bindings on 32-bit (enabled by default), be
+sure to point CMake to the installation path of a 32-bit Python 3. You can do
+this by specifying, for example:
+`"-DPython3_ROOT_DIR=C:\Program Files (x86)\Python38-32"`.
+
+Then run the build with:
+
+```
+D:\Halide> cmake --build build --config Release -j %NUMBER_OF_PROCESSORS%
+```
+
+To run all the tests:
+
+```
+D:\Halide> cd build
+D:\Halide\build> ctest -C Release
+```
+
+Subsets of the tests can be selected with `-L` and include `correctness`,
+`python`, `error`, and the other directory names under `/tests`.
+
+#### Building LLVM (optional)
+
+Follow these steps if you want to build LLVM yourself. First, download LLVM's
+sources (these instructions use the latest 11.0 release)
+
+```
+D:\> git clone --depth 1 --branch llvmorg-11.0.0 https://github.com/llvm/llvm-project.git
+```
+
+For a 64-bit build, run:
+
+```
+D:\> cmake -G Ninja ^
+           -DCMAKE_BUILD_TYPE=Release ^
+           -DLLVM_ENABLE_PROJECTS=clang;lld;clang-tools-extra ^
+           -DLLVM_ENABLE_TERMINFO=OFF ^
+           -DLLVM_TARGETS_TO_BUILD=X86;ARM;NVPTX;AArch64;Mips;Hexagon ^
+           -DLLVM_ENABLE_ASSERTIONS=ON ^
+           -DLLVM_ENABLE_EH=ON ^
+           -DLLVM_ENABLE_RTTI=ON ^
+           -DLLVM_BUILD_32_BITS=OFF ^
+           -S llvm-project\llvm -B llvm-build
+```
+
+For a 32-bit build, run:
+
+```
+D:\> cmake -G Ninja ^
+           -DCMAKE_BUILD_TYPE=Release ^
+           -DLLVM_ENABLE_PROJECTS=clang;lld;clang-tools-extra ^
+           -DLLVM_ENABLE_TERMINFO=OFF ^
+           -DLLVM_TARGETS_TO_BUILD=X86;ARM;NVPTX;AArch64;Mips;Hexagon ^
+           -DLLVM_ENABLE_ASSERTIONS=ON ^
+           -DLLVM_ENABLE_EH=ON ^
+           -DLLVM_ENABLE_RTTI=ON ^
+           -DLLVM_BUILD_32_BITS=ON ^
+           -S llvm-project\llvm -B llvm32-build
+```
+
+Finally, run:
+
+```
+D:\> cmake --build llvm-build --config Release -j %NUMBER_OF_PROCESSORS%
+D:\> cmake --install llvm-build --prefix llvm-install
+```
+
+You can substitute `Debug` for `Release` in the above `cmake` commands if you
+want a debug build. Make sure to add `-DLLVM_DIR=D:/llvm-install/lib/cmake/llvm`
+to the Halide CMake command to override `vcpkg`'s LLVM.
+
+**MSBuild:** If you want to build LLVM with MSBuild instead of Ninja, use
+`-G "Visual Studio 16 2019" -Thost=x64 -A x64` or
+`-G "Visual Studio 16 2019" -Thost=x64 -A Win32` in place of `-G Ninja`.
+
+#### If all else fails...
+
+Do what the build-bots do: https://buildbot.halide-lang.org/master/#/builders
+
+If the column that best matches your system is red, then maybe things aren't
+just broken for you. If it's green, then you can click the "stdio" links in the
+latest build to see what commands the build bots run, and what the output was.
+
+# Some useful environment variables
+
+`HL_TARGET=...` will set Halide's AOT compilation target.
+
+`HL_JIT_TARGET=...` will set Halide's JIT compilation target.
+
+`HL_DEBUG_CODEGEN=1` will print out pseudocode for what Halide is compiling.
+Higher numbers will print more detail.
+
+`HL_NUM_THREADS=...` specifies the number of threads to create for the thread
+pool. When the async scheduling directive is used, more threads than this number
+may be required and thus allocated. A maximum of 256 threads is allowed. (By
+default, the number of cores on the host is used.)
+
+`HL_TRACE_FILE=...` specifies a binary target file to dump tracing data into
+(ignored unless at least one `trace_` feature is enabled in `HL_TARGET` or
+`HL_JIT_TARGET`). The output can be parsed programmatically by starting from the
+code in `utils/HalideTraceViz.cpp`.
+
+# Using Halide on OSX
+
+Precompiled Halide distributions are built using XCode's command-line tools with
+Apple clang 500.2.76. This means that we link against libc++ instead of
+libstdc++. You may need to adjust compiler options accordingly if you're using
+an older XCode which does not default to libc++.
+
+# Halide OpenGL/GLSL backend
+
+Halide's OpenGL backend offloads image processing operations to the GPU by
+generating GLSL-based fragment shaders.
+
+Compared to other GPU-based processing options such as CUDA and OpenCL, OpenGL
+has two main advantages: it is available on basically every desktop computer and
+mobile device, and it is generally well supported across different hardware
+vendors.
+
+The main disadvantage of OpenGL as an image processing framework is that the
+computational capabilities of fragment shaders are quite restricted. In general,
+the processing model provided by OpenGL is most suitable for filters where each
+output pixel can be expressed as a simple function of the input pixels. This
+covers a wide range of interesting operations like point-wise filters and
+convolutions; but a few common image processing operations such as histograms or
+recursive filters are notoriously hard to express in GLSL.
+
+#### Writing OpenGL-Based Filters
+
+To enable code generation for OpenGL, include `opengl` in the target specifier
+passed to Halide. Since OpenGL shaders are limited in their computational power,
+you must also specify a CPU target for those parts of the filter that cannot or
+should not be computed on the GPU. Examples of valid target specifiers are
+
+```
+host-opengl
+x86-opengl-debug
+```
+
+Adding `debug`, as in the second example, adds additional logging output and is
+highly recommended during development.
+
+By default, filters compiled for OpenGL targets run completely on the CPU.
+Execution on the GPU must be enabled for individual Funcs by appropriate
+scheduling calls.
+
+GLSL fragment shaders implicitly iterate over two spatial dimensions x,y and the
+color channel. Due to the way color channels handled in GLSL, only filters for
+which the color index is a compile-time constant can be scheduled. The main
+consequence is that the range of color variables must be explicitly specified
+for both input and output buffers before scheduling:
+
+```
+ImageParam input;
+Func f;
+Var x, y, c;
+f(x, y, c) = ...;
+
+input.set_bounds(2, 0, 3);   // specify color range for input
+f.bound(c, 0, 3);            // and output
+f.glsl(x, y, c);
+```
+
+#### JIT Compilation
+
+For JIT compilation Halide attempts to load the system libraries for opengl and
+creates a new context to use for each module. Windows is not yet supported.
+
+Examples for JIT execution of OpenGL-based filters can be found in test/opengl.
+
+#### AOT Compilation
+
+When AOT (ahead-of-time) compilation is used, Halide generates OpenGL-enabled
+object files that can be linked to and called from a host application. In
+general, this is fairly straightforward, but a few things must be taken care of.
+
+On Linux, OS X, and Android, Halide creates its own OpenGL context unless the
+current thread already has an active context. On other platforms you have to
+link implementations of the following two functions with your Halide code:
+
+```
+extern "C" int halide_opengl_create_context(void *) {
+    return 0;  // if successful
+}
+
+extern "C" void *halide_opengl_get_proc_addr(void *, const char *name) {
+    ...
+}
+```
+
+Halide allocates and deletes textures as necessary. Applications may manage the
+textures by hand by setting the `halide_buffer_t::device` field; this is most
+useful for reusing image data that is already stored in textures. Some
+rudimentary checks are performed to ensure that externally allocated textures
+have the correct format, but in general that's the responsibility of the
+application.
+
+It is possible to let render directly to the current framebuffer; to do this,
+set the `dev` field of the output buffer to the value returned by
+`halide_opengl_output_client_bound`. The example in apps/HelloAndroidGL
+demonstrates this technique.
+
+Some operating systems can delete the OpenGL context of suspended applications.
+If this happens, Halide needs to re-initialize itself with the new context after
+the application resumes. Call `halide_opengl_context_lost` to reset Halide's
+OpenGL state after this has happened.
+
+#### Limitations
+
+The current implementation of the OpenGL backend targets the common subset of
+OpenGL 2.0 and OpenGL ES 2.0 which is widely available on both mobile devices
+and traditional computers. As a consequence, only a subset of the Halide
+language can be scheduled to run using OpenGL. Some important limitations are:
+
+- Reductions cannot be implemented in GLSL and must be run on the CPU.
+
+- OpenGL ES 2.0 only supports uint8 buffers.
+
+  Support for floating point texture is available, but requires OpenGL (ES) 3.0
+  or the texture_float extension, which may not work on all mobile devices.
+
+- OpenGL ES 2.0 has very limited support for integer arithmetic. For maximum
+  compatibility, consider doing all computations using floating point, even when
+  using integer textures.
+
+- Only 2D images with 3 or 4 color channels can be scheduled. Images with one or
+  two channels require OpenGL (ES) 3.0 or the texture_rg extension.
+
+- Not all builtin functions provided by Halide are currently supported, for
+  example `fast_log`, `fast_exp`, `fast_pow`, `reinterpret`, bit operations,
+  `random_float`, `random_int` cannot be used in GLSL code.
+
+The maximum texture size in OpenGL is `GL_MAX_TEXTURE_SIZE`, which is often
+smaller than the image of interest; on mobile devices, for example,
+`GL_MAX_TEXTURE_SIZE` is commonly 2048. Tiling must be used to process larger
+images.
+
+Planned features:
+
+- Support for half-float textures and arithmetic
+
+- Support for integer textures and arithmetic
+
+(Note that OpenGL Compute Shaders are supported with a separate OpenGLCompute
+backend.)
+
+# Halide for Hexagon HVX
+
+Halide supports offloading work to Qualcomm Hexagon DSP on Qualcomm Snapdragon
+835 devices or newer. The Hexagon DSP provides a set of 128 byte vector instruction
+extensions - the Hexagon Vector eXtensions (HVX). HVX is well suited for image
+processing, and Halide for Hexagon HVX will generate the appropriate HVX vector
+instructions from a program authored in Halide.
+
+Halide can be used to compile Hexagon object files directly, by using a target
+such as `hexagon-32-qurt-hvx`.
+
+Halide can also be used to offload parts of a pipeline to Hexagon using the
+`hexagon` scheduling directive. To enable the `hexagon` scheduling directive,
+include the `hvx` target feature in your target. The currently
+supported combination of targets is to use the HVX target features with an x86
+linux host (to use the simulator) or with an ARM android target (to use Hexagon
+DSP hardware). For examples of using the `hexagon` scheduling directive on both
+the simulator and a Hexagon DSP, see the blur example app.
+
+To build and run an example app using the Hexagon target,
+
+1. Obtain and build trunk LLVM and Clang. (Earlier versions of LLVM may work but
+   are not actively tested and thus not recommended.)
+2. Download and install the Hexagon SDK and Hexagon Tools. Hexagon SDK 3.4.1 or later
+   is needed. Hexagon Tools 8.2 or later is needed.
+3. Build and run an example for Hexagon HVX
+
+### 1. Obtain and build trunk LLVM and Clang
+
+(Instructions given previous, just be sure to check out the `master` branch.)
+
+### 2. Download and install the Hexagon SDK and Hexagon Tools
+
+Go to https://developer.qualcomm.com/software/hexagon-dsp-sdk/tools
+
+1. Select the Hexagon Series 600 Software and download the 3.4.1 version or later
+   for Linux.
+2. untar the installer
+3. Run the extracted installer to install the Hexagon SDK and Hexagon Tools,
+   selecting Installation of Hexagon SDK into `/location/of/SDK/Hexagon_SDK/3.x`
+   and the Hexagon tools into `/location/of/SDK/Hexagon_Tools/8.x`
+4. Set an environment variable to point to the SDK installation location
+   ```
+   export SDK_LOC=/location/of/SDK
+   ```
+
+### 3. Build and run an example for Hexagon HVX
+
+In addition to running Hexagon code on device, Halide also supports running
+Hexagon code on the simulator from the Hexagon tools.
+
+To build and run the blur example in Halide/apps/blur on the simulator:
+
+```
+cd apps/blur
+export HL_HEXAGON_SIM_REMOTE=../../src/runtime/hexagon_remote/bin/v62/hexagon_sim_remote
+export HL_HEXAGON_TOOLS=$SDK_LOC/Hexagon_Tools/8.x/Tools/
+LD_LIBRARY_PATH=../../src/runtime/hexagon_remote/bin/host/:$HL_HEXAGON_TOOLS/lib/iss/:. HL_TARGET=host-hvx make test
+```
+
+### To build and run the blur example in Halide/apps/blur on Android:
+
+To build the example for Android, first ensure that you have Android NDK r19b or
+later installed, and the ANDROID_NDK_ROOT environment variable points to it.
+(Note that Qualcomm Hexagon SDK v3.5.2 includes Android NDK r19c, which is fine.)
+
+Now build and run the blur example using the script to run it on device:
+
+```
+export HL_HEXAGON_TOOLS=$SDK_LOC/HEXAGON_Tools/8.0/Tools/
+HL_TARGET=arm-64-android-hvx ./adb_run_on_device.sh
+```
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y llvm-9 clang cmake make
+Exit Code: 100
+Output:
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:5 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.8 MB in 43s (1008 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package llvm-9
+----------------------------------------
+
+[Command 4]
+$ make
+Exit Code: 127
+Output:
+/bin/bash: line 13: make: command not found
+----------------------------------------
+
+[Command 5]
+$ apt-get update && apt-get install -y llvm clang cmake make
+Exit Code: 0
+Output:
+Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binfmt-support binutils binutils-common binutils-x86-64-linux-gnu
+  ca-certificates clang-14 cmake-data cpp cpp-11 dh-elpa-helper emacsen-common
+  fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base icu-devtools
+  lib32gcc-s1 lib32stdc++6 libarchive13 libasan6 libatomic1 libbinutils
+  libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6 libc6-dev libc6-i386
+  libcc1-0 libclang-common-14-dev libclang-cpp14 libclang1-14 libcrypt-dev
+  libctf-nobfd0 libctf0 libcurl4 libdeflate0 libedit2 libexpat1 libffi-dev
+  libfontconfig1 libfreetype6 libgc1 libgcc-11-dev libgd3 libgomp1 libicu-dev
+  libicu70 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25
+  libldap-2.5-0 libldap-common libllvm14 liblsan0 libmd0 libmpc3 libmpdec3
+  libmpfr6 libncurses-dev libnghttp2-14 libnsl-dev libobjc-11-dev libobjc4
+  libpfm4 libpipeline1 libpng16-16 libpsl5 libpython3-stdlib
+  libpython3.10-minimal libpython3.10-stdlib libquadmath0 libreadline8
+  librhash0 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsqlite3-0 libssh-4 libstdc++-11-dev libtiff5 libtinfo-dev libtirpc-dev
+  libtsan0 libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1
+  libxdmcp6 libxml2 libxml2-dev libxpm4 libyaml-0-2 libz3-4 libz3-dev
+  linux-libc-dev llvm-14 llvm-14-dev llvm-14-linker-tools llvm-14-runtime
+  llvm-14-tools llvm-runtime manpages manpages-dev media-types openssl
+  publicsuffix python3 python3-minimal python3-pkg-resources python3-pygments
+  python3-yaml python3.10 python3.10-minimal readline-common rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc clang-14-doc cmake-doc ninja-build cmake-format cpp-doc
+  gcc-11-locales gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-11-multilib gcc-11-doc lrzip glibc-doc locales libgd-tools icu-doc
+  ncurses-doc libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql
+  libstdc++-11-doc pkg-config llvm-14-doc make-doc man-browser python3-doc
+  python3-tk python3-venv python3-setuptools python-pygments-doc
+  ttf-bitstream-vera python3.10-venv python3.10-doc readline-doc
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binfmt-support binutils binutils-common binutils-x86-64-linux-gnu
+  ca-certificates clang clang-14 cmake cmake-data cpp cpp-11 dh-elpa-helper
+  emacsen-common fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base
+  icu-devtools lib32gcc-s1 lib32stdc++6 libarchive13 libasan6 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6-dev
+  libc6-i386 libcc1-0 libclang-common-14-dev libclang-cpp14 libclang1-14
+  libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0 libedit2 libexpat1
+  libffi-dev libfontconfig1 libfreetype6 libgc1 libgcc-11-dev libgd3 libgomp1
+  libicu-dev libicu70 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8
+  libjsoncpp25 libldap-2.5-0 libldap-common libllvm14 liblsan0 libmd0 libmpc3
+  libmpdec3 libmpfr6 libncurses-dev libnghttp2-14 libnsl-dev libobjc-11-dev
+  libobjc4 libpfm4 libpipeline1 libpng16-16 libpsl5 libpython3-stdlib
+  libpython3.10-minimal libpython3.10-stdlib libquadmath0 libreadline8
+  librhash0 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsqlite3-0 libssh-4 libstdc++-11-dev libtiff5 libtinfo-dev libtirpc-dev
+  libtsan0 libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1
+  libxdmcp6 libxml2 libxml2-dev libxpm4 libyaml-0-2 libz3-4 libz3-dev
+  linux-libc-dev llvm llvm-14 llvm-14-dev llvm-14-linker-tools llvm-14-runtime
+  llvm-14-tools llvm-runtime make manpages manpages-dev media-types openssl
+  publicsuffix python3 python3-minimal python3-pkg-resources python3-pygments
+  python3-yaml python3.10 python3.10-minimal readline-common rpcsvc-proto ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 129 newly installed, 0 to remove and 2 not upgraded.
+Need to get 216 MB of archives.
+After this operation, 1005 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-minimal amd64 3.10.12-1~22.04.13 [815 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-minimal amd64 3.10.12-1~22.04.13 [2272 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-minimal amd64 3.10.6-1~22.04.1 [24.3 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 media-types all 7.0.0 [25.5 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpdec3 amd64 2.5.1-2build2 [86.8 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-stdlib amd64 3.10.12-1~22.04.13 [1850 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.13 [508 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.11 [765 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 libyaml-0-2 amd64 0.2.2-1build2 [51.6 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pkg-resources all 59.6.0-1.2ubuntu0.22.04.3 [133 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 python3-yaml amd64 5.4.1-1ubuntu1 [129 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpipeline1 amd64 1.5.5-1 [23.5 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/main amd64 binfmt-support amd64 2.2.1-2 [55.8 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libllvm14 amd64 1:14.0.0-1ubuntu1.1 [24.0 MB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang-cpp14 amd64 1:14.0.0-1ubuntu1.1 [12.1 MB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgc1 amd64 1:8.0.6-1.1build1 [96.8 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libobjc4 amd64 12.3.0-1ubuntu1~22.04.2 [48.7 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libobjc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [196 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-i386 amd64 2.35-0ubuntu3.12 [2838 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 lib32gcc-s1 amd64 12.3.0-1ubuntu1~22.04.2 [63.9 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 lib32stdc++6 amd64 12.3.0-1ubuntu1~22.04.2 [739 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang-common-14-dev amd64 1:14.0.0-1ubuntu1.1 [5975 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-linker-tools amd64 1:14.0.0-1ubuntu1.1 [1355 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang1-14 amd64 1:14.0.0-1ubuntu1.1 [6792 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 clang-14 amd64 1:14.0.0-1ubuntu1.1 [81.2 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/universe amd64 clang amd64 1:14.0-55~exp2 [3558 B]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libarchive13 amd64 3.6.0-1ubuntu1.5 [368 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:84 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjsoncpp25 amd64 1.9.5-3 [80.0 kB]
+Get:85 http://archive.ubuntu.com/ubuntu jammy/main amd64 librhash0 amd64 1.4.2-1ubuntu1 [125 kB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy/main amd64 dh-elpa-helper all 2.0.9ubuntu1 [7610 B]
+Get:87 http://archive.ubuntu.com/ubuntu jammy/main amd64 emacsen-common all 3.0.4 [14.9 kB]
+Get:88 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake-data all 3.22.1-1ubuntu1.22.04.2 [1913 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake amd64 3.22.1-1ubuntu1.22.04.2 [5010 kB]
+Get:90 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:91 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:94 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:98 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:99 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:100 http://archive.ubuntu.com/ubuntu jammy/main amd64 icu-devtools amd64 70.1-2 [197 kB]
+Get:101 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:102 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:103 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:104 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:105 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:106 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:107 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:108 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:109 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:110 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:111 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:112 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu-dev amd64 70.1-2 [11.6 MB]
+Get:113 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:114 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libncurses-dev amd64 6.3-2ubuntu0.1 [381 kB]
+Get:115 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:116 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtinfo-dev amd64 6.3-2ubuntu0.1 [780 B]
+Get:117 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2-dev amd64 2.9.13+dfsg-1ubuntu0.11 [805 kB]
+Get:118 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-runtime amd64 1:14.0.0-1ubuntu1.1 [484 kB]
+Get:119 http://archive.ubuntu.com/ubuntu jammy/universe amd64 llvm-runtime amd64 1:14.0-55~exp2 [3204 B]
+Get:120 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpfm4 amd64 4.11.1+git32-gd0b85fb-1ubuntu0.1 [345 kB]
+Get:121 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14 amd64 1:14.0.0-1ubuntu1.1 [12.7 MB]
+Get:122 http://archive.ubuntu.com/ubuntu jammy/universe amd64 llvm amd64 1:14.0-55~exp2 [3758 B]
+Get:123 http://archive.ubuntu.com/ubuntu jammy/main amd64 libffi-dev amd64 3.4.2-4 [63.7 kB]
+Get:124 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pygments all 2.11.2+dfsg-2ubuntu0.1 [750 kB]
+Get:125 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-tools amd64 1:14.0.0-1ubuntu1.1 [404 kB]
+Get:126 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libz3-4 amd64 4.8.12-1 [5766 kB]
+Get:127 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libz3-dev amd64 4.8.12-1 [72.2 kB]
+Get:128 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-dev amd64 1:14.0.0-1ubuntu1.1 [37.8 MB]
+Get:129 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:130 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 216 MB in 8min 9s (443 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package libpython3.10-minimal:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libpython3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package python3.10-minimal.
+Preparing to unpack .../python3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10-minimal (3.10.12-1~22.04.13) ...
+Setting up libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up python3.10-minimal (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4697 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3-minimal (3.10.6-1~22.04.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_7.0.0_all.deb ...
+Unpacking media-types (7.0.0) ...
+Selecting previously unselected package libmpdec3:amd64.
+Preparing to unpack .../2-libmpdec3_2.5.1-2build2_amd64.deb ...
+Unpacking libmpdec3:amd64 (2.5.1-2build2) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../3-readline-common_8.1.2-1_all.deb ...
+Unpacking readline-common (8.1.2-1) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../4-libreadline8_8.1.2-1_amd64.deb ...
+Unpacking libreadline8:amd64 (8.1.2-1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../5-libsqlite3-0_3.37.2-2ubuntu0.5_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Selecting previously unselected package libpython3.10-stdlib:amd64.
+Preparing to unpack .../6-libpython3.10-stdlib_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3.10.
+Preparing to unpack .../7-python3.10_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../8-libpython3-stdlib_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up python3-minimal (3.10.6-1~22.04.1) ...
+Selecting previously unselected package python3.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5127 files and directories currently installed.)
+Preparing to unpack .../000-python3_3.10.6-1
+
+[... truncated ...]
+
+/025-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../026-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../027-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../028-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../029-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../030-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libllvm14:amd64.
+Preparing to unpack .../031-libllvm14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang-cpp14.
+Preparing to unpack .../032-libclang-cpp14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../033-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../034-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../035-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../036-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../037-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../038-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../039-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../040-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../041-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../042-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../043-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../044-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../045-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../046-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../047-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../048-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../049-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libstdc++-11-dev:amd64.
+Preparing to unpack .../050-libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgc1:amd64.
+Preparing to unpack .../051-libgc1_1%3a8.0.6-1.1build1_amd64.deb ...
+Unpacking libgc1:amd64 (1:8.0.6-1.1build1) ...
+Selecting previously unselected package libobjc4:amd64.
+Preparing to unpack .../052-libobjc4_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libobjc4:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libobjc-11-dev:amd64.
+Preparing to unpack .../053-libobjc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libobjc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libc6-i386.
+Preparing to unpack .../054-libc6-i386_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-i386 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package lib32gcc-s1.
+Preparing to unpack .../055-lib32gcc-s1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking lib32gcc-s1 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package lib32stdc++6.
+Preparing to unpack .../056-lib32stdc++6_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking lib32stdc++6 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libclang-common-14-dev.
+Preparing to unpack .../057-libclang-common-14-dev_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang-common-14-dev (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package llvm-14-linker-tools.
+Preparing to unpack .../058-llvm-14-linker-tools_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-linker-tools (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang1-14.
+Preparing to unpack .../059-libclang1-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang-14.
+Preparing to unpack .../060-clang-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking clang-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang.
+Preparing to unpack .../061-clang_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking clang (1:14.0-55~exp2) ...
+Selecting previously unselected package libarchive13:amd64.
+Preparing to unpack .../062-libarchive13_3.6.0-1ubuntu1.5_amd64.deb ...
+Unpacking libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../063-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../064-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../065-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../066-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../067-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../068-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../069-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libjsoncpp25:amd64.
+Preparing to unpack .../070-libjsoncpp25_1.9.5-3_amd64.deb ...
+Unpacking libjsoncpp25:amd64 (1.9.5-3) ...
+Selecting previously unselected package librhash0:amd64.
+Preparing to unpack .../071-librhash0_1.4.2-1ubuntu1_amd64.deb ...
+Unpacking librhash0:amd64 (1.4.2-1ubuntu1) ...
+Selecting previously unselected package dh-elpa-helper.
+Preparing to unpack .../072-dh-elpa-helper_2.0.9ubuntu1_all.deb ...
+Unpacking dh-elpa-helper (2.0.9ubuntu1) ...
+Selecting previously unselected package emacsen-common.
+Preparing to unpack .../073-emacsen-common_3.0.4_all.deb ...
+Unpacking emacsen-common (3.0.4) ...
+Selecting previously unselected package cmake-data.
+Preparing to unpack .../074-cmake-data_3.22.1-1ubuntu1.22.04.2_all.deb ...
+Unpacking cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../075-cmake_3.22.1-1ubuntu1.22.04.2_amd64.deb ...
+Unpacking cmake (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../076-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../077-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../078-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../079-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../080-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../081-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../082-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../083-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../084-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../085-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package icu-devtools.
+Preparing to unpack .../086-icu-devtools_70.1-2_amd64.deb ...
+Unpacking icu-devtools (70.1-2) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../087-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../088-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../089-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../090-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../091-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../092-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../093-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../094-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../095-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../096-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../097-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libicu-dev:amd64.
+Preparing to unpack .../098-libicu-dev_70.1-2_amd64.deb ...
+Unpacking libicu-dev:amd64 (70.1-2) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../099-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libncurses-dev:amd64.
+Preparing to unpack .../100-libncurses-dev_6.3-2ubuntu0.1_amd64.deb ...
+Unpacking libncurses-dev:amd64 (6.3-2ubuntu0.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../101-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libtinfo-dev:amd64.
+Preparing to unpack .../102-libtinfo-dev_6.3-2ubuntu0.1_amd64.deb ...
+Unpacking libtinfo-dev:amd64 (6.3-2ubuntu0.1) ...
+Selecting previously unselected package libxml2-dev:amd64.
+Preparing to unpack .../103-libxml2-dev_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2-dev:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package llvm-14-runtime.
+Preparing to unpack .../104-llvm-14-runtime_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-runtime (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package llvm-runtime:amd64.
+Preparing to unpack .../105-llvm-runtime_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking llvm-runtime:amd64 (1:14.0-55~exp2) ...
+Selecting previously unselected package libpfm4:amd64.
+Preparing to unpack .../106-libpfm4_4.11.1+git32-gd0b85fb-1ubuntu0.1_amd64.deb ...
+Unpacking libpfm4:amd64 (4.11.1+git32-gd0b85fb-1ubuntu0.1) ...
+Selecting previously unselected package llvm-14.
+Preparing to unpack .../107-llvm-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package llvm.
+Preparing to unpack .../108-llvm_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking llvm (1:14.0-55~exp2) ...
+Selecting previously unselected package libffi-dev:amd64.
+Preparing to unpack .../109-libffi-dev_3.4.2-4_amd64.deb ...
+Unpacking libffi-dev:amd64 (3.4.2-4) ...
+Selecting previously unselected package python3-pygments.
+Preparing to unpack .../110-python3-pygments_2.11.2+dfsg-2ubuntu0.1_all.deb ...
+Unpacking python3-pygments (2.11.2+dfsg-2ubuntu0.1) ...
+Selecting previously unselected package llvm-14-tools.
+Preparing to unpack .../111-llvm-14-tools_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-tools (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libz3-4:amd64.
+Preparing to unpack .../112-libz3-4_4.8.12-1_amd64.deb ...
+Unpacking libz3-4:amd64 (4.8.12-1) ...
+Selecting previously unselected package libz3-dev:amd64.
+Preparing to unpack .../113-libz3-dev_4.8.12-1_amd64.deb ...
+Unpacking libz3-dev:amd64 (4.8.12-1) ...
+Selecting previously unselected package llvm-14-dev.
+Preparing to unpack .../114-llvm-14-dev_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-dev (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../115-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../116-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up media-types (7.0.0) ...
+Setting up libpipeline1:amd64 (1.5.5-1) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up libyaml-0-2:amd64 (0.2.2-1build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libffi-dev:amd64 (3.4.2-4) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libz3-4:amd64 (4.8.12-1) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up libpfm4:amd64 (4.11.1+git32-gd0b85fb-1ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up emacsen-common (3.0.4) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up dh-elpa-helper (2.0.9ubuntu1) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up binfmt-support (2.2.1-2) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of restart.
+Setting up libjsoncpp25:amd64 (1.9.5-3) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libgc1:amd64 (1:8.0.6-1.1build1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up librhash0:amd64 (1.4.2-1ubuntu1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libmpdec3:amd64 (2.5.1-2build2) ...
+Setting up libc6-i386 (2.35-0ubuntu3.12) ...
+Setting up cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libz3-dev:amd64 (4.8.12-1) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libobjc4:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up lib32gcc-s1 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up lib32stdc++6 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up icu-devtools (70.1-2) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libicu-dev:amd64 (70.1-2) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libncurses-dev:amd64 (6.3-2ubuntu0.1) ...
+Setting up python3.10 (3.10.12-1~22.04.13) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Setting up libobjc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up python3 (3.10.6-1~22.04.1) ...
+running python rtupdate hooks for python3.10...
+running python post-rtupdate hooks for python3.10...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libxml2-dev:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+Setting up llvm-14-linker-tools (1:14.0.0-1ubuntu1.1) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up libtinfo-dev:amd64 (6.3-2ubuntu0.1) ...
+Setting up libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up python3-yaml (5.4.1-1ubuntu1) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up python3-pygments (2.11.2+dfsg-2ubuntu0.1) ...
+Setting up llvm-14-runtime (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-runtime:amd64 (1:14.0-55~exp2) ...
+Setting up libclang-common-14-dev (1:14.0.0-1ubuntu1.1) ...
+Setting up libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-14-tools (1:14.0.0-1ubuntu1.1) ...
+Setting up clang-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up clang (1:14.0-55~exp2) ...
+Setting up llvm (1:14.0-55~exp2) ...
+Setting up llvm-14-dev (1:14.0.0-1ubuntu1.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 6]
+$ make
+Exit Code: 2
+Output:
+bash: line 1: g++: command not found
+bash: line 1: g++: command not found
+bash: line 1: g++: command not found
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+bash: line 1: g++: command not found
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 127
+----------------------------------------
+
+[Command 7]
+$ apt-get install -y g++
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  g++-11
+Suggested packages:
+  g++-multilib g++-11-multilib gcc-11-doc
+The following NEW packages will be installed:
+  g++ g++-11
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 11.4 MB of archives.
+After this operation, 29.6 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 11.4 MB in 9s (1268 kB/s)
+Selecting previously unselected package g++-11.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 19603 files and directories currently installed.)
+Preparing to unpack .../g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+----------------------------------------
+
+[Command 8]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 9]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+llvm-14-dev set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 10]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 11]
+$ ls /usr/lib/llvm-14/include/llvm/Support/TargetRegistry.h
+Exit Code: 2
+Output:
+ls: cannot access '/usr/lib/llvm-14/include/llvm/Support/TargetRegistry.h': No such file or directory
+----------------------------------------
+
+[Command 12]
+$ apt-get install -y llvm-14-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-tools is already the newest version (1:14.0.0-1ubuntu1.1).
+llvm-14-tools set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 13]
+$ apt-get install -y llvm-14-runtime
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-runtime is already the newest version (1:14.0.0-1ubuntu1.1).
+llvm-14-runtime set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 14]
+$ apt-get install -y clang-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  clang-tools-14
+The following NEW packages will be installed:
+  clang-tools clang-tools-14
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 6965 kB of archives.
+After this operation, 29.3 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 clang-tools-14 amd64 1:14.0.0-1ubuntu1.1 [6962 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/universe amd64 clang-tools amd64 1:14.0-55~exp2 [3500 B]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 6965 kB in 7s (965 kB/s)
+Selecting previously unselected package clang-tools-14.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 19618 files and directories currently installed.)
+Preparing to unpack .../clang-tools-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking clang-tools-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang-tools:amd64.
+Preparing to unpack .../clang-tools_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking clang-tools:amd64 (1:14.0-55~exp2) ...
+Setting up clang-tools-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up clang-tools:amd64 (1:14.0-55~exp2) ...
+----------------------------------------
+
+[Command 15]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 16]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 17]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 18]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 19]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+clang-14 set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 20]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 21]
+$ apt-get install -y llvm-14-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-tools is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 22]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 23]
+$ apt-get install -y clang-format
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  clang-format-14
+The following NEW packages will be installed:
+  clang-format clang-format-14
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 54.5 kB of archives.
+After this operation, 276 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 clang-format-14 amd64 1:14.0.0-1ubuntu1.1 [50.8 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/universe amd64 clang-format amd64 1:14.0-55~exp2 [3694 B]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 54.5 kB in 3s (17.9 kB/s)
+Selecting previously unselected package clang-format-14.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 19784 files and directories currently installed.)
+Preparing to unpack .../clang-format-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking clang-format-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang-format:amd64.
+Preparing to unpack .../clang-format_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking clang-format:amd64 (1:14.0-55~exp2) ...
+Setting up clang-format-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up clang-format:amd64 (1:14.0-55~exp2) ...
+----------------------------------------
+
+[Command 24]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 25]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 26]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 27]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 28]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 29]
+$ apt-get install -y clang-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-tools is already the newest version (1:14.0-55~exp2).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 30]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 31]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 32]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 33]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 34]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 35]
+$ apt-get install -y clang-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-tools is already the newest version (1:14.0-55~exp2).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 36]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 37]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 38]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 39]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 40]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 41]
+$ apt-get install -y clang-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-tools is already the newest version (1:14.0-55~exp2).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 42]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 43]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 44]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 45]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 46]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 47]
+$ apt-get install -y clang-tools
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-tools is already the newest version (1:14.0-55~exp2).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 48]
+$ make
+Exit Code: 2
+Output:
+g++  -Wall -Werror -Wno-unused-function -Wcast-qual -Wignored-qualifiers -Wno-comment -Wsign-compare -Wno-unknown-warning-option -Wno-psabi -Wsuggest-override   -Woverloaded-virtual -fPIC -O3 -fno-omit-frame-pointer -DCOMPILING_HALIDE -std=c++11  -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/build/llvm-toolchain-14-Zm4fUZ/llvm-toolchain-14-14.0.0/llvm/../lld/include -DLLVM_VERSION=140  -DWITH_NVPTX  -DWITH_ARM  -DWITH_HEXAGON  -DWITH_AARCH64  -DWITH_X86  -DWITH_OPENCL  -DWITH_METAL  -DWITH_OPENGL  -DWITH_D3D12  -DWITH_MIPS  -DWITH_POWERPC  -DWITH_INTROSPECTION    -DWITH_AMDGPU  -DWITH_RISCV  -DWITH_WEBASSEMBLY -funwind-tables -c /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp -o bin/build/CodeGen_ARM.o -MMD -MP -MF bin/build/CodeGen_ARM.d -MT bin/build/CodeGen_ARM.o
+In file included from /workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/CodeGen_ARM.cpp:13:
+/workspace/halide__Halide@392b53eb22b8edfb69de5dc27d16dca5fc7512a7/src/LLVM_Headers.h:59:10: fatal error: llvm/Support/TargetRegistry.h: No such file or directory
+   59 | #include <llvm/Support/TargetRegistry.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:1089: bin/build/CodeGen_ARM.o] Error 1
+----------------------------------------
+
+[Command 49]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 50]
+$ ls /usr/lib/llvm-14/include/llvm/Support/
+Exit Code: 0
+Output:
+AArch64TargetParser.def
+AArch64TargetParser.h
+AMDGPUMetadata.h
+AMDHSAKernelDescriptor.h
+ARMAttributeParser.h
+ARMBuildAttributes.h
+ARMEHABI.h
+ARMTargetParser.def
+ARMTargetParser.h
+ARMWinEH.h
+AlignOf.h
+Alignment.h
+Allocator.h
+AllocatorBase.h
+ArrayRecycler.h
+Atomic.h
+AtomicOrdering.h
+AutoConvert.h
+Automaton.h
+BCD.h
+Base64.h
+BinaryByteStream.h
+BinaryItemStream.h
+BinaryStream.h
+BinaryStreamArray.h
+BinaryStreamError.h
+BinaryStreamReader.h
+BinaryStreamRef.h
+BinaryStreamWriter.h
+BlockFrequency.h
+BranchProbability.h
+BuryPointer.h
+CBindingWrapping.h
+CFGDiff.h
+CFGUpdate.h
+COM.h
+CRC.h
+CachePruning.h
+Caching.h
+Capacity.h
+Casting.h
+CheckedArithmetic.h
+Chrono.h
+CodeGen.h
+CodeGenCoverage.h
+CommandLine.h
+Compiler.h
+Compression.h
+ConvertUTF.h
+CrashRecoveryContext.h
+DJB.h
+DOTGraphTraits.h
+DataExtractor.h
+DataTypes.h
+Debug.h
+DebugCounter.h
+Discriminator.h
+DivisionByConstantInfo.h
+Duration.h
+DynamicLibrary.h
+ELFAttributeParser.h
+ELFAttributes.h
+Endian.h
+EndianStream.h
+Errc.h
+Errno.h
+Error.h
+ErrorHandling.h
+ErrorOr.h
+ExitCodes.h
+ExtensibleRTTI.h
+Extension.def
+FileCollector.h
+FileOutputBuffer.h
+FileSystem
+FileSystem.h
+FileUtilities.h
+Format.h
+FormatAdapters.h
+FormatCommon.h
+FormatProviders.h
+FormatVariadic.h
+FormatVariadicDetails.h
+FormattedStream.h
+GenericDomTree.h
+GenericDomTreeConstruction.h
+GenericIteratedDominanceFrontier.h
+GlobPattern.h
+GraphWriter.h
+HashBuilder.h
+Host.h
+InitLLVM.h
+InstructionCost.h
+ItaniumManglingCanonicalizer.h
+JSON.h
+KnownBits.h
+LEB128.h
+LineIterator.h
+Locale.h
+LockFileManager.h
+LowLevelTypeImpl.h
+MD5.h
+MSP430AttributeParser.h
+MSP430Attributes.h
+MSVCErrorWorkarounds.h
+MachineValueType.h
+ManagedStatic.h
+MathExtras.h
+MemAlloc.h
+Memory.h
+MemoryBuffer.h
+MemoryBufferRef.h
+MipsABIFlags.h
+Mutex.h
+NativeFormatting.h
+OnDiskHashTable.h
+OptimizedStructLayout.h
+PGOOptions.h
+Parallel.h
+Path.h
+PluginLoader.h
+PointerLikeTypeTraits.h
+PrettyStackTrace.h
+Printable.h
+Process.h
+Program.h
+RISCVAttributeParser.h
+RISCVAttributes.h
+RISCVISAInfo.h
+RISCVTargetParser.def
+RWMutex.h
+RandomNumberGenerator.h
+Recycler.h
+RecyclingAllocator.h
+Regex.h
+Registry.h
+ReverseIteration.h
+SHA1.h
+SHA256.h
+SMLoc.h
+SMTAPI.h
+SaveAndRestore.h
+ScaledNumber.h
+ScopedPrinter.h
+Signals.h
+Signposts.h
+SmallVectorMemoryBuffer.h
+Solaris
+SourceMgr.h
+SpecialCaseList.h
+StringSaver.h
+SuffixTree.h
+SwapByteOrder.h
+SymbolRemappingReader.h
+SystemUtils.h
+TarWriter.h
+TargetOpcodes.def
+TargetParser.h
+TargetSelect.h
+TaskQueue.h
+ThreadLocal.h
+ThreadPool.h
+Threading.h
+TimeProfiler.h
+Timer.h
+ToolOutputFile.h
+TrailingObjects.h
+TrigramIndex.h
+TypeName.h
+TypeSize.h
+Unicode.h
+UnicodeCharRanges.h
+VCSRevision.h
+Valgrind.h
+VersionTuple.h
+VirtualFileSystem.h
+Watchdog.h
+Win64EH.h
+Windows
+WindowsError.h
+WithColor.h
+X86DisassemblerDecoderCommon.h
+X86TargetParser.def
+X86TargetParser.h
+YAMLParser.h
+YAMLTraits.h
+circular_raw_ostream.h
+raw_os_ostream.h
+raw_ostream.h
+raw_sha1_ostream.h
+thread.h
+type_traits.h
+xxhash.h
+----------------------------------------
+
+[Command 51]
+$ apt-get install -y llvm-14-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+llvm-14-dev is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 52]
+$ apt-get install -y clang-14
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+clang-14 is already the newest version (1:14.0.0-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+

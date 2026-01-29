@@ -1,0 +1,941 @@
+# Setup Log for mruby/mruby@4a99f28ec37152babd82328b1441b5cca6a311d5
+# Issue/PR Number: 6442
+# Generated at: 2026-01-22T19:31:13.711404
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 340
+drwxr-xr-x 19 1000 1000   4096 Jan 21 13:05 .
+drwxr-xr-x  3 root root   4096 Jan 22 11:27 ..
+-rw-r--r--  1 1000 1000    102 Jan 21 12:56 .dockerignore
+-rw-r--r--  1 1000 1000    665 Jan 21 12:56 .editorconfig
+drwxr-xr-x  8 1000 1000   4096 Jan 22 11:27 .git
+-rw-r--r--  1 1000 1000    205 Jan 21 12:56 .git-blame-ignore-revs
+-rw-r--r--  1 1000 1000     84 Jan 21 12:56 .gitattributes
+drwxr-xr-x  4 1000 1000   4096 Jan 21 12:56 .github
+-rw-r--r--  1 1000 1000    355 Jan 21 12:56 .gitignore
+-rw-r--r--  1 1000 1000   3905 Jan 21 12:56 .pre-commit-config.yaml
+-rw-r--r--  1 1000 1000     58 Jan 21 12:56 .prettierignore
+-rw-r--r--  1 1000 1000     30 Jan 21 12:56 .prettierrc
+-rw-r--r--  1 1000 1000    118 Jan 21 12:56 .travis.yml
+-rw-r--r--  1 1000 1000    293 Jan 21 12:56 .yardopts
+-rw-r--r--  1 1000 1000  11437 Jan 21 12:56 AUTHORS
+-rw-r--r--  1 1000 1000   6770 Jan 21 12:56 CONTRIBUTING.md
+-rw-r--r--  1 1000 1000    356 Jan 21 12:56 Dockerfile
+-rw-r--r--  1 1000 1000 121845 Jan 21 12:56 Doxyfile
+-rw-r--r--  1 1000 1000    120 Jan 21 12:56 Gemfile
+-rw-r--r--  1 1000 1000    328 Jan 21 12:56 Gemfile.lock
+-rw-r--r--  1 1000 1000   2592 Jan 21 12:56 LEGAL
+-rw-r--r--  1 1000 1000   1061 Jan 21 12:56 LICENSE
+-rw-r--r--  1 1000 1000   1130 Jan 21 12:56 Makefile
+-rw-r--r--  1 1000 1000  16734 Jan 21 12:56 NEWS
+-rw-r--r--  1 1000 1000   5247 Jan 21 12:56 README.md
+-rw-r--r--  1 1000 1000   2392 Jan 21 12:56 Rakefile
+-rw-r--r--  1 1000 1000    554 Jan 21 12:56 SECURITY.md
+-rw-r--r--  1 1000 1000    333 Jan 21 12:56 TODO.md
+-rw-r--r--  1 1000 1000   1861 Jan 21 12:56 appveyor.yml
+drwxr-xr-x  2 1000 1000   4096 Jan 21 12:56 benchmark
+drwxr-xr-x  2 root root   4096 Jan 21 13:05 bin
+drwxr-xr-x  3 root root   4096 Jan 21 13:04 build
+drwxr-xr-x  4 1000 1000   4096 Jan 21 13:05 build_config
+-rw-r--r--  1 1000 1000    570 Jan 21 12:56 build_config.rb
+drwxr-xr-x  4 1000 1000   4096 Jan 21 12:56 doc
+-rw-r--r--  1 1000 1000    289 Jan 21 12:56 docker-compose.yml
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 examples
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 include
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 lib
+-rwxr-xr-x  1 1000 1000     39 Jan 21 12:56 minirake
+drwxr-xr-x 56 1000 1000   4096 Jan 21 12:56 mrbgems
+drwxr-xr-x  2 1000 1000   4096 Jan 21 12:56 mrblib
+-rw-r--r--  1 1000 1000    586 Jan 21 12:56 mruby-source.gemspec
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 oss-fuzz
+drwxr-xr-x  2 1000 1000   4096 Jan 21 12:56 src
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 tasks
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 test
+drwxr-xr-x  3 1000 1000   4096 Jan 21 12:56 tools
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+<div align="center">
+  <p>
+    <a href="https://mruby.org/">
+      <img src="https://avatars.githubusercontent.com/u/1796512?s=200&v=4"
+        alt="The mruby programming language" title="mruby">
+    </a>
+  </p>
+  <h1>mruby</h1>
+  <a href="https://github.com/marketplace/actions/super-linter">
+    <img src="https://github.com/mruby/mruby/actions/workflows/super-linter.yml/badge.svg"
+      alt="GitHub Super-Linter">
+  </a>
+</div>
+
+## What is mruby
+
+mruby is the lightweight implementation of the Ruby language complying to (part
+of) the [ISO standard][ISO-standard] with more recent features provided by Ruby 3.x.
+Also, its syntax is Ruby 3.x compatible except for pattern matching.
+
+You can link and embed mruby within your application. The "mruby" interpreter
+program and the interactive "mirb" shell are provided as examples. You can also
+compile Ruby programs into compiled byte code using the "mrbc" compiler. All
+these tools are located in the "bin" directory. "mrbc" can also generate
+compiled byte code in a C source file. See the "mrbtest" program under the
+"test" directory for an example.
+
+This achievement was sponsored by the Regional Innovation Creation R&D Programs
+of the Ministry of Economy, Trade and Industry of Japan.
+
+## How to get mruby
+
+To get mruby, you can download the stable version 3.3.0 from the official mruby
+GitHub repository or clone the trunk of the mruby source tree with the "git
+clone" command. You can also install and compile mruby using [ruby-install](https://github.com/postmodern/ruby-install), [ruby-build](https://github.com/rbenv/ruby-build) or [rvm](https://github.com/rvm/rvm).
+
+The latest development version of mruby can be downloaded via the following URL: [https://github.com/mruby/mruby/zipball/master](https://github.com/mruby/mruby/zipball/master)
+
+The trunk of the mruby source tree can be checked out with the
+following command:
+
+```console
+$ git clone https://github.com/mruby/mruby.git
+```
+
+## mruby homepage
+
+The URL of the mruby homepage is: <https://mruby.org>.
+
+## Mailing list
+
+We don't have a mailing list, but you can use [GitHub issues](https://github.com/mruby/mruby/issues).
+
+## How to compile, test, and install (mruby and gems)
+
+For the simplest case, type
+
+```console
+rake all test
+```
+
+See the [compile.md](doc/guides/compile.md) file for the detail.
+
+## Building documentation
+
+There are two sets of documentation in mruby: the mruby API (generated by YARD) and C API (Doxygen and Graphviz)
+
+To build both of them, simply go
+
+```console
+rake doc
+```
+
+You can also view them in your browser
+
+```console
+rake view_api
+rake view_capi
+```
+
+## How to customize mruby (mrbgems)
+
+mruby contains a package manager called "mrbgems" that you can use to create
+extensions in C and/or Ruby. For a guide on how to use mrbgems, consult the
+[mrbgems.md](doc/guides/mrbgems.md) file, and for example code, refer to the
+[examples/mrbgems/](examples/mrbgems) folder.
+
+## Index of Document
+
+<!--
+    This section is generated by `rake doc:update-index`.
+    All manual changes will get lost.
+-->
+
+<!-- BEGIN OF MRUBY DOCUMENT INDEX -->
+
+- [About the Limitations of mruby](doc/limitations.md)
+- [About the Compile](doc/guides/compile.md)
+- [About the Debugger with the `mrdb` Command](doc/guides/debugger.md)
+- [About GC Arena](doc/guides/gc-arena-howto.md)
+- [About the mruby directory structure](doc/guides/hier.md)
+- [About Linking with `libmruby`](doc/guides/link.md)
+- [About Memory Allocator Customization](doc/guides/memory.md)
+- [About Build-time Configurations](doc/guides/mrbconf.md)
+- [About the Build-time Library Manager](doc/guides/mrbgems.md)
+- [About the Symbols](doc/guides/symbol.md)
+- [Internal Implementation / About Value Boxing](doc/internal/boxing.md)
+- [Internal Implementation / About mruby Virtual Machine Instructions](doc/internal/opcode.md)
+
+<!-- END OF MRUBY DOCUMENT INDEX -->
+
+## License
+
+mruby is released under the [MIT License](LICENSE).
+
+## Note for License
+
+mruby has chosen a MIT License due to its permissive license allowing
+developers to target various environments such as embedded systems.
+However, the license requires the display of the copyright notice and license
+information in manuals for instance. Doing so for big projects can be
+complicated or troublesome. This is why mruby has decided to display "mruby
+developers" as the copyright name to make it simple conventionally.
+In the future, mruby might ask you to distribute your new code
+(that you will commit,) under the MIT License as a member of
+"mruby developers" but contributors will keep their copyright.
+(We did not intend for contributors to transfer or waive their copyrights,
+actual copyright holder name (contributors) will be listed in the [AUTHORS](AUTHORS)
+file.)
+
+Please ask us if you want to distribute your code under another license.
+
+## How to Contribute
+
+To contribute to mruby, please refer to the [contribution guidelines][contribution-guidelines] and send a pull request to the [mruby GitHub repository](https://github.com/mruby/mruby).
+By contributing, you grant non-exclusive rights to your code under the MIT License.
+
+[ISO-standard]: https://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59579
+[contribution-guidelines]: CONTRIBUTING.md
+----------------------------------------
+
+[Command 3]
+$ rake all test
+Exit Code: 127
+Output:
+/bin/bash: line 9: rake: command not found
+----------------------------------------
+
+[Command 4]
+$ apt-get update && apt-get install -y ruby-dev make
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3639 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1289 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.8 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6411 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3970 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Fetched 43.7 MB in 51s (865 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates fonts-lato javascript-common libbsd0 libedit2
+  libgdbm-compat4 libgdbm6 libgmp-dev libgmpxx4ldbl libjs-jquery libmd0
+  libruby3.0 libyaml-0-2 openssl rake ruby ruby-net-telnet ruby-rubygems
+  ruby-webrick ruby-xmlrpc ruby3.0 ruby3.0-dev ruby3.0-doc
+  rubygems-integration unzip zip
+Suggested packages:
+  apache2 | lighttpd | httpd gdbm-l10n gmp-doc libgmp10-doc libmpfr-dev
+  make-doc ri bundler
+The following NEW packages will be installed:
+  ca-certificates fonts-lato javascript-common libbsd0 libedit2
+  libgdbm-compat4 libgdbm6 libgmp-dev libgmpxx4ldbl libjs-jquery libmd0
+  libruby3.0 libyaml-0-2 make openssl rake ruby ruby-dev ruby-net-telnet
+  ruby-rubygems ruby-webrick ruby-xmlrpc ruby3.0 ruby3.0-dev ruby3.0-doc
+  rubygems-integration unzip zip
+0 upgraded, 28 newly installed, 0 to remove and 3 not upgraded.
+Need to get 13.2 MB of archives.
+After this operation, 63.4 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-lato all 2.0-2.1 [2696 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libyaml-0-2 amd64 0.2.2-1build2 [51.6 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 javascript-common all 11+nmu1 [5936 B]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgmpxx4ldbl amd64 2:6.2.1+dfsg-3ubuntu1 [9580 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgmp-dev amd64 2:6.2.1+dfsg-3ubuntu1 [337 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-jquery all 3.6.0+dfsg+~3.5.13-1 [321 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 rubygems-integration all 1.18 [5336 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby3.0 amd64 3.0.2-7ubuntu2.11 [50.1 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby-rubygems all 3.3.5-2ubuntu1.2 [228 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 ruby amd64 1:3.0~exp1 [5100 B]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 rake all 13.0.6-2 [61.7 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 ruby-net-telnet all 0.1.1-2 [12.6 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby-webrick all 1.7.0-3ubuntu0.2 [52.5 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby-xmlrpc all 0.3.2-1ubuntu0.1 [24.9 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libruby3.0 amd64 3.0.2-7ubuntu2.11 [5114 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby3.0-dev amd64 3.0.2-7ubuntu2.11 [242 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 ruby-dev amd64 1:3.0~exp1 [4328 B]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ruby3.0-doc all 3.0.2-7ubuntu2.11 [1856 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 unzip amd64 6.0-26ubuntu3.2 [175 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 zip amd64 3.0-12build2 [176 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 13.2 MB in 56s (234 kB/s)
+Selecting previously unselected package fonts-lato.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-fonts-lato_2.0-2.1_all.deb ...
+Unpacking fonts-lato (2.0-2.1) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../01-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../02-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../03-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../04-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libyaml-0-2:amd64.
+Preparing to unpack .../05-libyaml-0-2_0.2.2-1build2_amd64.deb ...
+Unpacking libyaml-0-2:amd64 (0.2.2-1build2) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../06-libedit2_3.1-20210910-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20210910-1build1) ...
+Selecting previously unselected package libgdbm6:amd64.
+Preparing to unpack .../07-libgdbm6_1.23-1_amd64.deb ...
+Unpacking libgdbm6:amd64 (1.23-1) ...
+Selecting previously unselected package javascript-common.
+Preparing to unpack .../08-javascript-common_11+nmu1_all.deb ...
+Unpacking javascript-common (11+nmu1) ...
+Selecting previously unselected package libgdbm-compat4:amd64.
+Preparing to unpack .../09-libgdbm-compat4_1.23-1_amd64.deb ...
+Unpacking libgdbm-compat4:amd64 (1.23-1) ...
+Selecting previously unselected package libgmpxx4ldbl:amd64.
+Preparing to unpack .../10-libgmpxx4ldbl_2%3a6.2.1+dfsg-3ubuntu1_amd64.deb ...
+Unpacking libgmpxx4ldbl:amd64 (2:6.2.1+dfsg-3ubuntu1) ...
+Selecting previously unselected package libgmp-dev:amd64.
+Preparing to unpack .../11-libgmp-dev_2%3a6.2.1+dfsg-3ubuntu1_amd64.deb ...
+Unpacking libgmp-dev:amd64 (2:6.2.1+dfsg-3ubuntu1) ...
+Selecting previously unselected package libjs-jquery.
+Preparing to unpack .../12-libjs-jquery_3.6.0+dfsg+~3.5.13-1_all.deb ...
+Unpacking libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Selecting previously unselected package rubygems-integration.
+Preparing to unpack .../13-rubygems-integration_1.18_all.deb ...
+Unpacking rubygems-integration (1.18) ...
+Selecting previously unselected package ruby3.0.
+Preparing to unpack .../14-ruby3.0_3.0.2-7ubuntu2.11_amd64.deb ...
+Unpacking ruby3.0 (3.0.2-7ubuntu2.11) ...
+Selecting previously unselected package ruby-rubygems.
+Preparing to unpack .../15-ruby-rubygems_3.3.5-2ubuntu1.2_all.deb ...
+Unpacking ruby-rubygems (3.3.5-2ubuntu1.2) ...
+Selecting previously unselected package ruby.
+Preparing to unpack .../16-ruby_1%3a3.0~exp1_amd64.deb ...
+Unpacking ruby (1:3.0~exp1) ...
+Selecting previously unselected package rake.
+Preparing to unpack .../17-rake_13.0.6-2_all.deb ...
+Unpacking rake (13.0.6-2) ...
+Selecting previously unselected package ruby-net-telnet.
+Preparing to unpack .../18-ruby-net-telnet_0.1.1-2_all.deb ...
+Unpacking ruby-net-telnet (0.1.1-2) ...
+Selecting previously unselected package ruby-webrick.
+Preparing to unpack .../19-ruby-webrick_1.7.0-3ubuntu0.2_all.deb ...
+Unpacking ruby-webrick (1.7.0-3ubuntu0.2) ...
+Selecting previously unselected package ruby-xmlrpc.
+Preparing to unpack .../20-ruby-xmlrpc_0.3.2-1ubuntu0.1_all.deb ...
+Unpacking ruby-xmlrpc (0.3.2-1ubuntu0.1) ...
+Selecting previously unselected package libruby3.0:amd64.
+Preparing to unpack .../21-libruby3.0_3.0.2-7ubuntu2.11_amd64.deb ...
+Unpacking libruby3.0:amd64 (3.0.2-7ubuntu2.11) ...
+Selecting previously unselected package make.
+Preparing to unpack .../22-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package ruby3.0-dev:amd64.
+Preparing to unpack .../23-ruby3.0-dev_3.0.2-7ubuntu2.11_amd64.deb ...
+Unpacking ruby3.0-dev:amd64 (3.0.2-7ubuntu2.11) ...
+Selecting previously unselected package ruby-dev:amd64.
+Preparing to unpack .../24-ruby-dev_1%3a3.0~exp1_amd64.deb ...
+Unpacking ruby-dev:amd64 (1:3.0~exp1) ...
+Selecting previously unselected package ruby3.0-doc.
+Preparing to unpack .../25-ruby3.0-doc_3.0.2-7ubuntu2.11_all.deb ...
+Unpacking ruby3.0-doc (3.0.2-7ubuntu2.11) ...
+Selecting previously unselected package unzip.
+Preparing to unpack .../26-unzip_6.0-26ubuntu3.2_amd64.deb ...
+Unpacking unzip (6.0-26ubuntu3.2) ...
+Selecting previously unselected package zip.
+Preparing to unpack .../27-zip_3.0-12build2_amd64.deb ...
+Unpacking zip (3.0-12build2) ...
+Setting up javascript-common (11+nmu1) ...
+Setting up fonts-lato (2.0-2.1) ...
+Setting up libyaml-0-2:amd64 (0.2.2-1build2) ...
+Setting up unzip (6.0-26ubuntu3.2) ...
+Setting up zip (3.0-12build2) ...
+Setting up libgmpxx4ldbl:amd64 (2:6.2.1+dfsg-3ubuntu1) ...
+Setting up make (4.3-4.1build1) ...
+Setting up ruby-net-telnet (0.1.1-2) ...
+Setting up ruby-webrick (1.7.0-3ubuntu0.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up ruby3.0-doc (3.0.2-7ubuntu2.11) ...
+Setting up libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up ruby-xmlrpc (0.3.2-1ubuntu0.1) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libgmp-dev:amd64 (2:6.2.1+dfsg-3ubuntu1) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up rubygems-integration (1.18) ...
+Setting up libruby3.0:amd64 (3.0.2-7ubuntu2.11) ...
+Setting up ruby3.0-dev:amd64 (3.0.2-7ubuntu2.11) ...
+Setting up ruby3.0 (3.0.2-7ubuntu2.11) ...
+Setting up ruby-dev:amd64 (1:3.0~exp1) ...
+Setting up ruby (1:3.0~exp1) ...
+Setting up rake (13.0.6-2) ...
+Setting up ruby-rubygems (3.3.5-2ubuntu1.2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 5]
+$ rake all test
+Exit Code: 0
+Output:
+Build summary:
+
+================================================
+      Config Name: host
+ Output Directory: build/host
+         Binaries: mrbc, mruby-config
+    Included Gems:
+             mruby-array-ext - Array class extension
+             mruby-bigint - Integer class extension to multiple-precision
+             mruby-bin-config - mruby-config command
+             mruby-bin-debugger - mruby debugger command
+               - Binaries: mrdb
+             mruby-bin-mirb - mirb command
+               - Binaries: mirb
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-bin-mruby - mruby command
+               - Binaries: mruby
+             mruby-bin-strip - irep dump debug section remover command
+               - Binaries: mruby-strip
+             mruby-binding - Binding class (core features only)
+             mruby-class-ext - class/module extension
+             mruby-cmath - standard Math module with complex
+             mruby-compar-ext - Comparable module extension
+             mruby-compiler - mruby compiler library
+             mruby-complex - Complex class
+             mruby-data - standard Data class
+             mruby-dir
+             mruby-enum-ext - Enumerable module extension
+             mruby-enum-lazy - Enumerator::Lazy class
+             mruby-enumerator - Enumerator class
+             mruby-errno - Errno module and SystemCallError class
+             mruby-error - extensional error handling
+             mruby-eval - standard Kernel#eval method
+             mruby-fiber - Fiber class
+             mruby-hash-ext - Hash class extension
+             mruby-io - IO and File class
+             mruby-kernel-ext - extensional function-like methods
+             mruby-math - standard Math module
+             mruby-metaprog - Meta-programming features for mruby
+             mruby-method - Method and UnboundMethod class
+             mruby-numeric-ext - Numeric class extension
+             mruby-object-ext - extensional methods shared by all objects
+             mruby-objectspace - ObjectSpace class
+             mruby-pack - Array#pack and String#unpack method
+             mruby-print - standard print/puts/p
+             mruby-proc-ext - Proc class extension
+             mruby-random - Random class
+             mruby-range-ext - Range class extension
+             mruby-rational - Rational class
+             mruby-set
+             mruby-socket - standard socket class
+             mruby-sprintf - standard Kernel#sprintf method
+             mruby-string-ext - String class extension
+             mruby-struct - standard Struct class
+             mruby-symbol-ext - Symbol class extension
+             mruby-time - standard Time class
+             mruby-toplevel-ext - toplevel object (main) methods extension
+================================================
+
+================================================
+      Config Name: host/mrbc
+ Output Directory: build/host/mrbc
+         Binaries: mrbc
+    Included Gems:
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-compiler - mruby compiler library
+================================================
+
+sh: 1: git: not found
+>>> Test host <<<
+mrbtest - Embeddable Ruby Test
+
+...................................................................................................................................................................................................?........................................................................................................................................................?.......................................................................................................................................................................?...........................................?..................................................................................................................................................................................................................................................................................................................................??........................?........................................................................................................................................................................................................................................................??..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Skip: Proc#source_location (mrbgems: mruby-proc-ext)
+Skip: Kernel.caller, Kernel#caller => backtrace isn't available (mrbgems: mruby-kernel-ext)
+Skip: File.expand_path (with ENV) (mrbgems: mruby-io)
+Skip: IO#isatty => open /dev/tty (mrbgems: mruby-io)
+Skip: Method#source_location (mrbgems: mruby-method)
+Skip: UnboundMethod#source_location (mrbgems: mruby-method)
+Skip: Binding#source_location (mrbgems: mruby-binding)
+Skip: GC in rescue => backtrace isn't available (core)
+Skip: Method call in rescue => backtrace isn't available (core)
+  Total: 1618
+     OK: 1609
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 9
+   Time: 0.05 seconds
+
+>>> Bintest host <<<
+bintest - Command Binary Test
+
+....................................................................................................
+  Total: 100
+     OK: 100
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 0
+   Time: 0.67 seconds
+----------------------------------------
+
+[Command 6]
+$ apt-get install -y git
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man less libbrotli1 libcbor0.8 libcurl3-gnutls liberror-perl libexpat1
+  libfido2-1 libldap-2.5-0 libldap-common libnghttp2-14 libperl5.34 libpsl5
+  librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libssh-4 libx11-6
+  libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1 netbase
+  openssh-client patch perl perl-modules-5.34 publicsuffix xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui
+  gitk gitweb git-cvs git-mediawiki git-svn libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql keychain libpam-ssh monkeysphere ssh-askpass ed
+  diffutils-doc perl-doc libterm-readline-gnu-perl
+  | libterm-readline-perl-perl libtap-harness-archive-perl
+The following NEW packages will be installed:
+  git git-man less libbrotli1 libcbor0.8 libcurl3-gnutls liberror-perl
+  libexpat1 libfido2-1 libldap-2.5-0 libldap-common libnghttp2-14 libperl5.34
+  libpsl5 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libssh-4
+  libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1 netbase
+  openssh-client patch perl perl-modules-5.34 publicsuffix xauth
+0 upgraded, 33 newly installed, 0 to remove and 3 not upgraded.
+Need to get 15.9 MB of archives.
+After this operation, 81.1 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 less amd64 590-1ubuntu0.22.04.3 [142 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcbor0.8 amd64 0.8.0-2ubuntu1 [24.6 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfido2-1 amd64 1.10.0-1 [82.8 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxext6 amd64 2:1.3.4-1build1 [31.8 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxmuu1 amd64 2:1.1.3-3 [10.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssh-client amd64 1:8.9p1-3ubuntu0.13 [903 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 xauth amd64 1:1.1-1build2 [27.5 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 liberror-perl all 0.17029-1 [26.5 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git-man all 1:2.34.1-1ubuntu1.15 [955 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git amd64 1:2.34.1-1ubuntu1.15 [3166 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy/main amd64 patch amd64 2.7.6-7build2 [109 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 15.9 MB in 1min 10s (226 kB/s)
+Selecting previously unselected package perl-modules-5.34.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 21333 files and directories currently installed.)
+Preparing to unpack .../00-perl-modules-5.34_5.34.0-3ubuntu1.5_all.deb ...
+Unpacking perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package libperl5.34:amd64.
+Preparing to unpack .../01-libperl5.34_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../02-perl_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking perl (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package less.
+Preparing to unpack .../03-less_590-1ubuntu0.22.04.3_amd64.deb ...
+Unpacking less (590-1ubuntu0.22.04.3) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../05-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package libcbor0.8:amd64.
+Preparing to unpack .../06-libcbor0.8_0.8.0-2ubuntu1_amd64.deb ...
+Unpacking libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../07-libfido2-1_1.10.0-1_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.10.0-1) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../08-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../09-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../10-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../11-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../12-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../13-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../14-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../15-libxext6_2%3a1.3.4-1build1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1build1) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../16-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../17-openssh-client_1%3a8.9p1-3ubuntu0.13_amd64.deb ...
+Unpacking openssh-client (1:8.9p1-3ubuntu0.13) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../18-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../19-xauth_1%3a1.1-1build2_amd64.deb ...
+Unpacking xauth (1:1.1-1build2) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../20-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../21-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../22-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../23-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../24-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../25-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../26-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../27-liberror-perl_0.17029-1_all.deb ...
+Unpacking liberror-perl (0.17029-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../28-git-man_1%3a2.34.1-1ubuntu1.15_all.deb ...
+Unpacking git-man (1:2.34.1-1ubuntu1.15) ...
+Selecting previously unselected package git.
+Preparing to unpack .../29-git_1%3a2.34.1-1ubuntu1.15_amd64.deb ...
+Unpacking git (1:2.34.1-1ubuntu1.15) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../30-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../31-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../32-patch_2.7.6-7build2_amd64.deb ...
+Unpacking patch (2.7.6-7build2) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up less (590-1ubuntu0.22.04.3) ...
+Setting up perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up patch (2.7.6-7build2) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up git-man (1:2.34.1-1ubuntu1.15) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up netbase (6.3) ...
+Setting up libfido2-1:amd64 (1.10.0-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up openssh-client (1:8.9p1-3ubuntu0.13) ...
+update-alternatives: using /usr/bin/ssh to provide /usr/bin/rsh (rsh) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rsh.1.gz because associated file /usr/share/man/man1/ssh.1.gz (of link group rsh) doesn't exist
+update-alternatives: using /usr/bin/slogin to provide /usr/bin/rlogin (rlogin) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rlogin.1.gz because associated file /usr/share/man/man1/slogin.1.gz (of link group rlogin) doesn't exist
+update-alternatives: using /usr/bin/scp to provide /usr/bin/rcp (rcp) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rcp.1.gz because associated file /usr/share/man/man1/scp.1.gz (of link group rcp) doesn't exist
+Setting up libxext6:amd64 (2:1.3.4-1build1) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up xauth (1:1.1-1build2) ...
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up liberror-perl (0.17029-1) ...
+Setting up git (1:2.34.1-1ubuntu1.15) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 7]
+$ rake all test
+Exit Code: 0
+Output:
+Build summary:
+
+================================================
+      Config Name: host
+ Output Directory: build/host
+         Binaries: mrbc, mruby-config
+    Included Gems:
+             mruby-array-ext - Array class extension
+             mruby-bigint - Integer class extension to multiple-precision
+             mruby-bin-config - mruby-config command
+             mruby-bin-debugger - mruby debugger command
+               - Binaries: mrdb
+             mruby-bin-mirb - mirb command
+               - Binaries: mirb
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-bin-mruby - mruby command
+               - Binaries: mruby
+             mruby-bin-strip - irep dump debug section remover command
+               - Binaries: mruby-strip
+             mruby-binding - Binding class (core features only)
+             mruby-class-ext - class/module extension
+             mruby-cmath - standard Math module with complex
+             mruby-compar-ext - Comparable module extension
+             mruby-compiler - mruby compiler library
+             mruby-complex - Complex class
+             mruby-data - standard Data class
+             mruby-dir
+             mruby-enum-ext - Enumerable module extension
+             mruby-enum-lazy - Enumerator::Lazy class
+             mruby-enumerator - Enumerator class
+             mruby-errno - Errno module and SystemCallError class
+             mruby-error - extensional error handling
+             mruby-eval - standard Kernel#eval method
+             mruby-fiber - Fiber class
+             mruby-hash-ext - Hash class extension
+             mruby-io - IO and File class
+             mruby-kernel-ext - extensional function-like methods
+             mruby-math - standard Math module
+             mruby-metaprog - Meta-programming features for mruby
+             mruby-method - Method and UnboundMethod class
+             mruby-numeric-ext - Numeric class extension
+             mruby-object-ext - extensional methods shared by all objects
+             mruby-objectspace - ObjectSpace class
+             mruby-pack - Array#pack and String#unpack method
+             mruby-print - standard print/puts/p
+             mruby-proc-ext - Proc class extension
+             mruby-random - Random class
+             mruby-range-ext - Range class extension
+             mruby-rational - Rational class
+             mruby-set
+             mruby-socket - standard socket class
+             mruby-sprintf - standard Kernel#sprintf method
+             mruby-string-ext - String class extension
+             mruby-struct - standard Struct class
+             mruby-symbol-ext - Symbol class extension
+             mruby-time - standard Time class
+             mruby-toplevel-ext - toplevel object (main) methods extension
+================================================
+
+================================================
+      Config Name: host/mrbc
+ Output Directory: build/host/mrbc
+         Binaries: mrbc
+    Included Gems:
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-compiler - mruby compiler library
+================================================
+
+>>> Test host <<<
+mrbtest - Embeddable Ruby Test
+
+...................................................................................................................................................................................................?........................................................................................................................................................?.......................................................................................................................................................................?...........................................?..................................................................................................................................................................................................................................................................................................................................??........................?........................................................................................................................................................................................................................................................??..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Skip: Proc#source_location (mrbgems: mruby-proc-ext)
+Skip: Kernel.caller, Kernel#caller => backtrace isn't available (mrbgems: mruby-kernel-ext)
+Skip: File.expand_path (with ENV) (mrbgems: mruby-io)
+Skip: IO#isatty => open /dev/tty (mrbgems: mruby-io)
+Skip: Method#source_location (mrbgems: mruby-method)
+Skip: UnboundMethod#source_location (mrbgems: mruby-method)
+Skip: Binding#source_location (mrbgems: mruby-binding)
+Skip: GC in rescue => backtrace isn't available (core)
+Skip: Method call in rescue => backtrace isn't available (core)
+  Total: 1618
+     OK: 1609
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 9
+   Time: 0.05 seconds
+
+>>> Bintest host <<<
+bintest - Command Binary Test
+
+....................................................................................................
+  Total: 100
+     OK: 100
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 0
+   Time: 0.6 seconds
+----------------------------------------
+
+[Command 8]
+$ rake test
+Exit Code: 0
+Output:
+Build summary:
+
+================================================
+      Config Name: host
+ Output Directory: build/host
+         Binaries: mrbc, mruby-config
+    Included Gems:
+             mruby-array-ext - Array class extension
+             mruby-bigint - Integer class extension to multiple-precision
+             mruby-bin-config - mruby-config command
+             mruby-bin-debugger - mruby debugger command
+               - Binaries: mrdb
+             mruby-bin-mirb - mirb command
+               - Binaries: mirb
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-bin-mruby - mruby command
+               - Binaries: mruby
+             mruby-bin-strip - irep dump debug section remover command
+               - Binaries: mruby-strip
+             mruby-binding - Binding class (core features only)
+             mruby-class-ext - class/module extension
+             mruby-cmath - standard Math module with complex
+             mruby-compar-ext - Comparable module extension
+             mruby-compiler - mruby compiler library
+             mruby-complex - Complex class
+             mruby-data - standard Data class
+             mruby-dir
+             mruby-enum-ext - Enumerable module extension
+             mruby-enum-lazy - Enumerator::Lazy class
+             mruby-enumerator - Enumerator class
+             mruby-errno - Errno module and SystemCallError class
+             mruby-error - extensional error handling
+             mruby-eval - standard Kernel#eval method
+             mruby-fiber - Fiber class
+             mruby-hash-ext - Hash class extension
+             mruby-io - IO and File class
+             mruby-kernel-ext - extensional function-like methods
+             mruby-math - standard Math module
+             mruby-metaprog - Meta-programming features for mruby
+             mruby-method - Method and UnboundMethod class
+             mruby-numeric-ext - Numeric class extension
+             mruby-object-ext - extensional methods shared by all objects
+             mruby-objectspace - ObjectSpace class
+             mruby-pack - Array#pack and String#unpack method
+             mruby-print - standard print/puts/p
+             mruby-proc-ext - Proc class extension
+             mruby-random - Random class
+             mruby-range-ext - Range class extension
+             mruby-rational - Rational class
+             mruby-set
+             mruby-socket - standard socket class
+             mruby-sprintf - standard Kernel#sprintf method
+             mruby-string-ext - String class extension
+             mruby-struct - standard Struct class
+             mruby-symbol-ext - Symbol class extension
+             mruby-time - standard Time class
+             mruby-toplevel-ext - toplevel object (main) methods extension
+================================================
+
+================================================
+      Config Name: host/mrbc
+ Output Directory: build/host/mrbc
+         Binaries: mrbc
+    Included Gems:
+             mruby-bin-mrbc - mruby compiler executable
+             mruby-compiler - mruby compiler library
+================================================
+
+>>> Test host <<<
+mrbtest - Embeddable Ruby Test
+
+...................................................................................................................................................................................................?........................................................................................................................................................?.......................................................................................................................................................................?...........................................?..................................................................................................................................................................................................................................................................................................................................??........................?........................................................................................................................................................................................................................................................??..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Skip: Proc#source_location (mrbgems: mruby-proc-ext)
+Skip: Kernel.caller, Kernel#caller => backtrace isn't available (mrbgems: mruby-kernel-ext)
+Skip: File.expand_path (with ENV) (mrbgems: mruby-io)
+Skip: IO#isatty => open /dev/tty (mrbgems: mruby-io)
+Skip: Method#source_location (mrbgems: mruby-method)
+Skip: UnboundMethod#source_location (mrbgems: mruby-method)
+Skip: Binding#source_location (mrbgems: mruby-binding)
+Skip: GC in rescue => backtrace isn't available (core)
+Skip: Method call in rescue => backtrace isn't available (core)
+  Total: 1618
+     OK: 1609
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 9
+   Time: 0.05 seconds
+
+>>> Bintest host <<<
+bintest - Command Binary Test
+
+....................................................................................................
+  Total: 100
+     OK: 100
+     KO: 0
+  Crash: 0
+Warning: 0
+   Skip: 0
+   Time: 0.64 seconds
+----------------------------------------
+

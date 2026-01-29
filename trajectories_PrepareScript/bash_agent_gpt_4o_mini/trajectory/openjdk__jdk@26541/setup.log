@@ -1,0 +1,2555 @@
+# Setup Log for openjdk/jdk@fe09e93b8fc3081c944f3824fdaa55cc17e377a8
+# Issue/PR Number: 26541
+# Generated at: 2026-01-26T14:12:52.266575
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 100
+drwxr-xr-x 10 1000 1000  4096 Jan 26 06:03 .
+drwxr-xr-x  3 root root  4096 Jan 26 06:03 ..
+-rw-r--r--  1 1000 1000   237 Jan 26 06:03 .editorconfig
+drwxr-xr-x  8 1000 1000  4096 Jan 26 06:03 .git
+-rw-r--r--  1 1000 1000   164 Jan 26 06:03 .gitattributes
+drwxr-xr-x  5 1000 1000  4096 Jan 26 06:03 .github
+-rw-r--r--  1 1000 1000   355 Jan 26 06:03 .gitignore
+drwxr-xr-x  2 1000 1000  4096 Jan 26 06:03 .jcheck
+-rw-r--r--  1 1000 1000  2114 Jan 26 06:03 ADDITIONAL_LICENSE_INFO
+-rw-r--r--  1 1000 1000  1514 Jan 26 06:03 ASSEMBLY_EXCEPTION
+-rw-r--r--  1 1000 1000    99 Jan 26 06:03 CONTRIBUTING.md
+-rw-r--r--  1 1000 1000 19274 Jan 26 06:03 LICENSE
+-rw-r--r--  1 1000 1000  2906 Jan 26 06:03 Makefile
+-rw-r--r--  1 1000 1000   424 Jan 26 06:03 README.md
+-rw-r--r--  1 1000 1000   185 Jan 26 06:03 SECURITY.md
+drwxr-xr-x  2 1000 1000  4096 Jan 26 06:03 bin
+-rw-r--r--  1 1000 1000  1785 Jan 26 06:03 configure
+drwxr-xr-x  2 1000 1000  4096 Jan 26 06:03 doc
+drwxr-xr-x 15 1000 1000  4096 Jan 26 06:03 make
+drwxr-xr-x 74 1000 1000  4096 Jan 26 06:03 src
+drwxr-xr-x 15 1000 1000  4096 Jan 26 06:03 test
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+# Welcome to the JDK!
+
+For build instructions please see the
+[online documentation](https://openjdk.org/groups/build/doc/building.html),
+or either of these files:
+
+- [doc/building.html](doc/building.html) (html version)
+- [doc/building.md](doc/building.md) (markdown version)
+
+See <https://openjdk.org/> for more information about the OpenJDK
+Community and the JDK and see <https://bugs.openjdk.org> for JDK issue
+tracking.
+----------------------------------------
+
+[Command 3]
+$ cat doc/building.md
+Exit Code: 0
+Output:
+% Building the JDK
+
+## TL;DR (Instructions for the Impatient)
+
+If you are eager to try out building the JDK, these simple steps work most of
+the time. They assume that you have installed Git (and Cygwin, MSYS2 or WSL if
+running on Windows), and want to clone the main-line JDK repository.
+
+ 1. [Get the complete source code](#getting-the-source-code): \
+    `git clone https://git.openjdk.org/jdk`
+
+ 2. [Run configure](#running-configure): \
+    `bash configure`
+
+    If `configure` fails due to missing dependencies (to either the
+    [toolchain](#native-compiler-toolchain-requirements), [build tools](
+    #build-tools-requirements), [external libraries](
+    #external-library-requirements) or the [boot JDK](#boot-jdk-requirements)),
+    most of the time it prints a suggestion on how to resolve the situation on
+    your platform. Follow the instructions, and try running `bash configure`
+    again.
+
+ 3. [Run make](#running-make): \
+    `make images`
+
+ 4. Verify your newly built JDK: \
+    `./build/*/images/jdk/bin/java -version`
+
+ 5. [Run basic tests](#running-tests): \
+    `make test-tier1`
+
+If any of these steps failed, or if you want to know more about build
+requirements or build functionality, please continue reading this document.
+
+## Introduction
+
+The JDK is a complex software project. Building it requires a certain amount of
+technical expertise, a fair number of dependencies on external software, and
+reasonably powerful hardware.
+
+If you just want to use the JDK and not build it yourself, this document is not
+for you. See for instance [OpenJDK installation](https://openjdk.org/install)
+for some methods of installing a prebuilt JDK.
+
+## Getting the Source Code
+
+Make sure you are getting the correct version. At the [OpenJDK Git
+site](https://git.openjdk.org/) you can see a list of all available
+repositories. Commonly used repositories are:
+
+* The [JDK Project](https://openjdk.org/projects/jdk) (the main-line currently
+  in development): https://git.openjdk.org/jdk
+
+* The [JDK Updates Project](https://openjdk.org/projects/jdk-updates/), which
+  has one repository per update release, e.g. https://git.openjdk.org/jdk17u
+  for JDK 17.
+
+If you want to build an older version, e.g. JDK 17, it is strongly recommended
+that you use the JDK Updates repository, e.g. the `jdk17u`, which contains
+incremental updates, instead of the JDK Project repository `jdk17`, which was
+frozen at JDK 17 GA.
+
+If you are new to Git, a good place to start is the book [Pro
+Git](https://git-scm.com/book/en/v2). The rest of this document assumes a
+working knowledge of Git.
+
+### Special Considerations
+
+For a smooth building experience, it is recommended that you follow these rules
+on where and how to check out the source code.
+
+* Do not check out the source code in a path which contains spaces. Chances are
+  the build will not work. This is most likely to be an issue on Windows
+  systems.
+
+* Do not check out the source code in a path which has a very long name or is
+  nested many levels deep. Chances are you will hit an OS limitation during the
+  build.
+
+* Put the source code on a local disk, not a network share. If possible, use an
+  SSD. The build process is very disk intensive, and having slow disk access
+  will significantly increase build times. If you need to use a network share
+  for the source code, see below for suggestions on how to keep the build
+  artifacts on a local disk.
+
+* UTF-8 support is needed to compile the JDK. On Unix systems, this typically
+  means that the `C.UTF-8` or `en_US.UTF-8` locale needs to be available. For
+  Windows users, please see the section on [Locale
+  Requirements](#locale-requirements) below.
+
+* On Windows, extra care must be taken to have a smooth building experience:
+
+  * Make sure that all relevant paths have short names. Short names are used by
+    the build system to create space-free alternative paths. Short name
+    creation is enabled per volume. The default setting can be checked with the
+    command: `fsutil 8dot3name query`. If short name creation was turned off
+    when a directory was created, it will not have a short name. Whether a
+    short name exists can be checked by running `dir /X` in the containing
+    directory (in cmd.exe). If a short path is present you should see something
+    like 'ASDF~1' being displayed in one of the columns of the ouput. If a
+    directory is missing a short name, the safest way to get one is to enable
+    short names for that particular volume with `fsutil 8dot3name set <drive
+    letter>: 0` (note that you need to run as administrator for this), and then
+    re-create the particular directory. A short name should be generated
+    automatically then. Another option is to manually assign a short name to
+    the directory using `fsutil file setShortName <path> <short name>`.
+
+  * If using [Cygwin](#cygwin), you must make sure the file permissions and
+    attributes between Windows and Cygwin are consistent. It is recommended
+    that you follow this procedure:
+
+    * Create the directory that is going to contain the top directory of the
+      JDK clone by using the `mkdir` command in the Cygwin bash shell. That is,
+      do *not* create it using Windows Explorer. This will ensure that it will
+      have proper Cygwin attributes, and that it's children will inherit those
+      attributes.
+
+    * Do not put the JDK clone in a path under your Cygwin home directory. This
+      is especially important if your user name contains spaces and/or mixed
+      upper and lower case letters.
+
+    Failure to follow these procedures might result in hard-to-debug build
+    problems.
+
+  * You need to install a git client. You have two choices, Cygwin git or Git
+    for Windows. Unfortunately there are pros and cons with each choice.
+
+    * The Cygwin `git` client has no line ending issues and understands Cygwin
+      paths (which are used throughout the JDK build system). However, it does
+      not currently work well with the Skara CLI tooling. Please see the [Skara
+      wiki on Git clients](
+      https://wiki.openjdk.org/display/SKARA/Skara#Skara-Git) for up-to-date
+      information about the Skara git client support.
+
+    * The [Git for Windows](https://gitforwindows.org) client has issues with
+      line endings, and do not understand Cygwin paths. It does work well with
+      the Skara CLI tooling, however. To alleviate the line ending problems,
+      make sure you set `core.autocrlf` to `false` (this is asked during
+      installation).
+
+## Build Hardware Requirements
+
+The JDK is a massive project, and require machines ranging from decent to
+powerful to be able to build in a reasonable amount of time, or to be able to
+complete a build at all.
+
+We *strongly* recommend usage of an SSD disk for the build, since disk speed is
+one of the limiting factors for build performance.
+
+### Building on x86
+
+At a minimum, a machine with 2-4 cores is advisable, as well as 2-4 GB of RAM.
+(The more cores to use, the more memory you need.) At least 6 GB of free disk
+space is required.
+
+Even for 32-bit builds, it is recommended to use a 64-bit build machine, and
+instead create a 32-bit target using `--with-target-bits=32`.
+
+Note: The 32-bit x86 port is deprecated and may be removed in a future release.
+
+### Building on aarch64
+
+At a minimum, a machine with 8 cores is advisable, as well as 8 GB of RAM. (The
+more cores to use, the more memory you need.) At least 6 GB of free disk space
+is required.
+
+If you do not have access to sufficiently powerful hardware, it is also
+possible to use [cross-compiling](#cross-compiling).
+
+#### Branch Protection
+
+In order to use Branch Protection features in the VM,
+`--enable-branch-protection` must be used. This option requires C++ compiler
+support (GCC 9.1.0+ or Clang 10+). The resulting build can be run on both
+machines with and without support for branch protection in hardware. Branch
+Protection is only supported for Linux targets.
+
+### Building on 32-bit ARM
+
+This is not recommended. Instead, see the section on [Cross-compiling](
+#cross-compiling).
+
+## Operating System Requirements
+
+The mainline JDK project supports Linux, macOS, AIX and Windows. Support for
+other operating system, e.g. BSD, exists in separate "port" projects.
+
+In general, the JDK can be built on a wide range of versions of these operating
+systems, but the further you deviate from what is tested on a daily basis, the
+more likely you are to run into problems.
+
+This table lists the OS versions used by Oracle when building the JDK. Such
+information is always subject to change, but this table is up to date at the
+time of writing.
+
+| Operating system  | Vendor/version used                |
+| ----------------- | ---------------------------------- |
+| Linux/x64         | Oracle Enterprise Linux 6.4 / 8.x  |
+| Linux/aarch64     | Oracle Enterprise Linux 7.6 / 8.x  |
+| macOS             | macOS 14.x                         |
+| Windows           | Windows Server 2016                |
+
+The double version numbers for Linux are due to the hybrid model used at
+Oracle, where header files and external libraries from an older version are
+used when building on a more modern version of the OS.
+
+The Build Group has a wiki page with [Supported Build Platforms](
+https://wiki.openjdk.org/display/Build/Supported+Build+Platforms). From time to
+time, this is updated by contributors to list successes or failures of building
+on different platforms.
+
+### Windows
+
+Windows XP is not a supported platform, but all newer Windows should be able to
+build the JDK.
+
+On Windows, it is important that you pay attention to the instructions in the
+[Special Considerations](#special-considerations).
+
+Windows is the only non-POSIX OS supported by the JDK, and as such, requires
+some extra care. A POSIX support layer is required to build on Windows.
+Currently, the supported such layers are Cygwin, MSYS2 and Windows Subsystem
+for Linux (WSL). Of these, Cygwin is the one that has received the most
+real-world testing and is likely to cause least trouble.
+
+Internally in the build system, all paths are represented as Unix-style paths,
+e.g. `/cygdrive/c/git/jdk/Makefile` rather than `C:\git\jdk\Makefile`. This
+rule also applies to input to the build system, e.g. in arguments to
+`configure`. So, use `--with-msvcr-dll=/cygdrive/c/msvcr100.dll` rather than
+`--with-msvcr-dll=c:\msvcr100.dll`. For details on this conversion, see the
+section on [Fixpath](#fixpath).
+
+#### Locale Requirements
+
+Building and testing the JDK requires a well-defined locale to be guaranteed to
+run correctly. On non-Windows operating systems, this is achieved using the
+`LC_*` variables, which propagate to all child processes of the build.
+Unfortunately, there is no way to set the locale for a specific process like
+this in Windows. Instead, changes to locale can only be made globally, which
+will affect all applications run by the user. Furthermore, Windows makes a
+difference between user locale and system locale, where the latter determines
+e.g. the file path encoding. Both this locale settings affect building and
+testing the JDK.
+
+The **recommended** and **supported** way of building the JDK on Windows is to
+set both the system locale and the user locale to **US English**. The system
+setting can be changed by going to the Control Panel, choosing "Regional
+Settings" -> "Administrative" and then pressing on the "Change System Locale"
+button.
+
+Since this is annoying for users who prefer another locale, we strive to get
+the building and testing to work on other locales as well. This is on a "best
+effort" level, so beware! You might get odd results in both building and
+testing. If you do, remember that locales other than US English are not
+supported nor recommended.
+
+It is also imperative to install the US English language pack in Visual Studio.
+For details, see [Microsoft Visual Studio](#microsoft-visual-studio).
+
+#### Cygwin
+
+Install [Cygwin](https://www.cygwin.com/) as instructed on the home page. It is
+strongly recommended to use the 64-bit version of Cygwin.
+
+**Note:** Cygwin has a model of continuously updating all packages without any
+easy way to install or revert to a specific version of a package. This means
+that whenever you add or update a package in Cygwin, you might (inadvertently)
+update tools that are used by the JDK build process, and that can cause
+unexpected build problems.
+
+The JDK requires GNU Make 4.0 or greater in Cygwin. This is usually not a
+problem, since Cygwin currently only distributes GNU Make at a version above
+4.0.
+
+Apart from the basic Cygwin installation, the following packages must also be
+installed:
+
+* `autoconf`
+* `make`
+* `zip`
+* `unzip`
+
+Often, you can install these packages using the following command line:
+
+```
+<path to Cygwin setup>/setup-x86_64 -q -P autoconf -P make -P unzip -P zip
+```
+
+Unfortunately, Cygwin can be unreliable in certain circumstances. If you
+experience build tool crashes or strange issues when building on Windows,
+please check the Cygwin FAQ on the ["BLODA" list](
+https://cygwin.com/faq/faq.html#faq.using.bloda) and the section on [fork()
+failures](https://cygwin.com/faq/faq.html#faq.using.fixing-fork-failures).
+
+#### MSYS2
+
+Install [MSYS2](https://www.msys2.org/) as instructed on the home page.
+
+Apart from the basic MSYS2 installation, the following packages must also be
+installed:
+
+* `autoconf`
+* `tar`
+* `make`
+* `zip`
+* `unzip`
+
+You can install these packages using the following command line:
+
+```
+pacman -S autoconf tar make zip unzip
+```
+
+#### Windows Subsystem for Linux (WSL)
+
+WSL comes in two flavors, WSL1 and WSL2. These are drastically different under
+the hood. WSL1 runs the binaries natively by translating Linux kernel calls
+into Windows kernel calls, while WSL2 runs Linux in a virtual machine. Both
+solutions have their pros and cons, and you might need to test both before
+deciding which works best for you. Both WSL1 and WSL2 are supported, but to
+varying degrees.
+
+To use WSL for building the JDK, you will need Windows 10 version 1809 or
+later, and you will need to install an Ubuntu guest.
+
+It is possible to build both Windows and Linux binaries from WSL. To build
+Windows binaries, you must use a Windows boot JDK (located in a
+Windows-accessible directory). To build Linux binaries, you must use a Linux
+boot JDK. The default behavior is to build for Windows. To build for Linux,
+pass `--build=x86_64-unknown-linux-gnu
+--openjdk-target=x86_64-unknown-linux-gnu` to `configure`.
+
+If building Windows binaries, the source code must be located in a Windows-
+accessible directory. This is because Windows executables (such as Visual
+Studio and the boot JDK) must be able to access the source code. Also, the
+drive where the source is stored must be mounted as case-insensitive by
+changing either /etc/fstab or /etc/wsl.conf in WSL. Individual directories may
+be corrected using the fsutil tool in case the source was cloned before
+changing the mount options.
+
+Note that while it's possible to build on WSL, testing is still not fully
+supported.
+
+### macOS
+
+Apple is using a quite aggressive scheme of pushing OS updates, and coupling
+these updates with required updates of Xcode. Unfortunately, this makes it
+difficult for a project such as the JDK to keep pace with a continuously
+updated machine running macOS. See the section on [Apple Xcode](#apple-xcode)
+on some strategies to deal with this.
+
+It is recommended that you use at least macOS 14 and Xcode 15.4, but
+earlier versions may also work.
+
+The standard macOS environment contains the basic tooling needed to build, but
+for external libraries a package manager is recommended. The JDK uses
+[homebrew](https://brew.sh/) in the examples, but feel free to use whatever
+manager you want (or none).
+
+### Linux
+
+It is often not much problem to build the JDK on Linux. The only general advice
+is to try to use the compilers, external libraries and header files as provided
+by your distribution.
+
+The basic tooling is provided as part of the core operating system, but you
+will most likely need to install developer packages.
+
+For apt-based distributions (Debian, Ubuntu, etc), try this:
+
+```
+sudo apt-get install build-essential autoconf
+```
+
+For rpm-based distributions (Fedora, Red Hat, etc), try this:
+
+```
+sudo yum groupinstall "Development Tools"
+```
+
+For Alpine Linux, aside from basic tooling, install the GNU versions of some
+programs:
+
+```
+sudo apk add build-base bash grep zip
+```
+
+### AIX
+
+Please consult the AIX section of the [Supported Build Platforms](
+https://wiki.openjdk.org/display/Build/Supported+Build+Platforms) OpenJDK Build
+Wiki page for details about which versions of AIX are supported.
+
+## Native Compiler (Toolchain) Requirements
+
+Large portions of the JDK consists of native code, that needs to be compiled to
+be able to run on the target platform. In theory, toolchain and operating
+system should be independent factors, but in practice there's more or less a
+one-to-one correlation between target operating system and toolchain.
+
+| Operating system   | Supported toolchain       |
+| ------------------ | ------------------------- |
+| Linux              | gcc, clang                |
+| macOS              | Apple Xcode (using clang) |
+| AIX                | IBM Open XL C/C++         |
+| Windows            | Microsoft Visual Studio   |
+
+Please see the individual sections on the toolchains for version
+recommendations. As a reference, these versions of the toolchains are used, at
+the time of writing, by Oracle for the daily builds of the JDK. It should be
+possible to compile the JDK with both older and newer versions, but the closer
+you stay to this list, the more likely you are to compile successfully without
+issues.
+
+| Operating system   | Toolchain version                            |
+| ------------------ | -------------------------------------------- |
+| Linux              | gcc 14.2.0                                   |
+| macOS              | Apple Xcode 15.4 (using clang 15.0.0)       |
+| Windows            | Microsoft Visual Studio 2022 version 17.13.2 |
+
+All compilers are expected to be able to handle the C11 language standard for
+C, and C++14 for C++.
+
+### gcc
+
+The minimum accepted version of gcc is 10.0. Older versions will not be accepted
+by `configure`.
+
+The JDK is currently known to compile successfully with gcc version 14.2 or
+newer.
+
+In general, any version between these two should be usable.
+
+### clang
+
+The minimum accepted version of clang is 13. Older versions will not be
+accepted by `configure`.
+
+To use clang instead of gcc on Linux, use `--with-toolchain-type=clang`.
+
+### Apple Xcode
+
+The oldest supported version of Xcode is 13.0.
+
+You will need to download Xcode either from the App Store or specific versions
+can be easily located via the [Xcode Releases](https://xcodereleases.com)
+website.
+
+When updating Xcode, it is advisable to keep an older version for building the
+JDK. To use a specific version of Xcode you have multiple options:
+
+* Use `xcode-select -s` before running `configure`, e.g.
+`xcode-select -s /Applications/Xcode13.1.app`. The drawback is that the setting
+is system wide and you may have to revert it after a JDK build.
+* Use configure option `--with-xcode-path`, e.g.
+`configure --with-xcode-path=/Applications/Xcode13.1.app` This allows using a
+specific Xcode version for a JDK build, independently of the active Xcode
+version by `xcode-select`.
+
+If you have recently (inadvertently) updated your OS and/or Xcode version, and
+the JDK can no longer be built, please see the section on [Problems with the
+Build Environment](#problems-with-the-build-environment), and [Getting
+Help](#getting-help) to find out if there are any recent, non-merged patches
+available for this update.
+
+### Microsoft Visual Studio
+
+The minimum accepted version is Visual Studio 2019 version 16.8. (Note that
+this version is often presented as "MSVC 14.28", and reported by cl.exe as
+19.28.) Older versions will not be accepted by `configure` and will not work.
+The maximum accepted version of Visual Studio is 2022.
+
+If you have multiple versions of Visual Studio installed, `configure` will by
+default pick the latest. You can request a specific version to be used by
+setting `--with-toolchain-version`, e.g. `--with-toolchain-version=2022`.
+
+If you have Visual Studio installed but `configure` fails to detect it, it may
+be because of [spaces in path](#spaces-in-path).
+
+You must install the US English locale, otherwise the build system might not be
+able to interact properly with the compiler. You can add additional language
+packs when installing Visual Studio.
+
+If you have already installed Visual Studio without the US English language
+pack, you can modify the installation to add this. You can either do this via a
+GUI like this:
+
+* Click on "Visual Studio Installer" in Start menu.
+* Click "Modify".
+* Select the tab "Language packs".
+* Choose "English".
+* Click "Modify".
+
+or you can run it on the command line. For this to work, you need to start
+`cmd.exe` using "Run as Administrator". Then execute the following line: (note
+that the " characters are essential)
+
+```
+"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" modify --channelId VisualStudio.16.Release --productId Microsoft.VisualStudio.Product.BuildTools --addProductLang en-us -p
+```
+
+`VisualStudio.16.Release` represent VS 2019, so adjust the version number
+accordingly. If you have not installed the `BuildTools`, but e.g.
+`Professional`, adjust the product ID accordingly.
+
+### IBM Open XL C/C++
+
+The minimum accepted version of Open XL is 17.1.1.4. This is in essence clang
+15, and will be treated as such by the OpenJDK build system.
+
+## Boot JDK Requirements
+
+Paradoxically, building the JDK requires a pre-existing JDK. This is called the
+"boot JDK". The boot JDK does not, however, have to be a JDK built directly
+from the source code available in the OpenJDK Community. If you are porting the
+JDK to a new platform, chances are that there already exists another JDK for
+that platform that is usable as boot JDK.
+
+The rule of thumb is that the boot JDK for building JDK major version *N*
+should be a JDK of major version *N-1*, so for building JDK 18 a JDK 17 would
+be suitable as boot JDK. However, the JDK should be able to "build itself", so
+an up-to-date build of the current JDK source is an acceptable alternative. If
+you are following the *N-1* rule, make sure you've got the latest update
+version, since e.g. JDK 8 GA might not be able to build JDK 9 on all platforms.
+
+Early in the release cycle, version *N-1* may not yet have been released. In
+that case, the preferred boot JDK will be version *N-2* until version *N-1* is
+available.
+
+The `configure` scripts tries to locate a suitable boot JDK automatically, but
+due to the lack of standard installation locations on most platforms, this
+heuristics has a high likelihood to fail. If the boot JDK is not automatically
+detected, or the wrong JDK is picked, use `--with-boot-jdk` to point to the JDK
+to use.
+
+### Getting JDK Binaries
+
+An overview of common ways to download and install prebuilt JDK binaries can be
+found on https://openjdk.org/install. An alternative is to download the [Oracle
+JDK](https://www.oracle.com/java/technologies/downloads). Another is
+[Adoptium](https://adoptium.net/), which publishes prebuilt binaries for
+various platforms.
+
+On Linux you can also get a JDK from the Linux distribution. On apt-based
+distros (like Debian and Ubuntu), `sudo apt-get install openjdk-<VERSION>-jdk`
+is typically enough to install a JDK \<VERSION\>. On rpm-based distros (like
+Fedora and Red Hat), try `sudo yum install java-<VERSION>-openjdk-devel`.
+
+## External Library Requirements
+
+Different platforms require different external libraries. In general, libraries
+are not optional - that is, they are either required or not used.
+
+If a required library is not detected by `configure`, you need to provide the
+path to it. There are two forms of the `configure` arguments to point to an
+external library: `--with-<LIB>=<path>` or `--with-<LIB>-include=<path to
+include> --with-<LIB>-lib=<path to lib>`.
+
+The first variant is more concise, but require the include files and library
+files to reside in a default hierarchy under this directory. In most cases, it
+works fine. As a fallback, the second version allows you to point to the
+include directory and the lib directory separately.
+
+### FreeType
+
+FreeType2 from [The FreeType Project](https://www.freetype.org/) is not
+required on any platform. The exception is on Unix-based platforms when
+configuring such that the build artifacts will reference a system installed
+library, rather than bundling the JDK's own copy.
+
+* To install on an apt-based Linux, try running `sudo apt-get install
+libfreetype6-dev`.
+* To install on an rpm-based Linux, try running `sudo yum install
+freetype-devel`.
+* To install on Alpine Linux, try running `sudo apk add freetype-dev`.
+* To install on macOS, try running `brew install freetype`.
+
+Use `--with-freetype-include=<path>` and `--w
+
+[... truncated ...]
+
+l.)
+
+#### Problems with Incremental Rebuilds
+
+Incremental rebuilds mean that when you modify part of the product, only the
+affected parts get rebuilt. While this works great in most cases, and
+significantly speed up the development process, from time to time complex
+interdependencies will result in an incorrect build result. This is the most
+common cause for unexpected build problems.
+
+Here are a suggested list of things to try if you are having unexpected build
+problems. Each step requires more time than the one before, so try them in
+order. Most issues will be solved at step 1 or 2.
+
+ 1. Make sure your repository is up-to-date
+
+    Run `git pull origin master` to make sure you have the latest changes.
+
+ 2. Clean build results
+
+    The simplest way to fix incremental rebuild issues is to run `make clean`.
+    This will remove all build results, but not the configuration or any build
+    system support artifacts. In most cases, this will solve build errors
+    resulting from incremental build mismatches.
+
+ 3. Completely clean the build directory.
+
+    If this does not work, the next step is to run `make dist-clean`, or
+    removing the build output directory (`$BUILD`). This will clean all
+    generated output, including your configuration. You will need to re-run
+    `configure` after this step. A good idea is to run `make
+    print-configuration` before running `make dist-clean`, as this will print
+    your current `configure` command line. Here's a way to do this:
+
+    ```
+    make print-configuration > current-configuration
+    make dist-clean
+    bash configure $(cat current-configuration)
+    make
+    ```
+
+ 4. Re-clone the Git repository
+
+    Sometimes the Git repository gets in a state that causes the product to be
+    un-buildable. In such a case, the simplest solution is often the
+    "sledgehammer approach": delete the entire repository, and re-clone it. If
+    you have local changes, save them first to a different location using `git
+    format-patch`.
+
+### Specific Build Issues
+
+#### Clock Skew
+
+If you get an error message like this:
+
+```
+File 'xxx' has modification time in the future.
+Clock skew detected. Your build may be incomplete.
+```
+
+then the clock on your build machine is out of sync with the timestamps on the
+source files. Other errors, apparently unrelated but in fact caused by the
+clock skew, can occur along with the clock skew warnings. These secondary
+errors may tend to obscure the fact that the true root cause of the problem is
+an out-of-sync clock.
+
+If you see these warnings, reset the clock on the build machine, run `make
+clean` and restart the build.
+
+#### Out of Memory Errors
+
+On Windows, you might get error messages like this:
+
+```
+fatal error - couldn't allocate heap
+cannot create ... Permission denied
+spawn failed
+```
+
+This can be a sign of a Cygwin problem. See the information about solving
+problems in the [Cygwin](#cygwin) section. Rebooting the computer might help
+temporarily.
+
+#### Spaces in Path
+
+On Windows, when configuring, `fixpath.sh` may report that some directory names
+have spaces. Usually, it assumes those directories have [short
+paths](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/fsutil-8dot3name).
+You can run `fsutil file setshortname` in `cmd` on directories to assign
+arbitrary short paths so `configure` can access them. If the result says "Access
+denied", it may be that there are processes running in that directory; in this
+case, you can reboot Windows in safe mode and run the command on those directories
+again.
+
+The only directories required to have short paths are `Microsoft Visual Studio`
+and `Windows Kits`; the rest of the "contains space" warnings from `configure`,
+such as `IntelliJ IDEA`, can be ignored. You can choose any short name; once it
+is set, `configure`'s tools like `cygpath` can convert the directory with spaces
+to your chosen short name and pass it to the build system.
+
+### Getting Help
+
+If none of the suggestions in this document helps you, or if you find what you
+believe is a bug in the build system, please contact the Build Group by sending
+a mail to [build-dev@openjdk.org](mailto:build-dev@openjdk.org). Please include
+the relevant parts of the configure and/or build log.
+
+If you need general help or advice about developing for the JDK, you can also
+contact the Adoption Group. See the section on [Contributing to OpenJDK](
+#contributing-to-the-jdk) for more information.
+
+## Reproducible Builds
+
+Build reproducibility is the property of getting exactly the same bits out when
+building, every time, independent on who builds the product, or where. This is
+for many reasons a harder goal than it initially appears, but it is an
+important goal, for security reasons and others. Please see [Reproducible
+Builds]( https://reproducible-builds.org) for more information about the
+background and reasons for reproducible builds.
+
+Currently, it is not possible to build the JDK fully reproducibly, but getting
+there is an ongoing effort.
+
+An absolute prerequisite for building reproducible is to specify a fixed build
+time, since time stamps are embedded in many file formats. This is done by
+setting the `SOURCE_DATE_EPOCH` environment variable, which is an [industry
+standard]( https://reproducible-builds.org/docs/source-date-epoch/), that many
+tools, such as gcc, recognize, and use in place of the current time when
+generating output.
+
+To generate reproducible builds, you must set `SOURCE_DATE_EPOCH` before
+running `configure`. The value in `SOURCE_DATE_EPOCH` will be stored in the
+configuration, and used by `make`. Setting `SOURCE_DATE_EPOCH` before running
+`make` will have no effect on the build.
+
+You must also make sure your build does not rely on `configure`'s default ad
+hoc version strings. Default ad hoc version strings `OPT` segment include user
+name and source directory. You can either override just the `OPT` segment using
+`--with-version-opt=<any fixed string>`, or you can specify the entire version
+string using `--with-version-string=<your version>`.
+
+This is a typical example of how to build the JDK in a reproducible way:
+
+```
+export SOURCE_DATE_EPOCH=946684800
+bash configure --with-version-opt=adhoc
+make
+```
+
+Note that regardless of whether you specify a source date for `configure` or
+not, the JDK build system will set `SOURCE_DATE_EPOCH` for all build tools when
+building. If `--with-source-date` has the value `current` (which is the default
+unless `SOURCE_DATE_EPOCH` is found by in the environment by `configure`), the
+source date value will be determined at configure time.
+
+There are several aspects of reproducible builds that can be individually
+adjusted by `configure` arguments. If any of these are given, they will
+override the value derived from `SOURCE_DATE_EPOCH`. These arguments are:
+
+* `--with-source-date`
+
+ This option controls how the JDK build sets `SOURCE_DATE_EPOCH` when building.
+ It can be set to a value describing a date, either an epoch based timestamp as
+ an integer, or a valid ISO-8601 date.
+
+ It can also be set to one of the special values `current`, `updated` or
+ `version`. `current` means that the time of running `configure` will be used.
+ `version` will use the nominal release date for the current JDK version.
+ `updated`, which means that `SOURCE_DATE_EPOCH` will be set to the current
+ time each time you are running `make`. All choices, except for `updated`, will
+ set a fixed value for the source date timestamp.
+
+ When `SOURCE_DATE_EPOCH` is set, the default value for `--with-source-date`
+ will be the value given by `SOURCE_DATE_EPOCH`. Otherwise, the default value
+ is `current`.
+
+* `--with-hotspot-build-time`
+
+ This option controls the build time string that will be included in the
+ hotspot library (`libjvm.so` or `jvm.dll`). If the source date is fixed (e.g.
+ by setting `SOURCE_DATE_EPOCH`), the default value for
+ `--with-hotspot-build-time` will be an ISO 8601 representation of that time
+ stamp. Otherwise the default value will be the current time when building
+ hotspot.
+
+* `--with-copyright-year`
+
+ This option controls the copyright year in some generated text files. When the
+ source date is fixed (e.g. by setting `SOURCE_DATE_EPOCH`), the default value
+ for `--with-copyright-year` will be the year of that time stamp. Otherwise the
+ default is the current year at the time of running configure. This can be
+ overridden by `--with-copyright-year=<year>`.
+
+* `--enable-reproducible-build`
+
+ This option controls additional behavior needed to make the build
+ reproducible. When the source date is fixed (e.g. by setting
+ `SOURCE_DATE_EPOCH`), this flag will be turned on by default. Otherwise, the
+ value is determined by heuristics. If it is explicitly turned off, the build
+ might not be reproducible.
+
+## Hints and Suggestions for Advanced Users
+
+### Bash Completion
+
+The `configure` and `make` commands try to play nice with bash command-line
+completion (using `<tab>` or `<tab><tab>`). To use this functionality, make
+sure you enable completion in your `~/.bashrc` (see instructions for bash in
+your operating system).
+
+Make completion will work out of the box, and will complete valid make targets.
+For instance, typing `make jdk-i<tab>` will complete to `make jdk-image`.
+
+The `configure` script can get completion for options, but for this to work you
+need to help `bash` on the way. The standard way of running the script, `bash
+configure`, will not be understood by bash completion. You need `configure` to
+be the command to run. One way to achieve this is to add a simple helper script
+to your path:
+
+```
+cat << EOT > /tmp/configure
+#!/bin/bash
+if [ \$(pwd) = \$(cd \$(dirname \$0); pwd) ] ; then
+  echo >&2 "Abort: Trying to call configure helper recursively"
+  exit 1
+fi
+
+bash \$PWD/configure "\$@"
+EOT
+chmod +x /tmp/configure
+sudo mv /tmp/configure /usr/local/bin
+```
+
+Now `configure --en<tab>-dt<tab>` will result in `configure --enable-dtrace`.
+
+### Using Multiple Configurations
+
+You can have multiple configurations for a single source repository. When you
+create a new configuration, run `configure --with-conf-name=<name>` to create a
+configuration with the name `<name>`. Alternatively, you can create a directory
+under `build` and run `configure` from there, e.g. `mkdir build/<name> && cd
+build/<name> && bash ../../configure`.
+
+Then you can build that configuration using `make CONF=<selector>`, where
+`<selector>` is interpreted as follows:
+
+* If `<selector>` exacly matches the name of a configuration, this and only
+  this configuration will be selected.
+* If `<selector>` matches (i.e. is a substring of) the names of several
+  configurations, then all these configurations will be selected.
+* If `<selector>` is empty (i.e. `CONF=`), then all configurations will be
+  selected.
+* If `<selector>` begins with `!`, then all configurations **not** matching the
+  string following `!` will be selected.
+
+A more specialized version, `CONF_NAME=<name>` also exists, which will only
+match if the given `<name>` exactly matches a single configuration.
+
+Alternatively, you can execute `make` in the configuration directory, e.g. `cd
+build/<name> && make`.
+
+`make CONF_NAME=<name>` or
+
+### Handling Reconfigurations
+
+If you update the repository and part of the configure script has changed, the
+build system will force you to re-run `configure`.
+
+Most of the time, you will be fine by running `configure` again with the same
+arguments as the last time, which can easily be performed by `make
+reconfigure`. To simplify this, you can use the `CONF_CHECK` make control
+variable, either as `make CONF_CHECK=auto`, or by setting an environment
+variable. For instance, if you add `export CONF_CHECK=auto` to your `.bashrc`
+file, `make` will always run `reconfigure` automatically whenever the configure
+script has changed.
+
+You can also use `CONF_CHECK=ignore` to skip the check for a needed configure
+update. This might speed up the build, but comes at the risk of an incorrect
+build result. This is only recommended if you know what you're doing.
+
+From time to time, you will also need to modify the command line to `configure`
+due to changes. Use `make print-configuration` to show the command line used
+for your current configuration.
+
+### Using Fine-Grained Make Targets
+
+The default behavior for make is to create consistent and correct output, at
+the expense of build speed, if necessary.
+
+If you are prepared to take some risk of an incorrect build, and know enough of
+the system to understand how things build and interact, you can speed up the
+build process considerably by instructing make to only build a portion of the
+product.
+
+#### Building Individual Modules
+
+The safe way to use fine-grained make targets is to use the module specific
+make targets. All source code in the JDK is organized so it belongs to a
+module, e.g. `java.base` or `jdk.jdwp.agent`. You can build only a specific
+module, by giving it as make target: `make jdk.jdwp.agent`. If the specified
+module depends on other modules (e.g. `java.base`), those modules will be built
+first.
+
+You can also specify a set of modules, just as you can always specify a set of
+make targets: `make jdk.crypto.cryptoki jdk.crypto.ec jdk.crypto.mscapi`
+
+#### Building Individual Module Phases
+
+The build process for each module is divided into separate phases. Not all
+modules need all phases. Which are needed depends on what kind of source code
+and other artifact the module consists of. The phases are:
+
+* `gensrc` (Generate source code to compile)
+* `gendata` (Generate non-source code artifacts)
+* `copy` (Copy resource artifacts)
+* `java` (Compile Java code)
+* `launchers` (Compile native executables)
+* `libs` (Compile native libraries)
+
+You can build only a single phase for a module by using the notation
+`$MODULE-$PHASE`. For instance, to build the `gensrc` phase for `java.base`,
+use `make java.base-gensrc`.
+
+Note that some phases may depend on others, e.g. `java` depends on `gensrc` (if
+present). Make will build all needed prerequisites before building the
+requested phase.
+
+#### Skipping the Dependency Check
+
+When using an iterative development style with frequent quick rebuilds, the
+dependency check made by make can take up a significant portion of the time
+spent on the rebuild. In such cases, it can be useful to bypass the dependency
+check in make.
+
+**Note that if used incorrectly, this method can lead to a broken build!**
+
+To achieve this, append `-only` to the build target. For instance, `make
+jdk.jdwp.agent-java-only` will *only* build the `java` phase of the
+`jdk.jdwp.agent` module. If the required dependencies are not present, the
+build can fail. On the other hand, the execution time measures in milliseconds.
+
+A useful pattern is to build the first time normally (e.g. `make
+jdk.jdwp.agent`) and then on subsequent builds, use the `-only` make target.
+
+#### Rebuilding Part of java.base (JDK\_FILTER)
+
+In older versions of the JDK, inefficiencies when building `java.base` (by far
+the largest module in the JDK) could be overcome by using the make control
+variable `JDK_FILTER`. This is not needed anymore for performance reasons, but
+the functionality is still present.
+
+To use this, set the make control variable `JDK_FILTER` to specify a pattern
+that will be used to limit the set of files being recompiled. For instance,
+`make java.base JDK_FILTER=javax/crypto` will limit the compilation to files in
+the `javax.crypto` package.
+
+## Understanding the Build System
+
+This section will give you a more technical description on the details of the
+build system.
+
+### Configurations
+
+The build system expects to find one or more configuration. These are
+technically defined by the `spec.gmk` in a subdirectory to the `build`
+subdirectory. The `spec.gmk` file is generated by `configure`, and contains in
+principle the configuration (directly or by files included by `spec.gmk`).
+
+You can, in fact, select a configuration to build by pointing to the `spec.gmk`
+file with the `SPEC` make control variable, e.g. `make SPEC=$BUILD/spec.gmk`.
+While this is not the recommended way to call `make` as a user, it is what is
+used under the hood by the build system.
+
+### Build Output Structure
+
+The build output for a configuration will end up in `build/<configuration
+name>`, which we refer to as `$BUILD` in this document. The `$BUILD` directory
+contains the following important directories:
+
+```
+buildtools/
+configure-support/
+hotspot/
+images/
+jdk/
+make-support/
+support/
+test-results/
+test-support/
+```
+
+This is what they are used for:
+
+* `images`: This is the directory were the output of the `*-image` make targets
+  end up. For instance, `make jdk-image` ends up in `images/jdk`.
+
+* `jdk`: This is the "exploded image". After `make jdk`, you will be able to
+  launch the newly built JDK by running `$BUILD/jdk/bin/java`.
+
+* `test-results`: This directory contains the results from running tests.
+
+* `support`: This is an area for intermediate files needed during the build,
+  e.g. generated source code, object files and class files. Some noteworthy
+  directories in `support` is `gensrc`, which contains the generated source
+  code, and the `modules_*` directories, which contains the files in a
+  per-module hierarchy that will later be collapsed into the `jdk` directory of
+  the exploded image.
+
+* `buildtools`: This is an area for tools compiled for the build platform that
+  are used during the rest of the build.
+
+* `hotspot`: This is an area for intermediate files needed when building
+  hotspot.
+
+* `configure-support`, `make-support` and `test-support`: These directories
+  contain files that are needed by the build system for `configure`, `make` and
+  for running tests.
+
+### Fixpath
+
+Windows path typically look like `C:\User\foo`, while Unix paths look like
+`/home/foo`. Tools with roots from Unix often experience issues related to this
+mismatch when running on Windows.
+
+In the JDK build, we always use Unix paths internally, and only just before
+calling a tool that does not understand Unix paths do we convert them to
+Windows paths.
+
+This conversion is done by the `fixpath.sh` tool, which is a small wrapper that
+modifies Unix-style paths to Windows-style paths. The fixpath tool is called
+with the first argument as a sub-command describing the action it should take.
+Available actions are `import`, `exec`, `print` and `verify`.
+
+* `import` is called at configure time to convert a path given by the user and
+  that might be in Windows format to Unix path, which is used internally.
+
+* `exec` is called at build time. This will take the command line provided,
+  complete with arguments, converting the paths in the command line, and then
+  execute the command.
+
+* `print` is called at build time, in the rare cases where a path might be
+  needed in Windows format, but not as an argument to a command to execute.
+
+* `verify` is called at configure time to check that a path is correctly
+  specified and reachable by Windows.
+
+The fixpath tool uses a somewhat complex heuristic to infer which part of the
+command line arguments refer to paths, and converts those. In some
+circumstances, these heuristics can fail.
+
+If you are having strange build issues related to path conversion, you might
+need to debug how fixpath treats your paths. Here are some ways to do this.
+
+One way is to define the environment variable `DEBUG_FIXPATH`, e.g.
+`DEBUG_FIXPATH=1 make jdk`. When set, any call to `fixpath exec` will result in
+an output like this:
+
+```
+fixpath: debug: input: ls /mnt/c/windows
+fixpath: debug: output: ls c:\windows
+```
+
+You can also call fixpath yourself manually with your paths to see how they are
+translated. For this, use `print` and `import`. For example:
+
+```
+$ bash make/scripts/fixpath.sh print /mnt/c/windows
+c:\windows
+$ bash make/scripts/fixpath.sh import "c:\\windows"
+/mnt/c/windows
+```
+
+Remember that backslash is used as an escape character in the shell, and needs
+to be doubled when used in Windows paths.
+
+### Native Debug Symbols
+
+Native libraries and executables can have debug symbol (and other debug
+information) associated with them. How this works is very much platform
+dependent, but a common problem is that debug symbol information takes a lot of
+disk space, but is rarely needed by the end user.
+
+The JDK supports different methods on how to handle debug symbols. The method
+used is selected by `--with-native-debug-symbols`, and available methods are
+`none`, `internal`, `external`, `zipped`.
+
+* `none` means that no debug symbols will be generated during the build.
+
+* `internal` means that debug symbols will be generated during the build, and
+  they will be stored in the generated binary.
+
+* `external` means that debug symbols will be generated during the build, and
+  after the compilation, they will be moved into a separate `.debuginfo` file.
+  (This was previously known as FDS, Full Debug Symbols).
+
+* `zipped` is like `external`, but the .debuginfo file will also be zipped into
+  a `.diz` file.
+
+When building for distribution, `zipped` is a good solution. Binaries built
+with `internal` is suitable for use by developers, since they facilitate
+debugging, but should be stripped before distributed to end users.
+
+### Autoconf Details
+
+The `configure` script is using the autoconf framework, but it has grown to
+deviate quite a lot from a traditional autoconf `configure` script.
+
+The `configure` script in the top level directory of the JDK is just a thin
+wrapper that calls `make/autoconf/configure`. This in turn will run `autoconf`
+to create the runnable (generated) configure script, as
+`.build/generated-configure.sh`. Apart from being responsible for the
+generation of the runnable script, the `configure` script also provides
+functionality that is not easily expressed in the normal Autoconf framework. As
+part of this functionality, the generated script is called.
+
+The build system will detect if the Autoconf source files have changed, and
+will trigger a regeneration of the generated script if needed. You can also
+manually request such an update by `bash configure autogen`.
+
+### Developing the Build System Itself
+
+This section contains a few remarks about how to develop for the build system
+itself. It is not relevant if you are only making changes in the product source
+code.
+
+While technically using `make`, the make source files of the JDK does not
+resemble most other Makefiles. Instead of listing specific targets and actions
+(perhaps using patterns), the basic modus operandi is to call a high-level
+function (or properly, macro) from the API in `make/common`. For instance, to
+compile all classes in the `jdk.internal.foo` package in the `jdk.foo` module,
+a call like this would be made:
+
+```
+$(eval $(call SetupJavaCompilation, BUILD_FOO_CLASSES, \
+    SETUP := GENERATE_OLDBYTECODE, \
+    SRC := $(TOPDIR)/src/jkd.foo/share/classes, \
+    INCLUDES := jdk/internal/foo, \
+    BIN := $(SUPPORT_OUTPUTDIR)/foo_classes, \
+))
+```
+
+By encapsulating and expressing the high-level knowledge of *what* should be
+done, rather than *how* it should be done (as is normal in Makefiles), we can
+build a much more powerful and flexible build system.
+
+Correct dependency tracking is paramount. Sloppy dependency tracking will lead
+to improper parallelization, or worse, race conditions.
+
+To test for/debug race conditions, try running `make JOBS=1` and `make
+JOBS=100` and see if it makes any difference. (It shouldn't).
+
+To compare the output of two different builds and see if, and how, they differ,
+run `$BUILD1/compare.sh -o $BUILD2`, where `$BUILD1` and `$BUILD2` are the two
+builds you want to compare.
+
+To automatically build two consecutive versions and compare them, use
+`COMPARE_BUILD`. The value of `COMPARE_BUILD` is a set of variable=value
+assignments, like this:
+
+```
+make COMPARE_BUILD=CONF=--enable-new-hotspot-feature:MAKE=hotspot
+```
+
+See `make/InitSupport.gmk` for details on how to use `COMPARE_BUILD`.
+
+To analyze build performance, run with `LOG=trace` and check
+`$BUILD/build-trace-time.log`. Use `JOBS=1` to avoid parallelism.
+
+Please check that you adhere to the [Code Conventions for the Build System](
+https://openjdk.org/groups/build/doc/code-conventions.html) before submitting
+patches.
+
+## Contributing to the JDK
+
+So, now you've built your JDK, and made your first patch, and want to
+contribute it back to the OpenJDK Community.
+
+First of all: Thank you! We gladly welcome your contribution. However, please
+bear in mind that the JDK is a massive project, and we must ask you to follow
+our rules and guidelines to be able to accept your contribution.
+
+The official place to start is the [OpenJDK Developers’ Guide](
+https://openjdk.org/guide/).
+
+## Editing This Document
+
+If you want to contribute changes to this document, edit `doc/building.md` and
+then run `make update-build-docs` to generate the same changes in
+`doc/building.html`.
+
+---
+# Override styles from the base CSS file that are not ideal for this document.
+header-includes:
+ - '<style type="text/css">pre, code, tt { color: #1d6ae5; }</style>'
+---
+----------------------------------------
+
+[Command 4]
+$ apt-get update && apt-get install -y build-essential autoconf
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.8 MB in 43s (1020 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  automake autotools-dev binutils binutils-common binutils-x86-64-linux-gnu
+  bzip2 cpp cpp-11 dirmngr dpkg-dev fakeroot fontconfig-config
+  fonts-dejavu-core g++ g++-11 gcc gcc-11 gcc-11-base gnupg gnupg-l10n
+  gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libasan6 libassuan0 libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin
+  libc-devtools libc6 libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0
+  libdeflate0 libdpkg-perl libexpat1 libfakeroot libfile-fcntllock-perl
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgdbm-compat4 libgdbm6
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libksba8
+  libldap-2.5-0 libldap-common liblocale-gettext-perl liblsan0 libmd0 libmpc3
+  libmpfr6 libnpth0 libnsl-dev libperl5.34 libpng16-16 libquadmath0
+  libreadline8 libsasl2-2 libsasl2-modules libsasl2-modules-db libsigsegv2
+  libsqlite3-0 libstdc++-11-dev libtiff5 libtirpc-dev libtsan0 libubsan1
+  libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxpm4
+  linux-libc-dev lto-disabled-list m4 make manpages manpages-dev netbase patch
+  perl perl-modules-5.34 pinentry-curses readline-common rpcsvc-proto ucf
+  xz-utils
+Suggested packages:
+  autoconf-archive gnu-standards autoconf-doc libtool gettext binutils-doc
+  bzip2-doc cpp-doc gcc-11-locales dbus-user-session libpam-systemd
+  pinentry-gnome3 tor debian-keyring g++-multilib g++-11-multilib gcc-11-doc
+  gcc-multilib flex bison gdb gcc-doc gcc-11-multilib parcimonie xloadimage
+  scdaemon glibc-doc locales git bzr libgd-tools gdbm-l10n
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql
+  libstdc++-11-doc m4-doc make-doc man-browser ed diffutils-doc perl-doc
+  libterm-readline-gnu-perl | libterm-readline-perl-perl
+  libtap-harness-archive-perl pinentry-doc readline-doc
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  autoconf automake autotools-dev binutils binutils-common
+  binutils-x86-64-linux-gnu build-essential bzip2 cpp cpp-11 dirmngr dpkg-dev
+  fakeroot fontconfig-config fonts-dejavu-core g++ g++-11 gcc gcc-11
+  gcc-11-base gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client
+  gpg-wks-server gpgconf gpgsm libalgorithm-diff-perl
+  libalgorithm-diff-xs-perl libalgorithm-merge-perl libasan6 libassuan0
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libdeflate0
+  libdpkg-perl libexpat1 libfakeroot libfile-fcntllock-perl libfontconfig1
+  libfreetype6 libgcc-11-dev libgd3 libgdbm-compat4 libgdbm6 libgomp1 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libksba8 libldap-2.5-0
+  libldap-common liblocale-gettext-perl liblsan0 libmd0 libmpc3 libmpfr6
+  libnpth0 libnsl-dev libperl5.34 libpng16-16 libquadmath0 libreadline8
+  libsasl2-2 libsasl2-modules libsasl2-modules-db libsigsegv2 libsqlite3-0
+  libstdc++-11-dev libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6
+  libx11-data libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev
+  lto-disabled-list m4 make manpages manpages-dev netbase patch perl
+  perl-modules-5.34 pinentry-curses readline-common rpcsvc-proto ucf xz-utils
+The following packages will be upgraded:
+  libc6
+1 upgraded, 108 newly installed, 0 to remove and 2 not upgraded.
+Need to get 88.1 MB of archives.
+After this operation, 296 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblocale-gettext-perl amd64 1.07-4build3 [17.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 xz-utils amd64 5.2.5-2ubuntu1 [84.8 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libsigsegv2 amd64 2.13-1ubuntu3 [14.6 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 m4 amd64 1.4.18-5ubuntu2 [199 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 autoconf all 2.71-2 [338 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 autotools-dev all 20220109.1 [44.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 automake all 1:1.16.5-1.3 [558 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+Get:63 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdpkg-perl all 1.21.1ubuntu2.6 [237 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 bzip2 amd64 1.0.8-5build1 [34.8 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 patch amd64 2.7.6-7build2 [109 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy/main amd64 lto-disabled-list all 24 [12.5 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dpkg-dev all 1.21.1ubuntu2.6 [922 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy/main amd64 build-essential amd64 12.9ubuntu3 [4744 B]
+Get:70 http://archive.ubuntu.com/ubuntu jammy/main amd64 libassuan0 amd64 2.5.5-1build1 [38.2 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgconf amd64 2.2.27-3ubuntu2.5 [94.3 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libksba8 amd64 1.6.0-2ubuntu0.2 [119 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnpth0 amd64 1.6-3build2 [8664 B]
+Get:77 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dirmngr amd64 2.2.27-3ubuntu2.5 [293 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfakeroot amd64 1.28-1ubuntu1 [31.5 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy/main amd64 fakeroot amd64 1.28-1ubuntu1 [60.4 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-l10n all 2.2.27-3ubuntu2.5 [54.5 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-utils amd64 2.2.27-3ubuntu2.5 [309 kB]
+Get:84 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg amd64 2.2.27-3ubuntu2.5 [519 kB]
+Get:85 http://archive.ubuntu.com/ubuntu jammy/main amd64 pinentry-curses amd64 1.1.1-1build2 [34.4 kB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-agent amd64 2.2.27-3ubuntu2.5 [209 kB]
+Get:87 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-client amd64 2.2.27-3ubuntu2.5 [62.7 kB]
+Get:88 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-server amd64 2.2.27-3ubuntu2.5 [57.6 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgsm amd64 2.2.27-3ubuntu2.5 [197 kB]
+Get:90 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg all 2.2.27-3ubuntu2.5 [315 kB]
+Get:91 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-perl all 1.201-1 [41.8 kB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-xs-perl amd64 0.04-6build3 [11.9 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-merge-perl all 0.08-3 [12.0 kB]
+Get:94 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:98 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:99 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:100 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:101 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:102 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:103 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:104 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:105 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:106 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfile-fcntllock-perl amd64 0.22-3build7 [33.9 kB]
+Get:107 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:108 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:109 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 88.1 MB in 5min 5s (289 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package liblocale-gettext-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../000-liblocale-gettext-perl_1.07-4build3_amd64.deb ...
+Unpacking liblocale-gettext-perl (1.07-4build3) ...
+Selecting previously unselected package perl-modules-5.34.
+Preparing to unpack .../001-perl-modules-5.34_5.34.0-3ubuntu1.5_all.deb ...
+Unpacking perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package libgdbm6:amd64.
+Preparing to unpack .../002-libgdbm6_1.23-1_amd64.deb ...
+Unpacking libgdbm6:amd64 (1.23-1) ...
+Selecting previously unselected package libgdbm-compat4:amd64.
+Preparing to unpack .../003-libgdbm-compat4_1.23-1_amd64.deb ...
+Unpacking libgdbm-compat4:amd64 (1.23-1) ...
+Selecting previously unselected package libperl5.34:amd64.
+Preparing to unpack .../004-libperl5.34_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../005-perl_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking perl (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../006-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../007-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../008-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../009-readline-common_8.1.2-1_all.deb ...
+Unpacking readline-common (8.1.2-1) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../010-libreadline8_8.1.2-1_amd64.deb ...
+Unpacking libreadline8:amd64 (8.1.2-1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../011-libsqlite3-0_3.37.2-2ubuntu0.5_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../012-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../013-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../014-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../015-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../016-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../017-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../018-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../019-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../020-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package xz-utils.
+Preparing to unpack .../021-xz-utils_5.2.5-2ubuntu1_amd64.deb ...
+Unpacking xz-utils (5.2.5-2ubuntu1) ...
+Selecting previously unselected package libsigsegv2:amd64.
+Preparing to unpack .../022-libsigsegv2_2.13-1ubuntu3_amd64.deb ...
+Unpacking libsigsegv2:amd64 (2.13-1ubuntu3) ...
+Selecting previously unselected package m4.
+Preparing to unpack .../023-m4_1.4.18-5ubuntu2_amd64.deb ...
+Unpacking m4 (1.4.18-5ubuntu2) ...
+Selecting previously unselected package autoconf.
+Preparing to unpack .../024-autoconf_2.71-2_all.deb ...
+Unpacking autoconf (2.71-2) ...
+Selecting previously unselected package autotools-dev.
+Preparing to unpack .../025-autotools-dev_20220109.1_all.deb ...
+Unpacking autotools-dev (20220109.1) ...
+Selecting previously unselected package automake.
+Preparing to unpack .../026-automake_1%3a1.16.5-1.3_all.deb ...
+Unpacking automake (1:1.16.5-1.3) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../027-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../028-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../029-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../030-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../031-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../032-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../033-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../034-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../035-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../036-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../037-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../038-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../039-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../040-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../041-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../042-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../043-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../044-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../045-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../046-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../047-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../048-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../049-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../050-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../051-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../052-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../053-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../054-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../055-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../056-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../057-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libstdc++-11-dev:amd64.
+Preparing to unpack .../058-libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++-11.
+Preparing to unpack .../059-g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../060-g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../061-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../062-libdpkg-perl_1.21.1ubuntu2.6_all.deb ...
+Unpacking libdpkg-perl (1.21.1ubuntu2.6) ...
+Selecting previously unselected package bzip2.
+Preparing to unpack .../063-bzip2_1.0.8-5build1_amd64.deb ...
+Unpacking bzip2 (1.0.8-5build1) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../064-patch_2.7.6-7build2_amd64.deb ...
+Unpacking patch (2.7.6-7build2) ...
+Selecting previously unselected package lto-disabled-list.
+Preparing to unpack .../065-lto-disabled-list_24_all.deb ...
+Unpacking lto-disabled-list (24) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../066-dpkg-dev_1.21.1ubuntu2.6_all.deb ...
+Unpacking dpkg-dev (1.21.1ubuntu2.6) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../067-build-essential_12.9ubuntu3_amd64.deb ...
+Unpacking build-essential (12.9ubuntu3) ...
+Selecting previously unselected package libassuan0:amd64.
+Preparing to unpack .../068-libassuan0_2.5.5-1build1_amd64.deb ...
+Unpacking libassuan0:amd64 (2.5.5-1build1) ...
+Selecting previously unselected package gpgconf.
+Preparing to unpack .../069-gpgconf_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgconf (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libksba8:amd64.
+Preparing to unpack .../070-libksba8_1.6.0-2ubuntu0.2_amd64.deb ...
+Unpacking libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../071-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../072-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../073-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libnpth0:amd64.
+Preparing to unpack .../074-libnpth0_1.6-3build2_amd64.deb ...
+Unpacking libnpth0:amd64 (1.6-3build2) ...
+Selecting previously unselected package dirmngr.
+Preparing to unpack .../075-dirmngr_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking dirmngr (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libfakeroot:amd64.
+Preparing to unpack .../076-libfakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.28-1ubuntu1) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../077-fakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking fakeroot (1.28-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../078-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../079-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package gnupg-l10n.
+Preparing to unpack .../080-gnupg-l10n_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg-utils.
+Preparing to unpack .../081-gnupg-utils_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gnupg-utils (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg.
+Preparing to unpack .../082-gpg_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package pinentry-curses.
+Preparing to unpack .../083-pinentry-curses_1.1.1-1build2_amd64.deb ...
+Unpacking pinentry-curses (1.1.1-1build2) ...
+Selecting previously unselected package gpg-agent.
+Preparing to unpack .../084-gpg-agent_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-agent (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-client.
+Preparing to unpack .../085-gpg-wks-client_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-server.
+Preparing to unpack .../086-gpg-wks-server_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpgsm.
+Preparing to unpack .../087-gpgsm_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgsm (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg.
+Preparing to unpack .../088-gnupg_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libalgorithm-diff-perl.
+Preparing to unpack .../089-libalgorithm-diff-perl_1.201-1_all.deb ...
+Unpacking libalgorithm-diff-perl (1.201-1) ...
+Selecting previously unselected package libalgorithm-diff-xs-perl.
+Preparing to unpack .../090-libalgorithm-diff-xs-perl_0.04-6build3_amd64.deb ...
+Unpacking libalgorithm-diff-xs-perl (0.04-6build3) ...
+Selecting previously unselected package libalgorithm-merge-perl.
+Preparing to unpack .../091-libalgorithm-merge-perl_0.08-3_all.deb ...
+Unpacking libalgorithm-merge-perl (0.08-3) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../092-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../093-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../094-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../095-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../096-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../097-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../098-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../099-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../100-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../101-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../102-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../103-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfile-fcntllock-perl.
+Preparing to unpack .../104-libfile-fcntllock-perl_0.22-3build7_amd64.deb ...
+Unpacking libfile-fcntllock-perl (0.22-3build7) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../105-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../106-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../107-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up lto-disabled-list (24) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnpth0:amd64 (1.6-3build2) ...
+Setting up libassuan0:amd64 (2.5.5-1build1) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Setting up bzip2 (1.0.8-5build1) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libfakeroot:amd64 (1.28-1ubuntu1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up fakeroot (1.28-1ubuntu1) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/fakeroot.1.gz because associated file /usr/share/man/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/faked.1.gz because associated file /usr/share/man/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/fakeroot.1.gz because associated file /usr/share/man/es/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/faked.1.gz because associated file /usr/share/man/es/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/fakeroot.1.gz because associated file /usr/share/man/fr/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/faked.1.gz because associated file /usr/share/man/fr/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/fakeroot.1.gz because associated file /usr/share/man/sv/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/faked.1.gz because associated file /usr/share/man/sv/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+Setting up autotools-dev (20220109.1) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Setting up libsigsegv2:amd64 (2.13-1ubuntu3) ...
+Setting up xz-utils (5.2.5-2ubuntu1) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up patch (2.7.6-7build2) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up netbase (6.3) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblocale-gettext-perl (1.07-4build3) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up pinentry-curses (1.1.1-1build2) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up m4 (1.4.18-5ubuntu2) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up gpgconf (2.2.27-3ubuntu2.5) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up gpg (2.2.27-3ubuntu2.5) ...
+Setting up gnupg-utils (2.2.27-3ubuntu2.5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up gpg-agent (2.2.27-3ubuntu2.5) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up gpgsm (2.2.27-3ubuntu2.5) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up dirmngr (2.2.27-3ubuntu2.5) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libdpkg-perl (1.21.1ubuntu2.6) ...
+Setting up autoconf (2.71-2) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up automake (1:1.16.5-1.3) ...
+update-alternatives: using /usr/bin/automake-1.16 to provide /usr/bin/automake (automake) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/automake.1.gz because associated file /usr/share/man/man1/automake-1.16.1.gz (of link group automake) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/aclocal.1.gz because associated file /usr/share/man/man1/aclocal-1.16.1.gz (of link group automake) doesn't exist
+Setting up gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libfile-fcntllock-perl (0.22-3build7) ...
+Setting up libalgorithm-diff-perl (1.201-1) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up dpkg-dev (1.21.1ubuntu2.6) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+Setting up gnupg (2.2.27-3ubuntu2.5) ...
+Setting up build-essential (12.9ubuntu3) ...
+Setting up libalgorithm-diff-xs-perl (0.04-6build3) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 5]
+$ bash configure
+Exit Code: 1
+Output:
+Runnable configure script is not present
+Generating runnable configure script at /workspace/openjdk__jdk@fe09e93b8fc3081c944f3824fdaa55cc17e377a8/build/.configure-support/generated-configure.sh
+Using autoconf at /usr/bin/autoconf [autoconf (GNU Autoconf) 2.71]
+configure: Configuration created at Mon Jan 26 06:09:43 UTC 2026.
+checking for basename... /usr/bin/basename
+checking for dirname... /usr/bin/dirname
+checking for file... configure: error: Could not find required tool for FILE
+no
+configure exiting with result code 1
+----------------------------------------
+
+[Command 6]
+$ apt-get install -y file
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libmagic-mgc libmagic1
+The following NEW packages will be installed:
+  file libmagic-mgc libmagic1
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.
+Need to get 366 kB of archives.
+After this operation, 7620 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libmagic-mgc amd64 1:5.41-3ubuntu0.1 [257 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libmagic1 amd64 1:5.41-3ubuntu0.1 [87.2 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 file amd64 1:5.41-3ubuntu0.1 [21.5 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 366 kB in 6s (57.8 kB/s)
+Selecting previously unselected package libmagic-mgc.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13768 files and directories currently installed.)
+Preparing to unpack .../libmagic-mgc_1%3a5.41-3ubuntu0.1_amd64.deb ...
+Unpacking libmagic-mgc (1:5.41-3ubuntu0.1) ...
+Selecting previously unselected package libmagic1:amd64.
+Preparing to unpack .../libmagic1_1%3a5.41-3ubuntu0.1_amd64.deb ...
+Unpacking libmagic1:amd64 (1:5.41-3ubuntu0.1) ...
+Selecting previously unselected package file.
+Preparing to unpack .../file_1%3a5.41-3ubuntu0.1_amd64.deb ...
+Unpacking file (1:5.41-3ubuntu0.1) ...
+Setting up libmagic-mgc (1:5.41-3ubuntu0.1) ...
+Setting up libmagic1:amd64 (1:5.41-3ubuntu0.1) ...
+Setting up file (1:5.41-3ubuntu0.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 7]
+$ bash configure
+Exit Code: 1
+Output:
+configure: Configuration created at Mon Jan 26 06:09:55 UTC 2026.
+checking for basename... /usr/bin/basename
+checking for dirname... /usr/bin/dirname
+checking for file... /usr/bin/file
+checking for ldd... /usr/bin/ldd
+checking for echo... echo [builtin]
+checking for tr... /usr/bin/tr
+checking for uname... /usr/bin/uname
+checking for wc... /usr/bin/wc
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for locale... /usr/bin/locale
+checking for cygpath... [not found]
+checking for wslpath... [not found]
+checking for cmd.exe... [not found]
+checking for lsb_release... [not found]
+checking build system type... x86_64-pc-wsl
+checking host system type... x86_64-pc-wsl
+checking target system type... x86_64-pc-wsl
+checking openjdk-build os-cpu... windows-x86_64
+checking openjdk-target os-cpu... windows-x86_64
+checking compilation type... native
+checking Windows environment type... wsl1
+configure: error: Incorrect wsl1 installation. Neither cygpath nor wslpath was found
+configure exiting with result code 1
+----------------------------------------
+
+[Command 8]
+$ apt-get install -y wslpath
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wslpath
+----------------------------------------
+
+[Command 9]
+$ apt-get install -y wsl
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates curl libcurl4 libicu70 libnghttp2-14 libpsl5 librtmp1
+  libssh-4 libxml2 libxml2-utils libxslt1.1 openssl publicsuffix wget xsltproc
+The following NEW packages will be installed:
+  ca-certificates curl libcurl4 libicu70 libnghttp2-14 libpsl5 librtmp1
+  libssh-4 libxml2 libxml2-utils libxslt1.1 openssl publicsuffix wget wsl
+  xsltproc
+0 upgraded, 16 newly installed, 0 to remove and 2 not upgraded.
+Need to get 14.3 MB of archives.
+After this operation, 44.4 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.11 [765 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 wget amd64 1.21.2-2ubuntu1.1 [339 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 curl amd64 7.81.0-1ubuntu1.21 [194 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2-utils amd64 2.9.13+dfsg-1ubuntu0.11 [40.2 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxslt1.1 amd64 1.1.34-4ubuntu0.22.04.5 [165 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/universe amd64 wsl all 0.2.1-3 [18.7 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 xsltproc amd64 1.1.34-4ubuntu0.22.04.5 [14.7 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 14.3 MB in 30s (479 kB/s)
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13799 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libicu70:amd64.
+Preparing to unpack .../02-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../03-libxml2_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../04-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../05-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../06-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package wget.
+Preparing to unpack .../07-wget_1.21.2-2ubuntu1.1_amd64.deb ...
+Unpacking wget (1.21.2-2ubuntu1.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../08-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../09-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../10-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../11-curl_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking curl (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libxml2-utils.
+Preparing to unpack .../12-libxml2-utils_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2-utils (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package libxslt1.1:amd64.
+Preparing to unpack .../13-libxslt1.1_1.1.34-4ubuntu0.22.04.5_amd64.deb ...
+Unpacking libxslt1.1:amd64 (1.1.34-4ubuntu0.22.04.5) ...
+Selecting previously unselected package wsl.
+Preparing to unpack .../14-wsl_0.2.1-3_all.deb ...
+Unpacking wsl (0.2.1-3) ...
+Selecting previously unselected package xsltproc.
+Preparing to unpack .../15-xsltproc_1.1.34-4ubuntu0.22.04.5_amd64.deb ...
+Unpacking xsltproc (1.1.34-4ubuntu0.22.04.5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up wget (1.21.2-2ubuntu1.1) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up curl (7.81.0-1ubuntu1.21) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up libxslt1.1:amd64 (1.1.34-4ubuntu0.22.04.5) ...
+Setting up libxml2-utils (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up wsl (0.2.1-3) ...
+Setting up xsltproc (1.1.34-4ubuntu0.22.04.5) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 10]
+$ bash configure
+Exit Code: 1
+Output:
+configure: Configuration created at Mon Jan 26 06:10:35 UTC 2026.
+checking for basename... /usr/bin/basename
+checking for dirname... /usr/bin/dirname
+checking for file... /usr/bin/file
+checking for ldd... /usr/bin/ldd
+checking for echo... echo [builtin]
+checking for tr... /usr/bin/tr
+checking for uname... /usr/bin/uname
+checking for wc... /usr/bin/wc
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for locale... /usr/bin/locale
+checking for cygpath... [not found]
+checking for wslpath... [not found]
+checking for cmd.exe... [not found]
+checking for lsb_release... [not found]
+checking build system type... x86_64-pc-wsl
+checking host system type... x86_64-pc-wsl
+checking target system type... x86_64-pc-wsl
+checking openjdk-build os-cpu... windows-x86_64
+checking openjdk-target os-cpu... windows-x86_64
+checking compilation type... native
+configure: error: Incorrect wsl1 installation. Neither cygpath nor wslpath was found
+checking Windows environment type... wsl1
+configure exiting with result code 1
+----------------------------------------
+
+[Command 11]
+$ apt-get install -y wsl2
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl2
+----------------------------------------
+
+[Command 12]
+$ apt-get install -y wsl-tools
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-tools
+----------------------------------------
+
+[Command 13]
+$ apt-get install -y wsl-utility
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-utility
+----------------------------------------
+
+[Command 14]
+$ apt-get install -y wsl-bridge
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge
+----------------------------------------
+
+[Command 15]
+$ apt-get install -y wsl-bridge2
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge2
+----------------------------------------
+
+[Command 16]
+$ apt-get install -y wsl-bridge3
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge3
+----------------------------------------
+
+[Command 17]
+$ apt-get install -y wsl-bridge4
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge4
+----------------------------------------
+
+[Command 18]
+$ apt-get install -y wsl-bridge5
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge5
+----------------------------------------
+
+[Command 19]
+$ apt-get install -y wsl-bridge6
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge6
+----------------------------------------
+
+[Command 20]
+$ apt-get install -y wsl-bridge7
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge7
+----------------------------------------
+
+[Command 21]
+$ apt-get install -y wsl-bridge8
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge8
+----------------------------------------
+
+[Command 22]
+$ apt-get install -y wsl-bridge9
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge9
+----------------------------------------
+
+[Command 23]
+$ apt-get install -y wsl-bridge10
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge10
+----------------------------------------
+
+[Command 24]
+$ apt-get install -y wsl-bridge11
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge11
+----------------------------------------
+
+[Command 25]
+$ apt-get install -y wsl-bridge12
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge12
+----------------------------------------
+
+[Command 26]
+$ apt-get install -y wsl-bridge13
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge13
+----------------------------------------
+
+[Command 27]
+$ apt-get install -y wsl-bridge14
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge14
+----------------------------------------
+
+[Command 28]
+$ apt-get install -y wsl-bridge15
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge15
+----------------------------------------
+
+[Command 29]
+$ apt-get install -y wsl-bridge16
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge16
+----------------------------------------
+
+[Command 30]
+$ apt-get install -y wsl-bridge17
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge17
+----------------------------------------
+
+[Command 31]
+$ apt-get install -y wsl-bridge18
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge18
+----------------------------------------
+
+[Command 32]
+$ apt-get install -y wsl-bridge19
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge19
+----------------------------------------
+
+[Command 33]
+$ apt-get install -y wsl-bridge20
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge20
+----------------------------------------
+
+[Command 34]
+$ apt-get install -y wsl-bridge21
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge21
+----------------------------------------
+
+[Command 35]
+$ apt-get install -y wsl-bridge22
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge22
+----------------------------------------
+
+[Command 36]
+$ apt-get install -y wsl-bridge23
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge23
+----------------------------------------
+
+[Command 37]
+$ apt-get install -y wsl-bridge24
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge24
+----------------------------------------
+
+[Command 38]
+$ apt-get install -y wsl-bridge25
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge25
+----------------------------------------
+
+[Command 39]
+$ apt-get install -y wsl-bridge26
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge26
+----------------------------------------
+
+[Command 40]
+$ apt-get install -y wsl-bridge27
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge27
+----------------------------------------
+
+[Command 41]
+$ apt-get install -y wsl-bridge28
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge28
+----------------------------------------
+
+[Command 42]
+$ apt-get install -y wsl-bridge29
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge29
+----------------------------------------
+
+[Command 43]
+$ apt-get install -y wsl-bridge30
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge30
+----------------------------------------
+
+[Command 44]
+$ apt-get install -y wsl-bridge31
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge31
+----------------------------------------
+
+[Command 45]
+$ apt-get install -y wsl-bridge32
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge32
+----------------------------------------
+
+[Command 46]
+$ apt-get install -y wsl-bridge33
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge33
+----------------------------------------
+
+[Command 47]
+$ apt-get install -y wsl-bridge34
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge34
+----------------------------------------
+
+[Command 48]
+$ apt-get install -y wsl-bridge35
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge35
+----------------------------------------
+
+[Command 49]
+$ apt-get install -y wsl-bridge36
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge36
+----------------------------------------
+
+[Command 50]
+$ apt-get install -y wsl-bridge37
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge37
+----------------------------------------
+
+[Command 51]
+$ apt-get install -y wsl-bridge38
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package wsl-bridge38
+----------------------------------------
+

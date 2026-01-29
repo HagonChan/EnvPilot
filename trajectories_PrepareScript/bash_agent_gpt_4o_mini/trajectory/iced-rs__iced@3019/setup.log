@@ -1,0 +1,1690 @@
+# Setup Log for iced-rs/iced@d4f8e1902322b239be9580b3afb936c99ec49b79
+# Issue/PR Number: 3019
+# Generated at: 2026-01-26T16:01:46.941640
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 388
+drwxr-xr-x 24 1000 1000   4096 Jan 26 07:54 .
+drwxr-xr-x  3 root root   4096 Jan 26 07:54 ..
+drwxr-xr-x  2 1000 1000   4096 Jan 26 07:54 .cargo
+drwxr-xr-x  8 1000 1000   4096 Jan 26 07:54 .git
+drwxr-xr-x  4 1000 1000   4096 Jan 26 07:54 .github
+-rw-r--r--  1 1000 1000     38 Jan 26 07:54 .gitignore
+-rw-r--r--  1 1000 1000  59883 Jan 26 07:54 CHANGELOG.md
+-rw-r--r--  1 1000 1000   1733 Jan 26 07:54 CONTRIBUTING.md
+-rw-r--r--  1 1000 1000 186412 Jan 26 07:54 Cargo.lock
+-rw-r--r--  1 1000 1000   7400 Jan 26 07:54 Cargo.toml
+-rw-r--r--  1 1000 1000    183 Jan 26 07:54 Cross.toml
+-rw-r--r--  1 1000 1000   1644 Jan 26 07:54 DEPENDENCIES.md
+-rw-r--r--  1 1000 1000   1073 Jan 26 07:54 LICENSE
+-rw-r--r--  1 1000 1000   7238 Jan 26 07:54 README.md
+-rw-r--r--  1 1000 1000    113 Jan 26 07:54 ROADMAP.md
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 beacon
+drwxr-xr-x  2 1000 1000   4096 Jan 26 07:54 benches
+-rw-r--r--  1 1000 1000     67 Jan 26 07:54 clippy.toml
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 core
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 debug
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 devtools
+drwxr-xr-x  4 1000 1000   4096 Jan 26 07:54 docs
+drwxr-xr-x 55 1000 1000   4096 Jan 26 07:54 examples
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 futures
+drwxr-xr-x  4 1000 1000   4096 Jan 26 07:54 graphics
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 highlighter
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 program
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 renderer
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 runtime
+-rw-r--r--  1 1000 1000     28 Jan 26 07:54 rustfmt.toml
+drwxr-xr-x  4 1000 1000   4096 Jan 26 07:54 src
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 test
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 tiny_skia
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 wgpu
+drwxr-xr-x  4 1000 1000   4096 Jan 26 07:54 widget
+drwxr-xr-x  3 1000 1000   4096 Jan 26 07:54 winit
+----------------------------------------
+
+[Command 2]
+$ cat Cargo.toml
+Exit Code: 0
+Output:
+[package]
+name = "iced"
+description = "A cross-platform GUI library inspired by Elm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+categories.workspace = true
+keywords.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
+all-features = true
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[features]
+default = ["wgpu", "tiny-skia", "web-colors", "auto-detect-theme", "thread-pool"]
+# Enables the `wgpu` GPU-accelerated renderer backend
+wgpu = ["iced_renderer/wgpu", "iced_widget/wgpu"]
+# Enables the `tiny-skia` software renderer backend
+tiny-skia = ["iced_renderer/tiny-skia"]
+# Enables the `image` widget
+image = ["image-without-codecs", "image/default"]
+# Enables the `image` widget, without any built-in codecs of the `image` crate
+image-without-codecs = ["iced_widget/image", "dep:image"]
+# Enables the `svg` widget
+svg = ["iced_widget/svg"]
+# Enables the `canvas` widget
+canvas = ["iced_widget/canvas"]
+# Enables the `qr_code` widget
+qr_code = ["iced_widget/qr_code"]
+# Enables the `markdown` widget
+markdown = ["iced_widget/markdown"]
+# Enables lazy widgets
+lazy = ["iced_widget/lazy"]
+# Enables debug metrics in native platforms (press F12)
+debug = ["iced_winit/debug", "iced_devtools"]
+# Enables time-travel debugging (very experimental!)
+time-travel = ["debug", "iced_devtools/time-travel"]
+# Enables hot reloading (very experimental!)
+hot = ["debug", "iced_debug/hot"]
+# Enables the `thread-pool` futures executor as the `executor::Default` on native platforms
+thread-pool = ["iced_futures/thread-pool"]
+# Enables `tokio` as the `executor::Default` on native platforms
+tokio = ["iced_futures/tokio"]
+# Enables `smol` as the `executor::Default` on native platforms
+smol = ["iced_futures/smol"]
+# Enables querying system information
+system = ["iced_winit/system"]
+# Enables broken "sRGB linear" blending to reproduce color management of the Web
+web-colors = ["iced_renderer/web-colors"]
+# Enables pixel snapping for crisp edges by default (can cause jitter!)
+crisp = ["iced_core/crisp", "iced_widget/crisp"]
+# Enables the WebGL backend
+webgl = ["iced_renderer/webgl"]
+# Enables syntax highligthing
+highlighter = ["iced_highlighter", "iced_widget/highlighter"]
+# Enables the advanced module
+advanced = ["iced_core/advanced", "iced_widget/advanced"]
+# Embeds Fira Sans into the final application; useful for testing and Wasm builds
+fira-sans = ["iced_renderer/fira-sans"]
+# Auto-detects light/dark mode for the built-in theme
+auto-detect-theme = ["iced_core/auto-detect-theme"]
+# Enables strict assertions for debugging purposes at the expense of performance
+strict-assertions = ["iced_renderer/strict-assertions"]
+# Redraws on every runtime event, and not only when a widget requests it
+unconditional-rendering = ["iced_winit/unconditional-rendering"]
+# Enables support for the `sipper` library
+sipper = ["iced_runtime/sipper"]
+
+[dependencies]
+iced_debug.workspace = true
+iced_core.workspace = true
+iced_futures.workspace = true
+iced_renderer.workspace = true
+iced_runtime.workspace = true
+iced_widget.workspace = true
+iced_winit.features = ["program"]
+iced_winit.workspace = true
+
+iced_devtools.workspace = true
+iced_devtools.optional = true
+
+iced_highlighter.workspace = true
+iced_highlighter.optional = true
+
+thiserror.workspace = true
+
+image.workspace = true
+image.optional = true
+
+[dev-dependencies]
+criterion = "0.5"
+iced_wgpu.workspace = true
+
+[[bench]]
+name = "wgpu"
+harness = false
+required-features = ["canvas"]
+
+[profile.release-opt]
+inherits = "release"
+codegen-units = 1
+debug = false
+lto = true
+incremental = false
+opt-level = 3
+overflow-checks = false
+strip = "debuginfo"
+
+[workspace]
+members = [
+    "beacon",
+    "core",
+    "debug",
+    "devtools",
+    "futures",
+    "graphics",
+    "highlighter",
+    "program",
+    "renderer",
+    "runtime",
+    "test",
+    "tiny_skia",
+    "wgpu",
+    "widget",
+    "winit",
+    "examples/*",
+]
+
+[workspace.package]
+version = "0.14.0-dev"
+authors = ["Héctor Ramón Jiménez <hector@hecrj.dev>"]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/iced-rs/iced"
+homepage = "https://iced.rs"
+categories = ["gui"]
+keywords = ["gui", "ui", "graphics", "interface", "widgets"]
+rust-version = "1.85"
+
+[workspace.dependencies]
+iced = { version = "0.14.0-dev", path = "." }
+iced_beacon = { version = "0.14.0-dev", path = "beacon" }
+iced_core = { version = "0.14.0-dev", path = "core" }
+iced_debug = { version = "0.14.0-dev", path = "debug" }
+iced_devtools = { version = "0.14.0-dev", path = "devtools" }
+iced_futures = { version = "0.14.0-dev", path = "futures" }
+iced_graphics = { version = "0.14.0-dev", path = "graphics" }
+iced_highlighter = { version = "0.14.0-dev", path = "highlighter" }
+iced_program = { version = "0.14.0-dev", path = "program" }
+iced_renderer = { version = "0.14.0-dev", path = "renderer" }
+iced_runtime = { version = "0.14.0-dev", path = "runtime" }
+iced_test = { version = "0.14.0-dev", path = "test" }
+iced_tiny_skia = { version = "0.14.0-dev", path = "tiny_skia" }
+iced_wgpu = { version = "0.14.0-dev", path = "wgpu" }
+iced_widget = { version = "0.14.0-dev", path = "widget" }
+iced_winit = { version = "0.14.0-dev", path = "winit" }
+
+bincode = "1.3"
+bitflags = "2.0"
+bytemuck = { version = "1.0", features = ["derive"] }
+bytes = "1.6"
+cargo-hot = { package = "cargo-hot-protocol", git = "https://github.com/hecrj/cargo-hot.git", rev = "b8dc518b8640928178a501257e353b73bc06cf47" }
+cosmic-text = "0.14"
+dark-light = "2.0"
+futures = { version = "0.3", default-features = false }
+glam = "0.25"
+cryoglyph = { git = "https://github.com/iced-rs/cryoglyph.git", rev = "453cedec0d2ec563bd7fa87e84a2319bcebb1ba3" }
+guillotiere = "0.6"
+half = "2.2"
+image = { version = "0.25", default-features = false }
+kamadak-exif = "0.5"
+kurbo = "0.10"
+lilt = "0.8"
+log = "0.4"
+lyon = "1.0"
+lyon_path = "1.0"
+num-traits = "0.2"
+ouroboros = "0.18"
+png = "0.17"
+pulldown-cmark = "0.12"
+qrcode = { version = "0.13", default-features = false }
+raw-window-handle = "0.6"
+resvg = "0.42"
+rustc-hash = "2.0"
+serde = "1.0"
+semver = "1.0"
+sha2 = "0.10"
+sipper = "0.1"
+smol = "2"
+smol_str = "0.2"
+softbuffer = "0.4"
+syntect = "5.1"
+sysinfo = "0.33"
+thiserror = "1.0"
+tiny-skia = "0.11"
+tokio = "1.0"
+tracing = "0.1"
+unicode-segmentation = "1.0"
+url = "2.5"
+wasm-bindgen-futures = "0.4"
+wasmtimer = "0.4.1"
+web-sys = "0.3.69"
+web-time = "1.1"
+wgpu = "26.0"
+window_clipboard = "0.4.1"
+winit = { git = "https://github.com/iced-rs/winit.git", rev = "11414b6aa45699f038114e61b4ddf5102b2d3b4b" }
+
+[workspace.lints.rust]
+rust_2018_idioms = { level = "deny", priority = -1 }
+missing_debug_implementations = "deny"
+missing_docs = "deny"
+unsafe_code = "deny"
+unused_results = "deny"
+
+[workspace.lints.clippy]
+type-complexity = "allow"
+map-entry = "allow"
+large-enum-variant = "allow"
+result_large_err = "allow"
+semicolon_if_nothing_returned = "deny"
+trivially-copy-pass-by-ref = "deny"
+default_trait_access = "deny"
+match-wildcard-for-single-variants = "deny"
+redundant-closure-for-method-calls = "deny"
+filter_map_next = "deny"
+manual_let_else = "deny"
+unused_async = "deny"
+from_over_into = "deny"
+needless_borrow = "deny"
+new_without_default = "deny"
+useless_conversion = "deny"
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "forbid"
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y rustc cargo
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1293 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.8 MB in 36s (1210 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cargo-doc python3 cpp-doc gcc-11-locales gcc-multilib make
+  autoconf automake libtool flex bison gdb gcc-doc gcc-11-multilib gcc-11-doc
+  glibc-doc locales libgd-tools libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql man-browser llvm-17 lld-17 clang-17
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cargo cpp
+  cpp-11 fontconfig-config fonts-dejavu-core gcc gcc-11 gcc-11-base libasan6
+  libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools
+  libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl3-gnutls
+  libdeflate0 libexpat1 libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssh2-1 libstd-rust-1.75 libstd-rust-dev
+  libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data
+  libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev manpages manpages-dev
+  openssl publicsuffix rpcsvc-proto rustc ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 75 newly installed, 0 to remove and 2 not upgraded.
+Need to get 161 MB of archives.
+After this operation, 577 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libssh2-1 amd64 1.10.0-3 [109 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-1.75 amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [46.3 MB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstd-rust-dev amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [41.6 MB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 rustc amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [3404 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 cargo amd64 1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04 [6700 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 161 MB in 3min 47s (708 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../02-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../03-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../05-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../06-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../07-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../08-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../09-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../10-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../11-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../12-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../13-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../14-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../15-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../16-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../17-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../18-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../19-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../20-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../21-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../22-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../23-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../24-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../25-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../26-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../27-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../28-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../29-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../30-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../31-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../32-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../33-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../34-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../35-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../36-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../37-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../38-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../39-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../40-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../41-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../42-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../43-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../44-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../45-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../46-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../47-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../48-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../49-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../50-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../51-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../52-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../53-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../54-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../55-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../56-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../57-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../58-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../59-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../60-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../61-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../62-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../63-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../64-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../65-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../66-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../67-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../68-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../69-libssh2-1_1.10.0-3_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.10.0-3) ...
+Selecting previously unselected package libstd-rust-1.75:amd64.
+Preparing to unpack .../70-libstd-rust-1.75_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../71-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Selecting previously unselected package libstd-rust-dev:amd64.
+Preparing to unpack .../72-libstd-rust-dev_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package rustc.
+Preparing to unpack .../73-rustc_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Selecting previously unselected package cargo.
+Preparing to unpack .../74-cargo_1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04_amd64.deb ...
+Unpacking cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-1.75:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libstd-rust-dev:amd64 (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libssh2-1:amd64 (1.10.0-3) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up rustc (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Setting up cargo (1.75.0+dfsg0ubuntu1~bpo0-0ubuntu0.22.04) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 4]
+$ cargo build
+Exit Code: 101
+Output:
+error: failed to parse manifest at `/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/Cargo.toml`
+
+Caused by:
+  feature `edition2024` is required
+
+  The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.75.0).
+  Consider adding `cargo-features = ["edition2024"]` to the top of Cargo.toml (above the [package] table) to tell Cargo you are opting in to use this unstable feature.
+  See https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#edition-2024 for more information about the status of this feature.
+----------------------------------------
+
+[Command 5]
+$ cargo +nightly build
+Exit Code: 101
+Output:
+error: no such command: `+nightly`
+
+	Cargo does not handle `+toolchain` directives.
+	Did you mean to invoke `cargo` through `rustup` instead?
+----------------------------------------
+
+[Command 6]
+$ apt-get install -y rustup
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package rustup
+----------------------------------------
+
+[Command 7]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+Exit Code: 0
+Output:
+/bin/bash: line 25: curl: command not found
+----------------------------------------
+
+[Command 8]
+$ apt-get install -y curl
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcurl4
+The following NEW packages will be installed:
+  curl libcurl4
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 484 kB of archives.
+After this operation, 1262 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 curl amd64 7.81.0-1ubuntu1.21 [194 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 484 kB in 4s (108 kB/s)
+Selecting previously unselected package libcurl4:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 10400 files and directories currently installed.)
+Preparing to unpack .../libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../curl_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking curl (7.81.0-1ubuntu1.21) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up curl (7.81.0-1ubuntu1.21) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 9]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+Exit Code: 1
+Output:
+info: downloading installer
+error: Unable to run interactively. Run with -y to accept defaults, --help for additional options
+----------------------------------------
+
+[Command 10]
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+Exit Code: 0
+Output:
+info: downloading installer
+warn: It looks like you have an existing installation of Rust at:
+warn: /usr/bin
+warn: It is recommended that rustup be the primary Rust installation.
+warn: Otherwise you may have confusion unless you are careful with your PATH.
+warn: If you are sure that you want both rustup and your already installed Rust
+warn: then please reply `y' or `yes' or set RUSTUP_INIT_SKIP_PATH_CHECK to yes
+warn: or pass `-y' to ignore all ignorable checks.
+error: cannot install while Rust is installed
+warn: continuing (because the -y flag is set and the error is ignorable)
+info: profile set to 'default'
+info: default host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+info: latest update on 2026-01-22, rust version 1.93.0 (254b59607 2026-01-19)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
+info: downloading component 'rustc'
+info: downloading component 'rustfmt'
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+info: installing component 'rust-std'
+info: installing component 'rustc'
+info: installing component 'rustfmt'
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
+
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.93.0 (254b59607 2026-01-19)
+
+
+Rust is installed now. Great!
+
+To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include
+Cargo's bin directory ($HOME/.cargo/bin).
+
+To configure your current shell, you need to source
+the corresponding env file under $HOME/.cargo.
+
+This is usually done by running one of the following (note the leading DOT):
+. "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
+source "$HOME/.cargo/env.fish"  # For fish
+source $"($nu.home-path)/.cargo/env.nu"  # For nushell
+----------------------------------------
+
+[Command 11]
+$ source $HOME/.cargo/env
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 12]
+$ cargo build
+Exit Code: 0
+Output:
+Updating crates.io index
+    Updating git repository `https://github.com/hecrj/cargo-hot.git`
+    Updating git repository `https://github.com/iced-rs/cryoglyph.git`
+    Updating git repository `https://github.com/iced-rs/winit.git`
+ Downloading crates ...
+  Downloaded as-raw-xcb-connection v1.0.1
+  Downloaded ab_glyph_rasterizer v0.1.9
+  Downloaded adler2 v2.0.1
+  Downloaded downcast-rs v1.2.1
+  Downloaded gpu-alloc-types v0.3.0
+  Downloaded drm-ffi v0.8.0
+  Downloaded async-channel v1.9.0
+  Downloaded gpu-descriptor-types v0.2.0
+  Downloaded gpu-descriptor v0.3.2
+  Downloaded event-listener v2.5.3
+  Downloaded idna_adapter v1.2.1
+  Downloaded dlib v0.5.2
+  Downloaded drm-sys v0.7.0
+  Downloaded calloop-wayland-source v0.3.0
+  Downloaded hex v0.4.3
+  Downloaded fastrand v2.3.0
+  Downloaded equivalent v1.0.2
+  Downloaded futures-task v0.3.31
+  Downloaded ctor-lite v0.1.0
+  Downloaded bit-set v0.8.0
+  Downloaded event-listener-strategy v0.5.4
+  Downloaded clipboard_wayland v0.2.2
+  Downloaded document-features v0.2.11
+  Downloaded futures-io v0.3.31
+  Downloaded dark-light v2.0.0
+  Downloaded cfg-if v1.0.1
+  Downloaded futures-core v0.3.31
+  Downloaded hexf-parse v0.2.1
+  Downloaded cursor-icon v1.2.0
+  Downloaded futures-sink v0.3.31
+  Downloaded rustc-hash v1.1.0
+  Downloaded clipboard_x11 v0.4.2
+  Downloaded enumflags2_derive v0.7.12
+  Downloaded endi v1.1.0
+  Downloaded futures-macro v0.3.31
+  Downloaded form_urlencoded v1.2.1
+  Downloaded drm-fourcc v2.2.0
+  Downloaded scoped-tls v1.0.1
+  Downloaded rustc-hash v2.1.1
+  Downloaded arrayref v0.3.9
+  Downloaded ab_glyph v0.2.31
+  Downloaded arrayvec v0.7.6
+  Downloaded fdeflate v0.3.7
+  Downloaded svg_fmt v0.4.5
+  Downloaded toml_datetime v0.6.11
+  Downloaded etagere v0.2.15
+  Downloaded font-types v0.9.0
+  Downloaded enumflags2 v0.7.12
+  Downloaded bytemuck_derive v1.10.0
+  Downloaded displaydoc v0.2.5
+  Downloaded foldhash v0.1.5
+  Downloaded guillotiere v0.6.2
+  Downloaded bit-vec v0.8.0
+  Downloaded serde_repr v0.1.20
+  Downloaded futures-channel v0.3.31
+  Downloaded gpu-alloc v0.6.0
+  Downloaded async-fs v2.1.3
+  Downloaded async-broadcast v0.7.2
+  Downloaded futures-executor v0.3.31
+  Downloaded async-global-executor v2.4.1
+  Downloaded atomic-waker v1.1.2
+  Downloaded async-executor v1.13.2
+  Downloaded errno v0.3.13
+  Downloaded async-trait v0.1.88
+  Downloaded async-signal v0.2.12
+  Downloaded async-process v2.4.0
+  Downloaded pin-utils v0.1.0
+  Downloaded concurrent-queue v2.5.0
+  Downloaded cfg_aliases v0.2.1
+  Downloaded async-net v2.0.0
+  Downloaded async-channel v2.5.0
+  Downloaded ahash v0.8.12
+  Downloaded tinyvec_macros v0.1.1
+  Downloaded tinystr v0.8.1
+  Downloaded rand_chacha v0.3.1
+  Downloaded bitflags v2.9.1
+  Downloaded getrandom v0.2.16
+  Downloaded futures-lite v2.6.0
+  Downloaded crossbeam-utils v0.8.21
+  Downloaded event-listener v5.4.0
+  Downloaded fontconfig-parser v0.5.8
+  Downloaded bitflags v1.3.2
+  Downloaded autocfg v1.5.0
+  Downloaded drm v0.12.0
+  Downloaded async-task v4.7.1
+  Downloaded unicode-linebreak v0.1.5
+  Downloaded getrandom v0.3.3
+  Downloaded percent-encoding v2.3.1
+  Downloaded half v2.6.0
+  Downloaded async-io v2.5.0
+  Downloaded unicode-ccc v0.2.0
+  Downloaded unicode-bidi-mirroring v0.2.0
+  Downloaded crc32fast v1.5.0
+  Downloaded blocking v1.6.2
+  Downloaded bytemuck v1.23.1
+  Downloaded icu_normalizer v2.0.0
+  Downloaded futures v0.3.31
+  Downloaded tinyvec v1.9.0
+  Downloaded icu_locale_core v2.0.0
+  Downloaded flate2 v1.1.2
+  Downloaded calloop v0.13.0
+  Downloaded unicode-properties v0.1.3
+  Downloaded unicode-ident v1.0.18
+  Downloaded version_check v0.9.5
+  Downloaded utf8_iter v1.0.4
+  Downloaded icu_collections v2.0.0
+  Downloaded tracing-core v0.1.34
+  Downloaded wayland-csd-frame v0.3.0
+  Downloaded wayland-cursor v0.31.10
+  Downloaded unicode-script v0.5.7
+  Downloaded potential_utf v0.1.2
+  Downloaded unicode-bidi v0.3.18
+  Downloaded piper v0.2.4
+  Downloaded ashpd v0.10.3
+  Downloaded cc v1.2.30
+  Downloaded value-bag v1.11.1
+  Downloaded wayland-client v0.31.10
+  Downloaded sys-locale v0.3.2
+  Downloaded fontdb v0.16.2
+  Downloaded wayland-sys v0.31.6
+  Downloaded wayland-scanner v0.31.6
+  Downloaded stable_deref_trait v1.2.0
+  Downloaded wgpu-core-deps-windows-linux-android v26.0.0
+  Downloaded web-time v1.1.0
+  Downloaded profiling v1.0.17
+  Downloaded window_clipboard v0.4.1
+  Downloaded tracing v0.1.41
+  Downloaded glow v0.16.0
+  Downloaded writeable v0.6.1
+  Downloaded simd-adler32 v0.3.7
+  Downloaded futures-util v0.3.31
+  Downloaded smol_str v0.2.2
+  Downloaded num_cpus v1.17.0
+  Downloaded async-std v1.13.1
+  Downloaded memoffset v0.9.1
+  Downloaded glam v0.25.0
+  Downloaded scopeguard v1.2.0
+  Downloaded renderdoc-sys v1.1.0
+  Downloaded toml_edit v0.22.27
+  Downloaded hashbrown v0.15.4
+  Downloaded tracing-attributes v0.1.30
+  Downloaded strict-num v0.1.1
+  Downloaded bytes v1.10.1
+  Downloaded async-lock v3.4.0
+  Downloaded euclid v0.22.11
+  Downloaded codespan-reporting v0.12.0
+  Downloaded ash v0.38.0+1.3.281
+  Downloaded proc-macro-crate v3.3.0
+  Downloaded jobserver v0.1.33
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded lru v0.16.0
+  Downloaded kv-log-macro v1.0.7
+  Downloaded self_cell v1.2.0
+  Downloaded static_assertions v1.1.0
+  Downloaded pkg-config v0.3.32
+  Downloaded tiny-xlib v0.2.4
+  Downloaded signal-hook-registry v1.4.5
+  Downloaded lock_api v0.4.13
+  Downloaded lilt v0.8.1
+  Downloaded cosmic-text v0.14.2
+  Downloaded zerofrom v0.1.6
+  Downloaded slab v0.4.10
+  Downloaded raw-window-handle v0.6.2
+  Downloaded zvariant_utils v3.2.0
+  Downloaded zvariant_derive v5.6.0
+  Downloaded libloading v0.8.8
+  Downloaded smithay-clipboard v0.7.2
+  Downloaded zerovec-derive v0.11.1
+  Downloaded parking v2.2.1
+  Downloaded zerofrom-derive v0.1.6
+  Downloaded zbus_names v4.2.0
+  Downloaded zbus_macros v5.9.0
+  Downloaded zeno v0.3.3
+  Downloaded yoke-derive v0.8.0
+  Downloaded yoke v0.8.0
+  Downloaded yazi v0.2.1
+  Downloaded ttf-parser v0.20.0
+  Downloaded wayland-protocols-wlr v0.3.8
+  Downloaded ttf-parser v0.21.1
+  Downloaded url v2.5.4
+  Downloaded smallvec v1.15.1
+  Downloaded unicode-segmentation v1.12.0
+  Downloaded termcolor v1.4.1
+  Downloaded thiserror-impl v2.0.12
+  Downloaded khronos-egl v6.0.0
+  Downloaded wayland-backend v0.3.10
+  Downloaded log v0.4.27
+  Downloaded thiserror-impl v1.0.69
+  Downloaded quote v1.0.40
+  Downloaded unicode-width v0.2.1
+  Downloaded x11-dl v2.21.0
+  Downloaded wayland-protocols-plasma v0.3.8
+  Downloaded wayland-protocols v0.32.8
+  Downloaded pin-project-lite v0.2.16
+  Downloaded winnow v0.7.12
+  Downloaded wgpu-core v26.0.1
+  Downloaded wgpu v26.0.1
+  Downloaded parking_lot_core v0.9.11
+  Downloaded litemap v0.8.0
+  Downloaded x11rb-protocol v0.13.1
+  Downloaded tiny-skia-path v0.11.4
+  Downloaded xkbcommon-dl v0.4.2
+  Downloaded once_cell v1.21.3
+  Downloaded xcursor v0.3.10
+  Downloaded thiserror v2.0.12
+  Downloaded thiserror v1.0.69
+  Downloaded icu_provider v2.0.0
+  Downloaded synstructure v0.13.2
+  Downloaded roxmltree v0.20.0
+  Downloaded softbuffer v0.4.6
+  Downloaded slotmap v1.0.7
+  Downloaded serde_derive v1.0.219
+  Downloaded sctk-adwaita v0.10.1
+  Downloaded rangemap v1.5.1
+  Downloaded parking_lot v0.12.4
+  Downloaded proc-macro2 v1.0.95
+  Downloaded miniz_oxide v0.8.9
+  Downloaded num-traits v0.2.19
+  Downloaded memmap2 v0.9.7
+  Downloaded litrs v0.4.1
+  Downloaded indexmap v2.10.0
+  Downloaded polling v3.9.0
+  Downloaded icu_normalizer_data v2.0.0
+  Downloaded serde v1.0.219
+  Downloaded rand v0.8.5
+  Downloaded icu_properties v2.0.1
+  Downloaded spirv v0.3.0+sdk-1.3.268.0
+  Downloaded shlex v1.3.0
+  Downloaded rand_core v0.6.4
+  Downloaded ordered-stream v0.2.0
+  Downloaded ordered-float v5.0.0
+  Downloaded zerotrie v0.2.2
+  Downloaded memchr v2.7.5
+  Downloaded xkeysym v0.2.1
+  Downloaded zbus v5.9.0
+  Downloaded zerovec v0.11.2
+  Downloaded png v0.17.16
+  Downloaded wgpu-types v26.0.0
+  Downloaded zerocopy v0.8.26
+  Downloaded smithay-client-toolkit v0.19.2
+  Downloaded owned_ttf_parser v0.25.0
+  Downloaded libm v0.2.15
+  Downloaded icu_properties_data v2.0.1
+  Downloaded idna v1.0.3
+  Downloaded quick-xml v0.37.5
+  Downloaded ttf-parser v0.25.1
+  Downloaded tiny-skia v0.11.4
+  Downloaded swash v0.2.5
+  Downloaded x11rb v0.13.1
+  Downloaded rustybuzz v0.14.1
+  Downloaded zvariant v5.6.0
+  Downloaded skrifa v0.31.3
+  Downloaded syn v2.0.104
+  Downloaded nix v0.30.1
+  Downloaded rustix v0.38.44
+  Downloaded wgpu-hal v26.0.0
+  Downloaded rustix v1.0.8
+  Downloaded read-fonts v0.29.3
+  Downloaded naga v26.0.0
+  Downloaded libc v0.2.174
+  Downloaded kurbo v0.10.4
+  Downloaded linux-raw-sys v0.6.5
+  Downloaded linux-raw-sys v0.4.15
+  Downloaded linux-raw-sys v0.9.4
+   Compiling proc-macro2 v1.0.95
+   Compiling unicode-ident v1.0.18
+   Compiling serde v1.0.219
+   Compiling cfg-if v1.0.1
+   Compiling libc v0.2.174
+   Compiling once_cell v1.21.3
+   Compiling smallvec v1.15.1
+   Compiling value-bag v1.11.1
+   Compiling cfg_aliases v0.2.1
+   Compiling pin-project-lite v0.2.16
+   Compiling autocfg v1.5.0
+   Compiling crossbeam-utils v0.8.21
+   Compiling slab v0.4.10
+   Compiling memchr v2.7.5
+   Compiling futures-core v0.3.31
+   Compiling rustix v1.0.8
+   Compiling equivalent v1.0.2
+   Compiling linux-raw-sys v0.9.4
+   Compiling stable_deref_trait v1.2.0
+   Compiling parking v2.2.1
+   Compiling libloading v0.8.8
+   Compiling pkg-config v0.3.32
+   Compiling futures-io v0.3.31
+   Compiling libm v0.2.15
+   Compiling fastrand v2.3.0
+   Compiling rustix v0.38.44
+   Compiling linux-raw-sys v0.4.15
+   Compiling winnow v0.7.12
+   Compiling static_assertions v1.1.0
+   Compiling hashbrown v0.15.4
+   Compiling log v0.4.27
+   Compiling writeable v0.6.1
+   Compiling litemap v0.8.0
+   Compiling thiserror v1.0.69
+   Compiling toml_datetime v0.6.11
+   Compiling futures-lite v2.6.0
+   Compiling shlex v1.3.0
+   Compiling num-traits v0.2.19
+   Compiling icu_properties_data v2.0.1
+   Compiling icu_normalizer_data v2.0.0
+   Compiling dlib v0.5.2
+   Compiling async-task v4.7.1
+   Compiling zerocopy v0.8.26
+   Compiling cc v1.2.30
+   Compiling atomic-waker v1.1.2
+   Compiling scoped-tls v1.0.1
+   Compiling endi v1.1.0
+   Compiling wayland-sys v0.31.6
+   Compiling piper v0.2.4
+   Compiling downcast-rs v1.2.1
+   Compiling percent-encoding v2.3.1
+   Compiling quick-xml v0.37.5
+   Compiling tracing-core v0.1.34
+   Compiling quote v1.0.40
+   Compiling indexmap v2.10.0
+   Compiling concurrent-queue v2.5.0
+   Compiling wayland-client v0.31.10
+   Compiling utf8_iter v1.0.4
+   Compiling form_urlencoded v1.2.1
+   Compiling memoffset v0.9.1
+   Compiling syn v2.0.104
+   Compiling event-listener v5.4.0
+   Compiling pin-utils v0.1.0
+   Compiling futures-sink v0.3.31
+   Compiling version_check v0.9.5
+   Compiling nix v0.30.1
+   Compiling futures-channel v0.3.31
+   Compiling futures-task v0.3.31
+   Compiling async-executor v1.13.2
+   Compiling raw-window-handle v0.6.2
+   Compiling event-listener-strategy v0.5.4
+   Compiling arrayvec v0.7.6
+   Compiling ordered-stream v0.2.0
+   Compiling async-lock v3.4.0
+   Compiling async-channel v2.5.0
+   Compiling async-broadcast v0.7.2
+   Compiling event-listener v2.5.3
+   Compiling smol_str v0.2.2
+   Compiling rustc-hash v1.1.0
+   Compiling hex v0.4.3
+   Compiling async-channel v1.9.0
+   Compiling kv-log-macro v1.0.7
+   Compiling dark-light v2.0.0
+   Compiling blocking v1.6.2
+   Compiling slotmap v1.0.7
+   Compiling wayland-scanner v0.31.6
+   Compiling thiserror v2.0.12
+   Compiling rustc-hash v2.1.1
+   Compiling foldhash v0.1.5
+   Compiling web-time v1.1.0
+   Compiling lock_api v0.4.13
+   Compiling lilt v0.8.1
+   Compiling glam v0.25.0
+   Compiling roxmltree v0.20.0
+   Compiling bytes v1.10.1
+   Compiling crc32fast v1.5.0
+   Compiling parking_lot_core v0.9.11
+   Compiling simd-adler32 v0.3.7
+   Compiling tinyvec_macros v0.1.1
+   Compiling memmap2 v0.9.7
+   Compiling getrandom v0.2.16
+   Compiling signal-hook-registry v1.4.5
+   Compiling half v2.6.0
+   Compiling async-fs v2.1.3
+   Compiling num_cpus v1.17.0
+   Compiling rand_core v0.6.4
+   Compiling tinyvec v1.9.0
+   Compiling naga v26.0.0
+   Compiling toml_edit v0.22.27
+   Compiling adler2 v2.0.1
+   Compiling unicode-ccc v0.2.0
+   Compiling fontconfig-parser v0.5.8
+   Compiling scopeguard v1.2.0
+   Compiling wayland-backend v0.3.10
+   Compiling zeno v0.3.3
+   Compiling as-raw-xcb-connection v1.0.1
+   Compiling yazi v0.2.1
+   Compiling bit-vec v0.8.0
+   Compiling ash v0.38.0+1.3.281
+   Compiling ttf-parser v0.21.1
+   Compiling unicode-bidi-mirroring v0.2.0
+   Compiling unicode-properties v0.1.3
+   Compiling unicode-script v0.5.7
+   Compiling ttf-parser v0.20.0
+   Compiling khronos-egl v6.0.0
+   Compiling unicode-width v0.2.1
+   Compiling ppv-lite86 v0.2.21
+   Compiling bit-set v0.8.0
+   Compiling miniz_oxide v0.8.9
+   Compiling codespan-reporting v0.12.0
+   Compiling wgpu-hal v26.0.0
+   Compiling unicode-bidi v0.3.18
+   Compiling hexf-parse v0.2.1
+   Compiling sys-locale v0.3.2
+   Compiling self_cell v1.2.0
+   Compiling rand_chacha v0.3.1
+   Compiling unicode-linebreak v0.1.5
+   Compiling rangemap v1.5.1
+   Compiling x11rb-protocol v0.13.1
+   Compiling unicode-segmentation v1.12.0
+   Compiling parking_lot v0.12.4
+   Compiling rand v0.8.5
+   Compiling flate2 v1.1.2
+   Compiling fdeflate v0.3.7
+   Compiling ordered-float v5.0.0
+   Compiling drm-sys v0.7.0
+   Compiling strict-num v0.1.1
+   Compiling bitflags v1.3.2
+   Compiling xkeysym v0.2.1
+   Compiling xcursor v0.3.10
+   Compiling profiling v1.0.17
+   Compiling cursor-icon v1.2.0
+   Compiling arrayref v0.3.9
+   Compiling renderdoc-sys v1.1.0
+   Compiling smithay-client-toolkit v0.19.2
+   Compiling glow v0.16.0
+   Compiling wgpu-core v26.0.1
+   Compiling litrs v0.4.1
+   Compiling drm-fourcc v2.2.0
+   Compiling linux-raw-sys v0.6.5
+   Compiling png v0.17.16
+   Compiling euclid v0.22.11
+   Compiling tiny-xlib v0.2.4
+   Compiling wgpu v26.0.1
+   Compiling svg_fmt v0.4.5
+   Compiling softbuffer v0.4.6
+   Compiling getrandom v0.3.3
+   Compiling ttf-parser v0.25.1
+   Compiling proc-macro-crate v3.3.0
+   Compiling document-features v0.2.11
+   Compiling ctor-lite v0.1.0
+   Compiling ahash v0.8.12
+   Compiling x11-dl v2.21.0
+   Compiling lru v0.16.0
+   Compiling ab_glyph_rasterizer v0.1.9
+   Compiling kurbo v0.10.4
+   Compiling etagere v0.2.15
+   Compiling guillotiere v0.6.2
+   Compiling winit v0.30.8 (https://github.com/iced-rs/winit.git?rev=11414b6aa45699f038114e61b4ddf5102b2d3b4b#11414b6a)
+   Compiling dpi v0.1.1 (https://github.com/iced-rs/winit.git?rev=11414b6aa45699f038114e61b4ddf5102b2d3b4b#11414b6a)
+   Compiling fontdb v0.16.2
+   Compiling synstructure v0.13.2
+   Compiling serde_derive v1.0.219
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.0
+   Compiling zerovec-derive v0.11.1
+   Compiling displaydoc v0.2.5
+   Compiling bytemuck_derive v1.10.0
+   Compiling thiserror-impl v1.0.69
+   Compiling enumflags2_derive v0.7.12
+   Compiling tracing-attributes v0.1.30
+   Compiling futures-macro v0.3.31
+   Compiling async-trait v0.1.88
+   Compiling serde_repr v0.1.20
+   Compiling thiserror-impl v2.0.12
+   Compiling owned_ttf_parser v0.25.0
+   Compiling futures-util v0.3.31
+   Compiling ab_glyph v0.2.31
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.8.0
+   Compiling bytemuck v1.23.1
+   Compiling zerovec v0.11.2
+   Compiling zerotrie v0.2.2
+   Compiling tracing v0.1.41
+   Compiling font-types v0.9.0
+   Compiling tiny-skia-path v0.11.4
+   Compiling read-fonts v0.29.3
+   Compiling tiny-skia v0.11.4
+   Compiling tinystr v0.8.1
+   Compiling potential_utf v0.1.2
+   Compiling icu_collections v2.0.0
+   Compiling icu_locale_core v2.0.0
+   Compiling icu_provider v2.0.0
+   Compiling icu_normalizer v2.0.0
+   Compiling icu_properties v2.0.1
+   Compiling futures-executor v0.3.31
+   Compiling futures v0.3.31
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.0.3
+   Compiling bitflags v2.9.1
+   Compiling zvariant_utils v3.2.0
+   Compiling enumflags2 v0.7.12
+   Compiling url v2.5.4
+   Compiling gpu-descriptor-types v0.2.0
+   Compiling spirv v0.3.0+sdk-1.3.268.0
+   Compiling gpu-alloc-types v0.3.0
+   Compiling rustybuzz v0.14.1
+   Compiling wgpu-types v26.0.0
+   Compiling xkbcommon-dl v0.4.2
+   Compiling gpu-descriptor v0.3.2
+   Compiling gpu-alloc v0.6.0
+   Compiling zvariant_derive v5.6.0
+   Compiling zvariant v5.6.0
+   Compiling skrifa v0.31.3
+   Compiling zbus_names v4.2.0
+   Compiling polling v3.9.0
+   Compiling zbus_macros v5.9.0
+   Compiling async-io v2.5.0
+   Compiling calloop v0.13.0
+   Compiling drm-ffi v0.8.0
+   Compiling async-signal v0.2.12
+   Compiling async-net v2.0.0
+   Compiling async-global-executor v2.4.1
+   Compiling async-process v2.4.0
+   Compiling drm v0.12.0
+   Compiling async-std v1.13.1
+   Compiling x11rb v0.13.1
+   Compiling swash v0.2.5
+   Compiling wayland-csd-frame v0.3.0
+   Compiling zbus v5.9.0
+   Compiling clipboard_x11 v0.4.2
+   Compiling wayland-protocols v0.32.8
+   Compiling calloop-wayland-source v0.3.0
+   Compiling wayland-cursor v0.31.10
+   Compiling cosmic-text v0.14.2
+   Compiling ashpd v0.10.3
+   Compiling wayland-protocols-wlr v0.3.8
+   Compiling wayland-protocols-plasma v0.3.8
+   Compiling smithay-clipboard v0.7.2
+   Compiling sctk-adwaita v0.10.1
+   Compiling wgpu-core-deps-windows-linux-android v26.0.0
+   Compiling clipboard_wayland v0.2.2
+   Compiling window_clipboard v0.4.1
+   Compiling iced_core v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/core)
+   Compiling iced_futures v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/futures)
+   Compiling iced_debug v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/debug)
+   Compiling iced_graphics v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/graphics)
+   Compiling iced_runtime v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/runtime)
+   Compiling iced_tiny_skia v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/tiny_skia)
+   Compiling iced_program v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/program)
+   Compiling iced_winit v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/winit)
+warning: unnecessary parentheses around closure body
+   --> winit/src/conversion.rs:292:41
+    |
+292 |                 size.map(|(start, end)| (start..end)),
+    |                                         ^          ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+292 -                 size.map(|(start, end)| (start..end)),
+292 +                 size.map(|(start, end)| start..end),
+    |
+
+warning: `iced_winit` (lib) generated 1 warning (run `cargo fix --lib -p iced_winit` to apply 1 suggestion)
+   Compiling cryoglyph v0.1.0 (https://github.com/iced-rs/cryoglyph.git?rev=453cedec0d2ec563bd7fa87e84a2319bcebb1ba3#453cedec)
+   Compiling iced_wgpu v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/wgpu)
+   Compiling iced_renderer v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/renderer)
+   Compiling iced_widget v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/widget)
+   Compiling iced v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 47.21s
+----------------------------------------
+
+[Command 13]
+$ cargo test
+Exit Code: 0
+Output:
+Downloading crates ...
+  Downloaded ciborium-io v0.2.2
+  Downloaded itoa v1.0.15
+  Downloaded is-terminal v0.4.16
+  Downloaded same-file v1.0.6
+  Downloaded plotters-backend v0.3.7
+  Downloaded ciborium-ll v0.2.2
+  Downloaded plotters-svg v0.3.7
+  Downloaded cast v0.3.0
+  Downloaded anstyle v1.0.11
+  Downloaded criterion-plot v0.5.0
+  Downloaded clap_lex v0.7.5
+  Downloaded walkdir v2.5.0
+  Downloaded oorandom v11.1.5
+  Downloaded tinytemplate v1.2.1
+  Downloaded crossbeam-deque v0.8.6
+  Downloaded anes v0.1.6
+  Downloaded ciborium v0.2.2
+  Downloaded ryu v1.0.20
+  Downloaded either v1.15.0
+  Downloaded crossbeam-epoch v0.9.18
+  Downloaded clap v4.5.41
+  Downloaded rayon-core v1.12.1
+  Downloaded criterion v0.5.1
+  Downloaded itertools v0.10.5
+  Downloaded plotters v0.3.7
+  Downloaded serde_json v1.0.141
+  Downloaded aho-corasick v1.1.3
+  Downloaded clap_builder v4.5.41
+  Downloaded rayon v1.10.0
+  Downloaded regex v1.11.1
+  Downloaded regex-syntax v0.8.5
+  Downloaded regex-automata v0.4.9
+   Compiling serde v1.0.219
+   Compiling bytemuck v1.23.1
+   Compiling zerofrom v0.1.6
+   Compiling owned_ttf_parser v0.25.0
+   Compiling crossbeam-epoch v0.9.18
+   Compiling either v1.15.0
+   Compiling serde_json v1.0.141
+   Compiling rayon-core v1.12.1
+   Compiling anstyle v1.0.11
+   Compiling plotters-backend v0.3.7
+   Compiling ryu v1.0.20
+   Compiling clap_lex v0.7.5
+   Compiling itoa v1.0.15
+   Compiling regex-syntax v0.8.5
+   Compiling ciborium-io v0.2.2
+   Compiling cast v0.3.0
+   Compiling same-file v1.0.6
+   Compiling is-terminal v0.4.16
+   Compiling oorandom v11.1.5
+   Compiling yoke v0.8.0
+   Compiling ciborium-ll v0.2.2
+   Compiling anes v0.1.6
+   Compiling ab_glyph v0.2.31
+   Compiling walkdir v2.5.0
+   Compiling itertools v0.10.5
+   Compiling clap_builder v4.5.41
+   Compiling font-types v0.9.0
+   Compiling tiny-skia-path v0.11.4
+   Compiling plotters-svg v0.3.7
+   Compiling zerovec v0.11.2
+   Compiling zerotrie v0.2.2
+   Compiling crossbeam-deque v0.8.6
+   Compiling plotters v0.3.7
+   Compiling read-fonts v0.29.3
+   Compiling tiny-skia v0.11.4
+   Compiling rayon v1.10.0
+   Compiling tinystr v0.8.1
+   Compiling potential_utf v0.1.2
+   Compiling regex-automata v0.4.9
+   Compiling icu_collections v2.0.0
+   Compiling criterion-plot v0.5.0
+   Compiling icu_locale_core v2.0.0
+   Compiling icu_provider v2.0.0
+   Compiling clap v4.5.41
+   Compiling icu_normalizer v2.0.0
+   Compiling icu_properties v2.0.1
+   Compiling zvariant_utils v3.2.0
+   Compiling enumflags2 v0.7.12
+   Compiling bitflags v2.9.1
+   Compiling ciborium v0.2.2
+   Compiling regex v1.11.1
+   Compiling rustix v1.0.8
+   Compiling rustix v0.38.44
+   Compiling nix v0.30.1
+   Compiling spirv v0.3.0+sdk-1.3.268.0
+   Compiling rustybuzz v0.14.1
+   Compiling gpu-descriptor-types v0.2.0
+   Compiling gpu-alloc-types v0.3.0
+   Compiling wgpu-types v26.0.0
+   Compiling xkbcommon-dl v0.4.2
+   Compiling gpu-alloc v0.6.0
+   Compiling gpu-descriptor v0.3.2
+   Compiling zvariant_derive v5.6.0
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.0.3
+   Compiling tinytemplate v1.2.1
+   Compiling url v2.5.4
+   Compiling criterion v0.5.1
+   Compiling zvariant v5.6.0
+   Compiling naga v26.0.0
+   Compiling zbus_names v4.2.0
+   Compiling polling v3.9.0
+   Compiling zbus_macros v5.9.0
+   Compiling skrifa v0.31.3
+   Compiling async-io v2.5.0
+   Compiling async-signal v0.2.12
+   Compiling async-net v2.0.0
+   Compiling async-global-executor v2.4.1
+   Compiling async-process v2.4.0
+   Compiling async-std v1.13.1
+   Compiling wayland-backend v0.3.10
+   Compiling x11rb v0.13.1
+   Compiling calloop v0.13.0
+   Compiling drm-ffi v0.8.0
+   Compiling drm v0.12.0
+   Compiling zbus v5.9.0
+   Compiling wayland-client v0.31.10
+   Compiling wayland-csd-frame v0.3.0
+   Compiling swash v0.2.5
+   Compiling clipboard_x11 v0.4.2
+   Compiling wayland-protocols v0.32.8
+   Compiling calloop-wayland-source v0.3.0
+   Compiling wayland-cursor v0.31.10
+   Compiling softbuffer v0.4.6
+   Compiling cosmic-text v0.14.2
+   Compiling wgpu-hal v26.0.0
+   Compiling ashpd v0.10.3
+   Compiling wayland-protocols-wlr v0.3.8
+   Compiling wayland-protocols-plasma v0.3.8
+   Compiling smithay-client-toolkit v0.19.2
+   Compiling wgpu-core-deps-windows-linux-android v26.0.0
+   Compiling wgpu-core v26.0.1
+   Compiling smithay-clipboard v0.7.2
+   Compiling sctk-adwaita v0.10.1
+   Compiling winit v0.30.8 (https://github.com/iced-rs/winit.git?rev=11414b6aa45699f038114e61b4ddf5102b2d3b4b#11414b6a)
+   Compiling clipboard_wayland v0.2.2
+   Compiling window_clipboard v0.4.1
+   Compiling dark-light v2.0.0
+   Compiling iced_core v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/core)
+   Compiling iced_futures v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/futures)
+   Compiling iced_debug v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/debug)
+   Compiling iced_graphics v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/graphics)
+   Compiling iced_runtime v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/runtime)
+   Compiling iced_tiny_skia v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/tiny_skia)
+   Compiling iced_program v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/program)
+   Compiling iced_winit v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/winit)
+warning: unnecessary parentheses around closure body
+   --> winit/src/conversion.rs:292:41
+    |
+292 |                 size.map(|(start, end)| (start..end)),
+    |                                         ^          ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+292 -                 size.map(|(start, end)| (start..end)),
+292 +                 size.map(|(start, end)| start..end),
+    |
+
+   Compiling wgpu v26.0.1
+warning: `iced_winit` (lib) generated 1 warning (run `cargo fix --lib -p iced_winit` to apply 1 suggestion)
+   Compiling cryoglyph v0.1.0 (https://github.com/iced-rs/cryoglyph.git?rev=453cedec0d2ec563bd7fa87e84a2319bcebb1ba3#453cedec)
+   Compiling iced_wgpu v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/wgpu)
+   Compiling iced_renderer v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/renderer)
+   Compiling iced_widget v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79/widget)
+   Compiling iced v0.14.0-dev (/workspace/iced-rs__iced@d4f8e1902322b239be9580b3afb936c99ec49b79)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.51s
+     Running unittests src/lib.rs (target/debug/deps/iced-1304f20bab7d5f97)
+
+running 1 test
+test error::tests::assert_send_sync ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests iced
+
+running 18 tests
+test src/lib.rs - (line 32) - compile ... ok
+test src/lib.rs - (line 77) ... ok
+test src/lib.rs - (line 200) - compile ... ok
+test src/lib.rs - (line 67) ... ok
+test src/lib.rs - (line 42) ... ok
+test src/lib.rs - (line 341) - compile ... ok
+test src/application.rs - application::application (line 52) - compile ... ok
+test src/lib.rs - run (line 668) - compile ... ok
+test src/application.rs - application (line 4) - compile ... ok
+test src/lib.rs - (line 184) ... ok
+test src/lib.rs - (line 234) ... ok
+test src/lib.rs - (line 141) ... ok
+test src/lib.rs - (line 293) ... ok
+test src/lib.rs - (line 54) ... ok
+test src/lib.rs - (line 248) ... ok
+test src/lib.rs - (line 111) ... ok
+test src/lib.rs - (line 86) ... ok
+test src/lib.rs - (line 382) ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s
+----------------------------------------
+

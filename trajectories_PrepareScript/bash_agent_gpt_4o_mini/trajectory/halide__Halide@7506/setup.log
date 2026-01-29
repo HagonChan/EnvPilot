@@ -1,0 +1,2442 @@
+# Setup Log for halide/Halide@e7f78600e10956b44e8f214c686f310211b0d836
+# Issue/PR Number: 7506
+# Generated at: 2026-01-23T10:20:52.937839
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 480
+drwxr-xr-x 19 1000 1000   4096 Jan 21 14:45 .
+drwxr-xr-x  3 root root   4096 Jan 23 01:51 ..
+-rw-r--r--  1 1000 1000   1459 Jan 21 14:23 .clang-format
+-rw-r--r--  1 1000 1000    375 Jan 21 14:23 .clang-format-ignore
+-rw-r--r--  1 1000 1000   2260 Jan 21 14:23 .clang-tidy
+drwxr-xr-x  8 1000 1000   4096 Jan 23 01:51 .git
+-rw-r--r--  1 1000 1000    342 Jan 21 14:23 .gitattributes
+drwxr-xr-x  3 1000 1000   4096 Jan 21 14:23 .github
+-rw-r--r--  1 1000 1000   5008 Jan 21 14:23 .gitignore
+-rw-r--r--  1 1000 1000      0 Jan 21 14:23 .gitmodules
+-rw-r--r--  1 1000 1000   5665 Jan 21 14:23 CMakeLists.txt
+-rw-r--r--  1 1000 1000   5733 Jan 21 14:23 CMakePresets.json
+-rw-r--r--  1 1000 1000   3560 Jan 21 14:23 CODE_OF_CONDUCT.md
+-rw-r--r--  1 1000 1000  14115 Jan 21 14:23 LICENSE.txt
+-rw-r--r--  1 1000 1000    159 Jan 21 14:23 MANIFEST.in
+-rw-r--r--  1 1000 1000 106304 Jan 21 14:23 Makefile
+-rw-r--r--  1 1000 1000  16775 Jan 21 14:23 README.md
+-rw-r--r--  1 1000 1000  78059 Jan 21 14:23 README_cmake.md
+-rw-r--r--  1 1000 1000  32977 Jan 21 14:23 README_python.md
+-rw-r--r--  1 1000 1000  12354 Jan 21 14:23 README_rungen.md
+-rw-r--r--  1 1000 1000  10741 Jan 21 14:23 README_webassembly.md
+-rw-r--r--  1 1000 1000   3943 Jan 21 14:23 README_webgpu.md
+drwxr-xr-x 41 1000 1000   4096 Jan 21 14:23 apps
+drwxr-xr-x  6 root root  36864 Jan 21 15:12 bin
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:23 cmake
+drwxr-xr-x  7 1000 1000   4096 Jan 21 14:23 dependencies
+drwxr-xr-x  7 root root   4096 Jan 21 14:45 distrib
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:23 doc
+drwxr-xr-x  3 root root   4096 Jan 21 14:45 include
+drwxr-xr-x  2 root root   4096 Jan 21 14:44 lib
+drwxr-xr-x  5 1000 1000   4096 Jan 21 14:23 packaging
+-rw-r--r--  1 1000 1000    195 Jan 21 14:23 pyproject.toml
+drwxr-xr-x  7 1000 1000   4096 Jan 21 14:23 python_bindings
+-rw-r--r--  1 1000 1000    129 Jan 21 14:23 requirements.txt
+-rwxr-xr-x  1 1000 1000   1397 Jan 21 14:23 run-clang-format.sh
+-rwxr-xr-x  1 1000 1000   3217 Jan 21 14:23 run-clang-tidy.sh
+-rw-r--r--  1 1000 1000   1266 Jan 21 14:23 setup.py
+drwxr-xr-x  5 1000 1000  20480 Jan 21 14:23 src
+drwxr-xr-x 12 1000 1000   4096 Jan 21 14:23 test
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:23 tools
+drwxr-xr-x  4 1000 1000   4096 Jan 21 14:23 tutorial
+drwxr-xr-x  2 1000 1000   4096 Jan 21 14:23 util
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+# Halide
+
+Halide is a programming language designed to make it easier to write
+high-performance image and array processing code on modern machines. Halide
+currently targets:
+
+- CPU architectures: X86, ARM, Hexagon, PowerPC, RISC-V
+- Operating systems: Linux, Windows, macOS, Android, iOS, Qualcomm QuRT
+- GPU Compute APIs: CUDA, OpenCL, OpenGL Compute Shaders, Apple Metal, Microsoft
+  Direct X 12
+
+Rather than being a standalone programming language, Halide is embedded in C++.
+This means you write C++ code that builds an in-memory representation of a
+Halide pipeline using Halide's C++ API. You can then compile this representation
+to an object file, or JIT-compile it and run it in the same process. Halide also
+provides a Python binding that provides full support for writing Halide embedded
+in Python without C++.
+
+Halide requires C++17 (or later) to use.
+
+For more detail about what Halide is, see http://halide-lang.org.
+
+For API documentation see http://halide-lang.org/docs
+
+To see some example code, look in the tutorials directory.
+
+If you've acquired a full source distribution and want to build Halide, see the
+[notes below](#building-halide-with-cmake).
+
+# Getting Halide
+
+## Binary tarballs
+
+The latest version of Halide can always be found on GitHub
+at https://github.com/halide/Halide/releases
+
+We provide binary releases for many popular platforms and architectures, 
+including 32/64-bit x86 Windows, 64-bit macOS, and 32/64-bit x86/ARM
+Ubuntu Linux.
+
+## Vcpkg
+
+If you use [vcpkg](https://github.com/microsoft/vcpkg) to manage dependencies,
+you can install Halide via:
+
+```
+$ vcpkg install halide:x64-windows # or x64-linux/x64-osx
+```
+
+One caveat: vcpkg installs only the minimum Halide backends required to compile
+code for the active platform. If you want to include all the backends, you
+should install `halide[target-all]:x64-windows` instead. Note that since this
+will build LLVM, it will take a _lot_ of disk space (up to 100GB).
+
+## Homebrew
+
+Alternatively, if you use macOS, you can install Halide via
+[Homebrew](https://brew.sh/) like so:
+
+```
+$ brew install halide
+```
+
+## Other package managers
+
+We are interested in bringing Halide to other popular package managers and
+Linux distribution repositories including, but not limited to, Conan,
+Debian, [Ubuntu (or PPA)](https://github.com/halide/Halide/issues/5285),
+CentOS/Fedora, and Arch. If you have experience publishing packages we would be
+happy to work with you!
+
+If you are a maintainer of any other package distribution platform, we would be
+excited to work with you, too.
+
+# Platform Support
+
+There are two sets of platform requirements relevant to Halide: those required
+to run the compiler library in either JIT or AOT mode, and those required to run
+the _binary outputs_ of the AOT compiler.
+
+These are the **tested** host toolchain and platform combinations for building
+and running the Halide compiler library.
+
+| Compiler   | Version      | OS                     | Architectures   |
+|------------|--------------|------------------------|-----------------|
+| GCC        | 7.5          | Ubuntu Linux 20.04 LTS | x86, x64, ARM32 |
+| GCC        | 7.5          | Ubuntu Linux 18.04 LTS | ARM32, ARM64    |
+| MSVC       | 2019 (19.28) | Windows 10 (20H2)      | x86, x64        |
+| AppleClang | 12.0.0       | macOS 10.15            | x86_64          |
+| AppleClang | 12.0.0       | macOS 11.1             | ARM64           |
+
+Some users have successfully built Halide for Linux using Clang 9.0.0+, for
+Windows using ClangCL 11.0.0+, and for Windows ARM64 by cross-compiling with
+MSVC. We do not actively test these scenarios, however, so your mileage may
+vary.
+
+Beyond these, we are willing to support (by accepting PRs for) platform and
+toolchain combinations that still receive _active, first-party, public support_
+from their original vendors. For instance, at time of writing, this excludes
+Windows 7 and includes Ubuntu 18.04 LTS.
+
+Compiled AOT pipelines are expected to have much broader platform support. The
+binaries use the C ABI, and we expect any compliant C compiler to be able to use
+the generated headers correctly. The C++ bindings currently require C++17. If
+you discover a compatibility problem with a generated pipeline, please open an
+issue.
+
+# Building Halide with Make
+
+### TL;DR
+
+Have llvm-14.0 (or greater) installed and run `make` in the root directory of
+the repository (where this README is).
+
+### Acquiring LLVM
+
+At any point in time, building Halide requires either the latest stable version
+of LLVM, the previous stable version of LLVM, and trunk. At the time of writing,
+this means versions 16, 15, and 14 are supported, but 13 is not. The commands
+`llvm-config` and `clang` must be somewhere in the path.
+
+If your OS does not have packages for LLVM, you can find binaries for it at
+http://llvm.org/releases/download.html. Download an appropriate package and then
+either install it, or at least put the `bin` subdirectory in your path. (This
+works well on OS X and Ubuntu.)
+
+If you want to build it yourself, first check it out from GitHub:
+
+```
+% git clone --depth 1 --branch llvmorg-14.0.0 https://github.com/llvm/llvm-project.git
+```
+
+(If you want to build LLVM 14.x, use branch `release/14.x`; for current trunk,
+use `main`)
+
+Then build it like so:
+
+```
+% cmake -DCMAKE_BUILD_TYPE=Release \
+        -DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra" \
+        -DLLVM_TARGETS_TO_BUILD="X86;ARM;NVPTX;AArch64;Hexagon;WebAssembly" \
+        -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ASSERTIONS=ON \
+        -DLLVM_ENABLE_EH=ON -DLLVM_ENABLE_RTTI=ON -DLLVM_BUILD_32_BITS=OFF \
+        -S llvm-project/llvm -B llvm-build
+% cmake --build llvm-build
+% cmake --install llvm-build --prefix llvm-install
+```
+
+Running a serial build will be slow. To improve speed, try running a parallel
+build. That's done by default in Ninja; for make, use the option -j NNN,
+where NNN is the number of parallel jobs, e.g. the number of CPUs you have.
+Then, point Halide to it:
+
+```
+% export LLVM_ROOT=$PWD/llvm-install
+% export LLVM_CONFIG=$LLVM_ROOT/bin/llvm-config
+```
+
+Note that you _must_ add `clang` to `LLVM_ENABLE_PROJECTS`; adding `lld` to
+`LLVM_ENABLE_PROJECTS` is only required when using WebAssembly, and adding
+`clang-tools-extra` is only necessary if you plan to contribute code to Halide
+(so that you can run `clang-tidy` on your pull requests). We recommend enabling
+both in all cases to simplify builds. You can disable exception handling (EH)
+and RTTI if you don't want the Python bindings.
+
+### Building Halide with make
+
+With `LLVM_CONFIG` set (or `llvm-config` in your path), you should be able to
+just run `make` in the root directory of the Halide source tree.
+`make run_tests` will run the JIT test suite, and `make test_apps` will make
+sure all the apps compile and run (but won't check their output).
+
+There is no `make install`. If you want to make an install package, use CMake.
+
+### Building Halide out-of-tree with make
+
+If you wish to build Halide in a separate directory, you can do that like so:
+
+    % cd ..
+    % mkdir halide_build
+    % cd halide_build
+    % make -f ../Halide/Makefile
+
+# Building Halide with CMake
+
+### MacOS and Linux
+
+Follow the above instructions to build LLVM or acquire a suitable binary
+release. Then change directory to the Halide repository and run:
+
+```
+% cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=$LLVM_ROOT/lib/cmake/llvm -S . -B build
+% cmake --build build
+```
+
+`LLVM_DIR` is the folder in the LLVM installation tree **(do not use the build
+tree by mistake)** that contains `LLVMConfig.cmake`. It is not required to set
+this variable if you have a suitable system-wide version installed. If you have
+multiple system-wide versions installed, you can specify the version with
+`Halide_REQUIRE_LLVM_VERSION`. Remove `-G Ninja` if you prefer to build with a
+different generator.
+
+### Windows
+
+We suggest building with Visual Studio 2019. Your mileage may vary with earlier
+versions. Be sure to install the "C++ CMake tools for Windows" in the Visual
+Studio installer. For older versions of Visual Studio, do not install the CMake
+tools, but instead acquire CMake and Ninja from their respective project
+websites.
+
+These instructions start from the `D:` drive. We assume this git repo is cloned
+to `D:\Halide`. We also assume that your shell environment is set up correctly.
+For a 64-bit build, run:
+
+```
+D:\> "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+```
+
+For a 32-bit build, run:
+
+```
+D:\> "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64_x86
+```
+
+#### Managing dependencies with vcpkg
+
+The best way to get compatible dependencies on Windows is to use
+[vcpkg](https://github.com/Microsoft/vcpkg). Install it like so:
+
+```
+D:\> git clone https://github.com/Microsoft/vcpkg.git
+D:\> cd vcpkg
+D:\> .\bootstrap-vcpkg.bat
+D:\vcpkg> .\vcpkg integrate install
+...
+CMake projects should use: "-DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+```
+
+Then install the libraries. For a 64-bit build, run:
+
+```
+D:\vcpkg> .\vcpkg install libpng:x64-windows libjpeg-turbo:x64-windows llvm[target-all,clang-tools-extra]:x64-windows
+```
+
+To support 32-bit builds, also run:
+
+```
+D:\vcpkg> .\vcpkg install libpng:x86-windows libjpeg-turbo:x86-windows llvm[target-all,clang-tools-extra]:x86-windows
+```
+
+#### Building Halide
+
+Create a separate build tree and call CMake with vcpkg's toolchain. This will
+build in either 32-bit or 64-bit depending on the environment script (`vcvars`)
+that was run earlier.
+
+```
+D:\Halide> cmake -G Ninja ^
+                 -DCMAKE_BUILD_TYPE=Release ^
+                 -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake ^
+                 -S . -B build
+```
+
+**Note:** If building with Python bindings on 32-bit (enabled by default), be
+sure to point CMake to the installation path of a 32-bit Python 3. You can do
+this by specifying, for example:
+`"-DPython3_ROOT_DIR=C:\Program Files (x86)\Python38-32"`.
+
+Then run the build with:
+
+```
+D:\Halide> cmake --build build --config Release
+```
+
+To run all the tests:
+
+```
+D:\Halide> cd build
+D:\Halide\build> ctest -C Release
+```
+
+Subsets of the tests can be selected with `-L` and include `correctness`,
+`python`, `error`, and the other directory names under `/tests`.
+
+#### Building LLVM (optional)
+
+Follow these steps if you want to build LLVM yourself. First, download LLVM's
+sources (these instructions use the latest 14.0 release)
+
+```
+D:\> git clone --depth 1 --branch llvmorg-14.0.0 https://github.com/llvm/llvm-project.git
+```
+
+For a 64-bit build, run:
+
+```
+D:\> cmake -G Ninja ^
+           -DCMAKE_BUILD_TYPE=Release ^
+           -DLLVM_ENABLE_PROJECTS=clang;lld;clang-tools-extra ^
+           -DLLVM_ENABLE_TERMINFO=OFF ^
+           -DLLVM_TARGETS_TO_BUILD=X86;ARM;NVPTX;AArch64;Hexagon ^
+           -DLLVM_ENABLE_ASSERTIONS=ON ^
+           -DLLVM_ENABLE_EH=ON ^
+           -DLLVM_ENABLE_RTTI=ON ^
+           -DLLVM_BUILD_32_BITS=OFF ^
+           -S llvm-project\llvm -B llvm-build
+```
+
+For a 32-bit build, run:
+
+```
+D:\> cmake -G Ninja ^
+           -DCMAKE_BUILD_TYPE=Release ^
+           -DLLVM_ENABLE_PROJECTS=clang;lld;clang-tools-extra ^
+           -DLLVM_ENABLE_TERMINFO=OFF ^
+           -DLLVM_TARGETS_TO_BUILD=X86;ARM;NVPTX;AArch64;Hexagon ^
+           -DLLVM_ENABLE_ASSERTIONS=ON ^
+           -DLLVM_ENABLE_EH=ON ^
+           -DLLVM_ENABLE_RTTI=ON ^
+           -DLLVM_BUILD_32_BITS=ON ^
+           -S llvm-project\llvm -B llvm32-build
+```
+
+Finally, run:
+
+```
+D:\> cmake --build llvm-build --config Release
+D:\> cmake --install llvm-build --prefix llvm-install
+```
+
+You can substitute `Debug` for `Release` in the above `cmake` commands if you
+want a debug build. Make sure to add `-DLLVM_DIR=D:/llvm-install/lib/cmake/llvm`
+to the Halide CMake command to override `vcpkg`'s LLVM.
+
+**MSBuild:** If you want to build LLVM with MSBuild instead of Ninja, use
+`-G "Visual Studio 16 2019" -Thost=x64 -A x64` or
+`-G "Visual Studio 16 2019" -Thost=x64 -A Win32` in place of `-G Ninja`.
+
+#### If all else fails...
+
+Do what the build-bots do: https://buildbot.halide-lang.org/master/#/builders
+
+If the column that best matches your system is red, then maybe things aren't
+just broken for you. If it's green, then you can click the "stdio" links in the
+latest build to see what commands the build bots run, and what the output was.
+
+# Some useful environment variables
+
+`HL_TARGET=...` will set Halide's AOT compilation target.
+
+`HL_JIT_TARGET=...` will set Halide's JIT compilation target.
+
+`HL_DEBUG_CODEGEN=1` will print out pseudocode for what Halide is compiling.
+Higher numbers will print more detail.
+
+`HL_NUM_THREADS=...` specifies the number of threads to create for the thread
+pool. When the async scheduling directive is used, more threads than this number
+may be required and thus allocated. A maximum of 256 threads is allowed. (By
+default, the number of cores on the host is used.)
+
+`HL_TRACE_FILE=...` specifies a binary target file to dump tracing data into
+(ignored unless at least one `trace_` feature is enabled in `HL_TARGET` or
+`HL_JIT_TARGET`). The output can be parsed programmatically by starting from the
+code in `utils/HalideTraceViz.cpp`.
+
+# Using Halide on OSX
+
+Precompiled Halide distributions are built using XCode's command-line tools with
+Apple clang 500.2.76. This means that we link against libc++ instead of
+libstdc++. You may need to adjust compiler options accordingly if you're using
+an older XCode which does not default to libc++.
+
+# Halide for Hexagon HVX
+
+Halide supports offloading work to Qualcomm Hexagon DSP on Qualcomm Snapdragon
+845/710 devices or newer. The Hexagon DSP provides a set of 128 byte vector
+instruction extensions - the Hexagon Vector eXtensions (HVX). HVX is well suited
+for image processing, and Halide for Hexagon HVX will generate the appropriate
+HVX vector instructions from a program authored in Halide.
+
+Halide can be used to compile Hexagon object files directly, by using a target
+such as `hexagon-32-qurt-hvx`.
+
+Halide can also be used to offload parts of a pipeline to Hexagon using the
+`hexagon` scheduling directive. To enable the `hexagon` scheduling directive,
+include the `hvx` target feature in your target. The currently supported
+combination of targets is to use the HVX target features with an x86 linux
+host (to use the simulator) or with an ARM android target (to use Hexagon DSP
+hardware). For examples of using the `hexagon` scheduling directive on both the
+simulator and a Hexagon DSP, see the blur example app.
+
+To build and run an example app using the Hexagon target,
+
+1. Obtain and build trunk LLVM and Clang. (Earlier versions of LLVM may work but
+   are not actively tested and thus not recommended.)
+2. Download and install the Hexagon SDK and Hexagon Tools. Hexagon SDK 4.3.0 or
+   later is needed. Hexagon Tools 8.4 or later is needed.
+3. Build and run an example for Hexagon HVX
+
+### 1. Obtain and build trunk LLVM and Clang
+
+(Follow the instructions given previously, just be sure to check out the `main`
+branch.)
+
+### 2. Download and install the Hexagon SDK and Hexagon Tools
+
+Go to https://developer.qualcomm.com/software/hexagon-dsp-sdk/tools
+
+1. Select the Hexagon Series 600 Software and download & run QPM and install
+   the Hexagon SDK 4.3.0 version or later for Linux.
+2. untar the installer
+3. Run the extracted installer to install the Hexagon SDK and Hexagon Tools,
+   selecting Installation of Hexagon SDK into `/location/of/SDK/Hexagon_SDK/4.x`
+   and the Hexagon tools into `/location/of/SDK/Hexagon_Tools/8.x`
+4. Set an environment variable to point to the SDK installation location
+   ```
+   export SDK_LOC=/location/of/SDK
+   ```
+
+### 3. Build and run an example for Hexagon HVX
+
+In addition to running Hexagon code on device, Halide also supports running
+Hexagon code on the simulator from the Hexagon tools.
+
+To build and run the blur example in Halide/apps/blur on the simulator:
+
+```
+cd apps/blur
+export HL_HEXAGON_SIM_REMOTE=../../src/runtime/hexagon_remote/bin/v65/hexagon_sim_remote
+export HL_HEXAGON_TOOLS=$SDK_LOC/Hexagon_Tools/8.x/Tools/
+LD_LIBRARY_PATH=../../src/runtime/hexagon_remote/bin/host/:$HL_HEXAGON_TOOLS/lib/iss/:. HL_TARGET=host-hvx make test
+```
+
+### To build and run the blur example in Halide/apps/blur on Android:
+
+To build the example for Android, first ensure that you have Android NDK r19b or
+later installed, and the ANDROID_NDK_ROOT environment variable points to it.
+(Note that Qualcomm Hexagon SDK v4.3.0 includes Android NDK r19c, which is
+fine.)
+
+Now build and run the blur example using the script to run it on device:
+
+```
+export HL_HEXAGON_TOOLS=$SDK_LOC/HEXAGON_Tools/8.4.11/Tools/
+HL_TARGET=arm-64-android-hvx ./adb_run_on_device.sh
+```
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y llvm-14 clang
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Fetched 43.8 MB in 43s (1022 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binfmt-support binutils binutils-common binutils-x86-64-linux-gnu clang-14
+  fontconfig-config fonts-dejavu-core gcc-11-base icu-devtools lib32gcc-s1
+  lib32stdc++6 libasan6 libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin
+  libc-devtools libc6 libc6-dev libc6-i386 libclang-common-14-dev
+  libclang-cpp14 libclang1-14 libcrypt-dev libctf-nobfd0 libctf0 libdeflate0
+  libedit2 libexpat1 libffi-dev libfontconfig1 libfreetype6 libgc1
+  libgcc-11-dev libgd3 libgomp1 libicu-dev libicu70 libitm1 libjbig0
+  libjpeg-turbo8 libjpeg8 libllvm14 liblsan0 libmd0 libmpdec3 libncurses-dev
+  libnsl-dev libobjc-11-dev libobjc4 libpfm4 libpipeline1 libpng16-16
+  libpython3-stdlib libpython3.10-minimal libpython3.10-stdlib libquadmath0
+  libreadline8 libsqlite3-0 libstdc++-11-dev libtiff5 libtinfo-dev
+  libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data libxau6
+  libxcb1 libxdmcp6 libxml2 libxml2-dev libxpm4 libyaml-0-2 libz3-4 libz3-dev
+  linux-libc-dev llvm-14-dev llvm-14-linker-tools llvm-14-runtime
+  llvm-14-tools manpages manpages-dev media-types python3 python3-minimal
+  python3-pkg-resources python3-pygments python3-yaml python3.10
+  python3.10-minimal readline-common rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc clang-14-doc glibc-doc locales libgd-tools icu-doc ncurses-doc
+  libstdc++-11-doc pkg-config llvm-14-doc man-browser python3-doc python3-tk
+  python3-venv python3-setuptools python-pygments-doc ttf-bitstream-vera
+  python3.10-venv python3.10-doc readline-doc
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binfmt-support binutils binutils-common binutils-x86-64-linux-gnu clang
+  clang-14 fontconfig-config fonts-dejavu-core gcc-11-base icu-devtools
+  lib32gcc-s1 lib32stdc++6 libasan6 libatomic1 libbinutils libbrotli1 libbsd0
+  libc-dev-bin libc-devtools libc6-dev libc6-i386 libclang-common-14-dev
+  libclang-cpp14 libclang1-14 libcrypt-dev libctf-nobfd0 libctf0 libdeflate0
+  libedit2 libexpat1 libffi-dev libfontconfig1 libfreetype6 libgc1
+  libgcc-11-dev libgd3 libgomp1 libicu-dev libicu70 libitm1 libjbig0
+  libjpeg-turbo8 libjpeg8 libllvm14 liblsan0 libmd0 libmpdec3 libncurses-dev
+  libnsl-dev libobjc-11-dev libobjc4 libpfm4 libpipeline1 libpng16-16
+  libpython3-stdlib libpython3.10-minimal libpython3.10-stdlib libquadmath0
+  libreadline8 libsqlite3-0 libstdc++-11-dev libtiff5 libtinfo-dev
+  libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6 libx11-data libxau6
+  libxcb1 libxdmcp6 libxml2 libxml2-dev libxpm4 libyaml-0-2 libz3-4 libz3-dev
+  linux-libc-dev llvm-14 llvm-14-dev llvm-14-linker-tools llvm-14-runtime
+  llvm-14-tools manpages manpages-dev media-types python3 python3-minimal
+  python3-pkg-resources python3-pygments python3-yaml python3.10
+  python3.10-minimal readline-common rpcsvc-proto ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 97 newly installed, 0 to remove and 2 not upgraded.
+Need to get 174 MB of archives.
+After this operation, 878 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-minimal amd64 3.10.12-1~22.04.13 [815 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-minimal amd64 3.10.12-1~22.04.13 [2272 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-minimal amd64 3.10.6-1~22.04.1 [24.3 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 media-types all 7.0.0 [25.5 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpdec3 amd64 2.5.1-2build2 [86.8 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-stdlib amd64 3.10.12-1~22.04.13 [1850 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.13 [508 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.11 [765 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 libyaml-0-2 amd64 0.2.2-1build2 [51.6 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pkg-resources all 59.6.0-1.2ubuntu0.22.04.3 [133 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 python3-yaml amd64 5.4.1-1ubuntu1 [129 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpipeline1 amd64 1.5.5-1 [23.5 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/main amd64 binfmt-support amd64 2.2.1-2 [55.8 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libllvm14 amd64 1:14.0.0-1ubuntu1.1 [24.0 MB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang-cpp14 amd64 1:14.0.0-1ubuntu1.1 [12.1 MB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgc1 amd64 1:8.0.6-1.1build1 [96.8 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libobjc4 amd64 12.3.0-1ubuntu1~22.04.2 [48.7 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libobjc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [196 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-i386 amd64 2.35-0ubuntu3.12 [2838 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 lib32gcc-s1 amd64 12.3.0-1ubuntu1~22.04.2 [63.9 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 lib32stdc++6 amd64 12.3.0-1ubuntu1~22.04.2 [739 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang-common-14-dev amd64 1:14.0.0-1ubuntu1.1 [5975 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-linker-tools amd64 1:14.0.0-1ubuntu1.1 [1355 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang1-14 amd64 1:14.0.0-1ubuntu1.1 [6792 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 clang-14 amd64 1:14.0.0-1ubuntu1.1 [81.2 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy/universe amd64 clang amd64 1:14.0-55~exp2 [3558 B]
+Get:70 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy/main amd64 icu-devtools amd64 70.1-2 [197 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:78 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:84 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:85 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu-dev amd64 70.1-2 [11.6 MB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libncurses-dev amd64 6.3-2ubuntu0.1 [381 kB]
+Get:87 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtinfo-dev amd64 6.3-2ubuntu0.1 [780 B]
+Get:88 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2-dev amd64 2.9.13+dfsg-1ubuntu0.11 [805 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-runtime amd64 1:14.0.0-1ubuntu1.1 [484 kB]
+Get:90 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpfm4 amd64 4.11.1+git32-gd0b85fb-1ubuntu0.1 [345 kB]
+Get:91 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14 amd64 1:14.0.0-1ubuntu1.1 [12.7 MB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy/main amd64 libffi-dev amd64 3.4.2-4 [63.7 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pygments all 2.11.2+dfsg-2ubuntu0.1 [750 kB]
+Get:94 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-tools amd64 1:14.0.0-1ubuntu1.1 [404 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libz3-4 amd64 4.8.12-1 [5766 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libz3-dev amd64 4.8.12-1 [72.2 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 llvm-14-dev amd64 1:14.0.0-1ubuntu1.1 [37.8 MB]
+Get:98 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 174 MB in 5min 43s (506 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package libpython3.10-minimal:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libpython3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package python3.10-minimal.
+Preparing to unpack .../python3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10-minimal (3.10.12-1~22.04.13) ...
+Setting up libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up python3.10-minimal (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4697 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3-minimal (3.10.6-1~22.04.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_7.0.0_all.deb ...
+Unpacking media-types (7.0.0) ...
+Selecting previously unselected package libmpdec3:amd64.
+Preparing to unpack .../2-libmpdec3_2.5.1-2build2_amd64.deb ...
+Unpacking libmpdec3:amd64 (2.5.1-2build2) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../3-readline-common_8.1.2-1_all.deb ...
+Unpacking readline-common (8.1.2-1) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../4-libreadline8_8.1.2-1_amd64.deb ...
+Unpacking libreadline8:amd64 (8.1.2-1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../5-libsqlite3-0_3.37.2-2ubuntu0.5_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Selecting previously unselected package libpython3.10-stdlib:amd64.
+Preparing to unpack .../6-libpython3.10-stdlib_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3.10.
+Preparing to unpack .../7-python3.10_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../8-libpython3-stdlib_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up python3-minimal (3.10.6-1~22.04.1) ...
+Selecting previously unselected package python3.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5127 files and directories currently installed.)
+Preparing to unpack .../00-python3_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3 (3.10.6-1~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../01-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../02-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libicu70:amd64.
+Preparing to unpack .../03-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../04-libxml2_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package libyaml-0-2:amd64.
+Preparing to unpack .../05-libyaml-0-2_0.2.2-1build2_amd64.deb ...
+Unpacking libyaml-0-2:amd64 (0.2.2-1build2) ...
+Selecting previously unselected package python3-pkg-resources.
+Preparing to unpack .../06-python3-pkg-resources_59.6.0-1.2ubuntu0.22.04.3_all.deb ...
+Unpacking python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+Selecting previously unselected package python3-yaml.
+Preparing to unpack .../07-python3-yaml_5.4.1-1ubuntu1_amd64.deb ...
+Unpacking python3-yaml (5.4.1-1ubuntu1) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../08-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../09-libedit2_3.1-20210910-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20210910-1build1) ...
+Selecting previously unselected package libpipeline1:amd64.
+Preparing to unpack .../10-libpipeline1_1.5.5-1_amd64.deb ...
+Unpacking libpipeline1:amd64 (1.5.5-1) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../11-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../12-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../13-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../14-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../15-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../16-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../17-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package binfmt-support.
+Preparing to unpack .../18-binfmt-support_2.2.1-2_amd64.deb ...
+Unpacking binfmt-support (2.2.1-2) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../19-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../20-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../21-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../22-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../23-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../24-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libllvm14:amd64.
+Preparing to unpack .../25-libllvm14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang-cpp14.
+Preparing to unpack .../26-libclang-cpp14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../27-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../28-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../29-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../30-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../31-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../32-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../33-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../34-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../35-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../36-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../37-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../38-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../39-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../40-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../41-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../42-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../43-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libstdc++-11-dev:amd64.
+Preparing to unpack .../44-libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgc1:amd64.
+Preparing to unpack .../45-libgc1_1%3a8.0.6-1.1build1_amd64.deb ...
+Unpacking libgc1:amd64 (1:8.0.6-1.1build1) ...
+Selecting previously unselected package libobjc4:amd64.
+Preparing to unpack .../46-libobjc4_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libobjc4:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libobjc-11-dev:amd64.
+Preparing to unpack .../47-libobjc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libobjc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libc6-i386.
+Preparing to unpack .../48-libc6-i386_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-i386 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package lib32gcc-s1.
+Preparing to unpack .../49-lib32gcc-s1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking lib32gcc-s1 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package lib32stdc++6.
+Preparing to unpack .../50-lib32stdc++6_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking lib32stdc++6 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libclang-common-14-dev.
+Preparing to unpack .../51-libclang-common-14-dev_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang-common-14-dev (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package llvm-14-linker-tools.
+Preparing to unpack .../52-llvm-14-linker-tools_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-linker-tools (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang1-14.
+Preparing to unpack .../53-libclang1-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang-14.
+Preparing to unpack .../54-clang-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking clang-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package clang.
+Preparing to unpack .../55-clang_1%3a14.0-55~exp2_amd64.deb ...
+Unpacking clang (1:14.0-55~exp2) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../56-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../57-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package icu-devtools.
+Preparing to unpack .../58-icu-devtools_70.1-2_amd64.deb ...
+Unpacking icu-devtools (70.1-2) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../59-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../60-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../61-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../62-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../63-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../64-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../65-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../66-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../67-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../68-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../69-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../70-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libicu-dev:amd64.
+Preparing to unpack .../71-libicu-dev_70.1-2_amd64.deb ...
+Unpacking libicu-dev:amd64 (70.1-2) ...
+Selecting previously unselected package libncurses-dev:amd64.
+Preparing to unpack .../72-libncurses-dev_6.3-2ubuntu0.1_amd64.deb ...
+Unpacking libncurses-dev:amd64 (6.3-2ubuntu0.1) ...
+Selecting previously unselected package libtinfo-dev:amd64.
+Preparing to unpack .../73-libtinfo-dev_6.3-2ubuntu0.1_amd64.deb ...
+Unpacking libtinfo-dev:amd64 (6.3-2ubuntu0.1) ...
+Selecting previously unselected package libxml2-dev:amd64.
+Preparing to unpack .../74-libxml2-dev_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2-dev:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package llvm-14-runtime.
+Preparing to unpack .../75-llvm-14-runtime_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-runtime (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libpfm4:amd64.
+Preparing to unpack .../76-libpfm4_4.11.1+git32-gd0b85fb-1ubuntu0.1_amd64.deb ...
+Unpacking libpfm4:amd64 (4.11.1+git32-gd0b85fb-1ubuntu0.1) ...
+Selecting previously unselected package llvm-14.
+Preparing to unpack .../77-llvm-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libffi-dev:amd64.
+Preparing to unpack .../78-libffi-dev_3.4.2-4_amd64.deb ...
+Unpacking libffi-dev:amd64 (3.4.2-4) ...
+Selecting previously unselected package python3-pygments.
+Preparing to unpack .../79-python3-pygments_2.11.2+dfsg-2ubuntu0.1_all.deb ...
+Unpacking python3-pygments (2.11.2+dfsg-2ubuntu0.1) ...
+Selecting previously unselected package llvm-14-tools.
+Preparing to unpack .../80-llvm-14-tools_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-tools (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libz3-4:amd64.
+Preparing to unpack .../81-libz3-4_4.8.12-1_amd64.deb ...
+Unpacking libz3-4:amd64 (4.8.12-1) ...
+Selecting previously unselected package libz3-dev:amd64.
+Preparing to unpack .../82-libz3-dev_4.8.12-1_amd64.deb ...
+Unpacking libz3-dev:amd64 (4.8.12-1) ...
+Selecting previously unselected package llvm-14-dev.
+Preparing to unpack .../83-llvm-14-dev_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking llvm-14-dev (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../84-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up media-types (7.0.0) ...
+Setting up libpipeline1:amd64 (1.5.5-1) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libyaml-0-2:amd64 (0.2.2-1build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libffi-dev:amd64 (3.4.2-4) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libz3-4:amd64 (4.8.12-1) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up libpfm4:amd64 (4.11.1+git32-gd0b85fb-1ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up binfmt-support (2.2.1-2) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of restart.
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libgc1:amd64 (1:8.0.6-1.1build1) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libmpdec3:amd64 (2.5.1-2build2) ...
+Setting up libc6-i386 (2.35-0ubuntu3.12) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up libz3-dev:amd64 (4.8.12-1) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libobjc4:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up lib32gcc-s1 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up lib32stdc++6 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up icu-devtools (70.1-2) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libicu-dev:amd64 (70.1-2) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libncurses-dev:amd64 (6.3-2ubuntu0.1) ...
+Setting up python3.10 (3.10.12-1~22.04.13) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libobjc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up python3 (3.10.6-1~22.04.1) ...
+running python rtupdate hooks for python3.10...
+running python post-rtupdate hooks for python3.10...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libxml2-dev:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-14-linker-tools (1:14.0.0-1ubuntu1.1) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up libtinfo-dev:amd64 (6.3-2ubuntu0.1) ...
+Setting up libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up python3-yaml (5.4.1-1ubuntu1) ...
+Setting up python3-pygments (2.11.2+dfsg-2ubuntu0.1) ...
+Setting up llvm-14-runtime (1:14.0.0-1ubuntu1.1) ...
+Setting up libclang-common-14-dev (1:14.0.0-1ubuntu1.1) ...
+Setting up libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up llvm-14-tools (1:14.0.0-1ubuntu1.1) ...
+Setting up clang-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up clang (1:14.0-55~exp2) ...
+Setting up llvm-14-dev (1:14.0.0-1ubuntu1.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 4]
+$ pip install -r requirements.txt
+Exit Code: 127
+Output:
+/bin/bash: line 13: pip: command not found
+----------------------------------------
+
+[Command 5]
+$ apt-get install -y python3-pip
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  build-essential bzip2 ca-certificates cpp cpp-11 dirmngr dpkg-dev fakeroot
+  g++ g++-11 gcc gcc-11 gnupg gnupg-l10n gnupg-utils gpg gpg-agent
+  gpg-wks-client gpg-wks-server gpgconf gpgsm javascript-common
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libassuan0 libcc1-0 libdpkg-perl libexpat1-dev libfakeroot
+  libfile-fcntllock-perl libgdbm-compat4 libgdbm6 libisl23 libjs-jquery
+  libjs-sphinxdoc libjs-underscore libksba8 libldap-2.5-0 libldap-common
+  liblocale-gettext-perl libmpc3 libmpfr6 libnpth0 libperl5.34 libpython3-dev
+  libpython3.10 libpython3.10-dev libsasl2-2 libsasl2-modules
+  libsasl2-modules-db lto-disabled-list make netbase openssl patch perl
+  perl-modules-5.34 pinentry-curses python3-dev python3-distutils
+  python3-lib2to3 python3-setuptools python3-wheel python3.10-dev xz-utils
+  zlib1g-dev
+Suggested packages:
+  bzip2-doc cpp-doc gcc-11-locales dbus-user-session libpam-systemd
+  pinentry-gnome3 tor debian-keyring g++-multilib g++-11-multilib gcc-11-doc
+  gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-11-multilib parcimonie xloadimage scdaemon apache2 | lighttpd | httpd
+  git bzr gdbm-l10n libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql make-doc ed diffutils-doc perl-doc
+  libterm-readline-gnu-perl | libterm-readline-perl-perl
+  libtap-harness-archive-perl pinentry-doc python-setuptools-doc
+The following NEW packages will be installed:
+  build-essential bzip2 ca-certificates cpp cpp-11 dirmngr dpkg-dev fakeroot
+  g++ g++-11 gcc gcc-11 gnupg gnupg-l10n gnupg-utils gpg gpg-agent
+  gpg-wks-client gpg-wks-server gpgconf gpgsm javascript-common
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libassuan0 libcc1-0 libdpkg-perl libexpat1-dev libfakeroot
+  libfile-fcntllock-perl libgdbm-compat4 libgdbm6 libisl23 libjs-jquery
+  libjs-sphinxdoc libjs-underscore libksba8 libldap-2.5-0 libldap-common
+  liblocale-gettext-perl libmpc3 libmpfr6 libnpth0 libperl5.34 libpython3-dev
+  libpython3.10 libpython3.10-dev libsasl2-2 libsasl2-modules
+  libsasl2-modules-db lto-disabled-list make netbase openssl patch perl
+  perl-modules-5.34 pinentry-curses python3-dev python3-distutils
+  python3-lib2to3 python3-pip python3-setuptools python3-wheel python3.10-dev
+  xz-utils zlib1g-dev
+0 upgraded, 68 newly installed, 0 to remove and 2 not upgraded.
+Need to get 67.7 MB of archives.
+After this operation, 222 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblocale-gettext-perl amd64 1.07-4build3 [17.1 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 xz-utils amd64 5.2.5-2ubuntu1 [84.8 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdpkg-perl all 1.21.1ubuntu2.6 [237 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 bzip2 amd64 1.0.8-5build1 [34.8 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 patch amd64 2.7.6-7build2 [109 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 lto-disabled-list all 24 [12.5 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dpkg-dev all 1.21.1ubuntu2.6 [922 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 build-essential amd64 12.9ubuntu3 [4744 B]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 libassuan0 amd64 2.5.5-1build1 [38.2 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgconf amd64 2.2.27-3ubuntu2.5 [94.3 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libksba8 amd64 1.6.0-2ubuntu0.2 [119 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnpth0 amd64 1.6-3build2 [8664 B]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dirmngr amd64 2.2.27-3ubuntu2.5 [293 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfakeroot amd64 1.28-1ubuntu1 [31.5 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 fakeroot amd64 1.28-1ubuntu1 [60.4 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-l10n all 2.2.27-3ubuntu2.5 [54.5 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-utils amd64 2.2.27-3ubuntu2.5 [309 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg amd64 2.2.27-3ubuntu2.5 [519 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy/main amd64 pinentry-curses amd64 1.1.1-1build2 [34.4 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-agent amd64 2.2.27-3ubuntu2.5 [209 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-client amd64 2.2.27-3ubuntu2.5 [62.7 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-server amd64 2.2.27-3ubuntu2.5 [57.6 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgsm amd64 2.2.27-3ubuntu2.5 [197 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg all 2.2.27-3ubuntu2.5 [315 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 javascript-common all 11+nmu1 [5936 B]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-perl all 1.201-1 [41.8 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-xs-perl amd64 0.04-6build3 [11.9 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-merge-perl all 0.08-3 [12.0 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1-dev amd64 2.4.7-1ubuntu0.6 [148 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfile-fcntllock-perl amd64 0.22-3build7 [33.9 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-jquery all 3.6.0+dfsg+~3.5.13-1 [321 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-underscore all 1.13.2~dfsg-2 [118 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-sphinxdoc all 4.3.2-1 [139 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10 amd64 3.10.12-1~22.04.13 [1949 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 zlib1g-dev amd64 1:1.2.11.dfsg-2ubuntu9.2 [164 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-dev amd64 3.10.12-1~22.04.13 [4763 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-dev amd64 3.10.6-1~22.04.1 [7064 B]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-dev amd64 3.10.12-1~22.04.13 [508 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-lib2to3 all 3.10.8-1~22.04 [77.6 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-distutils all 3.10.8-1~22.04 [139 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-dev amd64 3.10.6-1~22.04.1 [26.0 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-setuptools all 59.6.0-1.2ubuntu0.22.04.3 [340 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-wheel all 0.37.1-2ubuntu0.22.04.1 [32.0 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-pip all 22.0.2+dfsg-1ubuntu0.7 [1306 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 67.7 MB in 3min 28s (325 kB/s)
+Selecting previously unselected package liblocale-gettext-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 15669 files and directories currently installed.)
+Preparing to unpack .../00-liblocale-gettext-perl_1.07-4build3_amd64.deb ...
+Unpacking liblocale-gettext-perl (1.07-4build3) ...
+Selecting previously unselected package perl-modules-5.34.
+Preparing to unpack .../01-perl-modules-5.34_5.34.0-3ubuntu1.5_all.deb ...
+Unpacking perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package libgdbm6:amd64.
+Preparing to unpack .../02-libgdbm6_1.23-1_amd64.deb ...
+Unpacking libgdbm6:amd64 (1.23-1) ...
+Selecting previously unselected package libgdbm-compat4:amd64.
+Preparing to unpack .../03-libgdbm-compat4_1.23-1_amd64.deb ...
+Unpacking libgdbm-compat4:amd64 (1.23-1) ...
+Selecting previously unselected package libperl5.34:amd64.
+Preparing to unpack .../04-libperl5.34_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../05-perl_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking perl (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../06-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../07-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../08-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package xz-utils.
+Preparing to unpack .../09-xz-utils_5.2.5-2ubuntu1_amd64.deb ...
+Unpacking xz-utils (5.2.5-2ubuntu1) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../10-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../11-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../12-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../13-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../14-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../15-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../16-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../17-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package g++-11.
+Preparing to unpack .../18-g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../19-g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../20-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../21-libdpkg-perl_1.21.1ubuntu2.6_all.deb ...
+Unpacking libdpkg-perl (1.21.1ubuntu2.6) ...
+Selecting previously unselected package bzip2.
+Preparing to unpack .../22-bzip2_1.0.8-5build1_amd64.deb ...
+Unpacking bzip2 (1.0.8-5build1) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../23-patch_2.7.6-7build2_amd64.deb ...
+Unpacking patch (2.7.6-7build2) ...
+Selecting previously unselected package lto-disabled-list.
+Preparing to unpack .../24-lto-disabled-list_24_all.deb ...
+Unpacking lto-disabled-list (24) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../25-dpkg-dev_1.21.1ubuntu2.6_all.deb ...
+Unpacking dpkg-dev (1.21.1ubuntu2.6) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../26-build-essential_12.9ubuntu3_amd64.deb ...
+Unpacking build-essential (12.9ubuntu3) ...
+Selecting previously unselected package libassuan0:amd64.
+Preparing to unpack .../27-libassuan0_2.5.5-1build1_amd64.deb ...
+Unpacking libassuan0:amd64 (2.5.5-1build1) ...
+Selecting previously unselected package gpgconf.
+Preparing to unpack .../28-gpgconf_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgconf (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libksba8:amd64.
+Preparing to unpack .../29-libksba8_1.6.0-2ubuntu0.2_amd64.deb ...
+Unpacking libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../30-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../31-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../32-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libnpth0:amd64.
+Preparing to unpack .../33-libnpth0_1.6-3build2_amd64.deb ...
+Unpacking libnpth0:amd64 (1.6-3build2) ...
+Selecting previously unselected package dirmngr.
+Preparing to unpack .../34-dirmngr_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking dirmngr (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libfakeroot:amd64.
+Preparing to unpack .../35-libfakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.28-1ubuntu1) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../36-fakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking fakeroot (1.28-1ubuntu1) ...
+Selecting previously unselected package gnupg-l10n.
+Preparing to unpack .../37-gnupg-l10n_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg-utils.
+Preparing to unpack .../38-gnupg-utils_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gnupg-utils (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg.
+Preparing to unpack .../39-gpg_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package pinentry-curses.
+Preparing to unpack .../40-pinentry-curses_1.1.1-1build2_amd64.deb ...
+Unpacking pinentry-curses (1.1.1-1build2) ...
+Selecting previously unselected package gpg-agent.
+Preparing to unpack .../41-gpg-agent_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-agent (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-client.
+Preparing to unpack .../42-gpg-wks-client_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-server.
+Preparing to unpack .../43-gpg-wks-server_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpgsm.
+Preparing to unpack .../44-gpgsm_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgsm (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg.
+Preparing to unpack .../45-gnupg_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package javascript-common.
+Preparing to unpack .../46-javascript-common_11+nmu1_all.deb ...
+Unpacking javascript-common (11+nmu1) ...
+Selecting previously unselected package libalgorithm-diff-perl.
+Preparing to unpack .../47-libalgorithm-diff-perl_1.201-1_all.deb ...
+Unpacking libalgorithm-diff-perl (1.201-1) ...
+Selecting previously unselected package libalgorithm-diff-xs-perl.
+Preparing to unpack .../48-libalgorithm-diff-xs-perl_0.04-6build3_amd64.deb ...
+Unpacking libalgorithm-diff-xs-perl (0.04-6build3) ...
+Selecting previously unselected package libalgorithm-merge-perl.
+Preparing to unpack .../49-libalgorithm-merge-perl_0.08-3_all.deb ...
+Unpacking libalgorithm-merge-perl (0.08-3) ...
+Selecting previously unselected package libexpat1-dev:amd64.
+Preparing to unpack .../50-libexpat1-dev_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1-dev:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package libfile-fcntllock-perl.
+Preparing to unpack .../51-libfile-fcntllock-perl_0.22-3build7_amd64.deb ...
+Unpacking libfile-fcntllock-perl (0.22-3build7) ...
+Selecting previously unselected package libjs-jquery.
+Preparing to unpack .../52-libjs-jquery_3.6.0+dfsg+~3.5.13-1_all.deb ...
+Unpacking libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Selecting previously unselected package libjs-underscore.
+Preparing to unpack .../53-libjs-underscore_1.13.2~dfsg-2_all.deb ...
+Unpacking libjs-underscore (1.13.2~dfsg-2) ...
+Selecting previously unselected package libjs-sphinxdoc.
+Preparing to unpack .../54-libjs-sphinxdoc_4.3.2-1_all.deb ...
+Unpacking libjs-sphinxdoc (4.3.2-1) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../55-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libpython3.10:amd64.
+Preparing to unpack .../56-libpython3.10_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package zlib1g-dev:amd64.
+Preparing to unpack .../57-zlib1g-dev_1%3a1.2.11.dfsg-2ubuntu9.2_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.2.11.dfsg-2ubuntu9.2) ...
+Selecting previously unselected package libpython3.10-dev:amd64.
+Preparing to unpack .../58-libpython3.10-dev_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-dev:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libpython3-dev:amd64.
+Preparing to unpack .../59-libpython3-dev_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking libpython3-dev:amd64 (3.10.6-1~22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../60-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package python3.10-dev.
+Preparing to unpack .../61-python3.10-dev_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10-dev (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3-lib2to3.
+Preparing to unpack .../62-python3-lib2to3_3.10.8-1~22.04_all.deb ...
+Unpacking python3-lib2to3 (3.10.8-1~22.04) ...
+Selecting previously unselected package python3-distutils.
+Preparing to unpack .../63-python3-distutils_3.10.8-1~22.04_all.deb ...
+Unpacking python3-distutils (3.10.8-1~22.04) ...
+Selecting previously unselected package python3-dev.
+Preparing to unpack .../64-python3-dev_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3-dev (3.10.6-1~22.04.1) ...
+Selecting previously unselected package python3-setuptools.
+Preparing to unpack .../65-python3-setuptools_59.6.0-1.2ubuntu0.22.04.3_all.deb ...
+Unpacking python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+Selecting previously unselected package python3-wheel.
+Preparing to unpack .../66-python3-wheel_0.37.1-2ubuntu0.22.04.1_all.deb ...
+Unpacking python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+Selecting previously unselected package python3-pip.
+Preparing to unpack .../67-python3-pip_22.0.2+dfsg-1ubuntu0.7_all.deb ...
+Unpacking python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+Setting up libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Setting up javascript-common (11+nmu1) ...
+Setting up libpython3.10:amd64 (3.10.12-1~22.04.13) ...
+Setting up lto-disabled-list (24) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libnpth0:amd64 (1.6-3build2) ...
+Setting up libassuan0:amd64 (2.5.5-1build1) ...
+Setting up perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Setting up bzip2 (1.0.8-5build1) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libfakeroot:amd64 (1.28-1ubuntu1) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up fakeroot (1.28-1ubuntu1) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/fakeroot.1.gz because associated file /usr/share/man/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/faked.1.gz because associated file /usr/share/man/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/fakeroot.1.gz because associated file /usr/share/man/es/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/faked.1.gz because associated file /usr/share/man/es/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/fakeroot.1.gz because associated file /usr/share/man/fr/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/faked.1.gz because associated file /usr/share/man/fr/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/fakeroot.1.gz because associated file /usr/share/man/sv/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/faked.1.gz because associated file /usr/share/man/sv/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+Setting up libexpat1-dev:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Setting up xz-utils (5.2.5-2ubuntu1) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up patch (2.7.6-7build2) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up zlib1g-dev:amd64 (1:1.2.11.dfsg-2ubuntu9.2) ...
+Setting up gpgconf (2.2.27-3ubuntu2.5) ...
+Setting up netbase (6.3) ...
+Setting up libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up python3-lib2to3 (3.10.8-1~22.04) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblocale-gettext-perl (1.07-4build3) ...
+Setting up gpg (2.2.27-3ubuntu2.5) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libjs-underscore (1.13.2~dfsg-2) ...
+Setting up gnupg-utils (2.2.27-3ubuntu2.5) ...
+Setting up python3-distutils (3.10.8-1~22.04) ...
+Setting up pinentry-curses (1.1.1-1build2) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gpg-agent (2.2.27-3ubuntu2.5) ...
+Setting up python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up gpgsm (2.2.27-3ubuntu2.5) ...
+Setting up python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up dirmngr (2.2.27-3ubuntu2.5) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up libpython3.10-dev:amd64 (3.10.12-1~22.04.13) ...
+Setting up python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+Setting up libjs-sphinxdoc (4.3.2-1) ...
+Setting up gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Setting up python3.10-dev (3.10.12-1~22.04.13) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up libpython3-dev:amd64 (3.10.6-1~22.04.1) ...
+Setting up gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up python3-dev (3.10.6-1~22.04.1) ...
+Setting up libdpkg-perl (1.21.1ubuntu2.6) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+Setting up gnupg (2.2.27-3ubuntu2.5) ...
+Setting up libfile-fcntllock-perl (0.22-3build7) ...
+Setting up libalgorithm-diff-perl (1.201-1) ...
+Setting up dpkg-dev (1.21.1ubuntu2.6) ...
+Setting up build-essential (12.9ubuntu3) ...
+Setting up libalgorithm-diff-xs-perl (0.04-6build3) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 6]
+$ pip3 install -r requirements.txt
+Exit Code: 0
+Output:
+Collecting cmake>=3.22
+  Downloading cmake-4.2.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (28.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 28.9/28.9 MB 5.6 MB/s eta 0:00:00
+Collecting imageio
+  Downloading imageio-2.37.2-py3-none-any.whl (317 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 317.6/317.6 KB 6.7 MB/s eta 0:00:00
+Collecting ninja
+  Downloading ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (180 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 180.7/180.7 KB 6.9 MB/s eta 0:00:00
+Collecting numpy
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 5.8 MB/s eta 0:00:00
+Collecting pillow
+  Downloading pillow-12.1.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.0/7.0 MB 5.8 MB/s eta 0:00:00
+Collecting pybind11==2.6.2
+  Downloading pybind11-2.6.2-py2.py3-none-any.whl (191 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 191.4/191.4 KB 6.6 MB/s eta 0:00:00
+Collecting scikit-build
+  Downloading scikit_build-0.18.1-py3-none-any.whl (85 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.6/85.6 KB 5.0 MB/s eta 0:00:00
+Collecting scipy
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 1.9 MB/s eta 0:00:00
+Requirement already satisfied: setuptools>=43 in /usr/lib/python3/dist-packages (from -r requirements.txt (line 9)) (59.6.0)
+Requirement already satisfied: wheel in /usr/lib/python3/dist-packages (from -r requirements.txt (line 10)) (0.37.1)
+Collecting build
+  Downloading build-1.4.0-py3-none-any.whl (24 kB)
+Collecting packaging
+  Downloading packaging-26.0-py3-none-any.whl (74 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.4/74.4 KB 1.8 MB/s eta 0:00:00
+Collecting tomli
+  Downloading tomli-2.4.0-py3-none-any.whl (14 kB)
+Collecting distro
+  Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Collecting pyproject_hooks
+  Downloading pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)
+Installing collected packages: tomli, pyproject_hooks, pybind11, pillow, packaging, numpy, ninja, distro, cmake, scipy, scikit-build, imageio, build
+Successfully installed build-1.4.0 cmake-4.2.1 distro-1.9.0 imageio-2.37.2 ninja-1.13.0 numpy-2.2.6 packaging-26.0 pillow-12.1.0 pybind11-2.6.2 pyproject_hooks-1.2.0 scikit-build-0.18.1 scipy-1.15.3 tomli-2.4.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 7]
+$ make
+Exit Code: 0
+Output:
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/test_internal
+ir_equality_test passed
+IRPrinter test passed
+CodeGen_C test passed
+Bounds test passed
+expr_match test passed
+deinterleave_vector test passed
+modulus_remainder test passed
+common_subexpression_elimination test passed
+Target test passed
+Solve test passed
+is_monotonic test passed
+Split predicate test passed
+Associativity test passed
+Generator test passed
+Propagate estimate test passed
+uniquify_variable_names test passed
+SpirV IR test *disabled*
+Success!
+----------------------------------------
+
+[Command 8]
+$ make run_tests
+Exit Code: 0
+Output:
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/test_internal
+IRPrinter test passed
+CodeGen_C test passed
+ir_equality_test passed
+Bounds test passed
+expr_match test passed
+deinterleave_vector test passed
+modulus_remainder test passed
+common_subexpression_elimination test passed
+Solve test passed
+Target test passed
+is_monotonic test passed
+Split predicate test passed
+Associativity test passed
+Generator test passed
+Propagate estimate test passed
+uniquify_variable_names test passed
+SpirV IR test *disabled*
+Success!
+
+......................................................................................................................................................................................................................................................................................................................................................................................cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_ambiguous_inline_reductions 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_async_require_fail 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_atomics_gpu_8_bit 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_atomics_gpu_mutex 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_atomics_self_reference 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_auto_schedule_no_parallel 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_auto_schedule_no_reorder 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_autodiff_unbounded 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_bound 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_bound_storage 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_compute_at 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_compute_with 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_compute_with_invalid_specialization 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_compute_with_parent_func_not_used 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_const_cast 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_device_api 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_dimensions 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_extern_split 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_fold 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_host_alignment 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_prefetch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_reorder 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_reorder_storage 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_rvar_order 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_schedule 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_bad_store_at 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_broken_promise 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_buffer_larger_than_two_gigs 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_callable_bad_arguments 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_callable_bad_values_passed 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_callable_typed_bad_arguments 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_callable_typed_bad_arguments_buffer_dims 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_callable_typed_bad_arguments_buffer_type 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_clamp_out_of_range 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_compute_with_crossing_edges1 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_compute_with_crossing_edges2 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_compute_with_fuse_in_specialization 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_constrain_wrong_output_buffer 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_constraint_uses_non_param 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_define_after_realize 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_define_after_use 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_device_dirty_with_no_device_support 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_device_target_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_dupe_param_name 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_expanding_reduction 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_extern_func_self_argument 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_five_d_gpu_buffer 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_float_arg 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_forward_on_undefined_buffer 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_expr_dim_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_expr_type_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_expr_update_type_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_extern_dim_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_extern_type_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_tuple_dim_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_tuple_types_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_func_tuple_update_types_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_implicit_args 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_impossible_constraints 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_incomplete_target 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_init_def_should_be_all_vars 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_inspect_loop_level 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_lerp_float_weight_out_of_range 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_lerp_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_lerp_signed_weight 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_memoize_different_compute_store 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_memoize_redefine_eviction_key 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_metal_threads_too_large 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_metal_vector_too_large 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_missing_args 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_no_default_device 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_nonexistent_update_stage 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_null_host_field 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_overflow_during_constant_folding 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_pointer_arithmetic 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_race_condition 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_rdom_undefined 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_rdom_where_races 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_realization_with_too_many_outputs 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_realize_constantly_larger_than_two_gigs 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_reduction_bounds 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_reduction_type_mismatch 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_require_fail 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_reuse_var_in_schedule 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_reused_args 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_rfactor_inner_dim_non_commutative 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_run_with_large_stack_throws 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_specialize_fail 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_split_inner_wrong_tail_strategy 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_split_non_innermost_predicated 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_thread_id_outside_block_id 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_too_many_args 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_tuple_arg_select_undef 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_tuple_output_bounds_check 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_tuple_val_select_undef 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_unbounded_input 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_unbounded_output 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_undefined_func_compile 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_undefined_func_realize 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/error_undefined_loop_level 2>&1 | egrep --q "terminating with uncaught exception|^terminate called|^Error|Assertion.*failed"
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f786
+
+[... truncated ...]
+
+...............................................................................................
+....................................................................................................
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_metadata_tester
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_nested_externs
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_opencl_runtime
+[SKIP] Test requires OpenCL.
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_output_assign
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_pyramid
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_rdom_input
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_shuffler
+Best time: 0.000001
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_string_param
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_templated
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_tiled_blur
+Testing planar buffer...
+Evaluating output over 80 x 80 in tiles of size 32 x 32
+Using 33 x 33 input tile over [0 - 32] x [0 - 32]
+Using 34 x 33 input tile over [31 - 64] x [0 - 32]
+Using 33 x 33 input tile over [47 - 79] x [0 - 32]
+Using 33 x 34 input tile over [0 - 32] x [31 - 64]
+Using 34 x 34 input tile over [31 - 64] x [31 - 64]
+Using 33 x 34 input tile over [47 - 79] x [31 - 64]
+Using 33 x 33 input tile over [0 - 32] x [47 - 79]
+Using 34 x 33 input tile over [31 - 64] x [47 - 79]
+Using 33 x 33 input tile over [47 - 79] x [47 - 79]
+Testing interleaved buffer...
+Evaluating output over 80 x 80 in tiles of size 32 x 32
+Using 33 x 33 input tile over [0 - 32] x [0 - 32]
+Using 34 x 33 input tile over [31 - 64] x [0 - 32]
+Using 33 x 33 input tile over [47 - 79] x [0 - 32]
+Using 33 x 34 input tile over [0 - 32] x [31 - 64]
+Using 34 x 34 input tile over [31 - 64] x [31 - 64]
+Using 33 x 34 input tile over [47 - 79] x [31 - 64]
+Using 33 x 33 input tile over [0 - 32] x [47 - 79]
+Using 34 x 33 input tile over [31 - 64] x [47 - 79]
+Using 33 x 33 input tile over [47 - 79] x [47 - 79]
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_user_context
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_user_context_insanity
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/host/generator_aotcpp_variable_num_threads
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/generator_jit_configure
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/generator_jit_example
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/generator_jit_stubtest
+Warning: In function simple_output_1, (b)float16 type operation is emulated, which is likely to slow down the performance. If your target supports native (b)float16 operations, it could be improved by adding Target feature to enable it.
+Warning: In function simple_output_2, (b)float16 type operation is emulated, which is likely to slow down the performance. If your target supports native (b)float16 operations, it could be improved by adding Target feature to enable it.
+Success!
+
+bin/host/build/rungen_test
+Success!
+bin/host/build/registration_test
+Success!
+make -f /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/Makefile test_performance test_autoschedulers
+make[1]: Entering directory '/workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836'
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: /clang: No such file or directory
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+bash: line 1: llvm-config: command not found
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_async_gpu
+[SKIP] No GPU target enabled.
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_block_transpose
+Dummy Func version: Scalar transpose bandwidth 1.88219e+09 byte/s.
+Wrapper version: Scalar transpose bandwidth 1.99022e+09 byte/s.
+Dummy Func version: Transpose vectorized in y bandwidth 2.04534e+09 byte/s.
+Wrapper version: Transpose vectorized in y bandwidth 1.95551e+09 byte/s.
+Dummy Func version: Transpose vectorized in x bandwidth 1.96363e+09 byte/s.
+Wrapper version: Transpose vectorized in x bandwidth 2.03106e+09 byte/s.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_boundary_conditions
+unbounded           : 4395.025625 us
+constant_exterior   : 4379.627375 us
+repeat_edge         : 4234.753750 us
+repeat_image        : 4790.754429 us
+mirror_image        : 4770.202429 us
+mirror_interior     : 5114.217286 us
+unbounded           : 131685.890000 us
+constant_exterior   : 152025.966000 us
+repeat_edge         : 147163.571000 us
+repeat_image        : 148261.953000 us
+mirror_image        : 178238.275000 us
+mirror_interior     : 168611.872000 us
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_clamped_vector_load
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_const_division
+const_division test seed: 1769134717
+division rounding to negative infinity:
+type            const-divisor speed-up  runtime-divisor speed-up
+ Int(32,  1)     2.038                   0.804
+ Int(16,  1)     2.744                   1.629
+ Int( 8,  1)     0.833                   0.827
+UInt(32,  1)     1.841                   1.221
+UInt(16,  1)     2.556                   1.487
+UInt( 8,  1)     2.204                   1.165
+ Int(32,  8)     5.984                   4.412
+ Int(16, 16)    32.571                  12.305
+ Int( 8, 32)    20.652                   9.768
+UInt(32,  8)     7.884                   6.702
+UInt(16, 16)    26.010                  13.803
+UInt( 8, 32)    30.878                  18.043
+signed division rounding to zero:
+type            const-divisor speed-up  runtime-divisor speed-up
+ Int(32,  1)     1.785                   0.715
+ Int(16,  1)     2.196                   1.302
+ Int( 8,  1)     1.488                   0.446
+ Int(32,  8)     5.112                   3.455
+ Int(16, 16)    56.593                  21.130
+ Int( 8, 32)    16.291                   8.323
+modulus:
+type            const-divisor speed-up  runtime-divisor speed-up
+ Int(32,  1)     1.777                   0.722
+ Int(16,  1)     2.331                   1.440
+ Int( 8,  1)     1.479                   0.438
+UInt(32,  1)     1.582                   1.143
+UInt(16,  1)     2.065                   1.408
+UInt( 8,  1)     1.804                   1.116
+ Int(32,  8)     5.109                   3.462
+ Int(16, 16)    55.269                  20.876
+ Int( 8, 32)    16.140                   8.234
+UInt(32,  8)     6.216                   5.606
+UInt(16, 16)    21.803                  11.782
+UInt( 8, 32)    24.170                  12.852
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_fan_in
+Without async 0.025796
+With async 0.005841
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_fast_inverse
+True inverse: 0.788127 ns
+Fast inverse: 0.395549 ns
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_fast_pow
+host is:          x86-64-linux-avx-avx2-f16c-fma-sse41
+HL_TARGET is:     x86-64-linux-avx-avx2-f16c-fma-sse41
+HL_JIT_TARGET is: x86-64-linux-avx-avx2-f16c-fma-jit-sse41
+powf: 8.151623 ns per pixel
+Halide's pow: 1.552161 ns per pixel (rms error = 0.0000001406)
+Halide's fast_pow: 0.713063 ns per pixel (rms error = 0.0000019086)
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_fast_sine_cosine
+sin: 3.067607 ns per pixel
+fast_sine: 1.094659 ns per pixel
+cosine: 3.128708 ns per pixel
+fast_cosine: 1.124400 ns per pixel
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_gpu_half_throughput
+[SKIP] No GPU target enabled supporting half-precision.
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_inner_loop_parallel
+2: 134.948332 ms
+4: 137.067469 ms
+8: 135.775398 ms
+16: 108.049982 ms
+32: 141.335815 ms
+64: 125.775173 ms
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_jit_stress
+33.5918 ms per jit compilation
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_lots_of_inputs
+Total compile time with 1 inputs = 0.321245 s 
+Total compile time with 2 inputs = 0.050239 s 
+Total compile time with 4 inputs = 0.075722 s 
+Total compile time with 8 inputs = 0.130663 s 
+Total compile time with 16 inputs = 0.267188 s 
+Total compile time with 32 inputs = 0.599059 s 
+Total compile time with 64 inputs = 1.644470 s 
+Total compile time with 128 inputs = 5.187169 s 
+Lowering time with 1 inputs = 0.003308 s 
+Lowering time with 2 inputs = 0.004826 s 
+Lowering time with 4 inputs = 0.009058 s 
+Lowering time with 8 inputs = 0.021206 s 
+Lowering time with 16 inputs = 0.057751 s 
+Lowering time with 32 inputs = 0.179291 s 
+Lowering time with 64 inputs = 0.617239 s 
+Lowering time with 128 inputs = 2.488600 s 
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_lots_of_small_allocations
+Time using heap: 0.015374
+Time using pseudostack: 0.009251
+Time using stack: 0.009016
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_matrix_multiplication
+Halide results - OK
+Halide: 2.302846ms, 847.813156 GFLOP/s
+
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_memcpy
+system memcpy: 3.337e+10 byte/s
+halide memcpy: 4.310e+10 byte/s
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_memory_profiler
+Running simple stack allocation test...
+Running simple heap allocation test 1...
+Running heap allocate condition is always false test...
+Running stack allocate condition is always false test...
+Running allocate with non-trivial condition test...
+Running allocate within loop test...
+Running parallel allocate test...
+Running simple heap allocation test 2...
+Running parallel stack allocation test...
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_nested_vectorization_gemm
+8-bit gemm
+Time with nested vectorization: 1.79 ms 
+Time without: 3.53 ms 
+Speed-up: 1.97x
+8-bit blur
+Time with nested vectorization: 5.45 ms 
+Time without: 10.53 ms 
+Speed-up: 1.93x
+16-bit blur with reduction dimension outermost vector dim
+Time with nested vectorization: 3.54 ms 
+Time without: 7.01 ms 
+Speed-up: 1.98x
+Success!
+8-bit sparse blur
+Time with nested vectorization: 10.49 ms 
+Time without: 10.46 ms 
+Speed-up: 1.00x
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_packed_planar_fusion
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_parallel_performance
+Realizing g
+Done realizing g
+Times: 0.191734 0.013537
+Speedup: 14.163402
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_profiler
+Testing thread based profiler.
+Time spent in fn13: 1164.357056ms
+Testing timer based profiler.
+Time spent in fn13: 1128.562988ms
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_realize_overhead
+No argument native call time 0.000828507us.
+No argument Func realize time 0.401714us.
+No argument Pipeline realize time 0.365245us.
+No argument Pipeline realize reusing Realization/Target/ParamMap time 0.11005us.
+No argument Pipeline realize reusing Buffer/Target/ParamMap time 0.101079us.
+No argument Pipeline realize reusing Buffer only time 0.101091us.
+No argument Pipeline realize reusing Realization/Target/ParamMap with no_asserts and no_bounds_query time 0.0965277us.
+One argument Func realize to Buffer time 0.125417us.
+One argument Pipeline realize reusing Realization/Target/ParamMap time 0.123236us.
+10-argument Func realize to Buffer time 0.273931us.
+20-argument Func realize to Buffer time 0.423387us.
+30-argument Func realize to Buffer time 0.582582us.
+40-argument Func realize to Buffer time 0.734825us.
+50-argument Func realize to Buffer time 0.892632us.
+60-argument Func realize to Buffer time 1.03737us.
+70-argument Func realize to Buffer time 1.20274us.
+80-argument Func realize to Buffer time 1.36301us.
+90-argument Func realize to Buffer time 1.51553us.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_rfactor
+Max ref: 14.315641ms, 37.502400 Gbps
+Max with rfactor: 2.052032ms, 261.628907 Gbps
+Improvement: 6.976324
+
+Histogram ref: 4.628605ms, 28.997447 Gbps
+Histogram with rfactor: 0.733584ms, 182.961746 Gbps
+Improvement: 6.309581
+
+Argmin ref: 17.330598ms, 7.744552 Gbps
+Argmin with rfactor: 0.706934ms, 189.858946 Gbps
+Improvement: 24.515161
+
+Complex-multiply ref: 22.975182ms, 46.734854 Gbps
+Complex-multiply with rfactor: 5.105207ms, 210.322853 Gbps
+Improvement: 4.500343
+
+Dot-product ref: 14.275256ms, 75.216990 Gbps
+Dot-product with rfactor: 5.129816ms, 209.313900 Gbps
+Improvement: 2.782801
+
+Kitchen sink ref: 11.961567ms, 22.441496 Gbps
+Kitchen sink with rfactor: 1.752891ms, 153.138659 Gbps
+Improvement: 6.823906
+
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_rgb_interleaved
+Interleaved to planar bandwidth 8.401e+09 byte/s.
+Interleaved to semi-planar bandwidth 8.089e+09 byte/s.
+Planar to interleaved bandwidth 5.713e+09 byte/s.
+Planar to interleaved bandwidth 8.691e+09 byte/s.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_sort
+Bitonic sort...
+Running...
+Merge sort...
+Running...
+std::sort...
+Times:
+bitonic sort: 0.053476ms 
+merge sort: 0.033407ms 
+std::sort 0.002990ms
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_stack_vs_heap
+Constant-sized stack allocation: 0.325326
+Use alloca: 0.371505
+Use malloc: 1.236995
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_thread_safe_jit
+Separate compilations time: 0.450501s.
+One compilation time: 0.029982s.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_tiled_matmul
+[SKIP] The tiled matmul test is only designed to test AMX support.
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_vectorize
+Vectorized vs scalar (float x 8): 0.0108ms 0.0835ms. Speedup = 7.716
+Vectorized vs scalar (double x 4): 0.0106ms 0.0421ms. Speedup = 3.976
+Vectorized vs scalar (uint8_t x 32): 0.00865ms 0.233ms. Speedup = 26.938
+Vectorized vs scalar (int8_t x 32): 0.00876ms 0.236ms. Speedup = 26.981
+Vectorized vs scalar (uint16_t x 16): 0.00873ms 0.116ms. Speedup = 13.308
+Vectorized vs scalar (int16_t x 16): 0.00861ms 0.116ms. Speedup = 13.487
+Vectorized vs scalar (uint32_t x 8): 0.00863ms 0.0579ms. Speedup = 6.715
+Vectorized vs scalar (int32_t x 8): 0.00883ms 0.0583ms. Speedup = 6.596
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/performance_wrap
+[SKIP] No GPU target enabled.
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_cost_function /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_data_dependent /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_extern /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for f0$0
+Warning: Insufficient parallelism for f1$1
+Warning: Insufficient parallelism for sum
+Warning: Insufficient parallelism for sum.update(0)
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_fibonacci /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for fib$1.update(0)
+Warning: Update definition 0 of function fib$1 has not been scheduled, even though some other definitions have been. You may have forgotten to schedule it. If this was intentional, call fib$1.update(0).unscheduled() to suppress this warning.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_histogram /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for cdf$1.update(0)
+Warning: Outer dim vectorization of var "y" in function "hist_rows$1.update(0)"
+Warning: Update definition 0 of function cdf$1 has not been scheduled, even though some other definitions have been. You may have forgotten to schedule it. If this was intentional, call cdf$1.update(0).unscheduled() to suppress this warning.
+Warning: Update definition 0 of function cdf$1 has not been scheduled, even though some other definitions have been. You may have forgotten to schedule it. If this was intentional, call cdf$1.update(0).unscheduled() to suppress this warning.
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_large_window /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Outer dim vectorization of var "x" in function "sum2.update(0)"
+Warning: Outer dim vectorization of var "x" in function "sum1.update(0)"
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_mat_mul /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_max_filter /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for f34
+Warning: Insufficient parallelism for sum$1
+Warning: Outer dim vectorization of var "v17" in function "sum$1.update(0)"
+Warning: Insufficient parallelism for sum$1.update(0)
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_multi_output /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_overlap /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Outer dim vectorization of var "y" in function "down_9"
+Warning: Outer dim vectorization of var "y" in function "up_1"
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_param /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Test 1:
+Warning: Outer dim vectorization of var "y" in function "f"
+Test 2:
+Test 3:
+Test 4:
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_reorder /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Outer dim vectorization of var "x" in function "r$1.update(0)"
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_small_pure_update /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for f1
+Warning: Insufficient parallelism for f1.update(0)
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_tile_vs_inline /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_unused_func /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/mullapudi2016_vectorize_var_in_update /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_mullapudi2016.so
+Warning: Insufficient parallelism for f.update(0)
+Warning: Outer dim vectorization of var "x" in function "f.update(1)"
+Warning: Outer dim vectorization of var "x" in function "g.update(0)"
+Warning: Outer dim vectorization of var "x" in function "h.update(0)"
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/li2018_test /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_li2018.so
+Success!
+
+cd bin/build/tmp ; /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/adams2019_test /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/bin/libautoschedule_adams2019.so /workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836/src/autoschedulers/adams2019/baseline.weights
+adams2019 testing passed
+
+make[1]: Leaving directory '/workspace/halide__Halide@e7f78600e10956b44e8f214c686f310211b0d836'
+----------------------------------------
+
