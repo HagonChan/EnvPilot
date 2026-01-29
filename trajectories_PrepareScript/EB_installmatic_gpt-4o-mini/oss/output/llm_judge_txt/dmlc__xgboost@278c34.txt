@@ -1,0 +1,6 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install the package `nvidia-nccl-cu12` but failed with the error "Unable to locate package nvidia-nccl-cu12". This indicates a missing system dependency required for the environment configuration.
+2. The script was set to exit on error (`set -e`), so the process would have aborted at this point without proceeding to the test execution phase.
+3. There is no evidence in the output that the test command (`pytest`) was ever executed, which is a critical requirement for a successful environment configuration.
+4. The failure occurred during the environment setup phase (system package installation), before any test execution could begin, making this an environment configuration failure rather than a test logic failure.

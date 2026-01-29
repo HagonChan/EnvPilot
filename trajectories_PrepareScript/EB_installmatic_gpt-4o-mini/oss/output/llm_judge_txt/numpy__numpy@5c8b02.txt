@@ -1,0 +1,7 @@
+FAILED
+Detailed reasoning:
+1. The agent attempted to run the bootstrap script which included installing Python and system dependencies, but encountered an error during the system dependency installation phase.
+2. The critical error is: "Package cython is not available, but is referred to by another package. This may mean that the package is missing, has been obsoleted, or is only available from another source. E: Package 'cython' has no installation candidate"
+3. This is an Environment/Runtime Error (as defined in the Key Definitions) because a required dependency (cython) could not be installed, which would prevent the subsequent steps (pip install and pytest) from running successfully.
+4. The test execution phase was never reached because the environment setup failed at the dependency installation step.
+5. According to the Failure Scenarios, this qualifies as a FAILED configuration because there was an Environment/Runtime Error that prevented the test execution from even starting.

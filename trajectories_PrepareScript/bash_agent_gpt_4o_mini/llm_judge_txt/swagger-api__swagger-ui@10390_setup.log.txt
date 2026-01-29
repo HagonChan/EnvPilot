@@ -1,0 +1,9 @@
+FAILED
+Detailed reasoning:
+1. The agent attempted to run multiple npm commands (install, cache clean, etc.) but all failed with the same error: "Cannot find module 'semver'". This indicates a critical environment configuration issue where a required dependency is missing.
+2. The error is a runtime/environment error (MODULE_NOT_FOUND), not a test assertion failure, which makes it unacceptable according to the success criteria.
+3. There is no evidence that any test command was successfully executed - all attempts to configure or use npm failed before reaching the test phase.
+4. The process consistently crashed (exit code 1) without producing any test output or summary, which violates the requirement for a complete test lifecycle.
+5. The fundamental npm toolchain itself is not properly configured, preventing any test execution from occurring.
+
+The environment configuration failed because the system could not even set up the basic npm tooling required to proceed with test execution, let alone run any tests. The repeated MODULE_NOT_FOUND errors demonstrate the environment was not properly configured.

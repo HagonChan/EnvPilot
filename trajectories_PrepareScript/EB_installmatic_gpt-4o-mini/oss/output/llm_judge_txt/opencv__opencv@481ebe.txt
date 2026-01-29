@@ -1,0 +1,11 @@
+FAILED
+Detailed reasoning:
+1. The bootstrap script attempted to install system-level dependencies but failed with "E: Unable to locate package libjasper-dev". This indicates a missing system dependency that could affect the environment configuration.
+
+2. The pip install command failed with "ERROR: file:///data/project does not appear to be a Python project: neither 'setup.py' nor 'pyproject.toml' found." This means the project dependencies were not installed, which would prevent the tests from running properly.
+
+3. The test command (python -m pytest) was never actually executed in the output shown, as the process failed during the dependency installation phase.
+
+4. There is no test report or summary shown in the output, indicating the test lifecycle was never completed.
+
+5. The environment configuration failed to reach the test execution phase due to the dependency installation errors, which violates the Success Criteria requirements for both compilation/build phase and test execution phase.
