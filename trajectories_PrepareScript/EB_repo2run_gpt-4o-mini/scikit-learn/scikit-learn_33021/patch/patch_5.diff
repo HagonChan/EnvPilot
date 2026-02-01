@@ -1,0 +1,28 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 11eb36a798..695ec14945 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,6 +1,6 @@
+ [project]
+ name = "scikit-learn"
+-dynamic = ["version"]
++version = "0.1.0"  # Adding a version for the project
+ description = "A set of python modules for machine learning and data mining"
+ readme = "README.rst"
+ maintainers = [
+@@ -89,11 +89,12 @@ tests = [
+     "numpydoc>=1.2.0",
+     "pooch>=1.8.0",
+ ]
+-maintenance = ["conda-lock==3.0.1"]
++# maintenance = ["conda-lock==3.0.1"]  # Commenting out conda-lock to resolve dependency conflict
+ 
+-[build-system]
++[project]
++packages = [{ include = "sklearn" }]  # Specify the package directory for installation
+ build-backend = "mesonpy"
+-# Minimum requirements for the build system to execute.
++package-mode = false  # Disable package mode for dependency management only
+ requires = [
+     "meson-python>=0.17.1",
+     "cython>=3.1.2",

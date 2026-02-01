@@ -1,0 +1,35 @@
+diff --git a/numpy/__init__.py b/numpy/__init__.py
+index 3f2652a306..700599d185 100644
+--- a/numpy/__init__.py
++++ b/numpy/__init__.py
+@@ -87,6 +87,8 @@
+ import warnings
+ 
+ # If a version with git hash was stored, use that instead
++# Reverting to original import
++# Reverting to original import
+ from . import version
+ from ._expired_attrs_2_0 import __expired_attributes__
+ from ._globals import _CopyMode, _NoValue
+diff --git a/numpy/conftest.py b/numpy/conftest.py
+index c3c96ef3bc..60a460ad87 100644
+--- a/numpy/conftest.py
++++ b/numpy/conftest.py
+@@ -11,7 +11,16 @@
+ import hypothesis
+ import pytest
+ 
+-import numpy
++import warnings
++from contextlib import contextmanager
++from pathlib import Path
++import hypothesis
++import pytest
++# Delay the import of numpy
++def import_numpy():
++    global numpy
++    # Reverting to original import
++    import numpy
+ from numpy._core._multiarray_tests import get_fpu_mode
+ from numpy.testing._private.utils import NOGIL_BUILD
+ 

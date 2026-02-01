@@ -1,0 +1,21 @@
+diff --git a/numpy/conftest.py b/numpy/conftest.py
+index c3c96ef3bc..5d84cd22e7 100644
+--- a/numpy/conftest.py
++++ b/numpy/conftest.py
+@@ -11,7 +11,15 @@
+ import hypothesis
+ import pytest
+ 
+-import numpy
++import warnings
++from contextlib import contextmanager
++from pathlib import Path
++import hypothesis
++import pytest
++# Delay the import of numpy
++def import_numpy():
++    global numpy
++    import numpy
+ from numpy._core._multiarray_tests import get_fpu_mode
+ from numpy.testing._private.utils import NOGIL_BUILD
+ 

@@ -1,0 +1,30 @@
+diff --git a/astropy/wcs/setup_package.py b/astropy/wcs/setup_package.py
+index 13ec14d41d..79ca6ebe41 100644
+--- a/astropy/wcs/setup_package.py
++++ b/astropy/wcs/setup_package.py
+@@ -9,7 +9,24 @@ import sys
+ from collections import defaultdict
+ 
+ from setuptools import Extension
+-from setuptools.dep_util import newer_group
++def newer_group(sources, target, missing='error'):
++    """Return true if 'target' is out-of-date with respect to any file
++    listed in 'sources'."""
++    from distutils.dep_util import newer
++    if not os.path.exists(target):
++        return True
++    target_mtime = os.stat(target).st_mtime
++    for source in sources:
++        if not os.path.exists(source):
++            if missing == 'error':
++                raise RuntimeError("file '%s' not found" % source)
++            elif missing == 'ignore':
++                continue
++            else:
++                return True
++        if newer(source, target_mtime):
++            return True
++    return False
+ 
+ import numpy
+ 

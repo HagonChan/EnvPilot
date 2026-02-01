@@ -1,0 +1,46 @@
+diff --git a/lib/matplotlib/__init__.py b/lib/matplotlib/__init__.py
+index b1999318aa..e4d1dd0018 100644
+--- a/lib/matplotlib/__init__.py
++++ b/lib/matplotlib/__init__.py
+@@ -654,6 +654,7 @@ def matplotlib_fname():
+ 
+     The file location is determined in the following order
+ 
++    - Source tree location: ``lib/matplotlib/mpl-data/matplotlibrc.template``
+     - ``$PWD/matplotlibrc``
+     - ``$MATPLOTLIBRC`` if it is not a directory
+     - ``$MATPLOTLIBRC/matplotlibrc``
+@@ -670,6 +671,11 @@ def matplotlib_fname():
+     """
+ 
+     def gen_candidates():
++        # First check source tree location
++        src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "mpl-data", "matplotlibrc.template")
++        if os.path.exists(src_path):
++            yield src_path
++            
+         yield os.path.join(os.getcwd(), 'matplotlibrc')
+         try:
+             matplotlibrc = os.environ['MATPLOTLIBRC']
+diff --git a/src/ft2font.cpp b/src/ft2font.cpp
+index b5306de0b5..48e910d937 100644
+--- a/src/ft2font.cpp
++++ b/src/ft2font.cpp
+@@ -220,7 +220,7 @@ int FT2Font::get_path_count()
+         v_control = v_start;
+ 
+         point = outline.points + first;
+-        tags = outline.tags + first;
++        tags = (char *)(outline.tags + first);
+         tag = FT_CURVE_TAG(tags[0]);
+ 
+         // A contour cannot start with a cubic control point!
+@@ -336,7 +336,7 @@ void FT2Font::get_path(double *outpoints, unsigned char *outcodes)
+         v_control = v_start;
+ 
+         point = outline.points + first;
+-        tags = outline.tags + first;
++        tags = (char *)(outline.tags + first);
+         tag = FT_CURVE_TAG(tags[0]);
+ 
+         double x, y;

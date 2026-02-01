@@ -1,0 +1,43 @@
+diff --git a/astropy/wcs/setup_package.py b/astropy/wcs/setup_package.py
+index 13ec14d41d..f3fb2c71a3 100644
+--- a/astropy/wcs/setup_package.py
++++ b/astropy/wcs/setup_package.py
+@@ -9,7 +9,24 @@ import sys
+ from collections import defaultdict
+ 
+ from setuptools import Extension
+-from setuptools.dep_util import newer_group
++def newer_group(sources, target, missing='error'):
++    """Return true if 'target' is out-of-date with respect to any file
++    listed in 'sources'."""
++    from distutils.dep_util import newer
++    if not os.path.exists(target):
++        return True
++    target_mtime = os.stat(target).st_mtime
++    for source in sources:
++        if not os.path.exists(source):
++            if missing == 'error':
++                raise RuntimeError("file '%s' not found" % source)
++            elif missing == 'ignore':
++                continue
++            else:
++                return True
++        if newer(source, target):
++            return True
++    return False
+ 
+ import numpy
+ 
+diff --git a/astropy/wcs/src/wcslib_celprm_wrap.c b/astropy/wcs/src/wcslib_celprm_wrap.c
+index 3694ac4efe..5eaa10005c 100644
+--- a/astropy/wcs/src/wcslib_celprm_wrap.c
++++ b/astropy/wcs/src/wcslib_celprm_wrap.c
+@@ -345,7 +345,7 @@ static int PyCelprm_set_ref(PyCelprm* self, PyObject* value, void* closure)
+         }
+     }
+ 
+-    data = (double*) PyArray_DATA(value_array);
++    data = (double*) PyArray_DATA((PyArrayObject *)value_array);
+ 
+     for (i = 0; i < size; i++) {
+         if (skip[i]) continue;

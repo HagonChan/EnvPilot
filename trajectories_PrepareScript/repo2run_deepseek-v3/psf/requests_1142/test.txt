@@ -1,0 +1,151 @@
+test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET
+test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET
+test_requests.py::RequestsTestCase::test_DIGEST_HTTP_200_OK_GET
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT
+test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET
+test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES
+test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA
+test_requests.py::RequestsTestCase::test_basic_building
+test_requests.py::RequestsTestCase::test_custom_content_type
+test_requests.py::RequestsTestCase::test_decompress_gzip
+test_requests.py::RequestsTestCase::test_different_encodings_dont_break_post
+test_requests.py::RequestsTestCase::test_entry_points
+test_requests.py::RequestsTestCase::test_invalid_url
+test_requests.py::RequestsTestCase::test_links
+test_requests.py::RequestsTestCase::test_params_are_added_before_fragment
+test_requests.py::RequestsTestCase::test_path_is_not_double_encoded
+test_requests.py::RequestsTestCase::test_prepared_request_hook
+test_requests.py::RequestsTestCase::test_request_ok_set
+test_requests.py::RequestsTestCase::test_status_raising
+test_requests.py::RequestsTestCase::test_unicode_get
+test_requests.py::RequestsTestCase::test_urlencoded_get_query_multivalued_param
+test_requests.py::RequestsTestCase::test_user_agent_transfers
+
+26 tests collected in 0.05s
+
+==================================================
+
+============================= test session starts ==============================
+platform linux -- Python 3.10.19, pytest-9.0.2, pluggy-1.6.0 -- /usr/local/bin/python3.10
+cachedir: .pytest_cache
+rootdir: /repo
+collecting ... collected 26 items
+
+test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET PASSED [  3%]
+test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET FAILED [  7%]
+test_requests.py::RequestsTestCase::test_DIGEST_HTTP_200_OK_GET FAILED   [ 11%]
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE PASSED [ 15%]
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS PASSED [ 19%]
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS PASSED [ 23%]
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD PASSED         [ 26%]
+test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT PASSED          [ 30%]
+test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET PASSED [ 34%]
+test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES PASSED   [ 38%]
+test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA PASSED [ 42%]
+test_requests.py::RequestsTestCase::test_basic_building PASSED           [ 46%]
+test_requests.py::RequestsTestCase::test_custom_content_type PASSED      [ 50%]
+test_requests.py::RequestsTestCase::test_decompress_gzip PASSED          [ 53%]
+test_requests.py::RequestsTestCase::test_different_encodings_dont_break_post PASSED [ 57%]
+test_requests.py::RequestsTestCase::test_entry_points PASSED             [ 61%]
+test_requests.py::RequestsTestCase::test_invalid_url PASSED              [ 65%]
+test_requests.py::RequestsTestCase::test_links FAILED                    [ 69%]
+test_requests.py::RequestsTestCase::test_params_are_added_before_fragment PASSED [ 73%]
+test_requests.py::RequestsTestCase::test_path_is_not_double_encoded PASSED [ 76%]
+test_requests.py::RequestsTestCase::test_prepared_request_hook PASSED    [ 80%]
+test_requests.py::RequestsTestCase::test_request_ok_set PASSED           [ 84%]
+test_requests.py::RequestsTestCase::test_status_raising PASSED           [ 88%]
+test_requests.py::RequestsTestCase::test_unicode_get PASSED              [ 92%]
+test_requests.py::RequestsTestCase::test_urlencoded_get_query_multivalued_param PASSED [ 96%]
+test_requests.py::RequestsTestCase::test_user_agent_transfers PASSED     [100%]
+
+=================================== FAILURES ===================================
+_____________ RequestsTestCase.test_DIGESTAUTH_WRONG_HTTP_401_GET ______________
+test_requests.py:168: in test_DIGESTAUTH_WRONG_HTTP_401_GET
+    r = requests.get(url, auth=auth)
+requests/api.py:55: in get
+    return request('get', url, **kwargs)
+requests/api.py:44: in request
+    return session.request(method=method, url=url, **kwargs)
+requests/sessions.py:280: in request
+    resp = self.send(prep, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)
+requests/sessions.py:373: in send
+    r = adapter.send(request, **kwargs)
+requests/adapters.py:216: in send
+    r = self.build_response(request, resp)
+requests/adapters.py:105: in build_response
+    extract_cookies_to_jar(response.cookies, req, resp)
+requests/cookies.py:105: in extract_cookies_to_jar
+    jar.extract_cookies(res, req)
+/usr/local/lib/python3.10/http/cookiejar.py:1691: in extract_cookies
+    if self._policy.set_ok(cookie, request):
+/usr/local/lib/python3.10/http/cookiejar.py:964: in set_ok
+    if not fn(cookie, request):
+/usr/local/lib/python3.10/http/cookiejar.py:985: in set_ok_verifiability
+    if request.unverifiable and is_third_party(request):
+/usr/local/lib/python3.10/http/cookiejar.py:738: in is_third_party
+    if not domain_match(req_host, reach(request.origin_req_host)):
+E   AttributeError: 'MockRequest' object has no attribute 'origin_req_host'. Did you mean: 'get_origin_req_host'?
+_________________ RequestsTestCase.test_DIGEST_HTTP_200_OK_GET _________________
+test_requests.py:152: in test_DIGEST_HTTP_200_OK_GET
+    r = requests.get(url, auth=auth)
+requests/api.py:55: in get
+    return request('get', url, **kwargs)
+requests/api.py:44: in request
+    return session.request(method=method, url=url, **kwargs)
+requests/sessions.py:280: in request
+    resp = self.send(prep, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)
+requests/sessions.py:373: in send
+    r = adapter.send(request, **kwargs)
+requests/adapters.py:216: in send
+    r = self.build_response(request, resp)
+requests/adapters.py:105: in build_response
+    extract_cookies_to_jar(response.cookies, req, resp)
+requests/cookies.py:105: in extract_cookies_to_jar
+    jar.extract_cookies(res, req)
+/usr/local/lib/python3.10/http/cookiejar.py:1691: in extract_cookies
+    if self._policy.set_ok(cookie, request):
+/usr/local/lib/python3.10/http/cookiejar.py:964: in set_ok
+    if not fn(cookie, request):
+/usr/local/lib/python3.10/http/cookiejar.py:985: in set_ok_verifiability
+    if request.unverifiable and is_third_party(request):
+/usr/local/lib/python3.10/http/cookiejar.py:738: in is_third_party
+    if not domain_match(req_host, reach(request.origin_req_host)):
+E   AttributeError: 'MockRequest' object has no attribute 'origin_req_host'. Did you mean: 'get_origin_req_host'?
+_________________________ RequestsTestCase.test_links __________________________
+test_requests.py:279: in test_links
+    r = requests.head(url=url)
+requests/api.py:76: in head
+    return request('head', url, **kwargs)
+requests/api.py:44: in request
+    return session.request(method=method, url=url, **kwargs)
+requests/sessions.py:280: in request
+    resp = self.send(prep, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)
+requests/sessions.py:373: in send
+    r = adapter.send(request, **kwargs)
+requests/adapters.py:161: in send
+    resp = conn.urlopen(
+requests/packages/urllib3/connectionpool.py:414: in urlopen
+    conn = self._get_conn(timeout=pool_timeout)
+requests/packages/urllib3/connectionpool.py:229: in _get_conn
+    return conn or self._new_conn()
+requests/packages/urllib3/connectionpool.py:542: in _new_conn
+    connection = VerifiedHTTPSConnection(host=self.host,
+E   TypeError: HTTPSConnection.__init__() got an unexpected keyword argument 'strict'
+=========================== short test summary info ============================
+FAILED test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET
+FAILED test_requests.py::RequestsTestCase::test_DIGEST_HTTP_200_OK_GET - Attr...
+FAILED test_requests.py::RequestsTestCase::test_links - TypeError: HTTPSConne...
+======================== 3 failed, 23 passed in 31.90s =========================
+
+
+==================================================
+[TEST_EXECUTION_COMPLETE]
+Return code: 1
+==================================================
+The command execution failed, so I have reverted it back to the previous state, which is the environment before running this command.
+
+Congratulations, you have successfully configured the environment! (Test failures are not environment related: The test failures are due to code/test issues, not environment-related problems. The errors include AttributeError for missing attributes in MockRequest and TypeError for unexpected keyword argument in HTTPSConnection, which are code logic issues rather than missing packages or environment configuration problems.)

@@ -1,0 +1,24 @@
+diff --git a/lib/matplotlib/__init__.py b/lib/matplotlib/__init__.py
+index b1999318aa..e4d1dd0018 100644
+--- a/lib/matplotlib/__init__.py
++++ b/lib/matplotlib/__init__.py
+@@ -654,6 +654,7 @@ def matplotlib_fname():
+ 
+     The file location is determined in the following order
+ 
++    - Source tree location: ``lib/matplotlib/mpl-data/matplotlibrc.template``
+     - ``$PWD/matplotlibrc``
+     - ``$MATPLOTLIBRC`` if it is not a directory
+     - ``$MATPLOTLIBRC/matplotlibrc``
+@@ -670,6 +671,11 @@ def matplotlib_fname():
+     """
+ 
+     def gen_candidates():
++        # First check source tree location
++        src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "mpl-data", "matplotlibrc.template")
++        if os.path.exists(src_path):
++            yield src_path
++            
+         yield os.path.join(os.getcwd(), 'matplotlibrc')
+         try:
+             matplotlibrc = os.environ['MATPLOTLIBRC']
