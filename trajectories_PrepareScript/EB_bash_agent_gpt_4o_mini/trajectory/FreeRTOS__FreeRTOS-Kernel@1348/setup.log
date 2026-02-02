@@ -1,0 +1,1218 @@
+# Setup Log for FreeRTOS/FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d
+# Issue/PR Number: 1348
+# Generated at: 2026-01-23T13:42:14.515030
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 960
+drwxrwxr-x  7 1002 1002   4096 Jan 23 03:22 .
+drwxr-xr-x  3 root root   4096 Jan 23 05:39 ..
+drwxrwxr-x  8 1002 1002   4096 Jan 23 05:39 .git
+-rw-rw-r--  1 1002 1002    342 Jan 23 03:22 .git-blame-ignore-revs
+-rw-rw-r--  1 1002 1002     14 Jan 23 03:22 .gitattributes
+drwxrwxr-x  6 1002 1002   4096 Jan 23 03:22 .github
+-rw-rw-r--  1 1002 1002    390 Jan 23 03:22 .gitmodules
+-rw-rw-r--  1 1002 1002  21095 Jan 23 03:22 CMakeLists.txt
+-rw-rw-r--  1 1002 1002    148 Jan 23 03:22 GitHub-FreeRTOS-Kernel-Home.url
+-rw-rw-r--  1 1002 1002 179479 Jan 23 03:22 History.txt
+-rw-rw-r--  1 1002 1002   1036 Jan 23 03:22 LICENSE.md
+-rw-rw-r--  1 1002 1002   5702 Jan 23 03:22 MISRA.md
+-rw-rw-r--  1 1002 1002    140 Jan 23 03:22 Quick_Start_Guide.url
+-rw-rw-r--  1 1002 1002   7536 Jan 23 03:22 README.md
+-rw-rw-r--  1 1002 1002  17402 Jan 23 03:22 croutine.c
+-rw-rw-r--  1 1002 1002    660 Jan 23 03:22 cspell.config.yaml
+-rw-rw-r--  1 1002 1002  35879 Jan 23 03:22 event_groups.c
+drwxrwxr-x  5 1002 1002   4096 Jan 23 03:22 examples
+drwxrwxr-x  2 1002 1002   4096 Jan 23 03:22 include
+-rw-rw-r--  1 1002 1002  10154 Jan 23 03:22 list.c
+-rw-rw-r--  1 1002 1002     92 Jan 23 03:22 manifest.yml
+drwxrwxr-x 27 1002 1002   4096 Jan 23 03:22 portable
+-rw-rw-r--  1 1002 1002 129633 Jan 23 03:22 queue.c
+-rw-rw-r--  1 1002 1002  75350 Jan 23 03:22 stream_buffer.c
+-rw-rw-r--  1 1002 1002 361504 Jan 23 03:22 tasks.c
+-rw-rw-r--  1 1002 1002  57148 Jan 23 03:22 timers.c
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+[![CMock Unit Tests](https://github.com/FreeRTOS/FreeRTOS-Kernel/actions/workflows/unit-tests.yml/badge.svg?branch=main&event=push)](https://github.com/FreeRTOS/FreeRTOS-Kernel/actions/workflows/unit-tests.yml?query=branch%3Amain+event%3Apush+workflow%3A%22CMock+Unit+Tests%22++)
+[![codecov](https://app.codecov.io/gh/FreeRTOS/FreeRTOS-Kernel/badge.svg?branch=main)](https://codecov.io/gh/FreeRTOS/FreeRTOS-Kernel)
+
+## Getting started
+
+This repository contains FreeRTOS kernel source/header files and kernel
+ports only. This repository is referenced as a submodule in
+[FreeRTOS/FreeRTOS](https://github.com/FreeRTOS/FreeRTOS)
+repository, which contains pre-configured demo application projects under
+```FreeRTOS/Demo``` directory.
+
+The easiest way to use FreeRTOS is to start with one of the pre-configured demo
+application projects.  That way you will have the correct FreeRTOS source files
+included, and the correct include paths configured. Once a demo application is
+building and executing you can remove the demo application files, and start to
+add in your own application source files.  See the
+[FreeRTOS Kernel Quick Start Guide](https://www.freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/02-Quick-start-guide)
+for detailed instructions and other useful links.
+
+Additionally, for FreeRTOS kernel feature information refer to the
+[Developer Documentation](https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-Developer-docs),
+and [API Reference](https://www.freertos.org/Documentation/02-Kernel/04-API-references/01-Task-creation/00-TaskHandle).
+
+Also for contributing and creating a Pull Request please refer to
+[the instructions here](.github/CONTRIBUTING.md#contributing-via-pull-request).
+
+**FreeRTOS-Kernel V11.1.0
+[source code](https://github.com/FreeRTOS/FreeRTOS-Kernel/tree/V11.1.0) is part
+of the
+[FreeRTOS 202406.00 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202406-LTS)
+release.**
+
+### Getting help
+
+If you have any questions or need assistance troubleshooting your FreeRTOS project,
+we have an active community that can help on the
+[FreeRTOS Community Support Forum](https://forums.freertos.org).
+
+## To consume FreeRTOS-Kernel
+
+### Consume with CMake
+
+If using CMake, it is recommended to use this repository using FetchContent.
+Add the following into your project's main or a subdirectory's `CMakeLists.txt`:
+
+- Define the source and version/tag you want to use:
+
+```cmake
+FetchContent_Declare( freertos_kernel
+  GIT_REPOSITORY https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+  GIT_TAG        main #Note: Best practice to use specific git-hash or tagged version
+)
+```
+
+In case you prefer to add it as a git submodule, do:
+
+```bash
+git submodule add https://github.com/FreeRTOS/FreeRTOS-Kernel.git <path of the submodule>
+git submodule update --init
+```
+
+- Add a freertos_config library (typically an INTERFACE library) The following assumes the directory structure:
+  - `include/FreeRTOSConfig.h`
+
+```cmake
+add_library(freertos_config INTERFACE)
+
+target_include_directories(freertos_config SYSTEM
+INTERFACE
+    include
+)
+
+target_compile_definitions(freertos_config
+  INTERFACE
+    projCOVERAGE_TEST=0
+)
+```
+
+In case you installed FreeRTOS-Kernel as a submodule, you will have to add it as a subdirectory:
+
+```cmake
+add_subdirectory(${FREERTOS_PATH})
+```
+
+- Configure the FreeRTOS-Kernel and make it available
+  - this particular example supports a native and cross-compiled build option.
+
+```cmake
+set( FREERTOS_HEAP "4" CACHE STRING "" FORCE)
+# Select the native compile PORT
+set( FREERTOS_PORT "GCC_POSIX" CACHE STRING "" FORCE)
+# Select the cross-compile PORT
+if (CMAKE_CROSSCOMPILING)
+  set(FREERTOS_PORT "GCC_ARM_CA9" CACHE STRING "" FORCE)
+endif()
+
+FetchContent_MakeAvailable(freertos_kernel)
+```
+
+- In case of cross compilation, you should also add the following to `freertos_config`:
+
+```cmake
+target_compile_definitions(freertos_config INTERFACE ${definitions})
+target_compile_options(freertos_config INTERFACE ${options})
+```
+
+### Consuming stand-alone - Cloning this repository
+
+To clone using HTTPS:
+
+```
+git clone https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+```
+
+Using SSH:
+
+```
+git clone git@github.com:FreeRTOS/FreeRTOS-Kernel.git
+```
+
+## Repository structure
+
+- The root of this repository contains the three files that are common to
+every port - list.c, queue.c and tasks.c.  The kernel is contained within these
+three files.  croutine.c implements the optional co-routine functionality - which
+is normally only used on very memory limited systems.
+
+- The ```./portable``` directory contains the files that are specific to a particular microcontroller and/or compiler.
+See the readme file in the ```./portable``` directory for more information.
+
+- The ```./include``` directory contains the real time kernel header files.
+
+- The ```./template_configuration``` directory contains a sample `FreeRTOSConfig.h` to help jumpstart a new project.
+See the [FreeRTOSConfig.h](examples/template_configuration/FreeRTOSConfig.h) file for instructions.
+
+### Code Formatting
+
+FreeRTOS files are formatted using the
+"[uncrustify](https://github.com/uncrustify/uncrustify)" tool.
+The configuration file used by uncrustify can be found in the
+[FreeRTOS/CI-CD-GitHub-Actions's](https://github.com/FreeRTOS/CI-CD-Github-Actions)
+[uncrustify.cfg](https://github.com/FreeRTOS/CI-CD-Github-Actions/tree/main/formatting)
+file.
+
+### Line Endings
+
+File checked into the FreeRTOS-Kernel repository use unix-style LF line endings
+for the best compatibility with git.
+
+For optimal compatibility with Microsoft Windows tools, it is best to enable
+the git autocrlf feature. You can enable this setting for the current
+repository using the following command:
+
+```
+git config core.autocrlf true
+```
+
+### Git History Optimizations
+
+Some commits in this repository perform large refactors which touch many lines
+and lead to unwanted behavior when using the `git blame` command. You can
+configure git to ignore the list of large refactor commits in this repository
+with the following command:
+
+```
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+### Spelling and Formatting
+
+We recommend using [Visual Studio Code](https://code.visualstudio.com),
+commonly referred to as VSCode, when working on the FreeRTOS-Kernel.
+The FreeRTOS-Kernel also uses [cSpell](https://cspell.org/) as part of its
+spelling check. The config file for which can be found at [cspell.config.yaml](cspell.config.yaml)
+There is additionally a
+[cSpell plugin for VSCode](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+that can be used as well.
+*[.cSpellWords.txt](.github/.cSpellWords.txt)* contains words that are not
+traditionally found in an English dictionary. It is used by the spellchecker
+to verify the various jargon, variable names, and other odd words used in the
+FreeRTOS code base are correct. If your pull request fails to pass the spelling
+and you believe this is a mistake, then add the word to
+*[.cSpellWords.txt](.github/.cSpellWords.txt)*. When adding a word please
+then sort the list, which can be done by running the bash command:
+`sort -u .cSpellWords.txt -o .cSpellWords.txt`
+Note that only the FreeRTOS-Kernel Source Files, [include](include),
+[portable/MemMang](portable/MemMang), and [portable/Common](portable/Common)
+files are checked for proper spelling, and formatting at this time.
+
+## Third Party Tools
+Visit [this link](.github/third_party_tools.md) for detailed information about
+third-party tools with FreeRTOS support.
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y cmake gcc make
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Fetched 43.8 MB in 5s (8084 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates
+  cmake-data cpp cpp-11 dh-elpa-helper emacsen-common fontconfig-config
+  fonts-dejavu-core gcc-11 gcc-11-base libarchive13 libasan6 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6 libc6-dev
+  libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0 libexpat1
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgomp1 libicu70 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librhash0 librtmp1 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libssh-4 libtiff5 libtirpc-dev libtsan0
+  libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6
+  libxml2 libxpm4 linux-libc-dev manpages manpages-dev openssl publicsuffix
+  rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cmake-doc ninja-build cmake-format cpp-doc gcc-11-locales
+  gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-11-multilib gcc-11-doc lrzip glibc-doc locales libgd-tools
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql make-doc
+  man-browser
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cmake
+  cmake-data cpp cpp-11 dh-elpa-helper emacsen-common fontconfig-config
+  fonts-dejavu-core gcc gcc-11 gcc-11-base libarchive13 libasan6 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6-dev libcc1-0
+  libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0 libexpat1
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgomp1 libicu70 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librhash0 librtmp1 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libssh-4 libtiff5 libtirpc-dev libtsan0
+  libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6
+  libxml2 libxpm4 linux-libc-dev make manpages manpages-dev openssl
+  publicsuffix rpcsvc-proto ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 81 newly installed, 0 to remove and 2 not upgraded.
+Need to get 81.7 MB of archives.
+After this operation, 256 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.11 [765 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libarchive13 amd64 3.6.0-1ubuntu1.5 [368 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjsoncpp25 amd64 1.9.5-3 [80.0 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 librhash0 amd64 1.4.2-1ubuntu1 [125 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 dh-elpa-helper all 2.0.9ubuntu1 [7610 B]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/main amd64 emacsen-common all 3.0.4 [14.9 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake-data all 3.22.1-1ubuntu1.22.04.2 [1913 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake amd64 3.22.1-1ubuntu1.22.04.2 [5010 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 81.7 MB in 17s (4864 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../02-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../03-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package libicu70:amd64.
+Preparing to unpack .../05-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../06-libxml2_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../07-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../08-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../09-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../10-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libuv1:amd64.
+Preparing to unpack .../11-libuv1_1.43.0-1ubuntu0.1_amd64.deb ...
+Unpacking libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../12-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../13-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../14-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../15-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../16-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../17-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../18-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../19-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../20-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../21-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../22-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../23-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../24-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libarchive13:amd64.
+Preparing to unpack .../25-libarchive13_3.6.0-1ubuntu1.5_amd64.deb ...
+Unpacking libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../26-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../27-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../28-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../29-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../30-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../31-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../32-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libjsoncpp25:amd64.
+Preparing to unpack .../33-libjsoncpp25_1.9.5-3_amd64.deb ...
+Unpacking libjsoncpp25:amd64 (1.9.5-3) ...
+Selecting previously unselected package librhash0:amd64.
+Preparing to unpack .../34-librhash0_1.4.2-1ubuntu1_amd64.deb ...
+Unpacking librhash0:amd64 (1.4.2-1ubuntu1) ...
+Selecting previously unselected package dh-elpa-helper.
+Preparing to unpack .../35-dh-elpa-helper_2.0.9ubuntu1_all.deb ...
+Unpacking dh-elpa-helper (2.0.9ubuntu1) ...
+Selecting previously unselected package emacsen-common.
+Preparing to unpack .../36-emacsen-common_3.0.4_all.deb ...
+Unpacking emacsen-common (3.0.4) ...
+Selecting previously unselected package cmake-data.
+Preparing to unpack .../37-cmake-data_3.22.1-1ubuntu1.22.04.2_all.deb ...
+Unpacking cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../38-cmake_3.22.1-1ubuntu1.22.04.2_amd64.deb ...
+Unpacking cmake (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../39-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../40-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../41-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../42-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../43-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../44-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../45-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../46-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../47-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../48-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../49-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../50-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../51-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../52-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../53-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../54-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../55-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../56-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../57-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../58-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../59-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../60-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../61-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../62-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../63-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../64-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../65-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../66-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../67-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../68-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../69-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../70-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../71-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../72-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../73-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../74-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../75-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../76-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../77-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../78-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package make.
+Preparing to unpack .../79-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../80-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up emacsen-common (3.0.4) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up dh-elpa-helper (2.0.9ubuntu1) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libjsoncpp25:amd64 (1.9.5-3) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up librhash0:amd64 (1.4.2-1ubuntu1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 4]
+$ mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Warning (dev) in CMakeLists.txt:
+  No project() command is present.  The top-level CMakeLists.txt file must
+  contain a literal, direct call to the project() command.  Add a line of
+  code such as
+
+    project(ProjectName)
+
+  near the top of the file, but after cmake_minimum_required().
+
+  CMake is pretending there is a "project(Project)" command on the first
+  line.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is unknown
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Error in CMakeLists.txt:
+  No CMAKE_CXX_COMPILER could be found.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/CMakeFiles/CMakeOutput.log".
+See also "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/CMakeFiles/CMakeError.log".
+----------------------------------------
+
+[Command 5]
+$ apt-get install -y g++
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  g++-11 libstdc++-11-dev
+Suggested packages:
+  g++-multilib g++-11-multilib gcc-11-doc libstdc++-11-doc
+The following NEW packages will be installed:
+  g++ g++-11 libstdc++-11-dev
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.
+Need to get 13.5 MB of archives.
+After this operation, 48.8 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 13.5 MB in 7s (1923 kB/s)
+Selecting previously unselected package libstdc++-11-dev:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13433 files and directories currently installed.)
+Preparing to unpack .../libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++-11.
+Preparing to unpack .../g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+----------------------------------------
+
+[Command 6]
+$ cd build && cmake .. && make
+Exit Code: 1
+Output:
+/bin/bash: line 21: cd: build: No such file or directory
+----------------------------------------
+
+[Command 7]
+$ mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Warning (dev) in CMakeLists.txt:
+  No project() command is present.  The top-level CMakeLists.txt file must
+  contain a literal, direct call to the project() command.  Add a line of
+  code such as
+
+    project(ProjectName)
+
+  near the top of the file, but after cmake_minimum_required().
+
+  CMake is pretending there is a "project(Project)" command on the first
+  line.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Error at CMakeLists.txt:22 (message):
+   freertos_config target not specified.  Please specify a cmake target that defines the include directory for FreeRTOSConfig.h:
+    add_library(freertos_config INTERFACE)
+    target_include_directories(freertos_config SYSTEM
+      INTERFACE
+        include) # The config file directory
+    target_compile_definitions(freertos_config
+      PUBLIC
+      projCOVERAGE_TEST=0)
+
+
+
+-- Configuring incomplete, errors occurred!
+See also "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/CMakeFiles/CMakeOutput.log".
+See also "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/CMakeFiles/CMakeError.log".
+----------------------------------------
+
+[Command 8]
+$ cd build && cmake -Dfreertos_config=ON .. && make
+Exit Code: 1
+Output:
+/bin/bash: line 29: cd: build: No such file or directory
+----------------------------------------
+
+[Command 9]
+$ mkdir build && cd build && cmake -Dfreertos_config=ON .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 10]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 11]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 12]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 13]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 14]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 15]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 16]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 17]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 18]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 19]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 20]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 21]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 22]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 23]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 24]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 25]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 26]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 27]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 28]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 29]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 30]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 31]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 32]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 33]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 34]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 35]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 36]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 37]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 38]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 39]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 40]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 41]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 42]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 43]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 44]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 45]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 46]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 47]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 48]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 49]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+
+[Command 50]
+$ cd .. && rm -rf build && mkdir build && cd build && cmake .. && make
+Exit Code: 1
+Output:
+CMake Error: The source directory "/workspace/FreeRTOS__FreeRTOS-Kernel@536914b2a4a1358a6874d50faa06e97751d7898d/build/build" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+----------------------------------------
+

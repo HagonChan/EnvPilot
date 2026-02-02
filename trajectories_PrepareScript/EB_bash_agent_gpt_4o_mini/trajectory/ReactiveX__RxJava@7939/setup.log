@@ -1,0 +1,3065 @@
+# Setup Log for ReactiveX/RxJava@51de3f77f73d4491e1c6350a7bde3853a5a5b6bf
+# Issue/PR Number: 7939
+# Generated at: 2026-01-23T02:45:51.015457
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 188
+drwxrwxr-x 8 1002 1002  4096 Jan 22 15:28 .
+drwxr-xr-x 3 root root  4096 Jan 22 15:28 ..
+drwxrwxr-x 8 1002 1002  4096 Jan 22 15:28 .git
+-rw-rw-r-- 1 1002 1002   366 Jan 22 15:28 .gitattributes
+drwxrwxr-x 3 1002 1002  4096 Jan 22 15:28 .github
+-rw-rw-r-- 1 1002 1002   985 Jan 22 15:28 .gitignore
+-rw-rw-r-- 1 1002 1002  5747 Jan 22 15:28 .gitpod.yml
+-rw-rw-r-- 1 1002 1002  1211 Jan 22 15:28 CONTRIBUTING.md
+-rw-rw-r-- 1 1002 1002   569 Jan 22 15:28 COPYRIGHT
+-rw-rw-r-- 1 1002 1002 25635 Jan 22 15:28 DESIGN.md
+-rw-rw-r-- 1 1002 1002 11358 Jan 22 15:28 LICENSE
+-rw-rw-r-- 1 1002 1002 32195 Jan 22 15:28 README.md
+-rw-rw-r-- 1 1002 1002   578 Jan 22 15:28 SECURITY.md
+-rw-rw-r-- 1 1002 1002  6328 Jan 22 15:28 build.gradle
+-rw-rw-r-- 1 1002 1002   180 Jan 22 15:28 codecov.yml
+drwxrwxr-x 4 1002 1002  4096 Jan 22 15:28 config
+drwxrwxr-x 2 1002 1002  4096 Jan 22 15:28 docs
+drwxrwxr-x 3 1002 1002  4096 Jan 22 15:28 gradle
+-rw-rw-r-- 1 1002 1002   861 Jan 22 15:28 gradle.properties
+-rwxrwxr-x 1 1002 1002  8497 Jan 22 15:28 gradlew
+-rw-rw-r-- 1 1002 1002  2776 Jan 22 15:28 gradlew.bat
+-rw-rw-r-- 1 1002 1002 15105 Jan 22 15:28 pmd.xml
+-rw-rw-r-- 1 1002 1002  3148 Jan 22 15:28 push_javadoc.sh
+-rw-rw-r-- 1 1002 1002    26 Jan 22 15:28 settings.gradle
+drwxrwxr-x 5 1002 1002  4096 Jan 22 15:28 src
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+# RxJava: Reactive Extensions for the JVM
+
+<a href='https://github.com/ReactiveX/RxJava/actions?query=workflow%3ASnapshot'><img src='https://github.com/ReactiveX/RxJava/workflows/Snapshot/badge.svg'></a>
+[![codecov.io](http://codecov.io/github/ReactiveX/RxJava/coverage.svg?branch=3.x)](https://codecov.io/gh/ReactiveX/RxJava/branch/3.x)
+[![Maven Central](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava3/rxjava/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava3/rxjava)
+[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/ReactiveX/RxJava)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/ReactiveX/RxJava/badge)](https://securityscorecards.dev/viewer/?uri=github.com/ReactiveX/RxJava)
+
+RxJava is a Java VM implementation of [Reactive Extensions](http://reactivex.io): a library for composing asynchronous and event-based programs by using observable sequences.
+
+It extends the [observer pattern](http://en.wikipedia.org/wiki/Observer_pattern) to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
+
+#### Version 3.x ([Javadoc](http://reactivex.io/RxJava/3.x/javadoc/))
+
+- Single dependency: [Reactive-Streams](https://github.com/reactive-streams/reactive-streams-jvm).
+- Java 8+ or Android API 21+ required.
+- Java 8 lambda-friendly API.
+- [Android](https://github.com/ReactiveX/RxAndroid) desugar friendly.
+- Fixed API mistakes and many limits of RxJava 2.
+- Intended to be a replacement for RxJava 2 with relatively few binary incompatible changes.
+- Non-opinionated about the source of concurrency (threads, pools, event loops, fibers, actors, etc.).
+- Async or synchronous execution.
+- Virtual time and schedulers for parameterized concurrency.
+- Test and diagnostic support via test schedulers, test consumers and plugin hooks.
+- Interop with newer JDK versions via 3rd party libraries, such as
+  - [Java 9 Flow API](https://github.com/akarnokd/RxJavaJdk9Interop#rxjavajdk9interop)
+  - [Java 21 Virtual Threads](https://github.com/akarnokd/RxJavaFiberInterop#rxjavafiberinterop)
+
+Learn more about RxJava in general on the <a href="https://github.com/ReactiveX/RxJava/wiki">Wiki Home</a>.
+
+:information_source: Please read the [What's different in 3.0](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-3.0) for details on the changes and migration information when upgrading from 2.x.
+
+#### Version 2.x
+
+The [2.x version](https://github.com/ReactiveX/RxJava/tree/2.x) is end-of-life as of **February 28, 2021**. No further development, support, maintenance, PRs and updates will happen. The [Javadoc]([Javadoc](http://reactivex.io/RxJava/2.x/javadoc/)) of the very last version, **2.2.21**, will remain accessible.
+
+#### Version 1.x
+
+The [1.x version](https://github.com/ReactiveX/RxJava/tree/1.x) is end-of-life as of **March 31, 2018**. No further development, support, maintenance, PRs and updates will happen. The [Javadoc]([Javadoc](http://reactivex.io/RxJava/1.x/javadoc/)) of the very last version, **1.3.8**, will remain accessible.
+
+## Getting started
+
+### Setting up the dependency
+
+The first step is to include RxJava 3 into your project, for example, as a Gradle compile dependency:
+
+```groovy
+implementation "io.reactivex.rxjava3:rxjava:3.x.y"
+```
+
+(Please replace `x` and `y` with the latest version numbers: [![Maven Central](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava3/rxjava/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava3/rxjava)
+)
+
+### Hello World
+
+The second is to write the **Hello World** program:
+
+```java
+package rxjava.examples;
+
+import io.reactivex.rxjava3.core.*;
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        Flowable.just("Hello world").subscribe(System.out::println);
+    }
+}
+```
+
+Note that RxJava 3 components now live under `io.reactivex.rxjava3` and the base classes and interfaces live under `io.reactivex.rxjava3.core`.
+
+### Base classes
+
+RxJava 3 features several base classes you can discover operators on:
+
+  - [`io.reactivex.rxjava3.core.Flowable`](http://reactivex.io/RxJava/3.x/javadoc/io/reactivex/rxjava3/core/Flowable.html): 0..N flows, supporting Reactive-Streams and backpressure
+  - [`io.reactivex.rxjava3.core.Observable`](http://reactivex.io/RxJava/3.x/javadoc/io/reactivex/rxjava3/core/Observable.html): 0..N flows, no backpressure,
+  - [`io.reactivex.rxjava3.core.Single`](http://reactivex.io/RxJava/3.x/javadoc/io/reactivex/rxjava3/core/Single.html): a flow of exactly 1 item or an error,
+  - [`io.reactivex.rxjava3.core.Completable`](http://reactivex.io/RxJava/3.x/javadoc/io/reactivex/rxjava3/core/Completable.html): a flow without items but only a completion or error signal,
+  - [`io.reactivex.rxjava3.core.Maybe`](http://reactivex.io/RxJava/3.x/javadoc/io/reactivex/rxjava3/core/Maybe.html): a flow with no items, exactly one item or an error.
+
+### Some terminology
+
+#### Upstream, downstream
+
+The dataflows in RxJava consist of a source, zero or more intermediate steps followed by a data consumer or combinator step (where the step is responsible to consume the dataflow by some means):
+
+```java
+source.operator1().operator2().operator3().subscribe(consumer);
+
+source.flatMap(value -> source.operator1().operator2().operator3());
+```
+
+Here, if we imagine ourselves on `operator2`, looking to the left towards the source is called the **upstream**. Looking to the right towards the subscriber/consumer is called the **downstream**. This is often more apparent when each element is written on a separate line:
+
+```java
+source
+  .operator1()
+  .operator2()
+  .operator3()
+  .subscribe(consumer)
+```
+
+#### Objects in motion
+
+In RxJava's documentation, **emission**, **emits**, **item**, **event**, **signal**, **data** and **message** are considered synonyms and represent the object traveling along the dataflow.
+
+#### Backpressure
+
+When the dataflow runs through asynchronous steps, each step may perform different things with different speed. To avoid overwhelming such steps, which usually would manifest itself as increased memory usage due to temporary buffering or the need for skipping/dropping data, so-called backpressure is applied, which is a form of flow control where the steps can express how many items are they ready to process. This allows constraining the memory usage of the dataflows in situations where there is generally no way for a step to know how many items the upstream will send to it.
+
+In RxJava, the dedicated `Flowable` class is designated to support backpressure and `Observable` is dedicated to the non-backpressured operations (short sequences, GUI interactions, etc.). The other types, `Single`, `Maybe` and `Completable` don't support backpressure nor should they; there is always room to store one item temporarily.
+
+#### Assembly time
+
+The preparation of dataflows by applying various intermediate operators happens in the so-called **assembly time**:
+
+```java
+Flowable<Integer> flow = Flowable.range(1, 5)
+.map(v -> v * v)
+.filter(v -> v % 3 == 0)
+;
+```
+
+At this point, the data is not flowing yet and no side-effects are happening.
+
+#### Subscription time
+
+This is a temporary state when `subscribe()` is called on a flow that establishes the chain of processing steps internally:
+
+```java
+flow.subscribe(System.out::println)
+````
+
+This is when the **subscription side-effects** are triggered (see `doOnSubscribe`). Some sources block or start emitting items right away in this state.
+
+#### Runtime
+
+This is the state when the flows are actively emitting items, errors or completion signals:
+
+```java
+
+Observable.create(emitter -> {
+     while (!emitter.isDisposed()) {
+         long time = System.currentTimeMillis();
+         emitter.onNext(time);
+         if (time % 2 != 0) {
+             emitter.onError(new IllegalStateException("Odd millisecond!"));
+             break;
+         }
+     }
+})
+.subscribe(System.out::println, Throwable::printStackTrace);
+```
+
+Practically, this is when the body of the given example above executes.
+
+### Simple background computation
+
+One of the common use cases for RxJava is to run some computation, network request on a background thread and show the results (or error) on the UI thread:
+
+```java
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+Flowable.fromCallable(() -> {
+    Thread.sleep(1000); //  imitate expensive computation
+    return "Done";
+})
+  .subscribeOn(Schedulers.io())
+  .observeOn(Schedulers.single())
+  .subscribe(System.out::println, Throwable::printStackTrace);
+
+Thread.sleep(2000); // <--- wait for the flow to finish
+```
+
+This style of chaining methods is called a **fluent API** which resembles the **builder pattern**. However, RxJava's reactive types are immutable; each of the method calls returns a new `Flowable` with added behavior. To illustrate, the example can be rewritten as follows:
+
+```java
+Flowable<String> source = Flowable.fromCallable(() -> {
+    Thread.sleep(1000); //  imitate expensive computation
+    return "Done";
+});
+
+Flowable<String> runBackground = source.subscribeOn(Schedulers.io());
+
+Flowable<String> showForeground = runBackground.observeOn(Schedulers.single());
+
+showForeground.subscribe(System.out::println, Throwable::printStackTrace);
+
+Thread.sleep(2000);
+```
+
+Typically, you can move computations or blocking IO to some other thread via `subscribeOn`. Once the data is ready, you can make sure they get processed on the foreground or GUI thread via `observeOn`. 
+
+### Schedulers
+
+RxJava operators don't work with `Thread`s or `ExecutorService`s directly but with so-called `Scheduler`s that abstract away sources of concurrency behind a uniform API. RxJava 3 features several standard schedulers accessible via `Schedulers` utility class. 
+
+- `Schedulers.computation()`: Run computation intensive work on a fixed number of dedicated threads in the background. Most asynchronous operators use this as their default `Scheduler`.
+- `Schedulers.io()`: Run I/O-like or blocking operations on a dynamically changing set of threads.
+- `Schedulers.single()`: Run work on a single thread in a sequential and FIFO manner.
+- `Schedulers.trampoline()`: Run work in a sequential and FIFO manner in one of the participating threads, usually for testing purposes.
+
+These are available on all JVM platforms but some specific platforms, such as Android, have their own typical `Scheduler`s defined: `AndroidSchedulers.mainThread()`, `SwingScheduler.instance()` or `JavaFXScheduler.platform()`.
+
+In addition, there is an option to wrap an existing `Executor` (and its subtypes such as `ExecutorService`) into a `Scheduler` via `Schedulers.from(Executor)`. This can be used, for example, to have a larger but still fixed pool of threads (unlike `computation()` and `io()` respectively).
+
+The `Thread.sleep(2000);` at the end is no accident. In RxJava the default `Scheduler`s run on daemon threads, which means once the Java main thread exits, they all get stopped and background computations may never happen. Sleeping for some time in this example situations lets you see the output of the flow on the console with time to spare.
+
+### Concurrency within a flow
+
+Flows in RxJava are sequential in nature split into processing stages that may run **concurrently** with each other:
+
+```java
+Flowable.range(1, 10)
+  .observeOn(Schedulers.computation())
+  .map(v -> v * v)
+  .blockingSubscribe(System.out::println);
+```
+
+This example flow squares the numbers from 1 to 10 on the **computation** `Scheduler` and consumes the results on the "main" thread (more precisely, the caller thread of `blockingSubscribe`). However, the lambda `v -> v * v` doesn't run in parallel for this flow; it receives the values 1 to 10 on the same computation thread one after the other.
+
+### Parallel processing
+
+Processing the numbers 1 to 10 in parallel is a bit more involved:
+
+```java
+Flowable.range(1, 10)
+  .flatMap(v ->
+      Flowable.just(v)
+        .subscribeOn(Schedulers.computation())
+        .map(w -> w * w)
+  )
+  .blockingSubscribe(System.out::println);
+```
+
+Practically, parallelism in RxJava means running independent flows and merging their results back into a single flow. The operator `flatMap` does this by first mapping each number from 1 to 10 into its own individual `Flowable`, runs them and merges the computed squares.
+
+Note, however, that `flatMap` doesn't guarantee any order and the items from the inner flows may end up interleaved. There are alternative operators:
+
+  - `concatMap` that maps and runs one inner flow at a time and
+  - `concatMapEager` which runs all inner flows "at once" but the output flow will be in the order those inner flows were created.
+
+Alternatively, the `Flowable.parallel()` operator and the `ParallelFlowable` type help achieve the same parallel processing pattern:
+
+```java
+Flowable.range(1, 10)
+  .parallel()
+  .runOn(Schedulers.computation())
+  .map(v -> v * v)
+  .sequential()
+  .blockingSubscribe(System.out::println);
+```
+
+### Dependent sub-flows
+
+`flatMap` is a powerful operator and helps in a lot of situations. For example, given a service that returns a `Flowable`, we'd like to call another service with values emitted by the first service:
+
+```java
+Flowable<Inventory> inventorySource = warehouse.getInventoryAsync();
+
+inventorySource
+    .flatMap(inventoryItem -> erp.getDemandAsync(inventoryItem.getId())
+            .map(demand -> "Item " + inventoryItem.getName() + " has demand " + demand))
+    .subscribe(System.out::println);
+```
+
+### Continuations
+
+Sometimes, when an item has become available, one would like to perform some dependent computations on it. This is sometimes called **continuations** and, depending on what should happen and what types are involved, may involve various operators to accomplish.
+
+#### Dependent
+
+The most typical scenario is to given a value, invoke another service, await and continue with its result:
+
+```java
+service.apiCall()
+.flatMap(value -> service.anotherApiCall(value))
+.flatMap(next -> service.finalCall(next))
+```
+
+It is often the case also that later sequences would require values from earlier mappings. This can be achieved by moving the outer `flatMap` into the inner parts of the previous `flatMap` for example:
+
+```java
+service.apiCall()
+.flatMap(value ->
+    service.anotherApiCall(value)
+    .flatMap(next -> service.finalCallBoth(value, next))
+)
+```
+
+Here, the original `value` will be available inside the inner `flatMap`, courtesy of lambda variable capture.
+
+#### Non-dependent
+
+In other scenarios, the result(s) of the first source/dataflow is irrelevant and one would like to continue with a quasi independent another source. Here, `flatMap` works as well:
+
+```java
+Observable continued = sourceObservable.flatMapSingle(ignored -> someSingleSource)
+continued.map(v -> v.toString())
+  .subscribe(System.out::println, Throwable::printStackTrace);
+```
+
+however, the continuation in this case stays `Observable` instead of the likely more appropriate `Single`. (This is understandable because
+from the perspective of `flatMapSingle`, `sourceObservable` is a multi-valued source and thus the mapping may result in multiple values as well).
+
+Often though there is a way that is somewhat more expressive (and also lower overhead) by using `Completable` as the mediator and its operator `andThen` to resume with something else:
+
+```java
+sourceObservable
+  .ignoreElements()           // returns Completable
+  .andThen(someSingleSource)
+  .map(v -> v.toString())
+```
+
+The only dependency between the `sourceObservable` and the `someSingleSource` is that the former should complete normally in order for the latter to be consumed.
+
+#### Deferred-dependent
+
+Sometimes, there is an implicit data dependency between the previous sequence and the new sequence that, for some reason, was not flowing through the "regular channels". One would be inclined to write such continuations as follows:
+
+```java
+AtomicInteger count = new AtomicInteger();
+
+Observable.range(1, 10)
+  .doOnNext(ignored -> count.incrementAndGet())
+  .ignoreElements()
+  .andThen(Single.just(count.get()))
+  .subscribe(System.out::println);
+```
+
+Unfortunately, this prints `0` because `Single.just(count.get())` is evaluated at **assembly time** when the dataflow hasn't even run yet. We need something that defers the evaluation of this `Single` source until **runtime** when the main source completes:
+
+```java
+AtomicInteger count = new AtomicInteger();
+
+Observable.range(1, 10)
+  .doOnNext(ignored -> count.incrementAndGet())
+  .ignoreElements()
+  .andThen(Single.defer(() -> Single.just(count.get())))
+  .subscribe(System.out::println);
+```
+
+or
+
+```java
+AtomicInteger count = new AtomicInteger();
+
+Observable.range(1, 10)
+  .doOnNext(ignored -> count.incrementAndGet())
+  .ignoreElements()
+  .andThen(Single.fromCallable(() -> count.get()))
+  .subscribe(System.out::println);
+```
+
+
+### Type conversions
+
+Sometimes, a source or service returns a different type than the flow that is supposed to work with it. For example, in the inventory example above, `getDemandAsync` could return a `Single<DemandRecord>`. If the code example is left unchanged, this will result in a compile-time error (however, often with a misleading error message about lack of overload).
+
+In such situations, there are usually two options to fix the transformation: 1) convert to the desired type or 2) find and use an overload of the specific operator supporting the different type.
+
+#### Converting to the desired type
+
+Each reactive base class features operators that can perform such conversions, including the protocol conversions, to match some other type. The following matrix shows the available conversion options:
+
+|          | Flowable | Observable | Single | Maybe | Completable |
+|----------|----------|------------|--------|-------|-------------|
+|**Flowable**  |          | `toObservable` | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` |
+|**Observable**| `toFlowable`<sup>2</sup> |  | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` |
+|**Single** | `toFlowable`<sup>3</sup> | `toObservable` |  | `toMaybe` | `ignoreElement` |
+|**Maybe** | `toFlowable`<sup>3</sup> | `toObservable` | `toSingle` |  | `ignoreElement` |
+|**Completable** | `toFlowable` | `toObservable` | `toSingle` | `toMaybe` |  |
+
+<sup>1</sup>: When turning a multi-valued source into a single-valued source, one should decide which of the many source values should be considered as the result.
+
+<sup>2</sup>: Turning an `Observable` into `Flowable` requires an additional decision: what to do with the potential unconstrained flow
+of the source `Observable`? There are several strategies available (such as buffering, dropping, keeping the latest) via the `BackpressureStrategy` parameter or via standard `Flowable` operators such as `onBackpressureBuffer`, `onBackpressureDrop`, `onBackpressureLatest` which also
+allow further customization of the backpressure behavior.
+
+<sup>3</sup>: When there is only (at most) one source item, there is no problem with backpressure as it can be always stored until the downstream is ready to consume.
+
+
+#### Using an overload with the desired type
+
+Many frequently used operator has overloads that can deal with the other types. These are usually named with the suffix of the target type:
+
+| Operator | Overloads |
+|----------|-----------|
+| `flatMap` | `flatMapSingle`, `flatMapMaybe`, `flatMapCompletable`, `flatMapIterable` |
+| `concatMap` | `concatMapSingle`, `concatMapMaybe`, `concatMapCompletable`, `concatMapIterable` |
+| `switchMap` | `switchMapSingle`, `switchMapMaybe`, `switchMapCompletable` |
+
+The reason these operators have a suffix instead of simply having the same name with different signature is type erasure. Java doesn't consider signatures such as `operator(Function<T, Single<R>>)` and `operator(Function<T, Maybe<R>>)` different (unlike C#) and due to erasure, the two `operator`s would end up as duplicate methods with the same signature.
+
+### Operator naming conventions
+
+Naming in programming is one of the hardest things as names are expected to be not long, expressive, capturing and easily memorable. Unfortunately, the target language (and pre-existing conventions) may not give too much help in this regard (unusable keywords, type erasure, type ambiguities, etc.).
+
+#### Unusable keywords
+
+In the original Rx.NET, the operator that emits a single item and then completes is called `Return(T)`. Since the Java convention is to have a lowercase letter start a method name, this would have been `return(T)` which is a keyword in Java and thus not available. Therefore, RxJava chose to name this operator `just(T)`. The same limitation exists for the operator `Switch`, which had to be named `switchOnNext`. Yet another example is `Catch` which was named `onErrorResumeNext`.
+
+#### Type erasure
+
+Many operators that expect the user to provide some function returning a reactive type can't be overloaded because the type erasure around a `Function<T, X>` turns such method signatures into duplicates. RxJava chose to name such operators by appending the type as suffix as well:
+
+```java
+Flowable<R> flatMap(Function<? super T, ? extends Publisher<? extends R>> mapper)
+
+Flowable<R> flatMapMaybe(Function<? super T, ? extends MaybeSource<? extends R>> mapper)
+```
+
+#### Type ambiguities
+
+Even though certain operators have no problems from type erasure, their signature may turn up being ambiguous, especially if one uses Java 8 and lambdas. For example, there are several overloads of `concatWith` taking the various other reactive base types as arguments (for providing convenience and performance benefits in the underlying implementation):
+
+```java
+Flowable<T> concatWith(Publisher<? extends T> other);
+
+Flowable<T> concatWith(SingleSource<? extends T> other);
+```
+
+Both `Publisher` and `SingleSource` appear as functional interfaces (types with one abstract method) and may encourage users to try to provide a lambda expression:
+
+```java
+someSource.concatWith(s -> Single.just(2))
+.subscribe(System.out::println, Throwable::printStackTrace);
+```
+
+Unfortunately, this approach doesn't work and the example does not print `2` at all. In fact, since version 2.1.10, it doesn't
+even compile because at least 4 `concatWith` overloads exist and the compiler finds the code above ambiguous.
+
+The user in such situations probably wanted to defer some computation until the `someSource` has completed, thus the correct
+unambiguous operator should have been `defer`:
+
+```java
+someSource.concatWith(Single.defer(() -> Single.just(2)))
+.subscribe(System.out::println, Throwable::printStackTrace);
+```
+
+Sometimes, a suffix is added to avoid logical ambiguities that may compile but produce the wrong type in a flow:
+
+```java
+Flowable<T> merge(Publisher<? extends Publisher<? extends T>> sources);
+
+Flowable<T> mergeArray(Publisher<? extends T>... sources);
+```
+
+This can get also ambiguous when functional interface types get involved as the type argument `T`.
+
+#### Error handling
+
+Dataflows can fail, at which point the error is emitted to the consumer(s). Sometimes though, multiple sources may fail at which point there is a choice whether or not wait for all of them to complete or fail. To indicate this opportunity, many operator names are suffixed with the `DelayError` words (while others feature a `delayError` or `delayErrors` boolean flag in one of their overloads):
+
+```java
+Flowable<T> concat(Publisher<? extends Publisher<? extends T>> sources);
+
+Flowable<T> concatDelayError(Publisher<? extends Publisher<? extends T>> sources);
+```
+
+Of course, suffixes of various kinds may appear together:
+
+```java
+Flowable<T> concatArrayEagerDelayError(Publisher<? extends T>... sources);
+```
+
+#### Base class vs base type
+
+The base classes can be considered heavy due to the sheer number of static and instance methods on them. RxJava 3's design was heavily influenced by the [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm#reactive-streams) specification, therefore, the library features a class and an interface per each reactive type:
+
+| Type | Class | Interface | Consumer |
+|------|-------|-----------|----------|
+| 0..N backpressured | `Flowable` | `Publisher`<sup>1</sup> | `Subscriber` |
+| 0..N unbounded | `Observable` | `ObservableSource`<sup>2</sup> | `Observer` |
+| 1 element or error | `Single` | `SingleSource` | `SingleObserver` |
+| 0..1 element or error | `Maybe` | `MaybeSource` | `MaybeObserver` |
+| 0 element or error | `Completable` | `CompletableSource` | `CompletableObserver` |
+
+<sup>1</sup>The `org.reactivestreams.Publisher` is part of the external Reactive Streams library. It is the main type to interact with other reactive libraries through a standardized mechanism governed by the [Reactive Streams specification](https://github.com/reactive-streams/reactive-streams-jvm#specification).
+
+<sup>2</sup>The naming convention of the interface was to append `Source` to the semi-traditional class name. There is no `FlowableSource` since `Publisher` is provided by the Reactive Streams library (and subtyping it wouldn't have helped with interoperation either). These interfaces are, however, not standard in the sense of the Reactive Streams specification and are currently RxJava specific only.
+
+### R8 and ProGuard settings
+
+By default, RxJava itself doesn't require any ProGuard/R8 settings and should work without problems. Unfortunately, the Reactive Streams dependency since version 1.0.3 has embedded Java 9 class files in its JAR that can cause warnings with the plain ProGuard:
+
+```
+Warning: org.reactivestreams.FlowAdapters$FlowPublisherFromReactive: can't find superclass or interface java.util.concurrent.Flow$Publisher
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveProcessor: can't find superclass or interface java.util.concurrent.Flow$Processor
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveSubscriber: can't find superclass or interface java.util.concurrent.Flow$Subscriber
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveSubscription: can't find superclass or interface java.util.concurrent.Flow$Subscription
+Warning: org.reactivestreams.FlowAdapters: can't find referenced class java.util.concurrent.Flow$Publisher
+```
+
+It is recommended one sets up the following `-dontwarn` entry in the application's `proguard-ruleset` file:
+
+```
+-dontwarn java.util.concurrent.Flow*
+```
+
+For R8, the RxJava jar includes the `META-INF/proguard/rxjava3.pro` with the same no-warning clause and should apply automatically.
+
+### Further reading
+
+For further details, consult the [wiki](https://github.com/ReactiveX/RxJava/wiki).
+
+## Communication
+
+- Google Group: [RxJava](http://groups.google.com/d/forum/rxjava)
+- Twitter: [@RxJava](http://twitter.com/RxJava)
+- [GitHub Issues](https://github.com/ReactiveX/RxJava/issues)
+- StackOverflow: [rx-java](http://stackoverflow.com/questions/tagged/rx-java), [rx-java2](http://stackoverflow.com/questions/tagged/rx-java2) and  [rx-java3](http://stackoverflow.com/questions/tagged/rx-java3)
+- [Gitter.im](https://gitter.im/ReactiveX/RxJava)
+
+## Versioning
+
+Version 3.x is in development. Bugfixes will be applied to both 2.x and 3.x branches, but new features will only be added to 3.x.
+
+Minor 3.x increments (such as 3.1, 3.2, etc) will occur when non-trivial new functionality is added or significant enhancements or bug fixes occur that may have behavioral changes that may affect some edge cases (such as dependence on behavior resulting from a bug). An example of an enhancement that would classify as this is adding reactive pull backpressure support to an operator that previously did not support it. This should be backwards compatible but does behave differently.
+
+Patch 3.x.y increments (such as 3.0.0 -> 3.0.1, 3.3.1 -> 3.3.2, etc) will occur for bug fixes and trivial functionality (like adding a method overload). New functionality marked with an [`@Beta`][beta source link] or [`@Experimental`][experimental source link] annotation can also be added in the patch releases to allow rapid exploration and iteration of unstable new functionality. 
+
+#### @Beta
+
+APIs marked with the [`@Beta`][beta source link] annotation at the class or method level are subject to change. They can be modified in any way, or even removed, at any time. If your code is a library itself (i.e. it is used on the CLASSPATH of users outside your control), you should not use beta APIs, unless you repackage them (e.g. using ProGuard, shading, etc).
+
+#### @Experimental
+
+APIs marked with the [`@Experimental`][experimental source link] annotation at the class or method level will almost certainly change. They can be modified in any way, or even removed, at any time. You should not use or rely on them in any production code. They are purely to allow broad testing and feedback. 
+
+#### @Deprecated
+
+APIs marked with the `@Deprecated` annotation at the class or method level will remain supported until the next major release, but it is recommended to stop using them. 
+
+#### io.reactivex.rxjava3.internal.*
+
+All code inside the `io.reactivex.rxjava3.internal.*` packages are considered private API and should not be relied upon at all. It can change at any time. 
+
+## Full Documentation
+
+- [Wiki](https://github.com/ReactiveX/RxJava/wiki)
+- [Javadoc](http://reactivex.io/RxJava/3.x/javadoc/)
+- [Latest snaphot Javadoc](http://reactivex.io/RxJava/3.x/javadoc/snapshot/)
+- Javadoc of a specific [release version](https://github.com/ReactiveX/RxJava/tags): `http://reactivex.io/RxJava/3.x/javadoc/3.x.y/`
+
+## Binaries
+
+Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cio.reactivex.rxjava3).
+
+Example for Gradle:
+
+```groovy
+implementation 'io.reactivex.rxjava3:rxjava:x.y.z'
+```
+
+and for Maven:
+
+```xml
+<dependency>
+    <groupId>io.reactivex.rxjava3</groupId>
+    <artifactId>rxjava</artifactId>
+    <version>x.y.z</version>
+</dependency>
+```
+and for Ivy:
+
+```xml
+<dependency org="io.reactivex.rxjava3" name="rxjava" rev="x.y.z" />
+```
+
+### Snapshots
+
+Snapshots after May 19st, 2025 are available via https://central.sonatype.com/repository/maven-snapshots/io/reactivex/rxjava3/rxjava/
+
+```groovy
+repositories {
+  maven { url 'https://central.sonatype.com/repository/maven-snapshots' }
+}
+
+dependencies {
+  implementation 'io.reactivex.rxjava3:rxjava:3.0.0-SNAPSHOT'
+}
+```
+
+JavaDoc snapshots are available at https://reactivex.io/RxJava/3.x/javadoc/snapshot
+
+## Build
+
+To build:
+
+```
+$ git clone git@github.com:ReactiveX/RxJava.git
+$ cd RxJava/
+$ ./gradlew build
+```
+
+Further details on building can be found on the [Getting Started](https://github.com/ReactiveX/RxJava/wiki/Getting-Started) page of the wiki.
+
+## Bugs and Feedback
+
+For bugs, questions and discussions please use the [Github Issues](https://github.com/ReactiveX/RxJava/issues).
+
+ 
+## LICENSE
+
+    Copyright (c) 2016-present, RxJava Contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+[beta source link]: https://github.com/ReactiveX/RxJava/blob/3.x/src/main/java/io/reactivex/rxjava3/annotations/Beta.java
+[experimental source link]: https://github.com/ReactiveX/RxJava/blob/3.x/src/main/java/io/reactivex/rxjava3/annotations/Experimental.java
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y openjdk-11-jdk gradle
+Exit Code: 0
+Output:
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3639 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1289 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3970 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6411 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.8 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.7 MB in 34s (1278 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  alsa-topology-conf alsa-ucm-conf ant ant-optional antlr at-spi2-core bnd
+  ca-certificates ca-certificates-java dbus dbus-user-session
+  dconf-gsettings-backend dconf-service dmsetup fontconfig-config
+  fonts-dejavu-core fonts-dejavu-extra gir1.2-glib-2.0 groovy
+  gsettings-desktop-schemas ivy java-common java-wrappers javascript-common
+  junit4 libantlr-java libaopalliance-java libapache-pom-java libapparmor1
+  libargon2-1 libasm-java libasound2 libasound2-data
+  libatinject-jsr330-api-java libatk-bridge2.0-0 libatk-wrapper-java
+  libatk-wrapper-java-jni libatk1.0-0 libatk1.0-data libatspi2.0-0
+  libavahi-client3 libavahi-common-data libavahi-common3 libbcel-java
+  libbcpg-java libbcprov-java libbindex-java libbrotli1 libbsd0 libbsf-java
+  libbsh-java libcdi-api-java libcommons-cli-java libcommons-codec-java
+  libcommons-collections3-java libcommons-compress-java libcommons-io-java
+  libcommons-lang-java libcommons-lang3-java libcommons-logging-java
+  libcommons-parent-java libcryptsetup12 libcups2 libdbus-1-3 libdconf1
+  libdd-plist-java libdevmapper1.02.1 libdom4j-java libdrm-amdgpu1
+  libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2
+  libeclipse-jdt-annotation-java libedit2 libel-api-java libelf1 libexpat1
+  libfelix-framework-java libfelix-gogo-runtime-java libfelix-osgi-obr-java
+  libfelix-resolver-java libfindbugs-java libfontconfig1 libfontenc1
+  libfreetype6 libgeronimo-annotation-1.3-spec-java
+  libgeronimo-interceptor-3.0-spec-java libgif7 libgirepository-1.0-1 libgl1
+  libgl1-amber-dri libgl1-mesa-dri libglapi-mesa libglib2.0-0 libglib2.0-data
+  libglvnd0 libglx-mesa0 libglx0 libgoogle-gson-java libgpars-groovy-java
+  libgradle-core-java libgradle-plugins-java libgraphite2-3 libguava-java
+  libguice-java libhamcrest-java libharfbuzz0b libhawtjni-runtime-java
+  libhttpclient-java libhttpcore-java libice-dev libice6 libicu70 libip4tc2
+  libjansi-java libjansi-native-java libjarjar-java libjatl-java
+  libjavaewah-java libjaxen-java libjcifs-java libjcip-annotations-java
+  libjcommander-java libjcsp-java libjetty9-java libjformatstring-java
+  libjgit-java libjline2-java libjna-java libjna-jni libjpeg-turbo8 libjpeg8
+  libjs-jquery libjsch-java libjson-c5 libjsoup-java libjsp-api-java
+  libjsr166y-java libjsr305-java libjzlib-java libkmod2 libkryo-java
+  libkxml2-java liblcms2-2 libllvm15 liblogback-java libmaven-parent-java
+  libmaven-resolver-java libmaven-shared-utils-java libmaven3-core-java libmd0
+  libminlog-java libmpdec3 libmultiverse-core-java libnative-platform-java
+  libnative-platform-jni libnekohtml-java libnspr4 libnss-systemd libnss3
+  libobjenesis-java libosgi-annotation-java libosgi-compendium-java
+  libosgi-core-java libpam-systemd libpciaccess0 libpcsclite1
+  libplexus-cipher-java libplexus-classworlds-java
+  libplexus-component-annotations-java libplexus-container-default-java
+  libplexus-interpolation-java libplexus-sec-dispatcher-java
+  libplexus-utils2-java libpng16-16 libpolyglot-maven-java
+  libpthread-stubs0-dev libpython3-stdlib libpython3.10-minimal
+  libpython3.10-stdlib libqdox-java libreadline8 libreflectasm-java
+  libreflectasm-java-doc librhino-java libsensors-config libsensors5
+  libservlet-api-java libservlet3.1-java libsimple-http-java
+  libsisu-inject-java libsisu-plexus-java libslf4j-java libsm-dev libsm6
+  libsqlite3-0 libwagon-file-java libwagon-http-java
+  libwagon-provider-api-java libwebsocket-api-java libx11-6 libx11-data
+  libx11-dev libx11-xcb1 libxau-dev libxau6 libxaw7 libxbean-reflect-java
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0
+  libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxcb1-dev
+  libxcomposite1 libxdmcp-dev libxdmcp6 libxerces2-java libxext6 libxfixes3
+  libxft2 libxi6 libxinerama1 libxkbfile1 libxml-commons-external-java
+  libxml-commons-resolver1.1-java libxml2 libxmu6 libxmuu1 libxpm4
+  libxpp3-java libxrandr2 libxrender1 libxshmfence1 libxstream-java libxt-dev
+  libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 libxz-java
+  libyaml-snake-java media-types networkd-dispatcher openjdk-11-jdk-headless
+  openjdk-11-jre openjdk-11-jre-headless openssl python3 python3-dbus
+  python3-gi python3-minimal python3.10 python3.10-minimal readline-common
+  session-migration shared-mime-info systemd systemd-sysv systemd-timesyncd
+  testng ucf unzip x11-common x11-utils x11proto-dev xdg-user-dirs
+  xorg-sgml-doctools xtrans-dev
+Suggested packages:
+  ant-doc javacc junit jython libactivation-java libcommons-net-java
+  libmail-java libjaxp1.3-java libjdepend-java liblog4j1.2-java liboro-java
+  libregexp-java libxalan2-java gradle-doc groovy-doc ivy-doc
+  libjsch-agent-proxy-java default-jre apache2 | lighttpd | httpd
+  libaopalliance-java-doc libasound2-plugins alsa-utils
+  libatinject-jsr330-api-java-doc libbcel-java-doc libbcpg-java-doc
+  libbcprov-java-doc bsh rhino libcommons-collections3-java-doc
+  libcommons-io-java-doc libcommons-lang-java-doc libcommons-lang3-java-doc
+  libavalon-framework-java libcommons-logging-java-doc
+  libexcalibur-logkit-java cups-common libdom4j-java-doc libmsv-java
+  libxpp2-java libfelix-framework-java-doc libfelix-gogo-runtime-java-doc
+  libfelix-osgi-obr-java-doc libgoogle-gson-java-doc libgpars-groovy-java-doc
+  libcglib-java libice-doc libjdom1-java libxom-java libjcifs-java-doc
+  libjcommander-java-doc libjcsp-java-doc jetty9 libjna-java-doc
+  libjsoup-java-doc libjsr305-java-doc liblcms2-utils libjanino-java
+  libtomcat9-java libmaven-shared-utils-java-doc libnative-platform-java-doc
+  libnekohtml-java-doc libobjenesis-java-doc libosgi-annotation-java-doc
+  libosgi-compendium-java-doc libosgi-core-java-doc pciutils pcscd
+  libplexus-classworlds-java-doc libplexus-sec-dispatcher-java-doc
+  libplexus-utils2-java-doc libpolyglot-maven-java-doc libqdox-java-doc
+  lm-sensors libsimple-http-java-doc libsm-doc libx11-doc libxcb-doc
+  libxerces2-java-doc libxml-commons-resolver1.1-java-doc libcglib-nodep-java
+  libjdom2-java libjettison-java libjoda-time-java libwoodstox-java libxt-doc
+  iw | wireless-tools openjdk-11-demo openjdk-11-source visualvm libnss-mdns
+  fonts-ipafont-gothic fonts-ipafont-mincho fonts-wqy-microhei
+  | fonts-wqy-zenhei fonts-indic python3-doc python3-tk python3-venv
+  python-dbus-doc python3.10-venv python3.10-doc binutils binfmt-support
+  readline-doc systemd-container libfido2-1 libtss2-esys-3.0.2-0 libtss2-mu0
+  libtss2-rc0 policykit-1 zip mesa-utils
+The following NEW packages will be installed:
+  alsa-topology-conf alsa-ucm-conf ant ant-optional antlr at-spi2-core bnd
+  ca-certificates ca-certificates-java dbus dbus-user-session
+  dconf-gsettings-backend dconf-service dmsetup fontconfig-config
+  fonts-dejavu-core fonts-dejavu-extra gir1.2-glib-2.0 gradle groovy
+  gsettings-desktop-schemas ivy java-common java-wrappers javascript-common
+  junit4 libantlr-java libaopalliance-java libapache-pom-java libapparmor1
+  libargon2-1 libasm-java libasound2 libasound2-data
+  libatinject-jsr330-api-java libatk-bridge2.0-0 libatk-wrapper-java
+  libatk-wrapper-java-jni libatk1.0-0 libatk1.0-data libatspi2.0-0
+  libavahi-client3 libavahi-common-data libavahi-common3 libbcel-java
+  libbcpg-java libbcprov-java libbindex-java libbrotli1 libbsd0 libbsf-java
+  libbsh-java libcdi-api-java libcommons-cli-java libcommons-codec-java
+  libcommons-collections3-java libcommons-compress-java libcommons-io-java
+  libcommons-lang-java libcommons-lang3-java libcommons-logging-java
+  libcommons-parent-java libcryptsetup12 libcups2 libdbus-1-3 libdconf1
+  libdd-plist-java libdevmapper1.02.1 libdom4j-java libdrm-amdgpu1
+  libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2
+  libeclipse-jdt-annotation-java libedit2 libel-api-java libelf1 libexpat1
+  libfelix-framework-java libfelix-gogo-runtime-java libfelix-osgi-obr-java
+  libfelix-resolver-java libfindbugs-java libfontconfig1 libfontenc1
+  libfreetype6 libgeronimo-annotation-1.3-spec-java
+  libgeronimo-interceptor-3.0-spec-java libgif7 libgirepository-1.0-1 libgl1
+  libgl1-amber-dri libgl1-mesa-dri libglapi-mesa libglib2.0-0 libglib2.0-data
+  libglvnd0 libglx-mesa0 libglx0 libgoogle-gson-java libgpars-groovy-java
+  libgradle-core-java libgradle-plugins-java libgraphite2-3 libguava-java
+  libguice-java libhamcrest-java libharfbuzz0b libhawtjni-runtime-java
+  libhttpclient-java libhttpcore-java libice-dev libice6 libicu70 libip4tc2
+  libjansi-java libjansi-native-java libjarjar-java libjatl-java
+  libjavaewah-java libjaxen-java libjcifs-java libjcip-annotations-java
+  libjcommander-java libjcsp-java libjetty9-java libjformatstring-java
+  libjgit-java libjline2-java libjna-java libjna-jni libjpeg-turbo8 libjpeg8
+  libjs-jquery libjsch-java libjson-c5 libjsoup-java libjsp-api-java
+  libjsr166y-java libjsr305-java libjzlib-java libkmod2 libkryo-java
+  libkxml2-java liblcms2-2 libllvm15 liblogback-java libmaven-parent-java
+  libmaven-resolver-java libmaven-shared-utils-java libmaven3-core-java libmd0
+  libminlog-java libmpdec3 libmultiverse-core-java libnative-platform-java
+  libnative-platform-jni libnekohtml-java libnspr4 libnss-systemd libnss3
+  libobjenesis-java libosgi-annotation-java libosgi-compendium-java
+  libosgi-core-java libpam-systemd libpciaccess0 libpcsclite1
+  libplexus-cipher-java libplexus-classworlds-java
+  libplexus-component-annotations-java libplexus-container-default-java
+  libplexus-interpolation-java libplexus-sec-dispatcher-java
+  libplexus-utils2-java libpng16-16 libpolyglot-maven-java
+  libpthread-stubs0-dev libpython3-stdlib libpython3.10-minimal
+  libpython3.10-stdlib libqdox-java libreadline8 libreflectasm-java
+  libreflectasm-java-doc librhino-java libsensors-config libsensors5
+  libservlet-api-java libservlet3.1-java libsimple-http-java
+  libsisu-inject-java libsisu-plexus-java libslf4j-java libsm-dev libsm6
+  libsqlite3-0 libwagon-file-java libwagon-http-java
+  libwagon-provider-api-java libwebsocket-api-java libx11-6 libx11-data
+  libx11-dev libx11-xcb1 libxau-dev libxau6 libxaw7 libxbean-reflect-java
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0
+  libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxcb1-dev
+  libxcomposite1 libxdmcp-dev libxdmcp6 libxerces2-java libxext6 libxfixes3
+  libxft2 libxi6 libxinerama1 libxkbfile1 libxml-commons-external-java
+  libxml-commons-resolver1.1-java libxml2 libxmu6 libxmuu1 libxpm4
+  libxpp3-java libxrandr2 libxrender1 libxshmfence1 libxstream-java libxt-dev
+  libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 libxz-java
+  libyaml-snake-java media-types networkd-dispatcher openjdk-11-jdk
+  openjdk-11-jdk-headless openjdk-11-jre openjdk-11-jre-headless openssl
+  python3 python3-dbus python3-gi python3-minimal python3.10
+  python3.10-minimal readline-common session-migration shared-mime-info
+  systemd systemd-sysv systemd-timesyncd testng ucf unzip x11-common x11-utils
+  x11proto-dev xdg-user-dirs xorg-sgml-doctools xtrans-dev
+0 upgraded, 279 newly installed, 0 to remove and 3 not upgraded.
+Need to get 276 MB of archives.
+After this operation, 686 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-minimal amd64 3.10.12-1~22.04.13 [815 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-minimal amd64 3.10.12-1~22.04.13 [2272 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-minimal amd64 3.10.6-1~22.04.1 [24.3 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 media-types all 7.0.0 [25.5 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpdec3 amd64 2.5.1-2build2 [86.8 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-stdlib amd64 3.10.12-1~22.04.13 [1850 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.13 [508 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libapparmor1 amd64 3.0.4-2ubuntu2.5 [39.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 libargon2-1 amd64 0~20171227-0.3 [19.5 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdevmapper1.02.1 amd64 2:1.02.175-2.1ubuntu5 [139 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjson-c5 amd64 0.15-3~ubuntu1.22.04.2 [33.5 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcryptsetup12 amd64 2:2.4.3-1ubuntu1.3 [211 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libip4tc2 amd64 1.8.7-1ubuntu5.2 [19.9 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 libkmod2 amd64 29-1ubuntu1 [48.0 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd amd64 249.11-0ubuntu3.17 [4583 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd-sysv amd64 249.11-0ubuntu3.17 [10.5 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdbus-1-3 amd64 1.12.20-2ubuntu4.1 [189 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dbus amd64 1.12.20-2ubuntu4.1 [158 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dmsetup amd64 2:1.02.175-2.1ubuntu5 [81.7 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libglib2.0-0 amd64 2.72.4-0ubuntu2.8 [1467 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgirepository-1.0-1 amd64 1.72.0-1 [55.6 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 gir1.2-glib-2.0 amd64 1.72.0-1 [164 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libelf1 amd64 0.186-1ubuntu0.1 [51.1 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libglib2.0-data all 2.72.4-0ubuntu2.8 [5062 B]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnss-systemd amd64 249.11-0ubuntu3.17 [133 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpam-systemd amd64 249.11-0ubuntu3.17 [203 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.10 [764 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy/main amd64 python3-dbus amd64 1.2.18-3build1 [99.5 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-gi amd64 3.42.1-0ubuntu1 [229 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 networkd-dispatcher all 2.1-2ubuntu0.22.04.2 [15.8 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy/main amd64 shared-mime-info amd64 2.1-2 [454 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd-timesyncd amd64 249.11-0ubuntu3.17 [31.2 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy/main amd64 xdg-user-dirs amd64 0.17-2ubuntu4 [53.9 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdrm-common all 2.4.113-2~ubuntu0.22.04.1 [5450 B]
+Get:47 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdrm2 amd64 2.4.113-2~ubuntu0.22.04.1 [38.1 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:51 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxext6 amd64 2:1.3.4-1build1 [31.8 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxmuu1 amd64 2:1.1.3-3 [10.2 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy/main amd64 alsa-topology-conf all 1.2.5.1-2 [15.5 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 libasound2-data all 1.2.6.1-1ubuntu1 [19.1 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 libasound2 amd64 1.2.6.1-1ubuntu1 [390 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 alsa-ucm-conf all 1.2.6.3-1ubuntu1.12 [43.5 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnspr4 amd64 2:4.35-0ubuntu0.22.04.1 [119 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnss3 amd64 2:3.98-0ubuntu0.22.04.2 [1347 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates-java all 20190909ubuntu1.2 [12.1 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy/main amd64 java-common all 0.72build2 [6782 B]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libavahi-common-data amd64 0.8-5ubuntu5.4 [24.0 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libavahi-common3 amd64 0.8-5ubuntu5.4 [23.9 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libavahi-client3 amd64 0.8-5ubuntu5.4 [28.0 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcups2 amd64 2.4.1op1-1ubuntu4.16 [264 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblcms2-2 amd64 2.12~rc1-2build2 [159 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgraphite2-3 amd64 1.3.14-1build2 [71.3 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libharfbuzz0b amd64 2.7.4-1ubuntu3.2 [353 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpcsclite1 amd64 1.9.5-3ubuntu1 [19.8 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openjdk-11-jre-headless amd64 11.0.29+7-1ubuntu1~22.04 [42.6 MB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/universe amd64 ant all 1.10.12-1 [2100 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy/universe amd64 ant-optional all 1.10.12-1 [368 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libantlr-java all 2.7.7+dfsg-12 [448 kB]
+Get:84 http://archive.ubuntu.com/ubuntu jammy/universe amd64 antlr all 2.7.7+dfsg-12 [5146 B]
+Get:85 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxi6 amd64 2:1.8-1build1 [32.6 kB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy/main amd64 libatspi2.0-0 amd64 2.44.0-3 [80.9 kB]
+Get:87 http://archive.ubuntu.com/ubuntu jammy/main amd64 x11-common all 1:7.7+23ubuntu2 [23.4 kB]
+Get:88 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxtst6 amd64 2:1.2.3-1build4 [13.4 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dbus-user-session amd64 1.12.20-2ubuntu4.1 [9442 B]
+Get:90 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdconf1 amd64 0.40.0-3ubuntu0.1 [40.5 kB]
+Get:91 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dconf-service amd64 0.40.0-3ubuntu0.1 [28.1 kB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dconf-gsettings-backend amd64 0.40.0-3ubuntu0.1 [22.7 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy/main amd64 session-migration amd64 0.3.6 [9774 B]
+Get:94 http://archive.ubuntu.com/ubuntu jammy/main amd64 gsettings-desktop-schemas all 42.0-1ubuntu1 [31.1 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy/main amd64 at-spi2-core amd64 2.44.0-3 [54.4 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 unzip amd64 6.0-26ubuntu3.2 [175 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy/universe amd64 java-wrappers all 0.3 [9560 B]
+Get:98 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libhamcrest-java all 1.3-9 [386 kB]
+Get:99 http://archive.ubuntu.com/ubuntu jammy/universe amd64 junit4 all 4.13.2-1 [344 kB]
+Get:100 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libfelix-framework-java all 4.6.1-2.1 [552 kB]
+Get:101 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libfelix-gogo-runtime-java all 0.16.2-1.1 [113 kB]
+Get:102 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libosgi-annotation-java all 8.0.1-1 [10.4 kB]
+Get:103 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libosgi-core-java all 7.0.0-2 [157 kB]
+Get:104 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libfelix-resolver-java all 1.16.0-1 [179 kB]
+Get:105 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libhawtjni-runtime-java all 1.17-1 [28.8 kB]
+Get:106 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libjansi-native-java all 1.8-1 [23.8 kB]
+Get:107 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libjansi-java all 1.18-1 [56.8 kB]
+Get:108 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libjline2-java all 2.14.6-4 [150 kB]
+Get:109 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libosgi-compendium-java all 7.0.0-1 [477 kB]
+Get:110 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libslf4j-java all 1.7.32-1 [141 kB]
+Get:111 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libxz-java all 1.9-1 [140 kB]
+Get:112 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libyaml-snake-java all 1.29-1ubuntu0.22.04.1 [314 kB]
+Get:113 http://archive.ubuntu.com/ubuntu jammy/universe amd64 bnd all 5.0.1-3 [9912 kB]
+Get:114 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-extra all 2.37-2build1 [2041 kB]
+Get:115 http://archive.ubuntu.com/ubuntu jammy/universe amd64 ivy all 2.5.0-2 [1259 kB]
+Get:116 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libasm-java all 9.2-1 [375 kB]
+Get:117 http://archive.ubuntu.com/ubuntu jammy/un
+
+[... truncated ...]
+
+hi-common-data:amd64 (0.8-5ubuntu5.4) ...
+Setting up libxpp3-java (1.1.4c-3) ...
+Setting up libatinject-jsr330-api-java (1.0+ds1-5) ...
+Setting up libdbus-1-3:amd64 (1.12.20-2ubuntu4.1) ...
+Setting up dbus (1.12.20-2ubuntu4.1) ...
+Setting up libwebsocket-api-java (1.1-2) ...
+Setting up libplexus-interpolation-java (1.26-1) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libxml-commons-resolver1.1-java (1.2-11) ...
+Setting up systemd-timesyncd (249.11-0ubuntu3.17) ...
+Created symlink /etc/systemd/system/dbus-org.freedesktop.timesync1.service → /lib/systemd/system/systemd-timesyncd.service.
+Created symlink /etc/systemd/system/sysinit.target.wants/systemd-timesyncd.service → /lib/systemd/system/systemd-timesyncd.service.
+Setting up libkryo-java (2.20-7) ...
+Setting up libxz-java (1.9-1) ...
+Setting up libjna-jni (5.9.0-1) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up libfelix-framework-java (4.6.1-2.1) ...
+Setting up libpcsclite1:amd64 (1.9.5-3ubuntu1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libsensors5:amd64 (1:3.6.0-7ubuntu1) ...
+Setting up libjcsp-java (1.1-rc4-2.1) ...
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libhamcrest-java (1.3-9) ...
+Setting up libglapi-mesa:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libbsh-java (2.0b4-20) ...
+Setting up libjsp-api-java (2.3.4-3) ...
+Setting up libgif7:amd64 (5.1.9-2ubuntu0.1) ...
+Setting up libatk1.0-data (2.36.0-3build1) ...
+Setting up libjarjar-java (1.4+svn142-10) ...
+Setting up fonts-dejavu-extra (2.37-2build1) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up alsa-topology-conf (1.2.5.1-2) ...
+Setting up dmsetup (2:1.02.175-2.1ubuntu5) ...
+Setting up libxshmfence1:amd64 (1.3-1build4) ...
+Setting up libjsoup-java (1.14.3-1) ...
+Setting up libreflectasm-java-doc (1.11.6+dfsg-1) ...
+Setting up libxml-commons-external-java (1.4.01-5) ...
+Setting up libjna-java (5.9.0-1) ...
+Setting up libxbean-reflect-java (4.5-8) ...
+Setting up libasound2:amd64 (1.2.6.1-1ubuntu1) ...
+Setting up libservlet-api-java (4.0.1-2) ...
+Setting up libmpdec3:amd64 (2.5.1-2build2) ...
+Setting up libpam-systemd:amd64 (249.11-0ubuntu3.17) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libplexus-sec-dispatcher-java (1.4-4) ...
+Setting up libgirepository-1.0-1:amd64 (1.72.0-1) ...
+Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+Setting up libkxml2-java (2.3.0+ds1-2.1) ...
+Setting up libnative-platform-jni (0.14-5build1) ...
+Setting up libatk1.0-0:amd64 (2.36.0-3build1) ...
+Setting up libhttpcore-java (4.4.14-2) ...
+Setting up libbcpg-java (1.68-5) ...
+Setting up libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Setting up libxerces2-java (2.12.1-1) ...
+Setting up libantlr-java (2.7.7+dfsg-12) ...
+Setting up libyaml-snake-java (1.29-1ubuntu0.22.04.1) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up libdrm-common (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libcdi-api-java (1.2-3) ...
+Setting up libelf1:amd64 (0.186-1ubuntu0.1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up libhawtjni-runtime-java (1.17-1) ...
+Setting up libservlet3.1-java (1:4.0.1-2) ...
+Setting up libjatl-java (0.2.3-1.1) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up libdom4j-java (2.1.3-1) ...
+Setting up x11proto-dev (2021.5-1) ...
+Setting up libwagon-provider-api-java (3.3.4-1) ...
+Setting up libnative-platform-java (0.14-5build1) ...
+Setting up libosgi-core-java (7.0.0-2) ...
+Setting up libice6:amd64 (2:1.0.10-1build2) ...
+Setting up session-migration (0.3.6) ...
+Created symlink /etc/systemd/user/graphical-session-pre.target.wants/session-migration.service → /usr/lib/systemd/user/session-migration.service.
+Setting up libxstream-java (1.4.18-2ubuntu0.1) ...
+Setting up libnekohtml-java (1.9.22-1.1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up libjetty9-java (9.4.45-1) ...
+Setting up libxcb-xfixes0:amd64 (1.14-3ubuntu3) ...
+Setting up java-wrappers (0.3) ...
+Setting up libxau-dev:amd64 (1:1.0.9-1build5) ...
+Setting up libosgi-compendium-java (7.0.0-1) ...
+Setting up libice-dev:amd64 (2:1.0.10-1build2) ...
+Setting up alsa-ucm-conf (1.2.6.3-1ubuntu1.12) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libxcb-glx0:amd64 (1.14-3ubuntu3) ...
+Setting up libmaven-parent-java (31-2) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libcommons-parent-java (43-1) ...
+Setting up libxcb-shape0:amd64 (1.14-3ubuntu3) ...
+Setting up libavahi-common3:amd64 (0.8-5ubuntu5.4) ...
+Setting up libcommons-logging-java (1.2-2) ...
+Setting up libsisu-inject-java (0.3.4-2) ...
+Setting up libnss3:amd64 (2:3.98-0ubuntu0.22.04.2) ...
+Setting up libxcb-shm0:amd64 (1.14-3ubuntu3) ...
+Setting up libcommons-lang-java (2.6-9) ...
+Setting up libxcb-present0:amd64 (1.14-3ubuntu3) ...
+Setting up libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libsisu-plexus-java (0.3.4-3) ...
+Setting up dbus-user-session (1.12.20-2ubuntu4.1) ...
+Setting up libxdmcp-dev:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libmaven-resolver-java (1.4.2-3build1) ...
+Setting up libbcel-java (6.5.0-1ubuntu0.1) ...
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libguava-java (29.0-6) ...
+Setting up libxcb-sync1:amd64 (1.14-3ubuntu3) ...
+Setting up testng (6.9.12-4) ...
+Setting up gir1.2-glib-2.0:amd64 (1.72.0-1) ...
+Setting up libcommons-lang3-java (3.11-1) ...
+Setting up libxcb-dri2-0:amd64 (1.14-3ubuntu3) ...
+Setting up libfelix-resolver-java (1.16.0-1) ...
+Setting up libdrm2:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libjansi-native-java (1.8-1) ...
+Setting up libxcb-randr0:amd64 (1.14-3ubuntu3) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libharfbuzz0b:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libxkbfile1:amd64 (1:1.1.0-1build3) ...
+Setting up libwagon-file-java (3.3.4-1) ...
+Setting up libcommons-codec-java (1.15-1) ...
+Setting up libxcomposite1:amd64 (1:0.4.5-1build2) ...
+Setting up libsm6:amd64 (2:1.2.3-1build2) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.10) ...
+Setting up libavahi-client3:amd64 (0.8-5ubuntu5.4) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up libplexus-container-default-java (2.1.0-1) ...
+Setting up libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up libdrm-amdgpu1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libxcb-dri3-0:amd64 (1.14-3ubuntu3) ...
+Setting up libfelix-osgi-obr-java (1.0.2-5fakesync1) ...
+Setting up libx11-xcb1:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libdrm-nouveau2:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libfindbugs-java (3.1.0~preview2-3) ...
+Setting up libxcb1-dev:amd64 (1.14-3ubuntu3) ...
+Setting up python3.10 (3.10.12-1~22.04.13) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libxrender1:amd64 (1:0.9.10-1build4) ...
+Setting up libcommons-compress-java (1.21-1) ...
+Setting up libsm-dev:amd64 (2:1.2.3-1build2) ...
+Setting up libcommons-io-java (2.11.0-2) ...
+Setting up libdrm-radeon1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libdrm-intel1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libx11-dev:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libxext6:amd64 (2:1.3.4-1build1) ...
+Setting up dconf-service (0.40.0-3ubuntu0.1) ...
+Setting up python3 (3.10.6-1~22.04.1) ...
+running python rtupdate hooks for python3.10...
+running python post-rtupdate hooks for python3.10...
+Setting up libguice-java (4.2.3-2) ...
+Setting up libxxf86vm1:amd64 (1:1.1.4-1build3) ...
+Setting up libxfixes3:amd64 (1:6.0.0-1) ...
+Setting up libjansi-java (1.18-1) ...
+Setting up python3-gi (3.42.1-0ubuntu1) ...
+Setting up shared-mime-info (2.1-2) ...
+Setting up libxinerama1:amd64 (2:1.1.4-3) ...
+Setting up libxv1:amd64 (2:1.0.11-1build2) ...
+Setting up libxrandr2:amd64 (2:1.5.2-1build1) ...
+Setting up libxt6:amd64 (1:1.2.1-1) ...
+Setting up libcups2:amd64 (2.4.1op1-1ubuntu4.16) ...
+Setting up libhttpclient-java (4.5.13-3) ...
+Setting up libllvm15:amd64 (1:15.0.7-0ubuntu0.22.04.3) ...
+Setting up libwagon-http-java (3.3.4-1) ...
+Setting up libmaven-shared-utils-java (3.3.0-1ubuntu0.22.04.1) ...
+Setting up libjline2-java (2.14.6-4) ...
+Setting up libgl1-amber-dri:amd64 (21.3.9-0ubuntu1~22.04.1) ...
+Setting up libjgit-java (4.11.9-1) ...
+Setting up python3-dbus (1.2.18-3build1) ...
+Setting up libxft2:amd64 (2.3.4-1) ...
+Setting up libxmu6:amd64 (2:1.1.3-3) ...
+Setting up libxi6:amd64 (2:1.8-1build1) ...
+Setting up dconf-gsettings-backend:amd64 (0.40.0-3ubuntu0.1) ...
+Setting up libmaven3-core-java (3.6.3-5) ...
+Setting up libxtst6:amd64 (2:1.2.3-1build4) ...
+Setting up libgl1-mesa-dri:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libxxf86dga1:amd64 (2:1.1.5-0ubuntu3) ...
+Setting up libxaw7:amd64 (2:1.0.14-1) ...
+Setting up libatspi2.0-0:amd64 (2.44.0-3) ...
+Setting up libatk-bridge2.0-0:amd64 (2.38.0-3) ...
+Setting up libxt-dev:amd64 (1:1.2.1-1) ...
+Setting up networkd-dispatcher (2.1-2ubuntu0.22.04.2) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/networkd-dispatcher.service → /lib/systemd/system/networkd-dispatcher.service.
+Setting up gsettings-desktop-schemas (42.0-1ubuntu1) ...
+Setting up libglx-mesa0:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libglx0:amd64 (1.4.0-1) ...
+Setting up libgl1:amd64 (1.4.0-1) ...
+Setting up at-spi2-core (2.44.0-3) ...
+Setting up x11-utils (7.7+5build2) ...
+Setting up libatk-wrapper-java (0.38.0-5build1) ...
+Setting up libatk-wrapper-java-jni:amd64 (0.38.0-5build1) ...
+Setting up openjdk-11-jre-headless:amd64 (11.0.29+7-1ubuntu1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/java to provide /usr/bin/java (java) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jjs to provide /usr/bin/jjs (jjs) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/keytool to provide /usr/bin/keytool (keytool) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/rmid to provide /usr/bin/rmid (rmid) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/rmiregistry to provide /usr/bin/rmiregistry (rmiregistry) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/pack200 to provide /usr/bin/pack200 (pack200) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/unpack200 to provide /usr/bin/unpack200 (unpack200) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/lib/jexec to provide /usr/bin/jexec (jexec) in auto mode
+Setting up openjdk-11-jre:amd64 (11.0.29+7-1ubuntu1~22.04) ...
+Setting up openjdk-11-jdk-headless:amd64 (11.0.29+7-1ubuntu1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jar to provide /usr/bin/jar (jar) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jarsigner to provide /usr/bin/jarsigner (jarsigner) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/javac to provide /usr/bin/javac (javac) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc to provide /usr/bin/javadoc (javadoc) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/javap to provide /usr/bin/javap (javap) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jcmd to provide /usr/bin/jcmd (jcmd) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jdb to provide /usr/bin/jdb (jdb) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jdeprscan to provide /usr/bin/jdeprscan (jdeprscan) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jdeps to provide /usr/bin/jdeps (jdeps) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jfr to provide /usr/bin/jfr (jfr) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jimage to provide /usr/bin/jimage (jimage) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jinfo to provide /usr/bin/jinfo (jinfo) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jlink to provide /usr/bin/jlink (jlink) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jmap to provide /usr/bin/jmap (jmap) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jmod to provide /usr/bin/jmod (jmod) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jps to provide /usr/bin/jps (jps) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jrunscript to provide /usr/bin/jrunscript (jrunscript) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jshell to provide /usr/bin/jshell (jshell) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jstack to provide /usr/bin/jstack (jstack) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jstat to provide /usr/bin/jstat (jstat) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jstatd to provide /usr/bin/jstatd (jstatd) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/rmic to provide /usr/bin/rmic (rmic) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/serialver to provide /usr/bin/serialver (serialver) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jaotc to provide /usr/bin/jaotc (jaotc) in auto mode
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jhsdb to provide /usr/bin/jhsdb (jhsdb) in auto mode
+Setting up antlr (2.7.7+dfsg-12) ...
+Setting up ivy (2.5.0-2) ...
+Setting up ant (1.10.12-1) ...
+Setting up openjdk-11-jdk:amd64 (11.0.29+7-1ubuntu1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/jconsole to provide /usr/bin/jconsole (jconsole) in auto mode
+Setting up ca-certificates-java (20190909ubuntu1.2) ...
+head: cannot open '/etc/ssl/certs/java/cacerts' for reading: No such file or directory
+Adding debian:vTrus_ECC_Root_CA.pem
+Adding debian:Sectigo_Public_Server_Authentication_Root_R46.pem
+Adding debian:e-Szigno_Root_CA_2017.pem
+Adding debian:CommScope_Public_Trust_ECC_Root-01.pem
+Adding debian:AC_RAIZ_FNMT-RCM_SERVIDORES_SEGUROS.pem
+Adding debian:Trustwave_Global_ECC_P256_Certification_Authority.pem
+Adding debian:certSIGN_Root_CA_G2.pem
+Adding debian:Certum_Trusted_Root_CA.pem
+Adding debian:TunTrust_Root_CA.pem
+Adding debian:Atos_TrustedRoot_2011.pem
+Adding debian:Telia_Root_CA_v2.pem
+Adding debian:Buypass_Class_3_Root_CA.pem
+Adding debian:SZAFIR_ROOT_CA2.pem
+Adding debian:GlobalSign_Root_CA_-_R6.pem
+Adding debian:DigiCert_TLS_RSA4096_Root_G5.pem
+Adding debian:TWCA_Global_Root_CA.pem
+Adding debian:QuoVadis_Root_CA_2_G3.pem
+Adding debian:GlobalSign_Root_CA.pem
+Adding debian:Trustwave_Global_Certification_Authority.pem
+Adding debian:GlobalSign_Root_R46.pem
+Adding debian:vTrus_Root_CA.pem
+Adding debian:Amazon_Root_CA_3.pem
+Adding debian:DigiCert_Global_Root_CA.pem
+Adding debian:CommScope_Public_Trust_ECC_Root-02.pem
+Adding debian:DigiCert_Assured_ID_Root_CA.pem
+Adding debian:SSL.com_EV_Root_Certification_Authority_ECC.pem
+Adding debian:Entrust_Root_Certification_Authority.pem
+Adding debian:GlobalSign_ECC_Root_CA_-_R4.pem
+Adding debian:DigiCert_Global_Root_G2.pem
+Adding debian:OISTE_WISeKey_Global_Root_GC_CA.pem
+Adding debian:DigiCert_Assured_ID_Root_G3.pem
+Adding debian:SecureSign_RootCA11.pem
+Adding debian:BJCA_Global_Root_CA2.pem
+Adding debian:USERTrust_RSA_Certification_Authority.pem
+Adding debian:Atos_TrustedRoot_Root_CA_ECC_TLS_2021.pem
+Adding debian:Certainly_Root_R1.pem
+Adding debian:AC_RAIZ_FNMT-RCM.pem
+Adding debian:TWCA_Root_Certification_Authority.pem
+Adding debian:Comodo_AAA_Services_root.pem
+Adding debian:SSL.com_TLS_RSA_Root_CA_2022.pem
+Adding debian:DigiCert_High_Assurance_EV_Root_CA.pem
+Adding debian:Autoridad_de_Certificacion_Firmaprofesional_CIF_A62634068.pem
+Adding debian:TrustAsia_Global_Root_CA_G4.pem
+Adding debian:AffirmTrust_Premium.pem
+Adding debian:Microsec_e-Szigno_Root_CA_2009.pem
+Adding debian:D-TRUST_Root_Class_3_CA_2_EV_2009.pem
+Adding debian:Security_Communication_RootCA3.pem
+Adding debian:COMODO_ECC_Certification_Authority.pem
+Adding debian:Hellenic_Academic_and_Research_Institutions_RootCA_2015.pem
+Adding debian:Starfield_Services_Root_Certificate_Authority_-_G2.pem
+Adding debian:Hellenic_Academic_and_Research_Institutions_ECC_RootCA_2015.pem
+Adding debian:Actalis_Authentication_Root_CA.pem
+Adding debian:Secure_Global_CA.pem
+Adding debian:Microsoft_RSA_Root_Certificate_Authority_2017.pem
+Adding debian:Starfield_Class_2_CA.pem
+Adding debian:Go_Daddy_Class_2_CA.pem
+Adding debian:Amazon_Root_CA_1.pem
+Adding debian:BJCA_Global_Root_CA1.pem
+Adding debian:Certigna.pem
+Adding debian:SSL.com_Root_Certification_Authority_RSA.pem
+Adding debian:D-TRUST_EV_Root_CA_1_2020.pem
+Adding debian:CA_Disig_Root_R2.pem
+Adding debian:GLOBALTRUST_2020.pem
+Adding debian:Certainly_Root_E1.pem
+Adding debian:emSign_ECC_Root_CA_-_C3.pem
+Adding debian:Certum_EC-384_CA.pem
+Adding debian:Atos_TrustedRoot_Root_CA_RSA_TLS_2021.pem
+Adding debian:emSign_ECC_Root_CA_-_G3.pem
+Adding debian:Buypass_Class_2_Root_CA.pem
+Adding debian:QuoVadis_Root_CA_1_G3.pem
+Adding debian:AffirmTrust_Commercial.pem
+Adding debian:GDCA_TrustAUTH_R5_ROOT.pem
+Adding debian:GTS_Root_R1.pem
+Adding debian:T-TeleSec_GlobalRoot_Class_3.pem
+Adding debian:UCA_Extended_Validation_Root.pem
+Adding debian:Sectigo_Public_Server_Authentication_Root_E46.pem
+Adding debian:GlobalSign_Root_CA_-_R3.pem
+Adding debian:TrustAsia_Global_Root_CA_G3.pem
+Adding debian:Amazon_Root_CA_4.pem
+Adding debian:QuoVadis_Root_CA_3.pem
+Adding debian:Security_Communication_Root_CA.pem
+Adding debian:IdenTrust_Public_Sector_Root_CA_1.pem
+Adding debian:CommScope_Public_Trust_RSA_Root-01.pem
+Adding debian:Starfield_Root_Certificate_Authority_-_G2.pem
+Adding debian:Microsoft_ECC_Root_Certificate_Authority_2017.pem
+Adding debian:Certum_Trusted_Network_CA_2.pem
+Adding debian:TeliaSonera_Root_CA_v1.pem
+Adding debian:XRamp_Global_CA_Root.pem
+Adding debian:QuoVadis_Root_CA_2.pem
+Adding debian:Entrust_Root_Certification_Authority_-_G4.pem
+Adding debian:HARICA_TLS_RSA_Root_CA_2021.pem
+Adding debian:Security_Communication_ECC_RootCA1.pem
+Adding debian:Certigna_Root_CA.pem
+Adding debian:QuoVadis_Root_CA_3_G3.pem
+Adding debian:Baltimore_CyberTrust_Root.pem
+Adding debian:AffirmTrust_Premium_ECC.pem
+Adding debian:Trustwave_Global_ECC_P384_Certification_Authority.pem
+Adding debian:D-TRUST_BR_Root_CA_1_2020.pem
+Adding debian:AffirmTrust_Networking.pem
+Adding debian:USERTrust_ECC_Certification_Authority.pem
+Adding debian:ANF_Secure_Server_Root_CA.pem
+Adding debian:COMODO_RSA_Certification_Authority.pem
+Adding debian:GlobalSign_Root_E46.pem
+Adding debian:Entrust_Root_Certification_Authority_-_EC1.pem
+Adding debian:ISRG_Root_X2.pem
+Adding debian:D-TRUST_Root_Class_3_CA_2_2009.pem
+Adding debian:GTS_Root_R4.pem
+Adding debian:GTS_Root_R2.pem
+Adding debian:OISTE_WISeKey_Global_Root_GB_CA.pem
+Adding debian:SSL.com_Root_Certification_Authority_ECC.pem
+Adding debian:emSign_Root_CA_-_G1.pem
+Adding debian:certSIGN_ROOT_CA.pem
+Adding debian:TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.pem
+Adding debian:Izenpe.com.pem
+Adding debian:ISRG_Root_X1.pem
+Adding debian:NetLock_Arany_=Class_Gold=_Főtanúsítvány.pem
+Adding debian:DigiCert_Global_Root_G3.pem
+Adding debian:SecureTrust_CA.pem
+Adding debian:GlobalSign_ECC_Root_CA_-_R5.pem
+Adding debian:Security_Communication_RootCA2.pem
+Adding debian:SSL.com_EV_Root_Certification_Authority_RSA_R2.pem
+Adding debian:DigiCert_Trusted_Root_G4.pem
+Adding debian:DigiCert_Assured_ID_Root_G2.pem
+Adding debian:GTS_Root_R3.pem
+Adding debian:SwissSign_Gold_CA_-_G2.pem
+Adding debian:HARICA_TLS_ECC_Root_CA_2021.pem
+Adding debian:Certum_Trusted_Network_CA.pem
+Adding debian:UCA_Global_G2_Root.pem
+Adding debian:Go_Daddy_Root_Certificate_Authority_-_G2.pem
+Adding debian:ePKI_Root_Certification_Authority.pem
+Adding debian:COMODO_Certification_Authority.pem
+Adding debian:CommScope_Public_Trust_RSA_Root-02.pem
+Adding debian:NAVER_Global_Root_Certification_Authority.pem
+Adding debian:Entrust_Root_Certification_Authority_-_G2.pem
+Adding debian:emSign_Root_CA_-_C1.pem
+Adding debian:Hongkong_Post_Root_CA_3.pem
+Adding debian:ACCVRAIZ1.pem
+Adding debian:SwissSign_Silver_CA_-_G2.pem
+Adding debian:CFCA_EV_ROOT.pem
+Adding debian:DigiCert_TLS_ECC_P384_Root_G5.pem
+Adding debian:T-TeleSec_GlobalRoot_Class_2.pem
+Adding debian:IdenTrust_Commercial_Root_CA_1.pem
+Adding debian:HiPKI_Root_CA_-_G1.pem
+Adding debian:Entrust.net_Premium_2048_Secure_Server_CA.pem
+Adding debian:SSL.com_TLS_ECC_Root_CA_2022.pem
+Adding debian:Amazon_Root_CA_2.pem
+done.
+Setting up junit4 (4.13.2-1) ...
+Setting up groovy (2.4.21-1) ...
+update-alternatives: using /usr/share/groovy/bin/groovy to provide /usr/bin/groovy (groovy) in auto mode
+update-alternatives: using /usr/share/groovy/bin/groovyc to provide /usr/bin/groovyc (groovyc) in auto mode
+update-alternatives: using /usr/share/groovy/bin/grape to provide /usr/bin/grape (grape) in auto mode
+update-alternatives: using /usr/share/groovy/bin/startGroovy to provide /usr/bin/startGroovy (startGroovy) in auto mode
+update-alternatives: using /usr/share/groovy/bin/groovysh to provide /usr/bin/groovysh (groovysh) in auto mode
+update-alternatives: using /usr/share/groovy/bin/java2groovy to provide /usr/bin/java2groovy (java2groovy) in auto mode
+update-alternatives: using /usr/share/groovy/bin/groovyConsole to provide /usr/bin/groovyConsole (groovyConsole) in auto mode
+update-alternatives: using /usr/share/groovy/bin/groovydoc to provide /usr/bin/groovydoc (groovydoc) in auto mode
+Setting up ant-optional (1.10.12-1) ...
+Setting up bnd (5.0.1-3) ...
+Setting up libgradle-core-java (4.4.1-13) ...
+Setting up libgradle-plugins-java (4.4.1-13) ...
+Setting up libbindex-java (2.2+svn101-4) ...
+Setting up libgpars-groovy-java (1.2.1-10) ...
+Setting up gradle (4.4.1-13) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+done.
+done.
+----------------------------------------
+
+[Command 4]
+$ ./gradlew build
+Exit Code: 1
+Output:
+Downloading https://services.gradle.org/distributions/gradle-8.14-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%..............100%
+
+Welcome to Gradle 8.14!
+
+Here are the highlights of this release:
+ - Java 24 support
+ - GraalVM Native Image toolchain selection
+ - Enhancements to test reporting
+ - Build Authoring improvements
+
+For more details see https://docs.gradle.org/8.14/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+[Incubating] Problems report is available at: file:///workspace/ReactiveX__RxJava@51de3f77f73d4491e1c6350a7bde3853a5a5b6bf/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem occurred configuring root project 'rxjava'.
+> Failed to calculate the value of task ':compileJava' property 'javaCompiler'.
+   > Cannot find a Java installation on your machine (Linux 6.8.0-87-generic amd64) matching: {languageVersion=8, vendor=Eclipse Temurin, implementation=vendor-specific, nativeImageCapable=false}. Toolchain download repositories have not been configured.
+
+* Try:
+> Learn more about toolchain auto-detection and auto-provisioning at https://docs.gradle.org/8.14/userguide/toolchains.html#sec:auto_detection.
+> Learn more about toolchain repositories at https://docs.gradle.org/8.14/userguide/toolchains.html#sub:download_repositories.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1m 23s
+----------------------------------------
+
+[Command 5]
+$ apt-get install -y gradle6
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package gradle6
+----------------------------------------
+
+[Command 6]
+$ apt-get install -y gradle=4.10.3-1ubuntu1
+Exit Code: 100
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Package gradle is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+
+E: Version '4.10.3-1ubuntu1' for 'gradle' was not found
+----------------------------------------
+
+[Command 7]
+$ ./gradlew wrapper --gradle-version=7.6 --distribution-type=bin
+Exit Code: 1
+Output:
+[Incubating] Problems report is available at: file:///workspace/ReactiveX__RxJava@51de3f77f73d4491e1c6350a7bde3853a5a5b6bf/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem occurred configuring root project 'rxjava'.
+> Failed to calculate the value of task ':compileJava' property 'javaCompiler'.
+   > Cannot find a Java installation on your machine (Linux 6.8.0-87-generic amd64) matching: {languageVersion=8, vendor=Eclipse Temurin, implementation=vendor-specific, nativeImageCapable=false}. Toolchain download repositories have not been configured.
+
+* Try:
+> Learn more about toolchain auto-detection and auto-provisioning at https://docs.gradle.org/8.14/userguide/toolchains.html#sec:auto_detection.
+> Learn more about toolchain repositories at https://docs.gradle.org/8.14/userguide/toolchains.html#sub:download_repositories.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 993ms
+----------------------------------------
+
+[Command 8]
+$ apt-get install -y openjdk-8-jdk
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  adwaita-icon-theme fontconfig gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libasyncns0 libcairo-gobject2 libcairo2 libdatrie1
+  libdeflate0 libflac8 libfribidi0 libgail-common libgail18
+  libgdk-pixbuf-2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgtk2.0-0
+  libgtk2.0-bin libgtk2.0-common libjbig0 libogg0 libopus0 libpango-1.0-0
+  libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 libpulse0 librsvg2-2
+  librsvg2-common libsndfile1 libthai-data libthai0 libtiff5 libvorbis0a
+  libvorbisenc2 libwebp7 libxcb-render0 libxcursor1 libxdamage1
+  openjdk-8-jdk-headless openjdk-8-jre openjdk-8-jre-headless ubuntu-mono
+Suggested packages:
+  gvfs opus-tools pulseaudio librsvg2-bin openjdk-8-demo openjdk-8-source
+  visualvm libnss-mdns fonts-nanum fonts-ipafont-gothic fonts-ipafont-mincho
+  fonts-wqy-microhei fonts-wqy-zenhei fonts-indic
+The following NEW packages will be installed:
+  adwaita-icon-theme fontconfig gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libasyncns0 libcairo-gobject2 libcairo2 libdatrie1
+  libdeflate0 libflac8 libfribidi0 libgail-common libgail18
+  libgdk-pixbuf-2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgtk2.0-0
+  libgtk2.0-bin libgtk2.0-common libjbig0 libogg0 libopus0 libpango-1.0-0
+  libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 libpulse0 librsvg2-2
+  librsvg2-common libsndfile1 libthai-data libthai0 libtiff5 libvorbis0a
+  libvorbisenc2 libwebp7 libxcb-render0 libxcursor1 libxdamage1 openjdk-8-jdk
+  openjdk-8-jdk-headless openjdk-8-jre openjdk-8-jre-headless ubuntu-mono
+0 upgraded, 45 newly installed, 0 to remove and 3 not upgraded.
+Need to get 57.4 MB of archives.
+After this operation, 209 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfribidi0 amd64 1.0.8-2ubuntu3.1 [26.1 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 hicolor-icon-theme all 0.17-2 [9976 B]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgdk-pixbuf2.0-common all 2.42.8+dfsg-1ubuntu0.4 [5546 B]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.8+dfsg-1ubuntu0.4 [148 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gtk-update-icon-cache amd64 3.24.33-1ubuntu2.2 [31.4 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 humanity-icon-theme all 0.6.16 [1282 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 ubuntu-mono all 20.10-0ubuntu2 [153 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 adwaita-icon-theme all 41.0-1ubuntu1 [3444 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig amd64 2.13.1-4.2ubuntu5 [177 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 libasyncns0 amd64 0.8-6build2 [12.8 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpixman-1-0 amd64 0.40.0-1ubuntu0.22.04.1 [264 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb-render0 amd64 1.14-3ubuntu3 [16.4 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcairo2 amd64 1.16.0-5ubuntu2 [628 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcairo-gobject2 amd64 1.16.0-5ubuntu2 [19.4 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdatrie1 amd64 0.2.13-2 [19.9 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 libogg0 amd64 1.3.5-0ubuntu3 [22.9 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libflac8 amd64 1.3.3-2ubuntu0.2 [111 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgtk2.0-common all 2.24.33-2ubuntu2.1 [125 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 libthai-data all 0.1.29-1build1 [162 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libthai0 amd64 0.1.29-1build1 [19.2 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpango-1.0-0 amd64 1.50.6+ds-2ubuntu1 [230 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpangoft2-1.0-0 amd64 1.50.6+ds-2ubuntu1 [54.0 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpangocairo-1.0-0 amd64 1.50.6+ds-2ubuntu1 [39.8 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcursor1 amd64 1:1.2.0-2build4 [20.9 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdamage1 amd64 1:1.1.5-2build2 [7154 B]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgtk2.0-0 amd64 2.24.33-2ubuntu2.1 [2038 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgail18 amd64 2.24.33-2ubuntu2.1 [15.9 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgail-common amd64 2.24.33-2ubuntu2.1 [132 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgdk-pixbuf2.0-bin amd64 2.42.8+dfsg-1ubuntu0.4 [14.1 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgtk2.0-bin amd64 2.24.33-2ubuntu2.1 [7936 B]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/main amd64 libopus0 amd64 1.3.1-0.1build2 [203 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 libvorbis0a amd64 1.3.7-1build2 [99.2 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 libvorbisenc2 amd64 1.3.7-1build2 [82.6 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsndfile1 amd64 1.0.31-2ubuntu0.2 [196 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpulse0 amd64 1:15.99.1+dfsg1-1ubuntu2.2 [298 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 librsvg2-2 amd64 2.52.5+dfsg-3ubuntu0.2 [2974 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 librsvg2-common amd64 2.52.5+dfsg-3ubuntu0.2 [17.7 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 openjdk-8-jre-headless amd64 8u472-ga-1~22.04 [30.8 MB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 openjdk-8-jre amd64 8u472-ga-1~22.04 [75.3 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 openjdk-8-jdk-headless amd64 8u472-ga-1~22.04 [8860 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 openjdk-8-jdk amd64 8u472-ga-1~22.04 [4088 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 57.4 MB in 7s (8404 kB/s)
+Selecting previously unselected package libfribidi0:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 14007 files and directories currently installed.)
+Preparing to unpack .../00-libfribidi0_1.0.8-2ubuntu3.1_amd64.deb ...
+Unpacking libfribidi0:amd64 (1.0.8-2ubuntu3.1) ...
+Selecting previously unselected package hicolor-icon-theme.
+Preparing to unpack .../01-hicolor-icon-theme_0.17-2_all.deb ...
+Unpacking hicolor-icon-theme (0.17-2) ...
+Selecting previously unselected package libgdk-pixbuf2.0-common.
+Preparing to unpack .../02-libgdk-pixbuf2.0-common_2.42.8+dfsg-1ubuntu0.4_all.deb ...
+Unpacking libgdk-pixbuf2.0-common (2.42.8+dfsg-1ubuntu0.4) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../03-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../04-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../05-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../06-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libgdk-pixbuf-2.0-0:amd64.
+Preparing to unpack .../07-libgdk-pixbuf-2.0-0_2.42.8+dfsg-1ubuntu0.4_amd64.deb ...
+Unpacking libgdk-pixbuf-2.0-0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+Selecting previously unselected package gtk-update-icon-cache.
+Preparing to unpack .../08-gtk-update-icon-cache_3.24.33-1ubuntu2.2_amd64.deb ...
+Unpacking gtk-update-icon-cache (3.24.33-1ubuntu2.2) ...
+Selecting previously unselected package humanity-icon-theme.
+Preparing to unpack .../09-humanity-icon-theme_0.6.16_all.deb ...
+Unpacking humanity-icon-theme (0.6.16) ...
+Selecting previously unselected package ubuntu-mono.
+Preparing to unpack .../10-ubuntu-mono_20.10-0ubuntu2_all.deb ...
+Unpacking ubuntu-mono (20.10-0ubuntu2) ...
+Selecting previously unselected package adwaita-icon-theme.
+Preparing to unpack .../11-adwaita-icon-theme_41.0-1ubuntu1_all.deb ...
+Unpacking adwaita-icon-theme (41.0-1ubuntu1) ...
+Selecting previously unselected package fontconfig.
+Preparing to unpack .../12-fontconfig_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking fontconfig (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libasyncns0:amd64.
+Preparing to unpack .../13-libasyncns0_0.8-6build2_amd64.deb ...
+Unpacking libasyncns0:amd64 (0.8-6build2) ...
+Selecting previously unselected package libpixman-1-0:amd64.
+Preparing to unpack .../14-libpixman-1-0_0.40.0-1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libpixman-1-0:amd64 (0.40.0-1ubuntu0.22.04.1) ...
+Selecting previously unselected package libxcb-render0:amd64.
+Preparing to unpack .../15-libxcb-render0_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb-render0:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libcairo2:amd64.
+Preparing to unpack .../16-libcairo2_1.16.0-5ubuntu2_amd64.deb ...
+Unpacking libcairo2:amd64 (1.16.0-5ubuntu2) ...
+Selecting previously unselected package libcairo-gobject2:amd64.
+Preparing to unpack .../17-libcairo-gobject2_1.16.0-5ubuntu2_amd64.deb ...
+Unpacking libcairo-gobject2:amd64 (1.16.0-5ubuntu2) ...
+Selecting previously unselected package libdatrie1:amd64.
+Preparing to unpack .../18-libdatrie1_0.2.13-2_amd64.deb ...
+Unpacking libdatrie1:amd64 (0.2.13-2) ...
+Selecting previously unselected package libogg0:amd64.
+Preparing to unpack .../19-libogg0_1.3.5-0ubuntu3_amd64.deb ...
+Unpacking libogg0:amd64 (1.3.5-0ubuntu3) ...
+Selecting previously unselected package libflac8:amd64.
+Preparing to unpack .../20-libflac8_1.3.3-2ubuntu0.2_amd64.deb ...
+Unpacking libflac8:amd64 (1.3.3-2ubuntu0.2) ...
+Selecting previously unselected package libgtk2.0-common.
+Preparing to unpack .../21-libgtk2.0-common_2.24.33-2ubuntu2.1_all.deb ...
+Unpacking libgtk2.0-common (2.24.33-2ubuntu2.1) ...
+Selecting previously unselected package libthai-data.
+Preparing to unpack .../22-libthai-data_0.1.29-1build1_all.deb ...
+Unpacking libthai-data (0.1.29-1build1) ...
+Selecting previously unselected package libthai0:amd64.
+Preparing to unpack .../23-libthai0_0.1.29-1build1_amd64.deb ...
+Unpacking libthai0:amd64 (0.1.29-1build1) ...
+Selecting previously unselected package libpango-1.0-0:amd64.
+Preparing to unpack .../24-libpango-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb ...
+Unpacking libpango-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Selecting previously unselected package libpangoft2-1.0-0:amd64.
+Preparing to unpack .../25-libpangoft2-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb ...
+Unpacking libpangoft2-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Selecting previously unselected package libpangocairo-1.0-0:amd64.
+Preparing to unpack .../26-libpangocairo-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb ...
+Unpacking libpangocairo-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Selecting previously unselected package libxcursor1:amd64.
+Preparing to unpack .../27-libxcursor1_1%3a1.2.0-2build4_amd64.deb ...
+Unpacking libxcursor1:amd64 (1:1.2.0-2build4) ...
+Selecting previously unselected package libxdamage1:amd64.
+Preparing to unpack .../28-libxdamage1_1%3a1.1.5-2build2_amd64.deb ...
+Unpacking libxdamage1:amd64 (1:1.1.5-2build2) ...
+Selecting previously unselected package libgtk2.0-0:amd64.
+Preparing to unpack .../29-libgtk2.0-0_2.24.33-2ubuntu2.1_amd64.deb ...
+Unpacking libgtk2.0-0:amd64 (2.24.33-2ubuntu2.1) ...
+Selecting previously unselected package libgail18:amd64.
+Preparing to unpack .../30-libgail18_2.24.33-2ubuntu2.1_amd64.deb ...
+Unpacking libgail18:amd64 (2.24.33-2ubuntu2.1) ...
+Selecting previously unselected package libgail-common:amd64.
+Preparing to unpack .../31-libgail-common_2.24.33-2ubuntu2.1_amd64.deb ...
+Unpacking libgail-common:amd64 (2.24.33-2ubuntu2.1) ...
+Selecting previously unselected package libgdk-pixbuf2.0-bin.
+Preparing to unpack .../32-libgdk-pixbuf2.0-bin_2.42.8+dfsg-1ubuntu0.4_amd64.deb ...
+Unpacking libgdk-pixbuf2.0-bin (2.42.8+dfsg-1ubuntu0.4) ...
+Selecting previously unselected package libgtk2.0-bin.
+Preparing to unpack .../33-libgtk2.0-bin_2.24.33-2ubuntu2.1_amd64.deb ...
+Unpacking libgtk2.0-bin (2.24.33-2ubuntu2.1) ...
+Selecting previously unselected package libopus0:amd64.
+Preparing to unpack .../34-libopus0_1.3.1-0.1build2_amd64.deb ...
+Unpacking libopus0:amd64 (1.3.1-0.1build2) ...
+Selecting previously unselected package libvorbis0a:amd64.
+Preparing to unpack .../35-libvorbis0a_1.3.7-1build2_amd64.deb ...
+Unpacking libvorbis0a:amd64 (1.3.7-1build2) ...
+Selecting previously unselected package libvorbisenc2:amd64.
+Preparing to unpack .../36-libvorbisenc2_1.3.7-1build2_amd64.deb ...
+Unpacking libvorbisenc2:amd64 (1.3.7-1build2) ...
+Selecting previously unselected package libsndfile1:amd64.
+Preparing to unpack .../37-libsndfile1_1.0.31-2ubuntu0.2_amd64.deb ...
+Unpacking libsndfile1:amd64 (1.0.31-2ubuntu0.2) ...
+Selecting previously unselected package libpulse0:amd64.
+Preparing to unpack .../38-libpulse0_1%3a15.99.1+dfsg1-1ubuntu2.2_amd64.deb ...
+Unpacking libpulse0:amd64 (1:15.99.1+dfsg1-1ubuntu2.2) ...
+Selecting previously unselected package librsvg2-2:amd64.
+Preparing to unpack .../39-librsvg2-2_2.52.5+dfsg-3ubuntu0.2_amd64.deb ...
+Unpacking librsvg2-2:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Selecting previously unselected package librsvg2-common:amd64.
+Preparing to unpack .../40-librsvg2-common_2.52.5+dfsg-3ubuntu0.2_amd64.deb ...
+Unpacking librsvg2-common:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Selecting previously unselected package openjdk-8-jre-headless:amd64.
+Preparing to unpack .../41-openjdk-8-jre-headless_8u472-ga-1~22.04_amd64.deb ...
+Unpacking openjdk-8-jre-headless:amd64 (8u472-ga-1~22.04) ...
+Selecting previously unselected package openjdk-8-jre:amd64.
+Preparing to unpack .../42-openjdk-8-jre_8u472-ga-1~22.04_amd64.deb ...
+Unpacking openjdk-8-jre:amd64 (8u472-ga-1~22.04) ...
+Selecting previously unselected package openjdk-8-jdk-headless:amd64.
+Preparing to unpack .../43-openjdk-8-jdk-headless_8u472-ga-1~22.04_amd64.deb ...
+Unpacking openjdk-8-jdk-headless:amd64 (8u472-ga-1~22.04) ...
+Selecting previously unselected package openjdk-8-jdk:amd64.
+Preparing to unpack .../44-openjdk-8-jdk_8u472-ga-1~22.04_amd64.deb ...
+Unpacking openjdk-8-jdk:amd64 (8u472-ga-1~22.04) ...
+Setting up libpixman-1-0:amd64 (0.40.0-1ubuntu0.22.04.1) ...
+Setting up fontconfig (2.13.1-4.2ubuntu5) ...
+Regenerating fonts cache... done.
+Setting up libxdamage1:amd64 (1:1.1.5-2build2) ...
+Setting up libogg0:amd64 (1.3.5-0ubuntu3) ...
+Setting up hicolor-icon-theme (0.17-2) ...
+Setting up libdatrie1:amd64 (0.2.13-2) ...
+Setting up libxcb-render0:amd64 (1.14-3ubuntu3) ...
+Setting up libxcursor1:amd64 (1:1.2.0-2build4) ...
+Setting up libgdk-pixbuf2.0-common (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libcairo2:amd64 (1.16.0-5ubuntu2) ...
+Setting up libflac8:amd64 (1.3.3-2ubuntu0.2) ...
+Setting up libfribidi0:amd64 (1.0.8-2ubuntu3.1) ...
+Setting up libopus0:amd64 (1.3.1-0.1build2) ...
+Setting up openjdk-8-jre-headless:amd64 (8u472-ga-1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/orbd to provide /usr/bin/orbd (orbd) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/servertool to provide /usr/bin/servertool (servertool) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/tnameserv to provide /usr/bin/tnameserv (tnameserv) in auto mode
+Setting up libvorbis0a:amd64 (1.3.7-1build2) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libasyncns0:amd64 (0.8-6build2) ...
+Setting up libthai-data (0.1.29-1build1) ...
+Setting up libcairo-gobject2:amd64 (1.16.0-5ubuntu2) ...
+Setting up libgtk2.0-common (2.24.33-2ubuntu2.1) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libvorbisenc2:amd64 (1.3.7-1build2) ...
+Setting up libthai0:amd64 (0.1.29-1build1) ...
+Setting up openjdk-8-jdk-headless:amd64 (8u472-ga-1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/clhsdb to provide /usr/bin/clhsdb (clhsdb) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/extcheck to provide /usr/bin/extcheck (extcheck) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/hsdb to provide /usr/bin/hsdb (hsdb) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/idlj to provide /usr/bin/idlj (idlj) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/javah to provide /usr/bin/javah (javah) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/jhat to provide /usr/bin/jhat (jhat) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/jsadebugd to provide /usr/bin/jsadebugd (jsadebugd) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/native2ascii to provide /usr/bin/native2ascii (native2ascii) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/schemagen to provide /usr/bin/schemagen (schemagen) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/wsgen to provide /usr/bin/wsgen (wsgen) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/wsimport to provide /usr/bin/wsimport (wsimport) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/xjc to provide /usr/bin/xjc (xjc) in auto mode
+Setting up libgdk-pixbuf-2.0-0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up libsndfile1:amd64 (1.0.31-2ubuntu0.2) ...
+Setting up gtk-update-icon-cache (3.24.33-1ubuntu2.2) ...
+Setting up libpulse0:amd64 (1:15.99.1+dfsg1-1ubuntu2.2) ...
+Setting up libpango-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libgdk-pixbuf2.0-bin (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up libpangoft2-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libpangocairo-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up librsvg2-2:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Setting up librsvg2-common:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Setting up adwaita-icon-theme (41.0-1ubuntu1) ...
+update-alternatives: using /usr/share/icons/Adwaita/cursor.theme to provide /usr/share/icons/default/index.theme (x-cursor-theme) in auto mode
+Setting up libgtk2.0-0:amd64 (2.24.33-2ubuntu2.1) ...
+Setting up openjdk-8-jre:amd64 (8u472-ga-1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/policytool to provide /usr/bin/policytool (policytool) in auto mode
+Setting up humanity-icon-theme (0.6.16) ...
+Setting up libgail18:amd64 (2.24.33-2ubuntu2.1) ...
+Setting up libgtk2.0-bin (2.24.33-2ubuntu2.1) ...
+Setting up openjdk-8-jdk:amd64 (8u472-ga-1~22.04) ...
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/appletviewer to provide /usr/bin/appletviewer (appletviewer) in auto mode
+Setting up libgail-common:amd64 (2.24.33-2ubuntu2.1) ...
+Setting up ubuntu-mono (20.10-0ubuntu2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for libgdk-pixbuf-2.0-0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+----------------------------------------
+
+[Command 9]
+$ ./gradlew build
+Exit Code: 1
+Output:
+[Incubating] Problems report is available at: file:///workspace/ReactiveX__RxJava@51de3f77f73d4491e1c6350a7bde3853a5a5b6bf/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem occurred configuring root project 'rxjava'.
+> Failed to calculate the value of task ':compileJava' property 'javaCompiler'.
+   > Cannot find a Java installation on your machine (Linux 6.8.0-87-generic amd64) matching: {languageVersion=8, vendor=Eclipse Temurin, implementation=vendor-specific, nativeImageCapable=false}. Toolchain download repositories have not been configured.
+
+* Try:
+> Learn more about toolchain auto-detection and auto-provisioning at https://docs.gradle.org/8.14/userguide/toolchains.html#sec:auto_detection.
+> Learn more about toolchain repositories at https://docs.gradle.org/8.14/userguide/toolchains.html#sub:download_repositories.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1s
+----------------------------------------
+
+[Command 10]
+$ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+Exit Code: 0
+Output:
+/bin/bash: line 37: /usr/libexec/java_home: No such file or directory
+----------------------------------------
+
+[Command 11]
+$ update-alternatives --config java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 12]
+$ update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 13]
+$ /usr/lib/jvm/java-8-openjdk-amd64/bin/java -version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 14]
+$ update-java-alternatives -s java-8-openjdk
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 15]
+$ update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 16]
+$ update-alternatives --config java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 17]
+$ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 18]
+$ ./gradlew build -Dorg.gradle.java.home=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 19]
+$ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 20]
+$ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 21]
+$ java -version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 22]
+$ /usr/lib/jvm/java-8-openjdk-amd64/bin/java -version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 23]
+$ update-alternatives --config java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 24]
+$ update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 25]
+$ apt-get install -y linux-image-virtual-lts-jammy xserver-xorg-lts-jammy
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 26]
+$ touch /usr/lib/jvm/java-8-openjdk-amd64/.java-version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 27]
+$ vim /usr/lib/jvm/java-8-openjdk-amd64/.java-version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 28]
+$ apt-get install -y openjdk-8-jdk-headless
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 29]
+$ java -version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 30]
+$ update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 31]
+$ apt-get install -y --no-install-recommends openjdk-8-jdk
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 32]
+$ update-alternatives --config javac
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 33]
+$ apt-get install -y openjdk-8-jdk
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 34]
+$ java -version
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 35]
+$ update-alternatives --config java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 36]
+$ ./gradlew build -Dorg.gradle.java.home=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 37]
+$ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 38]
+$ echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 39]
+$ apt-get install -y default-jdk
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 40]
+$ apt-get install -y openjdk-8-jdk-headless openjdk-8-jre-headless
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+
+[Command 41]
+$ update-alternatives --config java
+Exit Code: -1
+Output:
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 
+[TIMEOUT]
+----------------------------------------
+

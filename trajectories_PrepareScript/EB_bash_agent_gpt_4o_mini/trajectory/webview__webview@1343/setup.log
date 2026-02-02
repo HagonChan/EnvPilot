@@ -1,0 +1,1508 @@
+# Setup Log for webview/webview@5c5db3f31bf644f673d9dc817e935815b590c30e
+# Issue/PR Number: 1343
+# Generated at: 2026-01-23T00:02:22.333342
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 120
+drwxrwxr-x 12 1002 1002  4096 Jan 22 15:59 .
+drwxr-xr-x  3 root root  4096 Jan 22 15:59 ..
+-rw-rw-r--  1 1002 1002  3169 Jan 22 15:59 .clang-format
+-rw-rw-r--  1 1002 1002  2549 Jan 22 15:59 .clang-tidy
+drwxrwxr-x  8 1002 1002  4096 Jan 22 15:59 .git
+-rw-rw-r--  1 1002 1002    24 Jan 22 15:59 .gitattributes
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:59 .github
+-rw-rw-r--  1 1002 1002    25 Jan 22 15:59 .gitignore
+-rw-rw-r--  1 1002 1002  3232 Jan 22 15:59 CHANGELOG.md
+-rw-rw-r--  1 1002 1002   862 Jan 22 15:59 CMakeLists.txt
+-rw-rw-r--  1 1002 1002   640 Jan 22 15:59 CONTRIBUTING.md
+-rw-rw-r--  1 1002 1002  1112 Jan 22 15:59 LICENSE
+-rw-rw-r--  1 1002 1002  3035 Jan 22 15:59 MIGRATION.md
+-rw-rw-r--  1 1002 1002 20613 Jan 22 15:59 README.md
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:59 cmake
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:59 compatibility
+drwxrwxr-x  5 1002 1002  4096 Jan 22 15:59 core
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:59 docs
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:59 examples
+-rw-rw-r--  1 1002 1002   187 Jan 22 15:59 gcovr.cfg
+-rw-rw-r--  1 1002 1002   119 Jan 22 15:59 gcovr.ci.cfg
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:59 packaging
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:59 scripts
+drwxrwxr-x  5 1002 1002  4096 Jan 22 15:59 test_driver
+-rw-rw-r--  1 1002 1002  1241 Jan 22 15:59 webview.i
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+# webview
+
+<a href="https://discord.gg/24KMecn" title="Join the chat at Discord"><img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" alt="Discord" height="20" /></a>
+[![Build Status](https://img.shields.io/github/actions/workflow/status/webview/webview/ci.yaml?branch=master)](https://github.com/webview/webview/actions)
+
+A tiny cross-platform webview library for C/C++ to build modern cross-platform GUIs.
+
+The goal of the project is to create a common HTML5 UI abstraction layer for the most widely used platforms.
+
+It supports two-way JavaScript bindings (to call JavaScript from C/C++ and to call C/C++ from JavaScript).
+
+> [!NOTE]
+> Language binding for Go [has moved][webview_go]. Versions <= 0.1.1 are available in *this* repository.
+
+## Platform Support
+
+Platform | Technologies
+-------- | ------------
+Linux    | [GTK][gtk], [WebKitGTK][webkitgtk]
+macOS    | Cocoa, [WebKit][webkit]
+Windows  | [Windows API][win32-api], [WebView2][ms-webview2]
+
+## Documentation
+
+The most up-to-date documentation is right in the source code. Improving the documentation is a continuous effort and you are more than welcome to contribute.
+
+## Prerequisites
+
+Your compiler must support minimum C++11.
+
+This project uses CMake and Ninja, and while recommended for your convenience, these tools aren't required for using the library.
+
+### Linux and BSD
+
+The [GTK][gtk] and [WebKitGTK][webkitgtk] libraries are required for development and distribution. You need to check your package repositories regarding which packages to install.
+
+#### Packages
+
+* Debian:
+  * WebKitGTK 6.0, GTK 4:
+    * Development: `apt install libgtk-4-dev libwebkitgtk-6.0-dev`
+    * Production: `apt install libgtk-4-1 libwebkitgtk-6.0-4`
+  * WebKitGTK 4.1, GTK 3, libsoup 3:
+    * Development: `apt install libgtk-3-dev libwebkit2gtk-4.1-dev`
+    * Production: `apt install libgtk-3-0 libwebkit2gtk-4.1-0`
+  * WebKitGTK 4.0, GTK 3, libsoup 2:
+    * Development: `apt install libgtk-3-dev libwebkit2gtk-4.0-dev`
+    * Production: `apt install libgtk-3-0 libwebkit2gtk-4.0-37`
+* Fedora:
+  * WebKitGTK 6.0, GTK 4:
+    * Development: `dnf install gtk4-devel webkitgtk6.0-devel`
+    * Production: `dnf install gtk4 webkitgtk6.0`
+  * WebKitGTK 4.1, GTK 3, libsoup 3:
+    * Development: `dnf install gtk3-devel webkit2gtk4.1-devel`
+    * Production: `dnf install gtk3 webkit2gtk4.1`
+  * WebKitGTK 4.0, GTK 3, libsoup 2:
+    * Development: `dnf install gtk3-devel webkit2gtk4.0-devel`
+    * Production: `dnf install gtk3 webkit2gtk4.0`
+* FreeBSD:
+  * GTK 4: `pkg install webkit2-gtk4`
+  * GTK 3: `pkg install webkit2-gtk3`
+
+#### Library Dependencies
+
+* Linux:
+  * Use `pkg-config` with `--cflags` and `--libs` to get the compiler/linker options for one of these sets of modules:
+    * `gtk4 webkitgtk-6.0`
+    * `gtk+-3.0 webkit2gtk-4.1`
+    * `gtk+-3.0 webkit2gtk-4.0`
+  * Link libraries: `dl`
+* macOS:
+  * Link frameworks: `WebKit`
+  * Link libraries: `dl`
+* Windows:
+  * [WebView2 from NuGet](https://www.nuget.org/packages/Microsoft.Web.WebView2).
+  * Windows libraries: `advapi32 ole32 shell32 shlwapi user32 version`
+
+#### BSD
+
+* Execution on BSD-based systems may require adding the `wxallowed` option (see [mount(8)](https://man.openbsd.org/mount.8))  to your fstab to bypass [W^X](https://en.wikipedia.org/wiki/W%5EX "write xor execute") memory protection for your executable. Please see if it works without disabling this security feature first.
+
+### Windows
+
+Your compiler must support C++14 and we recommend to pair it with an up-to-date Windows 10 SDK.
+
+For Visual C++ we recommend Visual Studio 2022 or later. There are some [requirements when using MinGW-w64](#mingw-w64-requirements).
+
+Developers and end-users must have the [WebView2 runtime][ms-webview2-rt] installed on their system for any version of Windows before Windows 11.
+
+## Getting Started
+
+If you are a developer of this project then please go to the [development section](#development).
+
+You will have a working app, but you are encouraged to explore the [available examples][examples].
+
+Create the following files in a new directory:
+
+`.gitignore`:
+```
+# Build artifacts
+/build
+```
+
+### C++ Example
+
+`CMakeLists.txt`:
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(example LANGUAGES CXX)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+
+include(FetchContent)
+
+FetchContent_Declare(
+    webview
+    GIT_REPOSITORY https://github.com/webview/webview
+    GIT_TAG 0.12.0)
+FetchContent_MakeAvailable(webview)
+
+add_executable(example WIN32)
+target_sources(example PRIVATE main.cc)
+target_link_libraries(example PRIVATE webview::core)
+```
+
+`main.cc`:
+```cpp
+#include "webview/webview.h"
+
+#include <iostream>
+
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE /*hInst*/, HINSTANCE /*hPrevInst*/,
+                   LPSTR /*lpCmdLine*/, int /*nCmdShow*/) {
+#else
+int main() {
+#endif
+  try {
+    webview::webview w(false, nullptr);
+    w.set_title("Basic Example");
+    w.set_size(480, 320, WEBVIEW_HINT_NONE);
+    w.set_html("Thanks for using webview!");
+    w.run();
+  } catch (const webview::exception &e) {
+    std::cerr << e.what() << '\n';
+    return 1;
+  }
+
+  return 0;
+}
+```
+
+### C Example
+
+`CMakeLists.txt`:
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(example LANGUAGES C CXX)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+
+include(FetchContent)
+
+FetchContent_Declare(
+    webview
+    GIT_REPOSITORY https://github.com/webview/webview
+    GIT_TAG 0.12.0)
+FetchContent_MakeAvailable(webview)
+
+add_executable(example WIN32)
+target_sources(example PRIVATE main.c)
+target_link_libraries(example PRIVATE webview::core_static)
+```
+
+`main.c`:
+```cpp
+#include "webview/webview.h"
+#include <stddef.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine,
+                   int nCmdShow) {
+  (void)hInst;
+  (void)hPrevInst;
+  (void)lpCmdLine;
+  (void)nCmdShow;
+#else
+int main(void) {
+#endif
+  webview_t w = webview_create(0, NULL);
+  webview_set_title(w, "Basic Example");
+  webview_set_size(w, 480, 320, WEBVIEW_HINT_NONE);
+  webview_set_html(w, "Thanks for using webview!");
+  webview_run(w);
+  webview_destroy(w);
+  return 0;
+}
+```
+
+### Building the Example
+
+Build the project:
+
+```sh
+cmake -G Ninja -B build -S . -D CMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+Find the executable in the `build/bin` directory.
+
+### Building Amalgamated Library
+
+An amalgamated library can be built when building the project using CMake, or the `amalgamate.py` script can be invoked directly.
+
+The latter is described below.
+
+```sh
+python3 scripts/amalgamate/amalgamate.py --base core --search include --output webview_amalgamation.h src
+```
+
+See `python3 scripts/amalgamate/amalgamate.py --help` for script usage.
+
+### Non-CMake Usage
+
+Here's an example for invoking GCC/Clang-like compilers directly. Use the `main.cc` file from the previous example.
+
+Place either the amalgamated `webview.h` header or all of the individual files into `libs/webview`, and `WebView2.h` from [MS WebView2][ms-webview2-sdk] into `libs`.
+
+Build the project on your chosen platform.
+
+<details>
+  <summary>macOS</summary>
+  <pre><code>c++ main.cc -O2 --std=c++11 -Ilibs -framework WebKit -ldl -o example</code></pre>
+</details>
+
+<details>
+  <summary>Linux</summary>
+  <pre><code>c++ main.cc -O2 --std=c++11 -Ilibs $(pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.1) -ldl -o example</code></pre>
+</details>
+
+<details>
+  <summary>Windows</summary>
+  <pre><code>c++ main.cc -O2 --std=c++14 -static -mwindows -Ilibs -ladvapi32 -lole32 -lshell32 -lshlwapi -luser32 -lversion -o example</code></pre>
+</details>
+
+## Customization
+
+### CMake Targets
+
+The following CMake targets are available:
+
+Name                   | Description
+----                   | -----------
+`webview::core`        | Headers for C++.
+`webview::core_shared` | Shared library for C.
+`webview::core_static` | Static library for C.
+
+Special targets for on-demand checks and related tasks:
+
+Name                   | Description
+----                   | -----------
+`webview_format_check` | Check files with clang-format.
+`webview_reformat`     | Reformat files with clang-format.
+
+### CMake Options
+
+The following boolean options can be used when building the webview project standalone or when building it as part of your project (e.g. with FetchContent).
+
+Option                            | Description
+------                            | -----------
+`WEBVIEW_BUILD`                   | Enable building
+`WEBVIEW_BUILD_AMALGAMATION`      | Build amalgamated library
+`WEBVIEW_BUILD_DOCS`              | Build documentation
+`WEBVIEW_BUILD_EXAMPLES`          | Build examples
+`WEBVIEW_BUILD_SHARED_LIBRARY`    | Build shared libraries
+`WEBVIEW_BUILD_STATIC_LIBRARY`    | Build static libraries
+`WEBVIEW_BUILD_TESTS`             | Build tests
+`WEBVIEW_ENABLE_CHECKS`           | Enable checks
+`WEBVIEW_ENABLE_CLANG_FORMAT`     | Enable clang-format
+`WEBVIEW_ENABLE_CLANG_TIDY`       | Enable clang-tidy
+`WEBVIEW_ENABLE_PACKAGING`        | Enable packaging
+`WEBVIEW_INSTALL_DOCS`            | Install documentation
+`WEBVIEW_INSTALL_TARGETS`         | Install targets
+`WEBVIEW_IS_CI`                   | Initialized by the `CI` environment variable
+`WEBVIEW_PACKAGE_AMALGAMATION`    | Package amalgamated library
+`WEBVIEW_PACKAGE_DOCS`            | Package documentation
+`WEBVIEW_PACKAGE_HEADERS`         | Package headers
+`WEBVIEW_PACKAGE_LIB`             | Package compiled libraries
+`WEBVIEW_STRICT_CHECKS`           | Make checks strict
+`WEBVIEW_STRICT_CLANG_FORMAT`     | Make clang-format check strict
+`WEBVIEW_STRICT_CLANG_TIDY`       | Make clang-tidy check strict
+`WEBVIEW_USE_COMPAT_MINGW`        | Use compatibility helper for MinGW
+`WEBVIEW_USE_STATIC_MSVC_RUNTIME` | Use static runtime library (MSVC)
+
+> [!NOTE]
+> Checks are *enabled* by default, but aren't *enforced* by default for local development (controlled by the `WEBVIEW_IS_CI` option).
+
+Non-boolean options:
+
+Option                            | Description
+------                            | -----------
+`WEBVIEW_CLANG_FORMAT_EXE`        | Path of the `clang-format` executable.
+`WEBVIEW_CLANG_TIDY_EXE`          | Path of the `clang-tidy` executable.
+
+### Package Consumer Options
+
+These options can be used when when using the webview CMake package.
+
+#### Linux-specific Options
+
+Option                          | Description
+------                          | -----------
+`WEBVIEW_WEBKITGTK_API`         | WebKitGTK API to interface with, e.g. `6.0`, `4.1` (recommended) or `4.0`. This will also automatically decide the GTK version. Uses the latest recommended API by default if available, or the latest known and available API. Note that there can be major differences between API versions that can affect feature availability. See webview API documentation for details on feature availability.
+
+#### Windows-specific Options
+
+Option                          | Description
+------                          | -----------
+`WEBVIEW_MSWEBVIEW2_VERSION`    | MS WebView2 version, e.g. `1.0.1150.38`.
+`WEBVIEW_USE_BUILTIN_MSWEBVIEW2`| Use built-in MS WebView2.
+
+### Compile-time Options
+
+These options can be specified as preprocessor macros to modify the build, but are not needed when using CMake.
+
+#### C API Linkage
+
+Name                   | Description
+----                   | -----------
+`WEBVIEW_API`          | Controls C API linkage, symbol visibility and whether it's a shared library. By default this is `inline` for C++ and `extern` for C.
+`WEBVIEW_BUILD_SHARED` | Modifies `WEBVIEW_API` for building a shared library.
+`WEBVIEW_SHARED`       | Modifies `WEBVIEW_API` for using a shared library.
+`WEBVIEW_STATIC`       | Modifies `WEBVIEW_API` for building or using a static library.
+
+#### Backend Selection
+
+Name                   | Description
+----                   | -----------
+`WEBVIEW_GTK`          | Compile the GTK/WebKitGTK backend.
+`WEBVIEW_COCOA`        | Compile the Cocoa/WebKit backend.
+`WEBVIEW_EDGE`         | Compile the Win32/WebView2 backend.
+
+#### Windows-specific Options
+
+Option                            | Description
+------                            | -----------
+`WEBVIEW_MSWEBVIEW2_BUILTIN_IMPL` | Enables (`1`) or disables (`0`) the built-in implementation of the WebView2 loader. Enabling this avoids the need for `WebView2Loader.dll` but if the DLL is present then the DLL takes priority. This option is enabled by default.
+`WEBVIEW_MSWEBVIEW2_EXPLICIT_LINK`| Enables (`1`) or disables (`0`) explicit linking of `WebView2Loader.dll`. Enabling this avoids the need for import libraries (`*.lib`). This option is enabled by default if `WEBVIEW_MSWEBVIEW2_BUILTIN_IMPL` is enabled.
+
+## MinGW-w64 Requirements
+
+In order to build this library using MinGW-w64 on Windows then it must support C++14 and have an up-to-date Windows SDK.
+
+Distributions that are known to be compatible:
+
+* [LLVM MinGW](https://github.com/mstorsjo/llvm-mingw)
+* [MSYS2](https://www.msys2.org/)
+* [WinLibs](https://winlibs.com/)
+
+## MS WebView2 Loader
+
+Linking the WebView2 loader part of the Microsoft WebView2 SDK is not a hard requirement when using our webview library, and neither is distributing `WebView2Loader.dll` with your app.
+
+If, however, `WebView2Loader.dll` is loadable at runtime, e.g. from the executable's directory, then it will be used; otherwise our minimalistic implementation will be used instead.
+
+Should you wish to use the official loader then remember to distribute it along with your app unless you link it statically. Linking it statically is possible with Visual C++ but not MinGW-w64.
+
+Here are some of the noteworthy ways our implementation of the loader differs from the official implementation:
+
+* Does not support configuring WebView2 using environment variables such as `WEBVIEW2_BROWSER_EXECUTABLE_FOLDER`.
+* Microsoft Edge Insider (preview) channels are not supported.
+
+[Customization options](#Customization) can be used to change how the library integrates the WebView2 loader.
+
+## Thread Safety
+
+Since library functions generally do not have thread safety guarantees, `webview_dispatch()` (C) / `webview::dispatch()` (C++) can be used to schedule code to execute on the main/GUI thread and thereby make that execution safe in multi-threaded applications.
+
+`webview_return()` (C) / `webview::resolve()` (C++) uses `*dispatch()` internally and is therefore safe to call from another thread.
+
+The main/GUI thread should be the thread that calls `webview_run()` (C) / `webview::run()` (C++).
+
+## Development
+
+This project uses the CMake build system.
+
+### Development Dependencies
+
+In addition to the dependencies mentioned earlier in this document for developing *with* the webview library, the following are used during development *of* the webview library.
+
+* Amalgamation:
+  * Python >= 3.9
+* Checks:
+  * `clang-format`
+  * `clang-tidy`
+* Documentation:
+  * Doxygen
+  * Graphvis
+
+### Building
+
+```sh
+cmake -G "Ninja Multi-Config" -B build -S .
+cmake --build build --config CONFIG
+```
+
+Replace `CONFIG` with one of `Debug`, `Release`, or `Profile`. Use `Profile` to enable code coverage (GCC/Clang).
+
+Run tests:
+
+```sh
+ctest --test-dir build --build-config CONFIG
+```
+
+Generate test coverage report:
+
+```sh
+gcovr
+```
+
+Find the coverage report in `build/coverage`.
+
+### Packaging
+
+Run this after building the `Debug` and `Release` configs of the project:
+
+```sh
+cd build
+cpack -G External -C "Debug;Release" --config CPackConfig.cmake
+```
+
+### Cross-compilation
+
+See CMake toolchain files in the `cmake/toolchains` directory.
+
+For example, this targets Windows x64 on Linux with POSIX threads:
+
+```sh
+cmake -G "Ninja Multi-Config" -B build -S . -D CMAKE_TOOLCHAIN_FILE=cmake/toolchains/x86_64-w64-mingw32.cmake -D WEBVIEW_TOOLCHAIN_EXECUTABLE_SUFFIX=-posix
+cmake --build build --config CONFIG
+```
+
+## Limitations
+
+### Browser Features
+
+Since a browser engine is not a full web browser it may not support every feature you may expect from a browser. If you find that a feature does not work as expected then please consult with the browser engine's documentation and [open an issue][issues-new] if you think that the library should support it.
+
+For example, the library does not attempt to support user interaction features like `alert()`, `confirm()` and `prompt()` and other non-essential features like `console.log()`.
+
+## Bindings
+
+Language    | Project
+----------  | -------
+Ada         | [thechampagne/webview-ada](https://github.com/thechampagne/webview-ada)
+Bun         | [tr1ckydev/webview-bun](https://github.com/tr1ckydev/webview-bun)
+C#          | [webview/webview_csharp](https://github.com/webview/webview_csharp)
+C3          | [thechampagne/webview-c3](https://github.com/thechampagne/webview-c3)
+Crystal     | [naqvis/webview](https://github.com/naqvis/webview)
+D           | [thechampagne/webview-d](https://github.com/thechampagne/webview-d), [ronnie-w/webviewd](https://github.com/ronnie-w/webviewd)
+Deno        | [webview/webview_deno](https://github.com/webview/webview_deno)
+Go          | [webview/webview_go][webview_go]
+Harbour     | [EricLendvai/Harbour_WebView](https://github.com/EricLendvai/Harbour_WebView)
+Haskell     | [lettier/webviewhs](https://github.com/lettier/webviewhs)
+Janet       | [janet-lang/webview](https://github.com/janet-lang/webview)
+Java        | [webview/webview_java](https://github.com/webview/webview_java)
+Kotlin      | [Winterreisender/webviewko](https://github.com/Winterreisender/webviewko)
+Nim         | [oskca/webview](https://github.com/oskca/webview), [neroist/webview](https://github.com/neroist/webview)
+Node.js     | [Winterreisender/webview-nodejs](https://github.com/Winterreisender/webview-nodejs)
+Odin        | [thechampagne/webview-odin](https://github.com/thechampagne/webview-odin)
+Pascal      | [PierceNg/fpwebview](http://github.com/PierceNg/fpwebview)
+Python      | [congzhangzh/webview_python](https://github.com/congzhangzh/webview_python),[zserge/webview-python](https://github.com/zserge/webview-python)
+PHP         | [0hr/php-webview](https://github.com/0hr/php-webview)
+Ruby        | [Maaarcocr/webview_ruby](https://github.com/Maaarcocr/webview_ruby)
+Rust        | [Boscop/web-view](https://github.com/Boscop/web-view)
+Swift       | [jakenvac/SwiftWebview](https://github.com/jakenvac/SwiftWebview)
+V           | [malisipi/mui](https://github.com/malisipi/mui/tree/main/webview), [ttytm/webview](https://github.com/ttytm/webview)
+Vala        | [taozuhong/webview-vala](https://github.com/taozuhong/webview-vala)
+Zig         | [thechampagne/webview-zig](https://github.com/thechampagne/webview-zig)
+
+If you wish to add bindings to the list, feel free to submit a pull request or [open an issue][issues-new].
+
+## Generating Bindings
+
+You can generate bindings for the library by yourself using the included SWIG interface (`webview.i`).
+
+Here are some examples to get you started. Unix-style command lines are used for conciseness.
+
+```sh
+mkdir -p build/bindings/{python,csharp,java,ruby}
+swig -c++ -python -outdir build/bindings/python -o build/bindings/python/python_wrap.cpp webview.i
+swig -c++ -csharp -outdir build/bindings/csharp -o build/bindings/csharp/csharp_wrap.cpp webview.i
+swig -c++ -java -outdir build/bindings/java -o build/bindings/java/java_wrap.cpp webview.i
+swig -c++ -ruby -outdir build/bindings/ruby -o build/bindings/ruby/ruby_wrap.cpp webview.i
+```
+
+## License
+
+Code is distributed under MIT license, feel free to use it in your proprietary projects as well.
+
+[examples]:          https://github.com/webview/webview/tree/master/examples
+[gtk]:               https://gtk.org/
+[issues]:            https://github.com/webview/docs/issues
+[issues-new]:        https://github.com/webview/webview/issues/new
+[webkit]:            https://webkit.org/
+[webkitgtk]:         https://webkitgtk.org/
+[webview]:           https://github.com/webview/webview
+[webview_go]:        https://github.com/webview/webview_go
+[webview.dev]:       https://webview.dev
+[ms-webview2]:       https://developer.microsoft.com/en-us/microsoft-edge/webview2/
+[ms-webview2-sdk]:   https://www.nuget.org/packages/Microsoft.Web.WebView2
+[ms-webview2-rt]:    https://developer.microsoft.com/en-us/microsoft-edge/webview2/
+[win32-api]:         https://docs.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
+----------------------------------------
+
+[Command 3]
+$ apt-get update
+Exit Code: 0
+Output:
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3639 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1289 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.8 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6411 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3970 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.7 MB in 6s (7788 kB/s)
+Reading package lists...
+----------------------------------------
+
+[Command 4]
+$ apt-get install -y libgtk-4-dev libwebkitgtk-6.0-dev cmake ninja-build
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  adwaita-icon-theme alsa-topology-conf alsa-ucm-conf aspell aspell-en
+  at-spi2-core binutils binutils-common binutils-x86-64-linux-gnu bubblewrap
+  build-essential bzip2 ca-certificates cmake-data cpp cpp-11 dbus
+  dbus-user-session dconf-gsettings-backend dconf-service dh-elpa-helper
+  dictionaries-common dirmngr dmsetup dpkg-dev emacsen-common enchant-2
+  fakeroot fontconfig fontconfig-config fonts-dejavu-core fuse3 g++ g++-11 gcc
+  gcc-11 gcc-11-base gir1.2-atk-1.0 gir1.2-atspi-2.0 gir1.2-dazzle-1.0
+  gir1.2-freedesktop gir1.2-gdkpixbuf-2.0 gir1.2-glib-2.0 gir1.2-graphene-1.0
+  gir1.2-gtk-3.0 gir1.2-gtk-4.0 gir1.2-harfbuzz-0.0 gir1.2-json-1.0
+  gir1.2-pango-1.0 gir1.2-polkit-1.0 gir1.2-soup-3.0 glib-networking
+  glib-networking-common glib-networking-services gnupg gnupg-l10n gnupg-utils
+  gobject-introspection gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf
+  gpgsm gsettings-desktop-schemas gstreamer1.0-gl gstreamer1.0-plugins-base
+  gstreamer1.0-plugins-good gstreamer1.0-x gtk-update-icon-cache
+  hicolor-icon-theme humanity-icon-theme hunspell-en-us icu-devtools iso-codes
+  libaa1 libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libapparmor1 libarchive13 libargon2-1 libasan6
+  libasound2 libasound2-data libaspell15 libassuan0 libasyncns0
+  libatk-bridge2.0-0 libatk-bridge2.0-dev libatk1.0-0 libatk1.0-data
+  libatk1.0-dev libatomic1 libatspi2.0-0 libatspi2.0-dev libavahi-client3
+  libavahi-common-data libavahi-common3 libavc1394-0 libbinutils libblkid-dev
+  libbrotli-dev libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6 libc6-dev
+  libcaca0 libcairo-gobject2 libcairo-script-interpreter2 libcairo2
+  libcairo2-dev libcanberra0 libcap2-bin libcc1-0 libcdparanoia0 libcolord2
+  libcrypt-dev libcryptsetup12 libctf-nobfd0 libctf0 libcups2 libcurl4
+  libdatrie-dev libdatrie1 libdazzle-1.0-0 libdazzle-1.0-dev libdazzle-common
+  libdbus-1-3 libdbus-1-dev libdconf1 libdeflate-dev libdeflate0
+  libdevmapper1.02.1 libdpkg-perl libdrm-amdgpu1 libdrm-common libdrm-intel1
+  libdrm-nouveau2 libdrm-radeon1 libdrm2 libdv4 libdw1 libedit2 libegl-dev
+  libegl-mesa0 libegl1 libegl1-mesa-dev libelf1 libenchant-2-2 libepoxy-dev
+  libepoxy0 libevdev2 libexpat1 libexpat1-dev libfakeroot libffi-dev
+  libfile-fcntllock-perl libflac8 libfontconfig-dev libfontconfig1
+  libfontconfig1-dev libfreetype-dev libfreetype6 libfreetype6-dev
+  libfribidi-dev libfribidi0 libfuse3-3 libgbm1 libgcc-11-dev libgd3
+  libgdbm-compat4 libgdbm6 libgdk-pixbuf-2.0-0 libgdk-pixbuf-2.0-dev
+  libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgirepository-1.0-1
+  libgirepository1.0-dev libgl-dev libgl1 libgl1-amber-dri libgl1-mesa-dri
+  libglapi-mesa libgles-dev libgles1 libgles2 libglib2.0-0 libglib2.0-bin
+  libglib2.0-data libglib2.0-dev libglib2.0-dev-bin libglvnd-core-dev
+  libglvnd-dev libglvnd0 libglx-dev libglx-mesa0 libglx0 libgomp1 libgpm2
+  libgraphene-1.0-0 libgraphene-1.0-dev libgraphite2-3 libgraphite2-dev
+  libgstreamer-gl1.0-0 libgstreamer-plugins-base1.0-0
+  libgstreamer-plugins-good1.0-0 libgstreamer1.0-0 libgtk-3-0 libgtk-3-bin
+  libgtk-3-common libgtk-3-dev libgtk-4-1 libgtk-4-bin libgtk-4-common
+  libgudev-1.0-0 libharfbuzz-dev libharfbuzz-gobject0 libharfbuzz-icu0
+  libharfbuzz0b libhunspell-1.7-0 libhyphen0 libice-dev libice6 libicu-dev
+  libicu70 libiec61883-0 libip4tc2 libisl23 libitm1 libjack-jackd2-0
+  libjavascriptcoregtk-6.0-1 libjavascriptcoregtk-6.0-dev libjbig-dev libjbig0
+  libjpeg-dev libjpeg-turbo8 libjpeg-turbo8-dev libjpeg8 libjpeg8-dev
+  libjson-c5 libjson-glib-1.0-0 libjson-glib-1.0-common libjson-glib-dev
+  libjsoncpp25 libkmod2 libksba8 liblcms2-2 libldap-2.5-0 libldap-common
+  libllvm15 liblocale-gettext-perl liblsan0 libltdl7 liblzma-dev liblzo2-2
+  libmanette-0.2-0 libmd0 libmount-dev libmp3lame0 libmpc3 libmpdec3 libmpfr6
+  libmpg123-0 libnghttp2-14 libnghttp2-dev libnpth0 libnsl-dev libnss-systemd
+  libogg0 libopengl-dev libopengl0 libopus0 liborc-0.4-0 libpam-cap
+  libpam-systemd libpango-1.0-0 libpango1.0-dev libpangocairo-1.0-0
+  libpangoft2-1.0-0 libpangoxft-1.0-0 libpciaccess0 libpcre16-3 libpcre2-16-0
+  libpcre2-32-0 libpcre2-dev libpcre2-posix3 libpcre3-dev libpcre32-3
+  libpcrecpp0v5 libperl5.34 libpipewire-0.3-0 libpipewire-0.3-common
+  libpipewire-0.3-modules libpixman-1-0 libpixman-1-dev libpng-dev
+  libpng-tools libpng16-16 libpolkit-agent-1-0 libpolkit-gobject-1-0
+  libpolkit-gobject-1-dev libproxy1v5 libpsl-dev libpsl5 libpthread-stubs0-dev
+  libpulse0 libpython3-stdlib libpython3.10-minimal libpython3.10-stdlib
+  libquadmath0 libraw1394-11 libreadline8 librhash0 librsvg2-2 librsvg2-common
+  librtmp1 libsamplerate0 libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsecret-1-0 libsecret-common libselinux1-dev libsensors-config libsensors5
+  libsepol-dev libshout3 libslang2 libsm-dev libsm6 libsndfile1 libsoup-3.0-0
+  libsoup-3.0-common libsoup-3.0-dev libsoup2.4-1 libsoup2.4-common
+  libspa-0.2-modules libspeex1 libsqlite3-0 libsqlite3-dev libssh-4
+  libstdc++-11-dev libsysprof-4 libsysprof-4-dev libsysprof-ui-4 libtag1v5
+  libtag1v5-vanilla libtdb1 libtext-iconv-perl libthai-data libthai-dev
+  libthai0 libtheora0 libtiff-dev libtiff5 libtiffxx5 libtirpc-dev libtsan0
+  libtwolame0 libubsan1 libunwind8 libuv1 libv4l-0 libv4lconvert0
+  libvisual-0.4-0 libvorbis0a libvorbisenc2 libvorbisfile3 libvpx7
+  libvulkan-dev libvulkan1 libwavpack1 libwayland-bin libwayland-client0
+  libwayland-cursor0 libwayland-dev libwayland-egl1 libwayland-server0
+  libwebkitgtk-6.0-4 libwebp7 libwebpdemux2 libwebpmux3
+  libwebrtc-audio-processing1 libwoff1 libx11-6 libx11-data libx11-dev
+  libx11-xcb1 libxau-dev libxau6 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0
+  libxcb-present0 libxcb-randr0 libxcb-render0 libxcb-render0-dev libxcb-shm0
+  libxcb-shm0-dev libxcb-sync1 libxcb-xfixes0 libxcb1 libxcb1-dev
+  libxcomposite-dev libxcomposite1 libxcursor-dev libxcursor1 libxdamage-dev
+  libxdamage1 libxdmcp-dev libxdmcp6 libxext-dev libxext6 libxfixes-dev
+  libxfixes3 libxft-dev libxft2 libxi-dev libxi6 libxinerama-dev libxinerama1
+  libxkbcommon-dev libxkbcommon0 libxml2 libxpm4 libxrandr-dev libxrandr2
+  libxrender-dev libxrender1 libxshmfence1 libxslt1.1 libxtst-dev libxtst6
+  libxv1 libxxf86vm1 libyaml-0-2 linux-libc-dev lto-disabled-list make
+  manpages manpages-dev media-types mesa-vulkan-drivers netbase
+  networkd-dispatcher openssl pango1.0-tools patch perl perl-modules-5.34
+  pinentry-curses pipewire pipewire-bin pipewire-media-session pkexec
+  pkg-config policykit-1 polkitd publicsuffix python3 python3-dbus
+  python3-distutils python3-gi python3-importlib-metadata python3-lib2to3
+  python3-mako python3-markdown python3-markupsafe python3-minimal
+  python3-more-itertools python3-pkg-resources python3-pygments python3-yaml
+  python3-zipp python3.10 python3.10-minimal readline-common rpcsvc-proto
+  rtkit session-migration shared-mime-info sound-theme-freedesktop systemd
+  systemd-sysv systemd-timesyncd ubuntu-mono ucf uuid-dev wayland-protocols
+  x11-common x11proto-dev xdg-dbus-proxy xdg-desktop-portal
+  xdg-desktop-portal-gtk xdg-user-dirs xkb-data xorg-sgml-doctools xtrans-dev
+  xz-utils zlib1g-dev
+Suggested packages:
+  aspell-doc spellutils binutils-doc bzip2-doc cmake-doc cmake-format cpp-doc
+  gcc-11-locales wordlist pinentry-gnome3 tor debian-keyring g++-multilib
+  g++-11-multilib gcc-11-doc gcc-multilib autoconf automake libtool flex bison
+  gdb gcc-doc gcc-11-multilib parcimonie xloadimage scdaemon gvfs hunspell
+  openoffice.org-hunspell | openoffice.org-core isoquery lrzip
+  libasound2-plugins alsa-utils glibc-doc locales libcairo2-doc
+  libcanberra-gtk0 libcanberra-pulse colord cups-common libdatrie-doc
+  libdazzle-doc libdazzle-tools git bzr libdv-bin oss-compat
+  libenchant-2-voikko freetype2-doc libgd-tools gdbm-l10n
+  libgirepository1.0-doc libglib2.0-doc libxml2-utils gpm libgraphene-doc
+  libgraphite2-utils libvisual-0.4-plugins gstreamer1.0-tools libgtk-3-doc
+  libgtk-4-media-gstreamer | libgtk-4-media-ffmpeg libgtk-4-doc gtk-4-examples
+  libice-doc icu-doc jackd2 libjson-glib-doc liblcms2-utils liblzma-doc
+  libnghttp2-doc opus-tools libpango1.0-doc pciutils pulseaudio libraw1394-doc
+  librsvg2-bin libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql lm-sensors
+  libsm-doc libsoup-3.0-doc speex sqlite3-doc libstdc++-11-doc libthai-doc
+  libwayland-doc gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-alsa
+  libx11-doc libxcb-doc libxext-doc make-doc man-browser iw | wireless-tools
+  graphicsmagick ed diffutils-doc perl-doc libterm-readline-gnu-perl
+  | libterm-readline-perl-perl libtap-harness-archive-perl pinentry-doc
+  python3-doc python3-tk python3-venv python-dbus-doc python3-beaker
+  python-mako-doc python-markdown-doc python3-setuptools python-pygments-doc
+  ttf-bitstream-vera python3.10-venv python3.10-doc binfmt-support
+  readline-doc systemd-container libfido2-1 libtss2-esys-3.0.2-0 libtss2-mu0
+  libtss2-rc0 accountsservice evince xdg-desktop-portal-gnome
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  adwaita-icon-theme alsa-topology-conf alsa-ucm-conf aspell aspell-en
+  at-spi2-core binutils binutils-common binutils-x86-64-linux-gnu bubblewrap
+  build-essential bzip2 ca-certificates cmake cmake-data cpp cpp-11 dbus
+  dbus-user-session dconf-gsettings-backend dconf-service dh-elpa-helper
+  dictionaries-common dirmngr dmsetup dpkg-dev emacsen-common enchant-2
+  fakeroot fontconfig fontconfig-config fonts-dejavu-core fuse3 g++ g++-11 gcc
+  gcc-11 gcc-11-base gir1.2-atk-1.0 gir1.2-atspi-2.0 gir1.2-dazzle-1.0
+  gir1.2-freedesktop gir1.2-gdkpixbuf-2.0 gir1.2-glib-2.0 gir1.2-graphene-1.0
+  gir1.2-gtk-3.0 gir1.2-gtk-4.0 gir1.2-harfbuzz-0.0 gir1.2-json-1.0
+  gir1.2-pango-1.0 gir1.2-polkit-1.0 gir1.2-soup-3.0 glib-networking
+  glib-networking-common glib-networking-services gnupg gnupg-l10n gnupg-utils
+  gobject-introspection gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf
+  gpgsm gsettings-desktop-schemas gstreamer1.0-gl gstreamer1.0-plugins-base
+  gstreamer1.0-plugins-good gstreamer1.0-x gtk-update-icon-cache
+  hicolor-icon-theme humanity-icon-theme hunspell-en-us icu-devtools iso-codes
+  libaa1 libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libapparmor1 libarchive13 libargon2-1 libasan6
+  libasound2 libasound2-data libaspell15 libassuan0 libasyncns0
+  libatk-bridge2.0-0 libatk-bridge2.0-dev libatk1.0-0 libatk1.0-data
+  libatk1.0-dev libatomic1 libatspi2.0-0 libatspi2.0-dev libavahi-client3
+  libavahi-common-data libavahi-common3 libavc1394-0 libbinutils libblkid-dev
+  libbrotli-dev libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6-dev
+  libcaca0 libcairo-gobject2 libcairo-script-interpreter2 libcairo2
+  libcairo2-dev libcanberra0 libcap2-bin libcc1-0 libcdparanoia0 libcolord2
+  libcrypt-dev libcryptsetup12 libctf-nobfd0 libctf0 libcups2 libcurl4
+  libdatrie-dev libdatrie1 libdazzle-1.0-0 libdazzle-1.0-dev libdazzle-common
+  libdbus-1-3 libdbus-1-dev libdconf1 libdeflate-dev libdeflate0
+  libdevmapper1.02.1 libdpkg-perl libdrm-amdgpu1 libdrm-common libdrm-intel1
+  libdrm-nouveau2 libdrm-radeon1 libdrm2 libdv4 libdw1 libedit2 libegl-dev
+  libegl-mesa0 libegl1 libegl1-mesa-dev libelf1 libenchant-2-2 libepoxy-dev
+  libepoxy0 libevdev2 libexpat1 libexpat1-dev libfakeroot libffi-dev
+  libfile-fcntllock-perl libflac8 libfontconfig-dev libfontconfig1
+  libfontconfig1-dev libfreetype-dev libfreetype6 libfreetype6-dev
+  libfribidi-dev libfribidi0 libfuse3-3 libgbm1 libgcc-11-dev libgd3
+  libgdbm-compat4 libgdbm6 libgdk-pixbuf-2.0-0 libgdk-pixbuf-2.0-dev
+  libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgirepository-1.0-1
+  libgirepository1.0-dev libgl-dev libgl1 libgl1-amber-dri libgl1-mesa-dri
+  libglapi-mesa libgles-dev libgles1 libgles2 libglib2.0-0 libglib2.0-bin
+  libglib2.0-data libglib2.0-dev libglib2.0-dev-bin libglvnd-core-dev
+  libglvnd-dev libglvnd0 libglx-dev libglx-mesa0 libglx0 libgomp1 libgpm2
+  libgraphene-1.0-0 libgraphene-1.0-dev libgraphite2-3 libgraphite2-dev
+  libgstreamer-gl1.0-0 libgstreamer-plugins-base1.0-0
+  libgstreamer-plugins-good1.0-0 libgstreamer1.0-0 libgtk-3-0 libgtk-3-bin
+  libgtk-3-common libgtk-3-dev libgtk-4-1 libgtk-4-bin libgtk-4-common
+  libgtk-4-dev libgudev-1.0-0 libharfbuzz-dev libharfbuzz-gobject0
+  libharfbuzz-icu0 libharfbuzz0b libhunspell-1.7-0 libhyphen0 libice-dev
+  libice6 libicu-dev libicu70 libiec61883-0 libip4tc2 libisl23 libitm1
+  libjack-jackd2-0 libjavascriptcoregtk-6.0-1 libjavascriptcoregtk-6.0-dev
+  libjbig-dev libjbig0 libjpeg-dev libjpeg-turbo8 libjpeg-turbo8-dev libjpeg8
+  libjpeg8-dev libjson-c5 libjson-glib-1.0-0 libjson-glib-1.0-common
+  libjson-glib-dev libjsoncpp25 libkmod2 libksba8 liblcms2-2 libldap-2.5-0
+  libldap-common libllvm15 liblocale-gettext-perl liblsan0 libltdl7
+  liblzma-dev liblzo2-2 libmanette-0.2-0 libmd0 libmount-dev libmp3lame0
+  libmpc3 libmpdec3 libmpfr6 libmpg123-0 libnghttp2-14 libnghttp2-dev libnpth0
+  libnsl-dev libnss-systemd libogg0 libopengl-dev libopengl0 libopus0
+  liborc-0.4-0 libpam-cap libpam-systemd libpango-1.0-0 libpango1.0-dev
+  libpangocairo-1.0-0 libpangoft2-1.0-0 libpangoxft-1.0-0 libpciaccess0
+  libpcre16-3 libpcre2-16-0 libpcre2-32-0 libpcre2-dev libpcre2-posix3
+  libpcre3-dev libpcre32-3 libpcrecpp0v5 libperl5.34 libpipewire-0.3-0
+  libpipewire-0.3-common libpipewire-0.3-modules libpixman-1-0 libpixman-1-dev
+  libpng-dev libpng-tools libpng16-16 libpolkit-agent-1-0
+  libpolkit-gobject-1-0 libpolkit-gobject-1-dev libproxy1v5 libpsl-dev libpsl5
+  libpthread-stubs0-dev libpulse0 libpython3-stdlib libpython3.10-minimal
+  libpython3.10-stdlib libquadmath0 libraw1394-11 libreadline8 librhash0
+  librsvg2-2 librsvg2-common librtmp1 libsamplerate0 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libsecret-1-0 libsecret-common
+  libselinux1-dev libsensors-config libsensors5 libsepol-dev libshout3
+  libslang2 libsm-dev libsm6 libsndfile1 libsoup-3.0-0 libsoup-3.0-common
+  libsoup-3.0-dev libsoup2.4-1 libsoup2.4-common libspa-0.2-modules libspeex1
+  libsqlite3-0 libsqlite3-dev libssh-4 libstdc++-11-dev libsysprof-4
+  libsysprof-4-dev libsysprof-ui-4 libtag1v5 libtag1v5-vanilla libtdb1
+  libtext-iconv-perl libthai-data libthai-dev libthai0 libtheora0 libtiff-dev
+  libtiff5 libtiffxx5 libtirpc-dev libtsan0 libtwolame0 libubsan1 libunwind8
+  libuv1 libv4l-0 libv4lconvert0 libvisual-0.4-0 libvorbis0a libvorbisenc2
+  libvorbisfile3 libvpx7 libvulkan-dev libvulkan1 libwavpack1 libwayland-bin
+  libwayland-client0 libwayland-cursor0 libwayland-dev libwayland-egl1
+  libwayland-server0 libwebkitgtk-6.0-4 libwebkitgtk-6.0-dev libwebp7
+  libwebpdemux2 libwebpmux3 libwebrtc-audio-processing1 libwoff1 libx11-6
+  libx11-data libx11-dev libx11-xcb1 libxau-dev libxau6 libxcb-dri2-0
+  libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0 libxcb-render0
+  libxcb-render0-dev libxcb-shm0 libxcb-shm0-dev libxcb-sync1 libxcb-xfixes0
+  libxcb1 libxcb1-dev libxcomposite-dev libxcomposite1 libxcursor-dev
+  libxcursor1 libxdamage-dev libxdamage1 libxdmcp-dev libxdmcp6 libxext-dev
+  libxext6 libxfixes-dev libxfixes3 libxft-dev libxft2 libxi-dev libxi6
+  libxinerama-dev libxinerama1 libxkbcommon-dev libxkbcommon0 libxml2 libxpm4
+  libxrandr-dev libxrandr2 libxrender-dev libxrender1 libxshmfence1 libxslt1.1
+  libxtst-dev libxtst6 libxv1 libxxf86vm1 libyaml-0-2 linux-libc-dev
+  lto-disabled-list make manpages manpages-dev media-types mesa-vulkan-drivers
+  netbase networkd-dispatcher ninja-build openssl pango1.0-tools patch perl
+  perl-modules-5.34 pinentry-curses pipewire pipewire-bin
+  pipewire-media-session pkexec pkg-config policykit-1 polkitd publicsuffix
+  python3 python3-dbus python3-distutils python3-gi python3-importlib-metadata
+  python3-lib2to3 python3-mako python3-markdown python3-markupsafe
+  python3-minimal python3-more-itertools python3-pkg-resources
+  python3-pygments python3-yaml python3-zipp python3.10 python3.10-minimal
+  readline-common rpcsvc-proto rtkit session-migration shared-mime-info
+  sound-theme-freedesktop systemd systemd-sysv systemd-timesyncd ubuntu-mono
+  ucf uuid-dev wayland-protocols x11-common x11proto-dev xdg-dbus-proxy
+  xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs xkb-data
+  xorg-sgml-doctools xtrans-dev xz-utils zlib1g-dev
+The following packages will be upgraded:
+  libc6
+1 upgraded, 506 newly installed, 0 to remove and 2 not upgraded.
+Need to get 286 MB of archives.
+After this operation, 1127 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblocale-gettext-perl amd64 1.07-4build3 [17.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-minimal amd64 3.10.12-1~22.04.13 [815 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-minimal amd64 3.10.12-1~22.04.13 [2272 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-minimal amd64 3.10.6-1~22.04.1 [24.3 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 media-types all 7.0.0 [25.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpdec3 amd64 2.5.1-2build2 [86.8 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-stdlib amd64 3.10.12-1~22.04.13 [1850 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.13 [508 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libapparmor1 amd64 3.0.4-2ubuntu2.5 [39.6 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libargon2-1 amd64 0~20171227-0.3 [19.5 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdevmapper1.02.1 amd64 2:1.02.175-2.1ubuntu5 [139 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjson-c5 amd64 0.15-3~ubuntu1.22.04.2 [33.5 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcryptsetup12 amd64 2:2.4.3-1ubuntu1.3 [211 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libip4tc2 amd64 1.8.7-1ubuntu5.2 [19.9 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 libkmod2 amd64 29-1ubuntu1 [48.0 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd amd64 249.11-0ubuntu3.17 [4583 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd-sysv amd64 249.11-0ubuntu3.17 [10.5 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdbus-1-3 amd64 1.12.20-2ubuntu4.1 [189 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dbus amd64 1.12.20-2ubuntu4.1 [158 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dmsetup amd64 2:1.02.175-2.1ubuntu5 [81.7 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libglib2.0-0 amd64 2.72.4-0ubuntu2.8 [1467 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgirepository-1.0-1 amd64 1.72.0-1 [55.6 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 gir1.2-glib-2.0 amd64 1.72.0-1 [164 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/main amd64 iso-codes all 4.9.0-1 [3459 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcap2-bin amd64 1:2.44-1ubuntu0.22.04.2 [26.0 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libelf1 amd64 0.186-1ubuntu0.1 [51.1 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfribidi0 amd64 1.0.8-2ubuntu3.1 [26.1 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libglib2.0-data all 2.72.4-0ubuntu2.8 [5062 B]
+Get:45 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnss-systemd amd64 249.11-0ubuntu3.17 [133 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpam-cap amd64 1:2.44-1ubuntu0.22.04.2 [7930 B]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpam-systemd amd64 249.11-0ubuntu3.17 [203 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy/main amd64 libslang2 amd64 2.3.2-5build4 [468 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libtext-iconv-perl amd64 1.7-7build3 [14.3 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.10 [764 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy/main amd64 libyaml-0-2 amd64 0.2.2-1build2 [51.6 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy/main amd64 python3-dbus amd64 1.2.18-3build1 [99.5 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-gi amd64 3.42.1-0ubuntu1 [229 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 networkd-dispatcher all 2.1-2ubuntu0.22.04.2 [15.8 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pkg-resources all 59.6.0-1.2ubuntu0.22.04.3 [133 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy/main amd64 python3-yaml amd64 5.4.1-1ubuntu1 [129 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy/main amd64 shared-mime-info amd64 2.1-2 [454 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 systemd-timesyncd amd64 249.11-0ubuntu3.17 [31.2 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy/main amd64 xdg-user-dirs amd64 0.17-2ubuntu4 [53.9 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy/main amd64 xkb-data all 2.33-1 [394 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfuse3-3 amd64 3.10.5-1build1 [81.2 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 fuse3 amd64 3.10.5-1build1 [24.7 kB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdrm-common all 2.4.113-2~ubuntu0.22.04.1 [5450 B]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdrm2 amd64 2.4.113-2~ubuntu0.22.04.1 [38.1 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxext6 amd64 2:1.3.4-1build1 [31.8 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:80 http
+
+[... truncated ...]
+
+.
+Setting up libfuse3-3:amd64 (3.10.5-1build1) ...
+Setting up libltdl7:amd64 (2.4.6-15build2) ...
+Setting up libglapi-mesa:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libvulkan1:amd64 (1.3.204.1-2) ...
+Setting up libsoup2.4-common (2.74.2-3ubuntu0.6) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up liblzma-dev:amd64 (5.2.5-2ubuntu1) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libatk1.0-data (2.36.0-3build1) ...
+Setting up xdg-dbus-proxy (0.1.3-1) ...
+Setting up libpcre2-posix3:amd64 (10.39-3ubuntu0.1) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up alsa-topology-conf (1.2.5.1-2) ...
+Setting up wayland-protocols (1.25-1) ...
+Setting up dmsetup (2:1.02.175-2.1ubuntu5) ...
+Setting up sound-theme-freedesktop (0.8-2ubuntu1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libdv4:amd64 (1.0.0-14build1) ...
+Setting up libasyncns0:amd64 (0.8-6build2) ...
+Setting up libxshmfence1:amd64 (1.3-1build4) ...
+Setting up librhash0:amd64 (1.4.2-1ubuntu1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libwavpack1:amd64 (5.4.0-1build2) ...
+Setting up libdazzle-common (3.44.0-1) ...
+Setting up libasound2:amd64 (1.2.6.1-1ubuntu1) ...
+Setting up libmpdec3:amd64 (2.5.1-2build2) ...
+Setting up libpam-systemd:amd64 (249.11-0ubuntu3.17) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libthai-data (0.1.29-1build1) ...
+Setting up libgirepository-1.0-1:amd64 (1.72.0-1) ...
+Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+Setting up netbase (6.3) ...
+Setting up libjson-glib-1.0-common (1.6.6-1build1) ...
+Setting up libvpx7:amd64 (1.11.0-2ubuntu2.4) ...
+Setting up cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libatk1.0-0:amd64 (2.36.0-3build1) ...
+Setting up libwayland-egl1:amd64 (1.20.0-1ubuntu0.1) ...
+Setting up libopengl-dev:amd64 (1.4.0-1) ...
+Setting up libhunspell-1.7-0:amd64 (1.7.0-4build1) ...
+Setting up glib-networking-common (2.72.0-1) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up libsamplerate0:amd64 (0.2.2-1build1) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libwebpmux3:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up libdeflate-dev:amd64 (1.10-2) ...
+Setting up libdrm-common (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libelf1:amd64 (0.186-1ubuntu0.1) ...
+Setting up libpam-cap:amd64 (1:2.44-1ubuntu0.22.04.2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libevdev2:amd64 (1.12.1+dfsg-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up iso-codes (4.9.0-1) ...
+Setting up liblocale-gettext-perl (1.07-4build3) ...
+Setting up libbrotli-dev:amd64 (1.0.9-2build6) ...
+Setting up libgudev-1.0-0:amd64 (1:237-2build1) ...
+Setting up libpolkit-gobject-1-0:amd64 (0.105-33) ...
+Setting up libsecret-common (0.20.5-2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmp3lame0:amd64 (3.100-3build2) ...
+Setting up libgraphene-1.0-0:amd64 (1.10.8-1) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libvorbisenc2:amd64 (1.3.7-1build2) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libiec61883-0:amd64 (1.2.0-4build3) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxkbcommon0:amd64 (1.4.0-1) ...
+Setting up libwayland-client0:amd64 (1.20.0-1ubuntu0.1) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up pinentry-curses (1.1.1-1build2) ...
+Setting up x11proto-dev (2021.5-1) ...
+Setting up libavc1394-0:amd64 (0.5.4-5build2) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up glib-networking-services (2.72.0-1) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libice6:amd64 (2:1.0.10-1build2) ...
+Setting up session-migration (0.3.6) ...
+Created symlink /etc/systemd/user/graphical-session-pre.target.wants/session-migration.service → /usr/lib/systemd/user/session-migration.service.
+Setting up libdw1:amd64 (0.186-1ubuntu0.1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up libtag1v5-vanilla:amd64 (1.11.1+dfsg.1-3ubuntu3) ...
+Setting up libxcb-xfixes0:amd64 (1.14-3ubuntu3) ...
+Setting up libxau-dev:amd64 (1:1.0.9-1build5) ...
+Setting up libcaca0:amd64 (0.99.beta19-2.2ubuntu4.1) ...
+Setting up libwoff1:amd64 (1.0.2-1build4) ...
+Setting up libice-dev:amd64 (2:1.0.10-1build2) ...
+Setting up dictionaries-common (1.28.14) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libpng-tools (1.6.37-3ubuntu0.3) ...
+Setting up alsa-ucm-conf (1.2.6.3-1ubuntu1.12) ...
+Setting up libxcb-render0:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libfribidi-dev:amd64 (1.0.8-2ubuntu3.1) ...
+Setting up libxcb-glx0:amd64 (1.14-3ubuntu3) ...
+Setting up libwebpdemux2:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libmanette-0.2-0:amd64 (0.2.6-3build1) ...
+Setting up libxkbcommon-dev:amd64 (1.4.0-1) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libavahi-common3:amd64 (0.8-5ubuntu5.4) ...
+Setting up libjbig-dev:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libglib2.0-bin (2.72.4-0ubuntu2.8) ...
+Setting up libxcb-shm0:amd64 (1.14-3ubuntu3) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjson-glib-1.0-0:amd64 (1.6.6-1build1) ...
+Setting up fuse3 (3.10.5-1build1) ...
+Setting up libxcb-present0:amd64 (1.14-3ubuntu3) ...
+Setting up libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Setting up libthai0:amd64 (0.1.29-1build1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libvorbisfile3:amd64 (1.3.7-1build2) ...
+Setting up dbus-user-session (1.12.20-2ubuntu4.1) ...
+Setting up libxdmcp-dev:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libsecret-1-0:amd64 (0.20.5-2) ...
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libspa-0.2-modules:amd64 (0.3.48-1ubuntu3) ...
+Setting up libjavascriptcoregtk-6.0-1:amd64 (2.50.4-0ubuntu0.22.04.1) ...
+Setting up libxcb-sync1:amd64 (1.14-3ubuntu3) ...
+Setting up libpipewire-0.3-0:amd64 (0.3.48-1ubuntu3) ...
+Setting up icu-devtools (70.1-2) ...
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up gir1.2-glib-2.0:amd64 (1.72.0-1) ...
+Setting up aspell (0.60.8-4build1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libxcb-dri2-0:amd64 (1.14-3ubuntu3) ...
+Setting up libjack-jackd2-0:amd64 (1.9.20~dfsg-1) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libdrm2:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up libtag1v5:amd64 (1.11.1+dfsg.1-3ubuntu3) ...
+Setting up libwayland-cursor0:amd64 (1.20.0-1ubuntu0.1) ...
+Setting up libxcb-randr0:amd64 (1.14-3ubuntu3) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libv4lconvert0:amd64 (1.22.1-2build1) ...
+Setting up gpgconf (2.2.27-3ubuntu2.5) ...
+Setting up hunspell-en-us (1:2020.12.07-2) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up libpolkit-agent-1-0:amd64 (0.105-33) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libharfbuzz0b:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up gir1.2-json-1.0:amd64 (1.6.6-1build1) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libsndfile1:amd64 (1.0.31-2ubuntu0.2) ...
+Setting up libsysprof-4:amd64 (3.44.0-1) ...
+Setting up libxcomposite1:amd64 (1:0.4.5-1build2) ...
+Setting up libsm6:amd64 (2:1.2.3-1build2) ...
+Setting up libicu-dev:amd64 (70.1-2) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.10) ...
+Setting up libavahi-client3:amd64 (0.8-5ubuntu5.4) ...
+Setting up polkitd (0.105-33) ...
+Setting up gpg (2.2.27-3ubuntu2.5) ...
+Setting up libgstreamer1.0-0:amd64 (1.20.3-0ubuntu1.1) ...
+Setcap worked! gst-ptp-helper is not suid!
+Setting up libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up libtiffxx5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libaa1:amd64 (1.4p5-50build1) ...
+Setting up gnupg-utils (2.2.27-3ubuntu2.5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libdrm-amdgpu1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up gir1.2-graphene-1.0:amd64 (1.10.8-1) ...
+Setting up libxcb-dri3-0:amd64 (1.14-3ubuntu3) ...
+Setting up libcanberra0:amd64 (0.30-10ubuntu1.22.04.1) ...
+Setting up libx11-xcb1:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up fontconfig (2.13.1-4.2ubuntu5) ...
+Regenerating fonts cache... done.
+Setting up libjpeg-turbo8-dev:amd64 (2.1.2-0ubuntu1) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up libdrm-nouveau2:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up gir1.2-freedesktop:amd64 (1.72.0-1) ...
+Setting up libharfbuzz-icu0:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up libxdamage1:amd64 (1:1.1.5-2build2) ...
+Setting up gpg-agent (2.2.27-3ubuntu2.5) ...
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-browser.socket → /usr/lib/systemd/user/gpg-agent-browser.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-extra.socket → /usr/lib/systemd/user/gpg-agent-extra.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-ssh.socket → /usr/lib/systemd/user/gpg-agent-ssh.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent.socket → /usr/lib/systemd/user/gpg-agent.socket.
+Setting up libxcb1-dev:amd64 (1.14-3ubuntu3) ...
+Setting up python3.10 (3.10.12-1~22.04.13) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libpcre2-dev:amd64 (10.39-3ubuntu0.1) ...
+Setting up libxrender1:amd64 (1:0.9.10-1build4) ...
+Setting up libgbm1:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libpulse0:amd64 (1:15.99.1+dfsg1-1ubuntu2.2) ...
+Setting up libenchant-2-2:amd64 (2.3.2-1ubuntu2) ...
+Setting up libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Setting up gir1.2-atk-1.0:amd64 (2.36.0-3build1) ...
+Setting up libsm-dev:amd64 (2:1.2.3-1build2) ...
+Setting up libselinux1-dev:amd64 (3.3-1build2) ...
+Setting up libpcre3-dev:amd64 (2:8.39-13ubuntu0.22.04.1) ...
+Setting up libdrm-radeon1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up gpgsm (2.2.27-3ubuntu2.5) ...
+Setting up libpango-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libdrm-intel1:amd64 (2.4.113-2~ubuntu0.22.04.1) ...
+Setting up aspell-en (2018.04.16-0-1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libx11-dev:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libxext6:amd64 (2:1.3.4-1build1) ...
+Setting up enchant-2 (2.3.2-1ubuntu2) ...
+Setting up pkexec (0.105-33) ...
+Setting up libgstreamer-plugins-base1.0-0:amd64 (1.20.1-1ubuntu0.5) ...
+Setting up dconf-service (0.40.0-3ubuntu0.1) ...
+Setting up python3 (3.10.6-1~22.04.1) ...
+running python rtupdate hooks for python3.10...
+running python post-rtupdate hooks for python3.10...
+Setting up libharfbuzz-gobject0:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up python3-markupsafe (2.0.1-2build1) ...
+Setting up gir1.2-harfbuzz-0.0:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up libcairo2:amd64 (1.16.0-5ubuntu2) ...
+Setting up libxxf86vm1:amd64 (1:1.1.4-1build3) ...
+Setting up libv4l-0:amd64 (1.22.1-2build1) ...
+Setting up dirmngr (2.2.27-3ubuntu2.5) ...
+Created symlink /etc/systemd/user/sockets.target.wants/dirmngr.socket → /usr/lib/systemd/user/dirmngr.socket.
+Setting up libxcb-shm0-dev:amd64 (1.14-3ubuntu3) ...
+Setting up libwayland-bin (1.20.0-1ubuntu0.1) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up libgstreamer-plugins-good1.0-0:amd64 (1.20.3-0ubuntu1.4) ...
+Setting up libegl-mesa0:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libexpat1-dev:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up libsqlite3-dev:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up libxfixes3:amd64 (1:6.0.0-1) ...
+Setting up uuid-dev:amd64 (2.37.2-4ubuntu3.4) ...
+Setting up python3-gi (3.42.1-0ubuntu1) ...
+Setting up shared-mime-info (2.1-2) ...
+Setting up libxinerama1:amd64 (2:1.1.4-3) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libxv1:amd64 (2:1.0.11-1build2) ...
+Setting up libxrandr2:amd64 (2:1.5.2-1build1) ...
+Setting up libxcb-render0-dev:amd64 (1.14-3ubuntu3) ...
+Setting up libdpkg-perl (1.21.1ubuntu2.6) ...
+Setting up libxext-dev:amd64 (2:1.3.4-1build1) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Setting up libcups2:amd64 (2.4.1op1-1ubuntu4.16) ...
+Setting up zlib1g-dev:amd64 (1:1.2.11.dfsg-2ubuntu9.2) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gir1.2-polkit-1.0 (0.105-33) ...
+Setting up libllvm15:amd64 (1:15.0.7-0ubuntu0.22.04.3) ...
+Setting up libtheora0:amd64 (1.1.1+dfsg.1-15ubuntu4) ...
+Setting up libxslt1.1:amd64 (1.1.34-4ubuntu0.22.04.5) ...
+Setting up libegl1:amd64 (1.4.0-1) ...
+Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libgdk-pixbuf-2.0-0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up libcairo-gobject2:amd64 (1.16.0-5ubuntu2) ...
+Setting up libpangoft2-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libjpeg8-dev:amd64 (8c-2ubuntu10) ...
+Setting up python3-lib2to3 (3.10.8-1~22.04) ...
+Setting up libxrender-dev:amd64 (1:0.9.10-1build4) ...
+Setting up policykit-1 (0.105-33) ...
+Setting up python3-mako (1.1.3+ds1-2ubuntu0.1) ...
+Setting up libpangocairo-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up python3-distutils (3.10.8-1~22.04) ...
+Setting up libcairo-script-interpreter2:amd64 (1.16.0-5ubuntu2) ...
+Setting up python3-more-itertools (8.10.0-2) ...
+Setting up libglib2.0-dev-bin (2.72.4-0ubuntu2.8) ...
+Setting up libgl1-amber-dri:amd64 (21.3.9-0ubuntu1~22.04.1) ...
+Setting up mesa-vulkan-drivers:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libblkid-dev:amd64 (2.37.2-4ubuntu3.4) ...
+Setting up gtk-update-icon-cache (3.24.33-1ubuntu2.2) ...
+Setting up python3-dbus (1.2.18-3build1) ...
+Setting up rtkit (0.13-4build2) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of force-reload.
+Setting up libxft2:amd64 (2.3.4-1) ...
+Setting up libvulkan-dev:amd64 (1.3.204.1-2) ...
+Setting up gstreamer1.0-x:amd64 (1.20.1-1ubuntu0.5) ...
+Setting up xdg-desktop-portal (1.14.4-1ubuntu2~22.04.2) ...
+Created symlink /etc/systemd/user/graphical-session-pre.target.wants/xdg-desktop-portal-rewrite-launchers.service → /usr/lib/systemd/user/xdg-desktop-portal-rewrite-launchers.service.
+Setting up libpangoxft-1.0-0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libxi6:amd64 (2:1.8-1build1) ...
+Setting up gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Setting up dconf-gsettings-backend:amd64 (0.40.0-3ubuntu0.1) ...
+Setting up gir1.2-gdkpixbuf-2.0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libfile-fcntllock-perl (0.22-3build7) ...
+Setting up libalgorithm-diff-perl (1.201-1) ...
+Setting up libxtst6:amd64 (2:1.2.3-1build4) ...
+Setting up libxcursor1:amd64 (1:1.2.0-2build4) ...
+Setting up libgl1-mesa-dri:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up libpng-dev:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up pango1.0-tools (1.50.6+ds-2ubuntu1) ...
+Setting up libjpeg-dev:amd64 (8c-2ubuntu10) ...
+Setting up python3-yaml (5.4.1-1ubuntu1) ...
+Setting up libatspi2.0-0:amd64 (2.44.0-3) ...
+Setting up python3-zipp (1.0.0-3ubuntu0.1) ...
+Setting up libwayland-dev:amd64 (1.20.0-1ubuntu0.1) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up dpkg-dev (1.21.1ubuntu2.6) ...
+Setting up libfreetype-dev:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up librsvg2-2:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Setting up libpipewire-0.3-modules:amd64 (0.3.48-1ubuntu3) ...
+Setting up libxfixes-dev:amd64 (1:6.0.0-1) ...
+Setting up libatk-bridge2.0-0:amd64 (2.38.0-3) ...
+Setting up gir1.2-pango-1.0:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up libxrandr-dev:amd64 (2:1.5.2-1build1) ...
+Setting up python3-pygments (2.11.2+dfsg-2ubuntu0.1) ...
+Setting up gstreamer1.0-plugins-base:amd64 (1.20.1-1ubuntu0.5) ...
+Setting up libtiff-dev:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libshout3:amd64 (2.4.5-1build3) ...
+Setting up pkg-config (0.29.2-1ubuntu3) ...
+Setting up libxinerama-dev:amd64 (2:1.1.4-3) ...
+Setting up librsvg2-common:amd64 (2.52.5+dfsg-3ubuntu0.2) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+Setting up libdatrie-dev:amd64 (0.2.13-2) ...
+Setting up libgdk-pixbuf2.0-bin (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up gnupg (2.2.27-3ubuntu2.5) ...
+Setting up build-essential (12.9ubuntu3) ...
+Setting up libgtk-4-common (4.6.9+ds-0ubuntu0.22.04.2) ...
+Setting up libxi-dev:amd64 (2:1.8-1build1) ...
+Setting up libalgorithm-diff-xs-perl (0.04-6build3) ...
+Setting up libmount-dev:amd64 (2.37.2-4ubuntu3.4) ...
+Setting up libgtk-3-common (3.24.33-1ubuntu2.2) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Setting up libxtst-dev:amd64 (2:1.2.3-1build4) ...
+Setting up libxdamage-dev:amd64 (1:1.1.5-2build2) ...
+Setting up networkd-dispatcher (2.1-2ubuntu0.22.04.2) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/networkd-dispatcher.service → /lib/systemd/system/networkd-dispatcher.service.
+Setting up gsettings-desktop-schemas (42.0-1ubuntu1) ...
+Setting up libnghttp2-dev (1.43.0-1ubuntu0.2) ...
+Setting up libglx-mesa0:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up python3-importlib-metadata (4.6.4-1) ...
+Setting up libglx0:amd64 (1.4.0-1) ...
+Setting up libfontconfig-dev:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libxcomposite-dev:amd64 (1:0.4.5-1build2) ...
+Setting up libxcursor-dev:amd64 (1:1.2.0-2build4) ...
+Setting up gir1.2-atspi-2.0:amd64 (2.44.0-3) ...
+Setting up pipewire-bin (0.3.48-1ubuntu3) ...
+Setting up libfreetype6-dev:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgl1:amd64 (1.4.0-1) ...
+Setting up libglib2.0-dev:amd64 (2.72.4-0ubuntu2.8) ...
+Setting up libdbus-1-dev:amd64 (1.12.20-2ubuntu4.1) ...
+Setting up python3-markdown (3.3.6-1) ...
+Setting up libpolkit-gobject-1-dev (0.105-33) ...
+Setting up libjavascriptcoregtk-6.0-dev:amd64 (2.50.4-0ubuntu0.22.04.1) ...
+Setting up libthai-dev:amd64 (0.1.29-1build1) ...
+Setting up at-spi2-core (2.44.0-3) ...
+Setting up libglx-dev:amd64 (1.4.0-1) ...
+Setting up libcairo2-dev:amd64 (1.16.0-5ubuntu2) ...
+Setting up glib-networking:amd64 (2.72.0-1) ...
+Setting up pipewire:amd64 (0.3.48-1ubuntu3) ...
+Created symlink /etc/systemd/user/default.target.wants/pipewire.service → /usr/lib/systemd/user/pipewire.service.
+Created symlink /etc/systemd/user/sockets.target.wants/pipewire.socket → /usr/lib/systemd/user/pipewire.socket.
+Setting up libgl-dev:amd64 (1.4.0-1) ...
+Setting up libatk1.0-dev:amd64 (2.36.0-3build1) ...
+Setting up libxft-dev:amd64 (2.3.4-1) ...
+Setting up libgdk-pixbuf-2.0-dev:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+Setting up libatspi2.0-dev:amd64 (2.44.0-3) ...
+Setting up libharfbuzz-dev:amd64 (2.7.4-1ubuntu3.2) ...
+Setting up libfontconfig1-dev:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libsoup2.4-1:amd64 (2.74.2-3ubuntu0.6) ...
+Setting up libegl-dev:amd64 (1.4.0-1) ...
+Setting up gstreamer1.0-plugins-good:amd64 (1.20.3-0ubuntu1.4) ...
+Setting up libjson-glib-dev:amd64 (1.6.6-1build1) ...
+Setting up libepoxy-dev:amd64 (1.5.10-1) ...
+Setting up libsoup-3.0-0:amd64 (3.0.7-0ubuntu1) ...
+Setting up gobject-introspection (1.72.0-1) ...
+Setting up libatk-bridge2.0-dev:amd64 (2.38.0-3) ...
+Setting up libgstreamer-gl1.0-0:amd64 (1.20.1-1ubuntu0.5) ...
+Setting up libgirepository1.0-dev:amd64 (1.72.0-1) ...
+Setting up libpango1.0-dev:amd64 (1.50.6+ds-2ubuntu1) ...
+Setting up pipewire-media-session (0.4.1-2ubuntu1) ...
+Created symlink /etc/systemd/user/pipewire-session-manager.service → /usr/lib/systemd/user/pipewire-media-session.service.
+Created symlink /etc/systemd/user/pipewire.service.wants/pipewire-media-session.service → /usr/lib/systemd/user/pipewire-media-session.service.
+Setting up gir1.2-soup-3.0:amd64 (3.0.7-0ubuntu1) ...
+Setting up libgraphene-1.0-dev (1.10.8-1) ...
+Setting up libgles-dev:amd64 (1.4.0-1) ...
+Setting up gstreamer1.0-gl:amd64 (1.20.1-1ubuntu0.5) ...
+Setting up libglvnd-dev:amd64 (1.4.0-1) ...
+Setting up libegl1-mesa-dev:amd64 (23.2.1-1ubuntu3.1~22.04.3) ...
+Setting up adwaita-icon-theme (41.0-1ubuntu1) ...
+update-alternatives: using /usr/share/icons/Adwaita/cursor.theme to provide /usr/share/icons/default/index.theme (x-cursor-theme) in auto mode
+Setting up libgtk-4-1:amd64 (4.6.9+ds-0ubuntu0.22.04.2) ...
+Setting up libgtk-4-bin (4.6.9+ds-0ubuntu0.22.04.2) ...
+Setting up gir1.2-gtk-4.0:amd64 (4.6.9+ds-0ubuntu0.22.04.2) ...
+Setting up libwebkitgtk-6.0-4:amd64 (2.50.4-0ubuntu0.22.04.1) ...
+Setting up libgtk-3-0:amd64 (3.24.33-1ubuntu2.2) ...
+Setting up libgtk-4-dev:amd64 (4.6.9+ds-0ubuntu0.22.04.2) ...
+Setting up gir1.2-gtk-3.0:amd64 (3.24.33-1ubuntu2.2) ...
+Setting up libgtk-3-bin (3.24.33-1ubuntu2.2) ...
+Setting up humanity-icon-theme (0.6.16) ...
+Setting up xdg-desktop-portal-gtk (1.14.0-1build1) ...
+Setting up libgtk-3-dev:amd64 (3.24.33-1ubuntu2.2) ...
+Setting up libdazzle-1.0-0:amd64 (3.44.0-1) ...
+Setting up ubuntu-mono (20.10-0ubuntu2) ...
+Setting up libsysprof-ui-4:amd64 (3.44.0-1) ...
+Setting up gir1.2-dazzle-1.0:amd64 (3.44.0-1) ...
+Setting up libdazzle-1.0-dev:amd64 (3.44.0-1) ...
+Setting up libsysprof-4-dev:amd64 (3.44.0-1) ...
+Setting up libsoup-3.0-dev:amd64 (3.0.7-0ubuntu1) ...
+Setting up libwebkitgtk-6.0-dev (2.50.4-0ubuntu0.22.04.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for dictionaries-common (1.28.14) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+aspell-autobuildhash: processing: en [en-common].
+aspell-autobuildhash: processing: en [en-variant_0].
+aspell-autobuildhash: processing: en [en-variant_1].
+aspell-autobuildhash: processing: en [en-variant_2].
+aspell-autobuildhash: processing: en [en-w_accents-only].
+aspell-autobuildhash: processing: en [en-wo_accents-only].
+aspell-autobuildhash: processing: en [en_AU-variant_0].
+aspell-autobuildhash: processing: en [en_AU-variant_1].
+aspell-autobuildhash: processing: en [en_AU-w_accents-only].
+aspell-autobuildhash: processing: en [en_AU-wo_accents-only].
+aspell-autobuildhash: processing: en [en_CA-variant_0].
+aspell-autobuildhash: processing: en [en_CA-variant_1].
+aspell-autobuildhash: processing: en [en_CA-w_accents-only].
+aspell-autobuildhash: processing: en [en_CA-wo_accents-only].
+aspell-autobuildhash: processing: en [en_GB-ise-w_accents-only].
+aspell-autobuildhash: processing: en [en_GB-ise-wo_accents-only].
+aspell-autobuildhash: processing: en [en_GB-ize-w_accents-only].
+aspell-autobuildhash: processing: en [en_GB-ize-wo_accents-only].
+aspell-autobuildhash: processing: en [en_GB-variant_0].
+aspell-autobuildhash: processing: en [en_GB-variant_1].
+aspell-autobuildhash: processing: en [en_US-w_accents-only].
+aspell-autobuildhash: processing: en [en_US-wo_accents-only].
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+Processing triggers for libgdk-pixbuf-2.0-0:amd64 (2.42.8+dfsg-1ubuntu0.4) ...
+----------------------------------------
+
+[Command 5]
+$ cmake -G Ninja -B build -S . -D CMAKE_BUILD_TYPE=Release
+Exit Code: 0
+Output:
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning at cmake/internal.cmake:115 (message):
+  Skipping clang-format checks as clang-format was not found
+Call Stack (most recent call first):
+  CMakeLists.txt:12 (webview_init)
+
+
+CMake Warning at cmake/internal.cmake:139 (message):
+  Skipping clang-tidy checks with non-clang compiler.
+Call Stack (most recent call first):
+  CMakeLists.txt:12 (webview_init)
+
+
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for one of the modules 'webkit2gtk-4.1'
+-- Trying to find any WebKitGTK API
+-- Checking for one of the modules 'webkitgtk-6.0;webkit2gtk-4.1;webkit2gtk-4.0'
+-- Checking for module 'gtk4'
+--   Found gtk4, version 4.6.9
+-- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+CMake Warning at core/CMakeLists.txt:89 (message):
+  Skipping amalgamation as clang-format was not found
+
+
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE dot) 
+CMake Warning at docs/api/CMakeLists.txt:4 (message):
+  Skipping docs as Doxygen was not found
+
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/webview__webview@5c5db3f31bf644f673d9dc817e935815b590c30e/build
+----------------------------------------
+
+[Command 6]
+$ cmake --build build
+Exit Code: 0
+Output:
+[1/19] Building C object examples/CMakeFiles/webview_example_basic_c.dir/basic.c.o
+[2/19] Building C object examples/CMakeFiles/webview_example_bind_c.dir/bind.c.o
+[3/19] Building CXX object test_driver/CMakeFiles/webview_test_driver.dir/src/test_driver.cc.o
+[4/19] Linking CXX static library test_driver/libwebview_test_driver.a
+[5/19] Building CXX object core/tests/CMakeFiles/webview_core_unit_tests.dir/src/unit_tests.cc.o
+[6/19] Linking CXX executable core/tests/webview_core_unit_tests
+[7/19] Building CXX object examples/CMakeFiles/webview_example_basic_cc.dir/basic.cc.o
+[8/19] Linking CXX executable examples/webview_example_basic_cc
+[9/19] Building CXX object examples/CMakeFiles/webview_example_bind_cc.dir/bind.cc.o
+[10/19] Building CXX object core/CMakeFiles/webview_core_static.dir/src/webview.cc.o
+[11/19] Building CXX object core/CMakeFiles/webview_core_shared.dir/src/webview.cc.o
+[12/19] Linking CXX executable examples/webview_example_bind_cc
+[13/19] Linking CXX static library core/libwebview.a
+[14/19] Linking CXX shared library core/libwebview.so.0.12.0
+[15/19] Building CXX object core/tests/CMakeFiles/webview_core_functional_tests.dir/src/functional_tests.cc.o
+[16/19] Creating library symlink core/libwebview.so.0.12 core/libwebview.so
+[17/19] Linking CXX executable examples/webview_example_basic_c
+[18/19] Linking CXX executable examples/webview_example_bind_c
+[19/19] Linking CXX executable core/tests/webview_core_functional_tests
+----------------------------------------
+
+[Command 7]
+$ ctest --test-dir build
+Exit Code: 8
+Output:
+Internal ctest changing into directory: /workspace/webview__webview@5c5db3f31bf644f673d9dc817e935815b590c30e/build
+Test project /workspace/webview__webview@5c5db3f31bf644f673d9dc817e935815b590c30e/build
+      Start  1: Bad C API usage without crash
+ 1/14 Test  #1: Bad C API usage without crash .............................   Passed    0.04 sec
+      Start  2: Ensure that JS code can call native code and vice versa
+ 2/14 Test  #2: Ensure that JS code can call native code and vice versa ...***Failed    0.03 sec
+      Start  3: Start app loop and terminate it
+ 3/14 Test  #3: Start app loop and terminate it ...........................***Failed    0.04 sec
+      Start  4: Test synchronous binding and unbinding
+ 4/14 Test  #4: Test synchronous binding and unbinding ....................***Failed    0.04 sec
+      Start  5: The string returned from a binding call must be JSON
+ 5/14 Test  #5: The string returned from a binding call must be JSON ......***Failed    0.03 sec
+      Start  6: The string returned of a binding call must not be JS
+ 6/14 Test  #6: The string returned of a binding call must not be JS ......***Failed    0.03 sec
+      Start  7: Use C API to create a window, run app and terminate it
+ 7/14 Test  #7: Use C API to create a window, run app and terminate it ....   Passed    0.04 sec
+      Start  8: Use C API to test binding and unbinding
+ 8/14 Test  #8: Use C API to test binding and unbinding ...................   Passed    0.04 sec
+      Start  9: webview_version()
+ 9/14 Test  #9: webview_version() .........................................   Passed    0.04 sec
+      Start 10: Ensure that JSON escaping works
+10/14 Test #10: Ensure that JSON escaping works ...........................   Passed    0.01 sec
+      Start 11: Ensure that JSON parsing works
+11/14 Test #11: Ensure that JSON parsing works ............................   Passed    0.01 sec
+      Start 12: noresult class
+12/14 Test #12: noresult class ............................................   Passed    0.01 sec
+      Start 13: optional class
+13/14 Test #13: optional class ............................................   Passed    0.01 sec
+      Start 14: result class
+14/14 Test #14: result class ..............................................   Passed    0.01 sec
+
+64% tests passed, 5 tests failed out of 14
+
+Total Test time (real) =   0.42 sec
+
+The following tests FAILED:
+	  2 - Ensure that JS code can call native code and vice versa (Failed)
+	  3 - Start app loop and terminate it (Failed)
+	  4 - Test synchronous binding and unbinding (Failed)
+	  5 - The string returned from a binding call must be JSON (Failed)
+	  6 - The string returned of a binding call must not be JS (Failed)
+Errors while running CTest
+Output from these tests are in: /workspace/webview__webview@5c5db3f31bf644f673d9dc817e935815b590c30e/build/Testing/Temporary/LastTest.log
+Use "--rerun-failed --output-on-failure" to re-run the failed cases verbosely.
+----------------------------------------
+
+[Command 8]
+$ ctest --rerun-failed --output-on-failure
+Exit Code: 0
+Output:
+Test project /workspace/webview__webview@5c5db3f31bf644f673d9dc817e935815b590c30e
+No tests were found!!!
+----------------------------------------
+

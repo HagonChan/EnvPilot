@@ -1,0 +1,1421 @@
+# Setup Log for msgpack/msgpack-c@021da5d4b590a8bdf3d720d57b02196566753264
+# Issue/PR Number: 1160
+# Generated at: 2026-01-22T23:58:47.806566
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 192
+drwxrwxr-x 10 1002 1002  4096 Jan 22 15:55 .
+drwxr-xr-x  3 root root  4096 Jan 22 15:55 ..
+drwxrwxr-x  8 1002 1002  4096 Jan 22 15:55 .git
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:55 .github
+-rw-rw-r--  1 1002 1002   735 Jan 22 15:55 .gitignore
+-rw-rw-r--  1 1002 1002 18339 Jan 22 15:55 CHANGELOG.md
+-rw-rw-r--  1 1002 1002 11712 Jan 22 15:55 CMakeLists.txt
+-rw-rw-r--  1 1002 1002   200 Jan 22 15:55 COPYING
+-rw-rw-r--  1 1002 1002 65451 Jan 22 15:55 Doxyfile
+-rw-rw-r--  1 1002 1002   955 Jan 22 15:55 Files.cmake
+-rw-rw-r--  1 1002 1002  1338 Jan 22 15:55 LICENSE_1_0.txt
+-rw-rw-r--  1 1002 1002   419 Jan 22 15:55 NOTICE
+-rw-rw-r--  1 1002 1002  5211 Jan 22 15:55 QUICKSTART-C.md
+-rw-rw-r--  1 1002 1002  4029 Jan 22 15:55 README.md
+-rw-rw-r--  1 1002 1002  1609 Jan 22 15:55 appveyor.yml
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 ci
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 cmake
+-rw-rw-r--  1 1002 1002   410 Jan 22 15:55 codecov.yml
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:55 example
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:55 include
+-rwxrwxr-x  1 1002 1002  1467 Jan 22 15:55 makedist.sh
+-rw-rw-r--  1 1002 1002   309 Jan 22 15:55 msgpack-c-config.cmake.in
+-rw-rw-r--  1 1002 1002   239 Jan 22 15:55 msgpack-c.pc.in
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 src
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 test
+-rwxrwxr-x  1 1002 1002   743 Jan 22 15:55 update_version.sh
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+`msgpack` for C
+===================
+
+Version 6.1.0 [![Build Status](https://github.com/msgpack/msgpack-c/workflows/CI/badge.svg?branch=c_master)](https://github.com/msgpack/msgpack-c/actions) [![Build status](https://ci.appveyor.com/api/projects/status/8kstcgt79qj123mw/branch/c_master?svg=true)](https://ci.appveyor.com/project/redboltz/msgpack-c/branch/c_master)
+[![codecov](https://codecov.io/gh/msgpack/msgpack-c/branch/c_master/graph/badge.svg)](https://app.codecov.io/gh/msgpack/msgpack-c/tree/c_master)
+
+It's like JSON but smaller and faster.
+
+Overview
+--------
+
+[MessagePack](http://msgpack.org/) is an efficient binary serialization
+format, which lets you exchange data among multiple languages like JSON,
+except that it's faster and smaller. Small integers are encoded into a
+single byte and short strings require only one extra byte in
+addition to the strings themselves.
+
+Example
+-------
+
+```c
+#include <msgpack.h>
+#include <stdio.h>
+
+int main(void)
+{
+    /* msgpack::sbuffer is a simple buffer implementation. */
+    msgpack_sbuffer sbuf;
+    msgpack_sbuffer_init(&sbuf);
+
+    /* serialize values into the buffer using msgpack_sbuffer_write callback function. */
+    msgpack_packer pk;
+    msgpack_packer_init(&pk, &sbuf, msgpack_sbuffer_write);
+
+    msgpack_pack_array(&pk, 3);
+    msgpack_pack_int(&pk, 1);
+    msgpack_pack_true(&pk);
+    msgpack_pack_str(&pk, 7);
+    msgpack_pack_str_body(&pk, "example", 7);
+
+    /* deserialize the buffer into msgpack_object instance. */
+    /* deserialized object is valid during the msgpack_zone instance alive. */
+    msgpack_zone mempool;
+    msgpack_zone_init(&mempool, 2048);
+
+    msgpack_object deserialized;
+    msgpack_unpack(sbuf.data, sbuf.size, NULL, &mempool, &deserialized);
+
+    /* print the deserialized object. */
+    msgpack_object_print(stdout, deserialized);
+    puts("");
+
+    msgpack_zone_destroy(&mempool);
+    msgpack_sbuffer_destroy(&sbuf);
+
+    return 0;
+}
+```
+
+See [`QUICKSTART-C.md`](./QUICKSTART-C.md) for more details.
+
+Usage
+-----
+
+### Building and Installing
+
+#### Install from git repository
+
+##### Using the Terminal (CLI)
+
+You will need:
+
+ - `gcc >= 4.1.0`
+ - `cmake >= 2.8.0`
+
+How to build:
+
+    $ git clone https://github.com/msgpack/msgpack-c.git
+    $ cd msgpack-c
+    $ git checkout c_master
+    $ cmake .
+    $ make
+    $ sudo make install
+
+How to run tests:
+
+In order to run tests you must have the [GoogleTest](https://github.com/google/googletest) framework installed. If you do not currently have it, install it and re-run `cmake`.
+Then:
+
+    $ make test
+
+When you use the C part of `msgpack-c`, you need to build and link the library. By default, both static/shared libraries are built. If you want to build only static library, set `BUILD_SHARED_LIBS=OFF` to cmake. If you want to build only shared library, set `BUILD_SHARED_LIBS=ON`.
+
+#### GUI on Windows
+
+Clone msgpack-c git repository.
+
+    $ git clone https://github.com/msgpack/msgpack-c.git
+
+or using GUI git client.
+
+e.g.) tortoise git https://code.google.com/p/tortoisegit/
+
+1. Checkout to c_master branch
+
+2. Launch [cmake GUI client](http://www.cmake.org/cmake/resources/software.html).
+
+3. Set 'Where is the source code:' text box and 'Where to build
+the binaries:' text box.
+
+4. Click 'Configure' button.
+
+5. Choose your Visual Studio version.
+
+6. Click 'Generate' button.
+
+7. Open the created msgpack.sln on Visual Studio.
+
+8. Build all.
+
+### Documentation
+
+You can get additional information including the tutorial on the
+[wiki](https://github.com/msgpack/msgpack-c/wiki).
+
+Contributing
+------------
+
+`msgpack-c` is developed on GitHub at [msgpack/msgpack-c](https://github.com/msgpack/msgpack-c).
+To report an issue or send a pull request, use the
+[issue tracker](https://github.com/msgpack/msgpack-c/issues).
+
+Here's the list of [great contributors](https://github.com/msgpack/msgpack-c/graphs/contributors).
+
+License
+-------
+
+`msgpack-c` is licensed under the Boost Software License, Version 1.0. See
+the [`LICENSE_1_0.txt`](./LICENSE_1_0.txt) file for details.
+----------------------------------------
+
+[Command 3]
+$ apt-get update
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3639 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1289 kB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6411 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3970 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.8 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.7 MB in 15s (2889 kB/s)
+Reading package lists...
+----------------------------------------
+
+[Command 4]
+$ apt-get install -y gcc cmake
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates
+  cmake-data cpp cpp-11 dh-elpa-helper emacsen-common fontconfig-config
+  fonts-dejavu-core gcc-11 gcc-11-base libarchive13 libasan6 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6 libc6-dev
+  libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0 libexpat1
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgomp1 libicu70 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librhash0 librtmp1 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libssh-4 libtiff5 libtirpc-dev libtsan0
+  libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6
+  libxml2 libxpm4 linux-libc-dev make manpages manpages-dev openssl
+  publicsuffix rpcsvc-proto ucf
+Suggested packages:
+  binutils-doc cmake-doc ninja-build cmake-format cpp-doc gcc-11-locales
+  gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-11-multilib gcc-11-doc lrzip glibc-doc locales libgd-tools
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql make-doc
+  man-browser
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cmake
+  cmake-data cpp cpp-11 dh-elpa-helper emacsen-common fontconfig-config
+  fonts-dejavu-core gcc gcc-11 gcc-11-base libarchive13 libasan6 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6-dev libcc1-0
+  libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0 libexpat1
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgomp1 libicu70 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25 libldap-2.5-0
+  libldap-common liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnsl-dev
+  libpng16-16 libpsl5 libquadmath0 librhash0 librtmp1 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libssh-4 libtiff5 libtirpc-dev libtsan0
+  libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6
+  libxml2 libxpm4 linux-libc-dev make manpages manpages-dev openssl
+  publicsuffix rpcsvc-proto ucf
+The following packages will be upgraded:
+  libc6
+1 upgraded, 81 newly installed, 0 to remove and 2 not upgraded.
+Need to get 81.7 MB of archives.
+After this operation, 256 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.10 [764 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libarchive13 amd64 3.6.0-1ubuntu1.5 [368 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjsoncpp25 amd64 1.9.5-3 [80.0 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/main amd64 librhash0 amd64 1.4.2-1ubuntu1 [125 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/main amd64 dh-elpa-helper all 2.0.9ubuntu1 [7610 B]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/main amd64 emacsen-common all 3.0.4 [14.9 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake-data all 3.22.1-1ubuntu1.22.04.2 [1913 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake amd64 3.22.1-1ubuntu1.22.04.2 [5010 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 81.7 MB in 9s (9299 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../02-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../03-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../04-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package libicu70:amd64.
+Preparing to unpack .../05-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../06-libxml2_2.9.13+dfsg-1ubuntu0.10_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.10) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../07-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../08-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../09-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../10-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libuv1:amd64.
+Preparing to unpack .../11-libuv1_1.43.0-1ubuntu0.1_amd64.deb ...
+Unpacking libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../12-libxau6_1%3a1.0.9-1build5_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build5) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../13-libxdmcp6_1%3a1.1.3-0ubuntu5_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../14-libxcb1_1.14-3ubuntu3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.14-3ubuntu3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../15-libx11-data_2%3a1.7.5-1ubuntu0.3_all.deb ...
+Unpacking libx11-data (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../16-libx11-6_2%3a1.7.5-1ubuntu0.3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../17-manpages_5.10-1ubuntu1_all.deb ...
+Unpacking manpages (5.10-1ubuntu1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../18-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../19-binutils-common_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../20-libbinutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../21-libctf-nobfd0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../22-libctf0_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking libctf0:amd64 (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../23-binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../24-binutils_2.38-4ubuntu2.12_amd64.deb ...
+Unpacking binutils (2.38-4ubuntu2.12) ...
+Selecting previously unselected package libarchive13:amd64.
+Preparing to unpack .../25-libarchive13_3.6.0-1ubuntu1.5_amd64.deb ...
+Unpacking libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../26-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../27-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../28-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../29-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../30-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../31-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../32-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libjsoncpp25:amd64.
+Preparing to unpack .../33-libjsoncpp25_1.9.5-3_amd64.deb ...
+Unpacking libjsoncpp25:amd64 (1.9.5-3) ...
+Selecting previously unselected package librhash0:amd64.
+Preparing to unpack .../34-librhash0_1.4.2-1ubuntu1_amd64.deb ...
+Unpacking librhash0:amd64 (1.4.2-1ubuntu1) ...
+Selecting previously unselected package dh-elpa-helper.
+Preparing to unpack .../35-dh-elpa-helper_2.0.9ubuntu1_all.deb ...
+Unpacking dh-elpa-helper (2.0.9ubuntu1) ...
+Selecting previously unselected package emacsen-common.
+Preparing to unpack .../36-emacsen-common_3.0.4_all.deb ...
+Unpacking emacsen-common (3.0.4) ...
+Selecting previously unselected package cmake-data.
+Preparing to unpack .../37-cmake-data_3.22.1-1ubuntu1.22.04.2_all.deb ...
+Unpacking cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../38-cmake_3.22.1-1ubuntu1.22.04.2_amd64.deb ...
+Unpacking cmake (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../39-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../40-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../41-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../42-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../43-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../44-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../45-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../46-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../47-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../48-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../49-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../50-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../51-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../52-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../53-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../54-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../55-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../56-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../57-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../58-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../59-libc-dev-bin_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-dev-bin (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../60-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../61-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../62-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../63-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../64-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../65-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../66-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../67-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../68-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../69-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../70-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../71-linux-libc-dev_5.15.0-164.174_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (5.15.0-164.174) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../72-libcrypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../73-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../74-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../75-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../76-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../77-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../78-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package make.
+Preparing to unpack .../79-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../80-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up emacsen-common (3.0.4) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up dh-elpa-helper (2.0.9ubuntu1) ...
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libjsoncpp25:amd64 (1.9.5-3) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up librhash0:amd64 (1.4.2-1ubuntu1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.10) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 5]
+$ apt-get install -y googletest
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  googletest
+0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
+Need to get 541 kB of archives.
+After this operation, 3715 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/universe amd64 googletest all 1.11.0-3 [541 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 541 kB in 2s (259 kB/s)
+Selecting previously unselected package googletest.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13433 files and directories currently installed.)
+Preparing to unpack .../googletest_1.11.0-3_all.deb ...
+Unpacking googletest (1.11.0-3) ...
+Setting up googletest (1.11.0-3) ...
+----------------------------------------
+
+[Command 6]
+$ cmake .
+Exit Code: 0
+Output:
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Warning at example/CMakeLists.txt:1 (FIND_PACKAGE):
+  By not providing "FindcJSON.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "cJSON", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "cJSON" with any of
+  the following names:
+
+    cJSONConfig.cmake
+    cjson-config.cmake
+
+  Add the installation prefix of "cJSON" to CMAKE_PREFIX_PATH or set
+  "cJSON_DIR" to a directory containing one of the above files.  If "cJSON"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+
+
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/msgpack__msgpack-c@021da5d4b590a8bdf3d720d57b02196566753264
+----------------------------------------
+
+[Command 7]
+$ apt-get install -y libcjson-dev
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcjson1
+The following NEW packages will be installed:
+  libcjson-dev libcjson1
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 33.5 kB of archives.
+After this operation, 105 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libcjson1 amd64 1.7.15-1 [15.5 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libcjson-dev amd64 1.7.15-1 [17.9 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 33.5 kB in 1s (26.6 kB/s)
+Selecting previously unselected package libcjson1:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13685 files and directories currently installed.)
+Preparing to unpack .../libcjson1_1.7.15-1_amd64.deb ...
+Unpacking libcjson1:amd64 (1.7.15-1) ...
+Selecting previously unselected package libcjson-dev:amd64.
+Preparing to unpack .../libcjson-dev_1.7.15-1_amd64.deb ...
+Unpacking libcjson-dev:amd64 (1.7.15-1) ...
+Setting up libcjson1:amd64 (1.7.15-1) ...
+Setting up libcjson-dev:amd64 (1.7.15-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 8]
+$ apt-get install -y doxygen
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libclang-cpp14 libclang1-14 libedit2 libllvm14 libxapian30
+Suggested packages:
+  doxygen-latex doxygen-doc doxygen-gui graphviz xapian-tools
+The following NEW packages will be installed:
+  doxygen libclang-cpp14 libclang1-14 libedit2 libllvm14 libxapian30
+0 upgraded, 6 newly installed, 0 to remove and 2 not upgraded.
+Need to get 48.2 MB of archives.
+After this operation, 219 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libllvm14 amd64 1:14.0.0-1ubuntu1.1 [24.0 MB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang-cpp14 amd64 1:14.0.0-1ubuntu1.1 [12.1 MB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 libclang1-14 amd64 1:14.0.0-1ubuntu1.1 [6792 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libxapian30 amd64 1.4.18-4 [701 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 doxygen amd64 1.9.1-2ubuntu2 [4620 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 48.2 MB in 6s (7646 kB/s)
+Selecting previously unselected package libedit2:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13704 files and directories currently installed.)
+Preparing to unpack .../0-libedit2_3.1-20210910-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20210910-1build1) ...
+Selecting previously unselected package libllvm14:amd64.
+Preparing to unpack .../1-libllvm14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang-cpp14.
+Preparing to unpack .../2-libclang-cpp14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libclang1-14.
+Preparing to unpack .../3-libclang1-14_1%3a14.0.0-1ubuntu1.1_amd64.deb ...
+Unpacking libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Selecting previously unselected package libxapian30:amd64.
+Preparing to unpack .../4-libxapian30_1.4.18-4_amd64.deb ...
+Unpacking libxapian30:amd64 (1.4.18-4) ...
+Selecting previously unselected package doxygen.
+Preparing to unpack .../5-doxygen_1.9.1-2ubuntu2_amd64.deb ...
+Unpacking doxygen (1.9.1-2ubuntu2) ...
+Setting up libxapian30:amd64 (1.4.18-4) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libllvm14:amd64 (1:14.0.0-1ubuntu1.1) ...
+Setting up libclang1-14 (1:14.0.0-1ubuntu1.1) ...
+Setting up libclang-cpp14 (1:14.0.0-1ubuntu1.1) ...
+Setting up doxygen (1.9.1-2ubuntu2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 9]
+$ cmake .
+Exit Code: 0
+Output:
+-- Found Doxygen: /usr/bin/doxygen (found version "1.9.1") found components: doxygen missing components: dot
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/msgpack__msgpack-c@021da5d4b590a8bdf3d720d57b02196566753264
+----------------------------------------
+
+[Command 10]
+$ make
+Exit Code: 0
+Output:
+[  3%] Building C object CMakeFiles/msgpack-c.dir/src/objectc.c.o
+[  7%] Building C object CMakeFiles/msgpack-c.dir/src/unpack.c.o
+[ 11%] Building C object CMakeFiles/msgpack-c.dir/src/version.c.o
+[ 15%] Building C object CMakeFiles/msgpack-c.dir/src/vrefbuffer.c.o
+[ 19%] Building C object CMakeFiles/msgpack-c.dir/src/zone.c.o
+[ 23%] Linking C shared library libmsgpack-c.so
+[ 23%] Built target msgpack-c
+[ 26%] Building C object CMakeFiles/msgpack-c-static.dir/src/objectc.c.o
+[ 30%] Building C object CMakeFiles/msgpack-c-static.dir/src/unpack.c.o
+[ 34%] Building C object CMakeFiles/msgpack-c-static.dir/src/version.c.o
+[ 38%] Building C object CMakeFiles/msgpack-c-static.dir/src/vrefbuffer.c.o
+[ 42%] Building C object CMakeFiles/msgpack-c-static.dir/src/zone.c.o
+[ 46%] Linking C static library libmsgpack-c.a
+[ 46%] Built target msgpack-c-static
+[ 50%] Building C object example/CMakeFiles/boundary.dir/boundary.c.o
+[ 53%] Linking C executable boundary
+[ 53%] Built target boundary
+[ 57%] Building C object example/CMakeFiles/lib_buffer_unpack.dir/lib_buffer_unpack.c.o
+[ 61%] Linking C executable lib_buffer_unpack
+[ 61%] Built target lib_buffer_unpack
+[ 65%] Building C object example/CMakeFiles/simple_c.dir/simple_c.c.o
+[ 69%] Linking C executable simple_c
+[ 69%] Built target simple_c
+[ 73%] Building C object example/CMakeFiles/speed_test_uint32_array.dir/speed_test_uint32_array.c.o
+[ 76%] Linking C executable speed_test_uint32_array
+[ 76%] Built target speed_test_uint32_array
+[ 80%] Building C object example/CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o
+[ 84%] Linking C executable speed_test_uint64_array
+[ 84%] Built target speed_test_uint64_array
+[ 88%] Building C object example/CMakeFiles/user_buffer_unpack.dir/user_buffer_unpack.c.o
+[ 92%] Linking C executable user_buffer_unpack
+[ 92%] Built target user_buffer_unpack
+[ 96%] Building C object example/CMakeFiles/jsonconv.dir/jsonconv.c.o
+[100%] Linking C executable jsonconv
+[100%] Built target jsonconv
+----------------------------------------
+
+[Command 11]
+$ make test
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 12]
+$ ctest
+Exit Code: 0
+Output:
+*********************************
+No test configuration file found!
+*********************************
+Usage
+
+  ctest [options]
+----------------------------------------
+
+[Command 13]
+$ ls test
+Exit Code: 0
+Output:
+CMakeLists.txt
+buffer_c.cpp
+fixint_c.cpp
+msgpack_c.cpp
+pack_unpack_c.cpp
+streaming_c.cpp
+----------------------------------------
+
+[Command 14]
+$ make test
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 15]
+$ ls -la test
+Exit Code: 0
+Output:
+total 96
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 .
+drwxrwxr-x 11 1002 1002  4096 Jan 22 15:56 ..
+-rw-rw-r--  1 1002 1002  1395 Jan 22 15:55 CMakeLists.txt
+-rw-rw-r--  1 1002 1002  4270 Jan 22 15:55 buffer_c.cpp
+-rw-rw-r--  1 1002 1002  1156 Jan 22 15:55 fixint_c.cpp
+-rw-rw-r--  1 1002 1002 60351 Jan 22 15:55 msgpack_c.cpp
+-rw-rw-r--  1 1002 1002  2780 Jan 22 15:55 pack_unpack_c.cpp
+-rw-rw-r--  1 1002 1002  6848 Jan 22 15:55 streaming_c.cpp
+----------------------------------------
+
+[Command 16]
+$ make test
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 17]
+$ ls -la src/test
+Exit Code: 2
+Output:
+ls: cannot access 'src/test': No such file or directory
+----------------------------------------
+
+[Command 18]
+$ ls -la example
+Exit Code: 0
+Output:
+total 284
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:56 .
+drwxrwxr-x 11 1002 1002  4096 Jan 22 15:56 ..
+drwxr-xr-x  9 root root  4096 Jan 22 15:56 CMakeFiles
+-rw-rw-r--  1 1002 1002  1349 Jan 22 15:55 CMakeLists.txt
+-rw-r--r--  1 root root 20250 Jan 22 15:56 Makefile
+-rwxr-xr-x  1 root root 63600 Jan 22 15:56 boundary
+-rw-rw-r--  1 1002 1002 16299 Jan 22 15:55 boundary.c
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:55 cmake
+-rw-r--r--  1 root root  1292 Jan 22 15:56 cmake_install.cmake
+-rwxr-xr-x  1 root root 21928 Jan 22 15:56 jsonconv
+-rw-rw-r--  1 1002 1002 12643 Jan 22 15:55 jsonconv.c
+-rwxr-xr-x  1 root root 17696 Jan 22 15:56 lib_buffer_unpack
+-rw-rw-r--  1 1002 1002  3617 Jan 22 15:55 lib_buffer_unpack.c
+-rwxr-xr-x  1 root root 17104 Jan 22 15:56 simple_c
+-rw-rw-r--  1 1002 1002  1209 Jan 22 15:55 simple_c.c
+-rwxr-xr-x  1 root root 16944 Jan 22 15:56 speed_test_uint32_array
+-rw-rw-r--  1 1002 1002   722 Jan 22 15:55 speed_test_uint32_array.c
+-rwxr-xr-x  1 root root 16976 Jan 22 15:56 speed_test_uint64_array
+-rw-rw-r--  1 1002 1002   774 Jan 22 15:55 speed_test_uint64_array.c
+-rwxr-xr-x  1 root root 17328 Jan 22 15:56 user_buffer_unpack
+-rw-rw-r--  1 1002 1002  2122 Jan 22 15:55 user_buffer_unpack.c
+----------------------------------------
+
+[Command 19]
+$ ./simple_c
+Exit Code: 127
+Output:
+/bin/bash: line 73: ./simple_c: No such file or directory
+----------------------------------------
+
+[Command 20]
+$ ./jsonconv
+Exit Code: 127
+Output:
+/bin/bash: line 77: ./jsonconv: No such file or directory
+----------------------------------------
+
+[Command 21]
+$ ./speed_test_uint32_array
+Exit Code: 127
+Output:
+/bin/bash: line 81: ./speed_test_uint32_array: No such file or directory
+----------------------------------------
+
+[Command 22]
+$ ./speed_test_uint64_array
+Exit Code: 127
+Output:
+/bin/bash: line 85: ./speed_test_uint64_array: No such file or directory
+----------------------------------------
+
+[Command 23]
+$ ldd ./simple_c
+Exit Code: 1
+Output:
+ldd: ./simple_c: No such file or directory
+----------------------------------------
+
+[Command 24]
+$ file ./simple_c
+Exit Code: 127
+Output:
+/bin/bash: line 93: file: command not found
+----------------------------------------
+
+[Command 25]
+$ apt-get install -y binutils
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+binutils is already the newest version (2.38-4ubuntu2.12).
+binutils set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+----------------------------------------
+
+[Command 26]
+$ strip ./simple_c
+Exit Code: 1
+Output:
+strip: './simple_c': No such file
+----------------------------------------
+
+[Command 27]
+$ make clean
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 28]
+$ make
+Exit Code: 0
+Output:
+[  3%] Building C object CMakeFiles/msgpack-c.dir/src/objectc.c.o
+[  7%] Building C object CMakeFiles/msgpack-c.dir/src/unpack.c.o
+[ 11%] Building C object CMakeFiles/msgpack-c.dir/src/version.c.o
+[ 15%] Building C object CMakeFiles/msgpack-c.dir/src/vrefbuffer.c.o
+[ 19%] Building C object CMakeFiles/msgpack-c.dir/src/zone.c.o
+[ 23%] Linking C shared library libmsgpack-c.so
+[ 23%] Built target msgpack-c
+[ 26%] Building C object CMakeFiles/msgpack-c-static.dir/src/objectc.c.o
+[ 30%] Building C object CMakeFiles/msgpack-c-static.dir/src/unpack.c.o
+[ 34%] Building C object CMakeFiles/msgpack-c-static.dir/src/version.c.o
+[ 38%] Building C object CMakeFiles/msgpack-c-static.dir/src/vrefbuffer.c.o
+[ 42%] Building C object CMakeFiles/msgpack-c-static.dir/src/zone.c.o
+[ 46%] Linking C static library libmsgpack-c.a
+[ 46%] Built target msgpack-c-static
+[ 50%] Building C object example/CMakeFiles/boundary.dir/boundary.c.o
+[ 53%] Linking C executable boundary
+[ 53%] Built target boundary
+[ 57%] Building C object example/CMakeFiles/lib_buffer_unpack.dir/lib_buffer_unpack.c.o
+[ 61%] Linking C executable lib_buffer_unpack
+[ 61%] Built target lib_buffer_unpack
+[ 65%] Building C object example/CMakeFiles/simple_c.dir/simple_c.c.o
+[ 69%] Linking C executable simple_c
+[ 69%] Built target simple_c
+[ 73%] Building C object example/CMakeFiles/speed_test_uint32_array.dir/speed_test_uint32_array.c.o
+[ 76%] Linking C executable speed_test_uint32_array
+[ 76%] Built target speed_test_uint32_array
+[ 80%] Building C object example/CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o
+[ 84%] Linking C executable speed_test_uint64_array
+[ 84%] Built target speed_test_uint64_array
+[ 88%] Building C object example/CMakeFiles/user_buffer_unpack.dir/user_buffer_unpack.c.o
+[ 92%] Linking C executable user_buffer_unpack
+[ 92%] Built target user_buffer_unpack
+[ 96%] Building C object example/CMakeFiles/jsonconv.dir/jsonconv.c.o
+[100%] Linking C executable jsonconv
+[100%] Built target jsonconv
+----------------------------------------
+
+[Command 29]
+$ ./simple_c
+Exit Code: 127
+Output:
+/bin/bash: line 113: ./simple_c: No such file or directory
+----------------------------------------
+
+[Command 30]
+$ ./jsonconv
+Exit Code: 127
+Output:
+/bin/bash: line 117: ./jsonconv: No such file or directory
+----------------------------------------
+
+[Command 31]
+$ ./speed_test_uint32_array
+Exit Code: 127
+Output:
+/bin/bash: line 121: ./speed_test_uint32_array: No such file or directory
+----------------------------------------
+
+[Command 32]
+$ ./speed_test_uint64_array
+Exit Code: 127
+Output:
+/bin/bash: line 125: ./speed_test_uint64_array: No such file or directory
+----------------------------------------
+
+[Command 33]
+$ ldd ./simple_c
+Exit Code: 1
+Output:
+ldd: ./simple_c: No such file or directory
+----------------------------------------
+
+[Command 34]
+$ file ./simple_c
+Exit Code: 127
+Output:
+/bin/bash: line 133: file: command not found
+----------------------------------------
+
+[Command 35]
+$ file ./jsonconv
+Exit Code: 127
+Output:
+/bin/bash: line 137: file: command not found
+----------------------------------------
+
+[Command 36]
+$ objdump -d ./simple_c
+Exit Code: 1
+Output:
+objdump: './simple_c': No such file
+----------------------------------------
+
+[Command 37]
+$ echo $PATH
+Exit Code: 0
+Output:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+----------------------------------------
+
+[Command 38]
+$ echo $HOME
+Exit Code: 0
+Output:
+/root
+----------------------------------------
+
+[Command 39]
+$ export PATH=$PATH:/usr/local/bin:/usr/bin
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 40]
+$ ./simple_c
+Exit Code: 127
+Output:
+/bin/bash: line 157: ./simple_c: No such file or directory
+----------------------------------------
+
+[Command 41]
+$ ./jsonconv
+Exit Code: 127
+Output:
+/bin/bash: line 161: ./jsonconv: No such file or directory
+----------------------------------------
+
+[Command 42]
+$ ./speed_test_uint32_array
+Exit Code: 127
+Output:
+/bin/bash: line 165: ./speed_test_uint32_array: No such file or directory
+----------------------------------------
+
+[Command 43]
+$ ./speed_test_uint64_array
+Exit Code: 127
+Output:
+/bin/bash: line 169: ./speed_test_uint64_array: No such file or directory
+----------------------------------------
+
+[Command 44]
+$ file ./speed_test_uint32_array
+Exit Code: 127
+Output:
+/bin/bash: line 173: file: command not found
+----------------------------------------
+
+[Command 45]
+$ ls -l /usr/bin | grep simple_c
+Exit Code: 1
+Output:
+
+----------------------------------------
+
+[Command 46]
+$ ls -l ./
+Exit Code: 0
+Output:
+total 380
+-rw-rw-r-- 1 1002 1002 18339 Jan 22 15:55 CHANGELOG.md
+-rw-r--r-- 1 root root 16176 Jan 22 15:56 CMakeCache.txt
+-rw-r--r-- 1 root root 14582 Jan 22 15:56 CMakeDoxyfile.in
+-rw-r--r-- 1 root root 20173 Jan 22 15:56 CMakeDoxygenDefaults.cmake
+drwxr-xr-x 8 root root  4096 Jan 22 15:57 CMakeFiles
+-rw-rw-r-- 1 1002 1002 11712 Jan 22 15:55 CMakeLists.txt
+-rw-rw-r-- 1 1002 1002   200 Jan 22 15:55 COPYING
+-rw-rw-r-- 1 1002 1002 65451 Jan 22 15:55 Doxyfile
+-rw-rw-r-- 1 1002 1002   955 Jan 22 15:55 Files.cmake
+-rw-rw-r-- 1 1002 1002  1338 Jan 22 15:55 LICENSE_1_0.txt
+-rw-r--r-- 1 root root 16952 Jan 22 15:56 Makefile
+-rw-rw-r-- 1 1002 1002   419 Jan 22 15:55 NOTICE
+-rw-rw-r-- 1 1002 1002  5211 Jan 22 15:55 QUICKSTART-C.md
+-rw-rw-r-- 1 1002 1002  4029 Jan 22 15:55 README.md
+-rw-rw-r-- 1 1002 1002  1609 Jan 22 15:55 appveyor.yml
+drwxrwxr-x 2 1002 1002  4096 Jan 22 15:55 ci
+drwxrwxr-x 2 1002 1002  4096 Jan 22 15:55 cmake
+-rw-r--r-- 1 root root 11648 Jan 22 15:56 cmake_install.cmake
+-rw-rw-r-- 1 1002 1002   410 Jan 22 15:55 codecov.yml
+drwxrwxr-x 4 1002 1002  4096 Jan 22 15:57 example
+drwxrwxr-x 3 1002 1002  4096 Jan 22 15:55 include
+-rw-r--r-- 1 root root 52484 Jan 22 15:57 libmsgpack-c.a
+lrwxrwxrwx 1 root root    17 Jan 22 15:57 libmsgpack-c.so -> libmsgpack-c.so.2
+lrwxrwxrwx 1 root root    21 Jan 22 15:57 libmsgpack-c.so.2 -> libmsgpack-c.so.2.0.0
+-rwxr-xr-x 1 root root 50432 Jan 22 15:57 libmsgpack-c.so.2.0.0
+-rwxrwxr-x 1 1002 1002  1467 Jan 22 15:55 makedist.sh
+-rw-r--r-- 1 root root  2878 Jan 22 15:56 msgpack-c-config-version.cmake
+-rw-rw-r-- 1 root root  1177 Jan 22 15:56 msgpack-c-config.cmake
+-rw-rw-r-- 1 1002 1002   309 Jan 22 15:55 msgpack-c-config.cmake.in
+-rw-r--r-- 1 root root  3223 Jan 22 15:56 msgpack-c-targets.cmake
+-rw-rw-r-- 1 root root   244 Jan 22 15:56 msgpack-c.pc
+-rw-rw-r-- 1 1002 1002   239 Jan 22 15:55 msgpack-c.pc.in
+drwxrwxr-x 2 1002 1002  4096 Jan 22 15:55 src
+drwxrwxr-x 2 1002 1002  4096 Jan 22 15:55 test
+-rwxrwxr-x 1 1002 1002   743 Jan 22 15:55 update_version.sh
+----------------------------------------
+
+[Command 47]
+$ sudo chmod +x ./simple_c; sudo chmod +x ./jsonconv; sudo chmod +x ./speed_test_uint32_array; sudo chmod +x ./speed_test_uint64_array
+Exit Code: 127
+Output:
+/bin/bash: line 185: sudo: command not found
+/bin/bash: line 185: sudo: command not found
+/bin/bash: line 185: sudo: command not found
+/bin/bash: line 185: sudo: command not found
+----------------------------------------
+
+[Command 48]
+$ chmod +x ./simple_c; chmod +x ./jsonconv; chmod +x ./speed_test_uint32_array; chmod +x ./speed_test_uint64_array
+Exit Code: 1
+Output:
+chmod: cannot access './simple_c': No such file or directory
+chmod: cannot access './jsonconv': No such file or directory
+chmod: cannot access './speed_test_uint32_array': No such file or directory
+chmod: cannot access './speed_test_uint64_array': No such file or directory
+----------------------------------------
+
+[Command 49]
+$ ls -lah `pwd`
+Exit Code: 0
+Output:
+total 400K
+drwxrwxr-x 11 1002 1002 4.0K Jan 22 15:57 .
+drwxr-xr-x  3 root root 4.0K Jan 22 15:55 ..
+drwxrwxr-x  8 1002 1002 4.0K Jan 22 15:55 .git
+drwxrwxr-x  3 1002 1002 4.0K Jan 22 15:55 .github
+-rw-rw-r--  1 1002 1002  735 Jan 22 15:55 .gitignore
+-rw-rw-r--  1 1002 1002  18K Jan 22 15:55 CHANGELOG.md
+-rw-r--r--  1 root root  16K Jan 22 15:56 CMakeCache.txt
+-rw-r--r--  1 root root  15K Jan 22 15:56 CMakeDoxyfile.in
+-rw-r--r--  1 root root  20K Jan 22 15:56 CMakeDoxygenDefaults.cmake
+drwxr-xr-x  8 root root 4.0K Jan 22 15:57 CMakeFiles
+-rw-rw-r--  1 1002 1002  12K Jan 22 15:55 CMakeLists.txt
+-rw-rw-r--  1 1002 1002  200 Jan 22 15:55 COPYING
+-rw-rw-r--  1 1002 1002  64K Jan 22 15:55 Doxyfile
+-rw-rw-r--  1 1002 1002  955 Jan 22 15:55 Files.cmake
+-rw-rw-r--  1 1002 1002 1.4K Jan 22 15:55 LICENSE_1_0.txt
+-rw-r--r--  1 root root  17K Jan 22 15:56 Makefile
+-rw-rw-r--  1 1002 1002  419 Jan 22 15:55 NOTICE
+-rw-rw-r--  1 1002 1002 5.1K Jan 22 15:55 QUICKSTART-C.md
+-rw-rw-r--  1 1002 1002 4.0K Jan 22 15:55 README.md
+-rw-rw-r--  1 1002 1002 1.6K Jan 22 15:55 appveyor.yml
+drwxrwxr-x  2 1002 1002 4.0K Jan 22 15:55 ci
+drwxrwxr-x  2 1002 1002 4.0K Jan 22 15:55 cmake
+-rw-r--r--  1 root root  12K Jan 22 15:56 cmake_install.cmake
+-rw-rw-r--  1 1002 1002  410 Jan 22 15:55 codecov.yml
+drwxrwxr-x  4 1002 1002 4.0K Jan 22 15:57 example
+drwxrwxr-x  3 1002 1002 4.0K Jan 22 15:55 include
+-rw-r--r--  1 root root  52K Jan 22 15:57 libmsgpack-c.a
+lrwxrwxrwx  1 root root   17 Jan 22 15:57 libmsgpack-c.so -> libmsgpack-c.so.2
+lrwxrwxrwx  1 root root   21 Jan 22 15:57 libmsgpack-c.so.2 -> libmsgpack-c.so.2.0.0
+-rwxr-xr-x  1 root root  50K Jan 22 15:57 libmsgpack-c.so.2.0.0
+-rwxrwxr-x  1 1002 1002 1.5K Jan 22 15:55 makedist.sh
+-rw-r--r--  1 root root 2.9K Jan 22 15:56 msgpack-c-config-version.cmake
+-rw-rw-r--  1 root root 1.2K Jan 22 15:56 msgpack-c-config.cmake
+-rw-rw-r--  1 1002 1002  309 Jan 22 15:55 msgpack-c-config.cmake.in
+-rw-r--r--  1 root root 3.2K Jan 22 15:56 msgpack-c-targets.cmake
+-rw-rw-r--  1 root root  244 Jan 22 15:56 msgpack-c.pc
+-rw-rw-r--  1 1002 1002  239 Jan 22 15:55 msgpack-c.pc.in
+drwxrwxr-x  2 1002 1002 4.0K Jan 22 15:55 src
+drwxrwxr-x  2 1002 1002 4.0K Jan 22 15:55 test
+-rwxrwxr-x  1 1002 1002  743 Jan 22 15:55 update_version.sh
+----------------------------------------
+
+[Command 50]
+$ find ./ -type f -name 'simple_c*'
+Exit Code: 0
+Output:
+./example/simple_c.c
+./example/CMakeFiles/simple_c.dir/simple_c.c.o
+./example/CMakeFiles/simple_c.dir/simple_c.c.o.d
+./example/simple_c
+----------------------------------------
+
+[Command 51]
+$ find ./ -type f -name 'jsonconv*'
+Exit Code: 0
+Output:
+./example/CMakeFiles/jsonconv.dir/jsonconv.c.o
+./example/CMakeFiles/jsonconv.dir/jsonconv.c.o.d
+./example/jsonconv.c
+./example/jsonconv
+----------------------------------------
+
+[Command 52]
+$ find ./ -type f -name 'speed_test_uint32_array*'
+Exit Code: 0
+Output:
+./example/speed_test_uint32_array
+./example/speed_test_uint32_array.c
+./example/CMakeFiles/speed_test_uint32_array.dir/speed_test_uint32_array.c.o.d
+./example/CMakeFiles/speed_test_uint32_array.dir/speed_test_uint32_array.c.o
+----------------------------------------
+
+[Command 53]
+$ find ./ -type f -name 'speed_test_uint64_array*'
+Exit Code: 0
+Output:
+./example/speed_test_uint64_array.c
+./example/CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o.d
+./example/CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o
+./example/speed_test_uint64_array
+----------------------------------------
+
+[Command 54]
+$ ./example/simple_c
+Exit Code: 0
+Output:
+93 01 c3 a7 65 78 61 6d 70 6c 65 
+[1, true, "example"]
+----------------------------------------
+
+[Command 55]
+$ ./example/jsonconv
+Exit Code: 0
+Output:
+null: ok
+boolean: ok
+single string: ok
+single number: ok
+space: ok
+quote: ok
+escape: ok
+escape2: ok
+map: ok
+array: ok
+number array: ok
+mix array: ok
+unicode: ok
+utf8: ok
+double: ok
+----------------------------------------
+
+[Command 56]
+$ ./example/speed_test_uint32_array
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 57]
+$ ./example/speed_test_uint64_array
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 58]
+$ ctest
+Exit Code: 0
+Output:
+*********************************
+No test configuration file found!
+*********************************
+Usage
+
+  ctest [options]
+----------------------------------------
+

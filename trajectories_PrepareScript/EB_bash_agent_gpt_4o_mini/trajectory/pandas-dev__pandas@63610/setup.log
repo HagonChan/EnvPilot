@@ -1,0 +1,2366 @@
+# Setup Log for pandas-dev/pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+# Issue/PR Number: 63610
+# Generated at: 2026-01-22T23:23:50.060663
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 192
+drwxrwxr-x 14 1002 1002  4096 Jan 22 11:37 .
+drwxr-xr-x  3 root root  4096 Jan 22 13:51 ..
+drwxrwxr-x  8 1002 1002  4096 Jan 22 13:51 .git
+-rw-rw-r--  1 1002 1002  1717 Jan 22 11:22 .gitattributes
+drwxrwxr-x  5 1002 1002  4096 Jan 22 11:22 .github
+-rw-rw-r--  1 1002 1002  2009 Jan 22 11:22 .gitignore
+-rw-rw-r--  1 1002 1002 11454 Jan 22 11:22 .pre-commit-config.yaml
+-rw-rw-r--  1 1002 1002  2827 Jan 22 11:22 AGENTS.md
+-rw-rw-r--  1 1002 1002  2306 Jan 22 11:22 AUTHORS.md
+-rw-rw-r--  1 1002 1002  1541 Jan 22 11:22 CITATION.cff
+-rw-rw-r--  1 1002 1002  1634 Jan 22 11:22 LICENSE
+drwxrwxr-x  2 1002 1002  4096 Jan 22 11:22 LICENSES
+-rw-rw-r--  1 1002 1002  1442 Jan 22 11:22 MANIFEST.in
+-rw-rw-r--  1 1002 1002 11903 Jan 22 11:22 README.md
+drwxrwxr-x  3 1002 1002  4096 Jan 22 11:22 asv_bench
+drwxr-xr-x  3 root root  4096 Jan 22 11:39 build
+drwxrwxr-x  3 1002 1002  4096 Jan 22 11:22 ci
+-rw-rw-r--  1 1002 1002   256 Jan 22 11:22 codecov.yml
+drwxrwxr-x  8 1002 1002  4096 Jan 22 11:22 doc
+-rw-rw-r--  1 1002 1002  3023 Jan 22 11:22 environment.yml
+-rw-rw-r--  1 1002 1002   866 Jan 22 11:22 generate_pxi.py
+-rw-rw-r--  1 1002 1002  1715 Jan 22 11:22 generate_version.py
+-rw-rw-r--  1 1002 1002  2561 Jan 22 11:22 meson.build
+drwxrwxr-x 16 1002 1002  4096 Jan 22 11:36 pandas
+-rw-rw-r--  1 1002 1002 27574 Jan 22 11:22 pyproject.toml
+-rw-rw-r--  1 1002 1002  4307 Jan 22 11:22 pyright_reportGeneralTypeIssues.json
+-rw-rw-r--  1 1002 1002  1502 Jan 22 11:22 requirements-dev.txt
+drwxrwxr-x  3 1002 1002  4096 Jan 22 11:22 scripts
+-rwxrwxr-x  1 1002 1002 21977 Jan 22 11:22 setup.py
+drwxrwxr-x  3 1002 1002  4096 Jan 22 11:22 tooling
+drwxrwxr-x  2 1002 1002  4096 Jan 22 11:22 typings
+drwxrwxr-x  5 1002 1002  4096 Jan 22 11:22 web
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+<picture align="center">
+  <source media="(prefers-color-scheme: dark)" srcset="https://pandas.pydata.org/static/img/pandas_white.svg">
+  <img alt="Pandas Logo" src="https://pandas.pydata.org/static/img/pandas.svg">
+</picture>
+
+-----------------
+
+# pandas: A Powerful Python Data Analysis Toolkit
+
+| | |
+| --- | --- |
+| Testing | [![CI - Test](https://github.com/pandas-dev/pandas/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/pandas-dev/pandas/actions/workflows/unit-tests.yml) [![Coverage](https://codecov.io/github/pandas-dev/pandas/coverage.svg?branch=main)](https://codecov.io/gh/pandas-dev/pandas) |
+| Package | [![PyPI Latest Release](https://img.shields.io/pypi/v/pandas.svg)](https://pypi.org/project/pandas/) [![PyPI Downloads](https://img.shields.io/pypi/dm/pandas.svg?label=PyPI%20downloads)](https://pypi.org/project/pandas/) [![Conda Latest Release](https://anaconda.org/conda-forge/pandas/badges/version.svg)](https://anaconda.org/conda-forge/pandas) [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pandas.svg?label=Conda%20downloads)](https://anaconda.org/conda-forge/pandas) |
+| Meta | [![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3509134.svg)](https://doi.org/10.5281/zenodo.3509134) [![License - BSD 3-Clause](https://img.shields.io/pypi/l/pandas.svg)](https://github.com/pandas-dev/pandas/blob/main/LICENSE) [![Slack](https://img.shields.io/badge/join_Slack-information-brightgreen.svg?logo=slack)](https://pandas.pydata.org/docs/dev/development/community.html?highlight=slack#community-slack) [![LFX Health Score](https://insights.linuxfoundation.org/api/badge/health-score?project=pandas-dev-pandas)](https://insights.linuxfoundation.org/project/pandas-dev-pandas) |
+
+
+## What is it?
+
+**pandas** is a Python package that provides fast, flexible, and expressive data
+structures designed to make working with "relational" or "labeled" data both
+easy and intuitive. It aims to be the fundamental high-level building block for
+doing practical, **real-world** data analysis in Python. Additionally, it has
+the broader goal of becoming **the most powerful and flexible open-source data
+analysis/manipulation tool available in any language**. It is already well on
+its way towards this goal.
+
+## Table of Contents
+
+- [Main Features](#main-features)
+- [Where to get it](#where-to-get-it)
+- [Dependencies](#dependencies)
+- [Installation from sources](#installation-from-sources)
+- [License](#license)
+- [Documentation](#documentation)
+- [Background](#background)
+- [Getting Help](#getting-help)
+- [Discussion and Development](#discussion-and-development)
+- [Contributing to pandas](#contributing-to-pandas)
+
+## Main Features
+Here are just a few of the things that pandas does well:
+
+  - Easy handling of [**missing data**][missing-data] (represented as
+    `NaN`, `NA`, or `NaT`) in floating point as well as non-floating point data
+  - Size mutability: columns can be [**inserted and
+    deleted**][insertion-deletion] from DataFrame and higher dimensional
+    objects
+  - Automatic and explicit [**data alignment**][alignment]: objects can
+    be explicitly aligned to a set of labels, or the user can simply
+    ignore the labels and let `Series`, `DataFrame`, etc. automatically
+    align the data for you in computations
+  - Powerful, flexible [**group by**][groupby] functionality to perform
+    split-apply-combine operations on data sets, for both aggregating
+    and transforming data
+  - Make it [**easy to convert**][conversion] ragged,
+    differently-indexed data in other Python and NumPy data structures
+    into DataFrame objects
+  - Intelligent label-based [**slicing**][slicing], [**fancy
+    indexing**][fancy-indexing], and [**subsetting**][subsetting] of
+    large data sets
+  - Intuitive [**merging**][merging] and [**joining**][joining] data
+    sets
+  - Flexible [**reshaping**][reshape] and [**pivoting**][pivot-table] of
+    data sets
+  - [**Hierarchical**][mi] labeling of axes (possible to have multiple
+    labels per tick)
+  - Robust I/O tools for loading data from [**flat files**][flat-files]
+    (CSV and delimited), [**Excel files**][excel], [**databases**][db],
+    and saving/loading data from the ultrafast [**HDF5 format**][hdfstore]
+  - [**Time series**][timeseries]-specific functionality: date range
+    generation and frequency conversion, moving window statistics,
+    date shifting and lagging
+
+
+   [missing-data]: https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html
+   [insertion-deletion]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#column-selection-addition-deletion
+   [alignment]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html?highlight=alignment#intro-to-data-structures
+   [groupby]: https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#group-by-split-apply-combine
+   [conversion]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#dataframe
+   [slicing]: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#slicing-ranges
+   [fancy-indexing]: https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html#advanced
+   [subsetting]: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#boolean-indexing
+   [merging]: https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html#database-style-dataframe-or-named-series-joining-merging
+   [joining]: https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html#joining-on-index
+   [reshape]: https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html
+   [pivot-table]: https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html
+   [mi]: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#hierarchical-indexing-multiindex
+   [flat-files]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#csv-text-files
+   [excel]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#excel-files
+   [db]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#sql-queries
+   [hdfstore]: https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#hdf5-pytables
+   [timeseries]: https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#time-series-date-functionality
+
+## Where to get it
+The source code is currently hosted on GitHub at:
+https://github.com/pandas-dev/pandas
+
+Binary installers for the latest released version are available at the [Python
+Package Index (PyPI)](https://pypi.org/project/pandas) and on [Conda](https://anaconda.org/conda-forge/pandas).
+
+```sh
+# conda
+conda install -c conda-forge pandas
+```
+
+```sh
+# or PyPI
+pip install pandas
+```
+
+The list of changes to pandas between each release can be found
+[here](https://pandas.pydata.org/pandas-docs/stable/whatsnew/index.html). For full
+details, see the commit logs at https://github.com/pandas-dev/pandas.
+
+## Dependencies
+- [NumPy - Adds support for large, multi-dimensional arrays, matrices and high-level mathematical functions to operate on these arrays](https://www.numpy.org)
+- [python-dateutil - Provides powerful extensions to the standard datetime module](https://dateutil.readthedocs.io/en/stable/index.html)
+- [tzdata - Provides an IANA time zone database](https://tzdata.readthedocs.io/en/latest/) (Only required on Windows/Emscripten)
+
+See the [full installation instructions](https://pandas.pydata.org/pandas-docs/stable/install.html#dependencies) for minimum supported versions of required, recommended and optional dependencies.
+
+## Installation from sources
+To install pandas from source you need [Cython](https://cython.org/) in addition to the normal
+dependencies above. Cython can be installed from PyPI:
+
+```sh
+pip install cython
+```
+
+In the `pandas` directory (same one where you found this file after
+cloning the git repo), execute:
+
+```sh
+pip install .
+```
+
+or for installing in [development mode](https://pip.pypa.io/en/latest/cli/pip_install/#install-editable):
+
+
+```sh
+python -m pip install -ve . --no-build-isolation --config-settings editable-verbose=true
+```
+
+See the full instructions for [installing from source](https://pandas.pydata.org/docs/dev/development/contributing_environment.html).
+
+## License
+[BSD 3](LICENSE)
+
+## Documentation
+The official documentation is hosted on [PyData.org](https://pandas.pydata.org/pandas-docs/stable/).
+
+## Background
+Work on ``pandas`` started at [AQR](https://www.aqr.com/) (a quantitative hedge fund) in 2008 and
+has been under active development since then.
+
+## Getting Help
+
+For usage questions, the best place to go to is [Stack Overflow](https://stackoverflow.com/questions/tagged/pandas).
+Further, general questions and discussions can also take place on the [pydata mailing list](https://groups.google.com/forum/?fromgroups#!forum/pydata).
+
+## Discussion and Development
+Most development discussions take place on GitHub in this repo, via the [GitHub issue tracker](https://github.com/pandas-dev/pandas/issues).
+
+Further, the [pandas-dev mailing list](https://mail.python.org/mailman/listinfo/pandas-dev) can also be used for specialized discussions or design issues, and a [Slack channel](https://pandas.pydata.org/docs/dev/development/community.html?highlight=slack#community-slack) is available for quick development related questions.
+
+There are also frequent [community meetings](https://pandas.pydata.org/docs/dev/development/community.html#community-meeting) for project maintainers open to the community as well as monthly [new contributor meetings](https://pandas.pydata.org/docs/dev/development/community.html#new-contributor-meeting) to help support new contributors.
+
+Additional information on the communication channels can be found on the [contributor community](https://pandas.pydata.org/docs/development/community.html) page.
+
+## Contributing to pandas
+
+[![Open Source Helpers](https://www.codetriage.com/pandas-dev/pandas/badges/users.svg)](https://www.codetriage.com/pandas-dev/pandas)
+
+All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome.
+
+A detailed overview on how to contribute can be found in the **[contributing guide](https://pandas.pydata.org/docs/dev/development/contributing.html)**.
+
+If you are simply looking to start working with the pandas codebase, navigate to the [GitHub "issues" tab](https://github.com/pandas-dev/pandas/issues) and start looking through interesting issues. There are a number of issues listed under [Docs](https://github.com/pandas-dev/pandas/issues?q=is%3Aissue%20state%3Aopen%20label%3ADocs%20sort%3Aupdated-desc) and [good first issue](https://github.com/pandas-dev/pandas/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22%20sort%3Aupdated-desc) where you could start out.
+
+You can also triage issues which may include reproducing bug reports, or asking for vital information such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to pandas on CodeTriage](https://www.codetriage.com/pandas-dev/pandas).
+
+Or maybe through using pandas you have an idea of your own or are looking for something in the documentation and thinking ‘this can be improved’... you can do something about it!
+
+Feel free to ask questions on the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/pydata) or on [Slack](https://pandas.pydata.org/docs/dev/development/community.html?highlight=slack#community-slack).
+
+As contributors and maintainers to this project, you are expected to abide by pandas' code of conduct. More information can be found at: [Contributor Code of Conduct](https://github.com/pandas-dev/.github/blob/master/CODE_OF_CONDUCT.md)
+
+<hr>
+
+[Go to Top](#table-of-contents)
+----------------------------------------
+
+[Command 3]
+$ apt-get update && apt-get install -y python3 python3-pip python3-dev build-essential
+Exit Code: 0
+Output:
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1289 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:12 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3639 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.8 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6411 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1601 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3970 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.7 MB in 6s (7028 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu bzip2 ca-certificates cpp
+  cpp-11 dirmngr dpkg-dev fakeroot fontconfig-config fonts-dejavu-core g++
+  g++-11 gcc gcc-11 gcc-11-base gnupg gnupg-l10n gnupg-utils gpg gpg-agent
+  gpg-wks-client gpg-wks-server gpgconf gpgsm javascript-common
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libasan6 libassuan0 libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin
+  libc-devtools libc6 libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0
+  libdeflate0 libdpkg-perl libexpat1 libexpat1-dev libfakeroot
+  libfile-fcntllock-perl libfontconfig1 libfreetype6 libgcc-11-dev libgd3
+  libgdbm-compat4 libgdbm6 libgomp1 libisl23 libitm1 libjbig0 libjpeg-turbo8
+  libjpeg8 libjs-jquery libjs-sphinxdoc libjs-underscore libksba8
+  libldap-2.5-0 libldap-common liblocale-gettext-perl liblsan0 libmd0 libmpc3
+  libmpdec3 libmpfr6 libnpth0 libnsl-dev libperl5.34 libpng16-16
+  libpython3-dev libpython3-stdlib libpython3.10 libpython3.10-dev
+  libpython3.10-minimal libpython3.10-stdlib libquadmath0 libreadline8
+  libsasl2-2 libsasl2-modules libsasl2-modules-db libsqlite3-0
+  libstdc++-11-dev libtiff5 libtirpc-dev libtsan0 libubsan1 libwebp7 libx11-6
+  libx11-data libxau6 libxcb1 libxdmcp6 libxpm4 linux-libc-dev
+  lto-disabled-list make manpages manpages-dev media-types netbase openssl
+  patch perl perl-modules-5.34 pinentry-curses python3-distutils
+  python3-lib2to3 python3-minimal python3-pkg-resources python3-setuptools
+  python3-wheel python3.10 python3.10-dev python3.10-minimal readline-common
+  rpcsvc-proto ucf xz-utils zlib1g-dev
+Suggested packages:
+  binutils-doc bzip2-doc cpp-doc gcc-11-locales dbus-user-session
+  libpam-systemd pinentry-gnome3 tor debian-keyring g++-multilib
+  g++-11-multilib gcc-11-doc gcc-multilib autoconf automake libtool flex bison
+  gdb gcc-doc gcc-11-multilib parcimonie xloadimage scdaemon apache2
+  | lighttpd | httpd glibc-doc locales git bzr libgd-tools gdbm-l10n
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql
+  libstdc++-11-doc make-doc man-browser ed diffutils-doc perl-doc
+  libterm-readline-gnu-perl | libterm-readline-perl-perl
+  libtap-harness-archive-perl pinentry-doc python3-doc python3-tk python3-venv
+  python-setuptools-doc python3.10-venv python3.10-doc binfmt-support
+  readline-doc
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu build-essential bzip2
+  ca-certificates cpp cpp-11 dirmngr dpkg-dev fakeroot fontconfig-config
+  fonts-dejavu-core g++ g++-11 gcc gcc-11 gcc-11-base gnupg gnupg-l10n
+  gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm
+  javascript-common libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libasan6 libassuan0 libatomic1 libbinutils
+  libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6-dev libcc1-0
+  libcrypt-dev libctf-nobfd0 libctf0 libdeflate0 libdpkg-perl libexpat1
+  libexpat1-dev libfakeroot libfile-fcntllock-perl libfontconfig1 libfreetype6
+  libgcc-11-dev libgd3 libgdbm-compat4 libgdbm6 libgomp1 libisl23 libitm1
+  libjbig0 libjpeg-turbo8 libjpeg8 libjs-jquery libjs-sphinxdoc
+  libjs-underscore libksba8 libldap-2.5-0 libldap-common
+  liblocale-gettext-perl liblsan0 libmd0 libmpc3 libmpdec3 libmpfr6 libnpth0
+  libnsl-dev libperl5.34 libpng16-16 libpython3-dev libpython3-stdlib
+  libpython3.10 libpython3.10-dev libpython3.10-minimal libpython3.10-stdlib
+  libquadmath0 libreadline8 libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsqlite3-0 libstdc++-11-dev libtiff5 libtirpc-dev libtsan0 libubsan1
+  libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxpm4
+  linux-libc-dev lto-disabled-list make manpages manpages-dev media-types
+  netbase openssl patch perl perl-modules-5.34 pinentry-curses python3
+  python3-dev python3-distutils python3-lib2to3 python3-minimal python3-pip
+  python3-pkg-resources python3-setuptools python3-wheel python3.10
+  python3.10-dev python3.10-minimal readline-common rpcsvc-proto ucf xz-utils
+  zlib1g-dev
+The following packages will be upgraded:
+  libc6
+1 upgraded, 131 newly installed, 0 to remove and 2 not upgraded.
+Need to get 104 MB of archives.
+After this operation, 357 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblocale-gettext-perl amd64 1.07-4build3 [17.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-minimal amd64 3.10.12-1~22.04.13 [815 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-minimal amd64 3.10.12-1~22.04.13 [2272 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-minimal amd64 3.10.6-1~22.04.1 [24.3 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 media-types all 7.0.0 [25.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpdec3 amd64 2.5.1-2build2 [86.8 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-stdlib amd64 3.10.12-1~22.04.13 [1850 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.13 [508 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pkg-resources all 59.6.0-1.2ubuntu0.22.04.3 [133 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/main amd64 xz-utils amd64 5.2.5-2ubuntu1 [84.8 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+Get:70 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdpkg-perl all 1.21.1ubuntu2.6 [237 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy/main amd64 bzip2 amd64 1.0.8-5build1 [34.8 kB]
+Get:73 http://archive.ubuntu.com/ubuntu jammy/main amd64 patch amd64 2.7.6-7build2 [109 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 lto-disabled-list all 24 [12.5 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dpkg-dev all 1.21.1ubuntu2.6 [922 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy/main amd64 build-essential amd64 12.9ubuntu3 [4744 B]
+Get:77 http://archive.ubuntu.com/ubuntu jammy/main amd64 libassuan0 amd64 2.5.5-1build1 [38.2 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgconf amd64 2.2.27-3ubuntu2.5 [94.3 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libksba8 amd64 1.6.0-2ubuntu0.2 [119 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnpth0 amd64 1.6-3build2 [8664 B]
+Get:84 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dirmngr amd64 2.2.27-3ubuntu2.5 [293 kB]
+Get:85 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfakeroot amd64 1.28-1ubuntu1 [31.5 kB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy/main amd64 fakeroot amd64 1.28-1ubuntu1 [60.4 kB]
+Get:87 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:88 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-l10n all 2.2.27-3ubuntu2.5 [54.5 kB]
+Get:90 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-utils amd64 2.2.27-3ubuntu2.5 [309 kB]
+Get:91 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg amd64 2.2.27-3ubuntu2.5 [519 kB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy/main amd64 pinentry-curses amd64 1.1.1-1build2 [34.4 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-agent amd64 2.2.27-3ubuntu2.5 [209 kB]
+Get:94 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-client amd64 2.2.27-3ubuntu2.5 [62.7 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-server amd64 2.2.27-3ubuntu2.5 [57.6 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgsm amd64 2.2.27-3ubuntu2.5 [197 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg all 2.2.27-3ubuntu2.5 [315 kB]
+Get:98 http://archive.ubuntu.com/ubuntu jammy/main amd64 javascript-common all 11+nmu1 [5936 B]
+Get:99 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-perl all 1.201-1 [41.8 kB]
+Get:100 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-xs-perl amd64 0.04-6build3 [11.9 kB]
+Get:101 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-merge-perl all 0.08-3 [12.0 kB]
+Get:102 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:103 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:104 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:105 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:106 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:107 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:108 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:109 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:110 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:111 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:112 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:113 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:114 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1-dev amd64 2.4.7-1ubuntu0.6 [148 kB]
+Get:115 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfile-fcntllock-perl amd64 0.22-3build7 [33.9 kB]
+Get:116 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-jquery all 3.6.0+dfsg+~3.5.13-1 [321 kB]
+Get:117 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-underscore all 1.13.2~dfsg-2 [118 kB]
+Get:118 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjs-sphinxdoc all 4.3.2-1 [139 kB]
+Get:119 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:120 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10 amd64 3.10.12-1~22.04.13 [1949 kB]
+Get:121 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 zlib1g-dev amd64 1:1.2.11.dfsg-2ubuntu9.2 [164 kB]
+Get:122 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-dev amd64 3.10.12-1~22.04.13 [4763 kB]
+Get:123 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-dev amd64 3.10.6-1~22.04.1 [7064 B]
+Get:124 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:125 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+Get:126 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10-dev amd64 3.10.12-1~22.04.13 [508 kB]
+Get:127 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-lib2to3 all 3.10.8-1~22.04 [77.6 kB]
+Get:128 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-distutils all 3.10.8-1~22.04 [139 kB]
+Get:129 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-dev amd64 3.10.6-1~22.04.1 [26.0 kB]
+Get:130 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-setuptools all 59.6.0-1.2ubuntu0.22.04.3 [340 kB]
+Get:131 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-wheel all 0.37.1-2ubuntu0.22.04.1 [32.0 kB]
+Get:132 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 python3-pip all 22.0.2+dfsg-1ubuntu0.7 [1306 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 104 MB in 22s (4823 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package liblocale-gettext-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../liblocale-gettext-perl_1.07-4build3_amd64.deb ...
+Unpacking liblocale-gettext-perl (1.07-4build3) ...
+Selecting previously unselected package libpython3.10-minimal:amd64.
+Preparing to unpack .../libpython3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package python3.10-minimal.
+Preparing to unpack .../python3.10-minimal_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10-minimal (3.10.12-1~22.04.13) ...
+Setting up libpython3.10-minimal:amd64 (3.10.12-1~22.04.13) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up python3.10-minimal (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4711 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3-minimal (3.10.6-1~22.04.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_7.0.0_all.deb ...
+Unpacking media-types (7.0.0) ...
+Selecting previously unselected package libmpdec3:amd64.
+Preparing to unpack .../2-libmpdec3_
+
+[... truncated ...]
+
+22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../039-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../040-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../041-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../042-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../043-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../044-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../045-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../046-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../047-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../048-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../049-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../050-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../051-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libstdc++-11-dev:amd64.
+Preparing to unpack .../052-libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++-11.
+Preparing to unpack .../053-g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../054-g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../055-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../056-libdpkg-perl_1.21.1ubuntu2.6_all.deb ...
+Unpacking libdpkg-perl (1.21.1ubuntu2.6) ...
+Selecting previously unselected package bzip2.
+Preparing to unpack .../057-bzip2_1.0.8-5build1_amd64.deb ...
+Unpacking bzip2 (1.0.8-5build1) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../058-patch_2.7.6-7build2_amd64.deb ...
+Unpacking patch (2.7.6-7build2) ...
+Selecting previously unselected package lto-disabled-list.
+Preparing to unpack .../059-lto-disabled-list_24_all.deb ...
+Unpacking lto-disabled-list (24) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../060-dpkg-dev_1.21.1ubuntu2.6_all.deb ...
+Unpacking dpkg-dev (1.21.1ubuntu2.6) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../061-build-essential_12.9ubuntu3_amd64.deb ...
+Unpacking build-essential (12.9ubuntu3) ...
+Selecting previously unselected package libassuan0:amd64.
+Preparing to unpack .../062-libassuan0_2.5.5-1build1_amd64.deb ...
+Unpacking libassuan0:amd64 (2.5.5-1build1) ...
+Selecting previously unselected package gpgconf.
+Preparing to unpack .../063-gpgconf_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgconf (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libksba8:amd64.
+Preparing to unpack .../064-libksba8_1.6.0-2ubuntu0.2_amd64.deb ...
+Unpacking libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../065-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../066-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../067-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libnpth0:amd64.
+Preparing to unpack .../068-libnpth0_1.6-3build2_amd64.deb ...
+Unpacking libnpth0:amd64 (1.6-3build2) ...
+Selecting previously unselected package dirmngr.
+Preparing to unpack .../069-dirmngr_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking dirmngr (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libfakeroot:amd64.
+Preparing to unpack .../070-libfakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.28-1ubuntu1) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../071-fakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking fakeroot (1.28-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../072-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../073-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package gnupg-l10n.
+Preparing to unpack .../074-gnupg-l10n_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg-utils.
+Preparing to unpack .../075-gnupg-utils_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gnupg-utils (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg.
+Preparing to unpack .../076-gpg_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package pinentry-curses.
+Preparing to unpack .../077-pinentry-curses_1.1.1-1build2_amd64.deb ...
+Unpacking pinentry-curses (1.1.1-1build2) ...
+Selecting previously unselected package gpg-agent.
+Preparing to unpack .../078-gpg-agent_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-agent (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-client.
+Preparing to unpack .../079-gpg-wks-client_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-server.
+Preparing to unpack .../080-gpg-wks-server_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpgsm.
+Preparing to unpack .../081-gpgsm_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgsm (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg.
+Preparing to unpack .../082-gnupg_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package javascript-common.
+Preparing to unpack .../083-javascript-common_11+nmu1_all.deb ...
+Unpacking javascript-common (11+nmu1) ...
+Selecting previously unselected package libalgorithm-diff-perl.
+Preparing to unpack .../084-libalgorithm-diff-perl_1.201-1_all.deb ...
+Unpacking libalgorithm-diff-perl (1.201-1) ...
+Selecting previously unselected package libalgorithm-diff-xs-perl.
+Preparing to unpack .../085-libalgorithm-diff-xs-perl_0.04-6build3_amd64.deb ...
+Unpacking libalgorithm-diff-xs-perl (0.04-6build3) ...
+Selecting previously unselected package libalgorithm-merge-perl.
+Preparing to unpack .../086-libalgorithm-merge-perl_0.08-3_all.deb ...
+Unpacking libalgorithm-merge-perl (0.08-3) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../087-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../088-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../089-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../090-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../091-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../092-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../093-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../094-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../095-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../096-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../097-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../098-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libexpat1-dev:amd64.
+Preparing to unpack .../099-libexpat1-dev_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1-dev:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package libfile-fcntllock-perl.
+Preparing to unpack .../100-libfile-fcntllock-perl_0.22-3build7_amd64.deb ...
+Unpacking libfile-fcntllock-perl (0.22-3build7) ...
+Selecting previously unselected package libjs-jquery.
+Preparing to unpack .../101-libjs-jquery_3.6.0+dfsg+~3.5.13-1_all.deb ...
+Unpacking libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Selecting previously unselected package libjs-underscore.
+Preparing to unpack .../102-libjs-underscore_1.13.2~dfsg-2_all.deb ...
+Unpacking libjs-underscore (1.13.2~dfsg-2) ...
+Selecting previously unselected package libjs-sphinxdoc.
+Preparing to unpack .../103-libjs-sphinxdoc_4.3.2-1_all.deb ...
+Unpacking libjs-sphinxdoc (4.3.2-1) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../104-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libpython3.10:amd64.
+Preparing to unpack .../105-libpython3.10_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package zlib1g-dev:amd64.
+Preparing to unpack .../106-zlib1g-dev_1%3a1.2.11.dfsg-2ubuntu9.2_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.2.11.dfsg-2ubuntu9.2) ...
+Selecting previously unselected package libpython3.10-dev:amd64.
+Preparing to unpack .../107-libpython3.10-dev_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking libpython3.10-dev:amd64 (3.10.12-1~22.04.13) ...
+Selecting previously unselected package libpython3-dev:amd64.
+Preparing to unpack .../108-libpython3-dev_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking libpython3-dev:amd64 (3.10.6-1~22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../109-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../110-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Selecting previously unselected package python3.10-dev.
+Preparing to unpack .../111-python3.10-dev_3.10.12-1~22.04.13_amd64.deb ...
+Unpacking python3.10-dev (3.10.12-1~22.04.13) ...
+Selecting previously unselected package python3-lib2to3.
+Preparing to unpack .../112-python3-lib2to3_3.10.8-1~22.04_all.deb ...
+Unpacking python3-lib2to3 (3.10.8-1~22.04) ...
+Selecting previously unselected package python3-distutils.
+Preparing to unpack .../113-python3-distutils_3.10.8-1~22.04_all.deb ...
+Unpacking python3-distutils (3.10.8-1~22.04) ...
+Selecting previously unselected package python3-dev.
+Preparing to unpack .../114-python3-dev_3.10.6-1~22.04.1_amd64.deb ...
+Unpacking python3-dev (3.10.6-1~22.04.1) ...
+Selecting previously unselected package python3-setuptools.
+Preparing to unpack .../115-python3-setuptools_59.6.0-1.2ubuntu0.22.04.3_all.deb ...
+Unpacking python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+Selecting previously unselected package python3-wheel.
+Preparing to unpack .../116-python3-wheel_0.37.1-2ubuntu0.22.04.1_all.deb ...
+Unpacking python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+Selecting previously unselected package python3-pip.
+Preparing to unpack .../117-python3-pip_22.0.2+dfsg-1ubuntu0.7_all.deb ...
+Unpacking python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+Setting up libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Setting up media-types (7.0.0) ...
+Setting up javascript-common (11+nmu1) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up lto-disabled-list (24) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnpth0:amd64 (1.6-3build2) ...
+Setting up libassuan0:amd64 (2.5.5-1build1) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Setting up bzip2 (1.0.8-5build1) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libfakeroot:amd64 (1.28-1ubuntu1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up fakeroot (1.28-1ubuntu1) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/fakeroot.1.gz because associated file /usr/share/man/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/faked.1.gz because associated file /usr/share/man/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/fakeroot.1.gz because associated file /usr/share/man/es/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/faked.1.gz because associated file /usr/share/man/es/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/fakeroot.1.gz because associated file /usr/share/man/fr/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/faked.1.gz because associated file /usr/share/man/fr/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/fakeroot.1.gz because associated file /usr/share/man/sv/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/faked.1.gz because associated file /usr/share/man/sv/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Setting up xz-utils (5.2.5-2ubuntu1) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up patch (2.7.6-7build2) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up libmpdec3:amd64 (2.5.1-2build2) ...
+Setting up netbase (6.3) ...
+Setting up libjs-jquery (3.6.0+dfsg+~3.5.13-1) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblocale-gettext-perl (1.07-4build3) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libjs-underscore (1.13.2~dfsg-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up pinentry-curses (1.1.1-1build2) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libpython3.10-stdlib:amd64 (3.10.12-1~22.04.13) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up libjs-sphinxdoc (4.3.2-1) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up gpgconf (2.2.27-3ubuntu2.5) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up gpg (2.2.27-3ubuntu2.5) ...
+Setting up libpython3-stdlib:amd64 (3.10.6-1~22.04.1) ...
+Setting up gnupg-utils (2.2.27-3ubuntu2.5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libpython3.10:amd64 (3.10.12-1~22.04.13) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up gpg-agent (2.2.27-3ubuntu2.5) ...
+Setting up python3.10 (3.10.12-1~22.04.13) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up gpgsm (2.2.27-3ubuntu2.5) ...
+Setting up python3 (3.10.6-1~22.04.1) ...
+running python rtupdate hooks for python3.10...
+running python post-rtupdate hooks for python3.10...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up dirmngr (2.2.27-3ubuntu2.5) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up libexpat1-dev:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libdpkg-perl (1.21.1ubuntu2.6) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Setting up zlib1g-dev:amd64 (1:1.2.11.dfsg-2ubuntu9.2) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up python3-lib2to3 (3.10.8-1~22.04) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up python3-pkg-resources (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up python3-distutils (3.10.8-1~22.04) ...
+Setting up python3-setuptools (59.6.0-1.2ubuntu0.22.04.3) ...
+Setting up gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libfile-fcntllock-perl (0.22-3build7) ...
+Setting up libalgorithm-diff-perl (1.201-1) ...
+Setting up python3-wheel (0.37.1-2ubuntu0.22.04.1) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up dpkg-dev (1.21.1ubuntu2.6) ...
+Setting up libpython3.10-dev:amd64 (3.10.12-1~22.04.13) ...
+Setting up python3-pip (22.0.2+dfsg-1ubuntu0.7) ...
+Setting up python3.10-dev (3.10.12-1~22.04.13) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+Setting up gnupg (2.2.27-3ubuntu2.5) ...
+Setting up build-essential (12.9ubuntu3) ...
+Setting up libalgorithm-diff-xs-perl (0.04-6build3) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Setting up libpython3-dev:amd64 (3.10.6-1~22.04.1) ...
+Setting up python3-dev (3.10.6-1~22.04.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 4]
+$ pip3 install -r requirements-dev.txt
+Exit Code: 1
+Output:
+Collecting https://github.com/jorisvandenbossche/pydata-sphinx-theme/archive/refs/heads/v0.16.1+dismissable-announcement-banner.zip (from -r requirements-dev.txt (line 89))
+  Downloading https://github.com/jorisvandenbossche/pydata-sphinx-theme/archive/refs/heads/v0.16.1+dismissable-announcement-banner.zip
+     | 2.6 MB 2.2 MB/s 0:00:01
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × pip subprocess to install build dependencies did not run successfully.
+  │ exit code: 1
+  ╰─> [4 lines of output]
+      Collecting sphinx-theme-builder@ git+https://github.com/pradyunsg/sphinx-theme-builder.git@main
+        Cloning https://github.com/pradyunsg/sphinx-theme-builder.git (to revision main) to /tmp/pip-install-2npvp4y2/sphinx-theme-builder_7340b04b53aa423c919fe6c18ba73996
+        ERROR: Error [Errno 2] No such file or directory: 'git' while executing command git version
+      ERROR: Cannot find command 'git' - do you have 'git' installed and in your PATH?
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× pip subprocess to install build dependencies did not run successfully.
+│ exit code: 1
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+----------------------------------------
+
+[Command 5]
+$ apt-get install -y git
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl libfido2-1
+  libnghttp2-14 libpsl5 librtmp1 libssh-4 libxext6 libxmuu1 openssh-client
+  publicsuffix xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui
+  gitk gitweb git-cvs git-mediawiki git-svn keychain libpam-ssh monkeysphere
+  ssh-askpass
+The following NEW packages will be installed:
+  git git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl
+  libfido2-1 libnghttp2-14 libpsl5 librtmp1 libssh-4 libxext6 libxmuu1
+  openssh-client publicsuffix xauth
+0 upgraded, 17 newly installed, 0 to remove and 2 not upgraded.
+Need to get 6260 kB of archives.
+After this operation, 27.4 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 less amd64 590-1ubuntu0.22.04.3 [142 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcbor0.8 amd64 0.8.0-2ubuntu1 [24.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfido2-1 amd64 1.10.0-1 [82.8 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxext6 amd64 2:1.3.4-1build1 [31.8 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxmuu1 amd64 2:1.1.3-3 [10.2 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssh-client amd64 1:8.9p1-3ubuntu0.13 [903 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 xauth amd64 1:1.1-1build2 [27.5 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 liberror-perl all 0.17029-1 [26.5 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git-man all 1:2.34.1-1ubuntu1.15 [955 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git amd64 1:2.34.1-1ubuntu1.15 [3166 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 6260 kB in 4s (1770 kB/s)
+Selecting previously unselected package less.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 16165 files and directories currently installed.)
+Preparing to unpack .../00-less_590-1ubuntu0.22.04.3_amd64.deb ...
+Unpacking less (590-1ubuntu0.22.04.3) ...
+Selecting previously unselected package libcbor0.8:amd64.
+Preparing to unpack .../01-libcbor0.8_0.8.0-2ubuntu1_amd64.deb ...
+Unpacking libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../02-libedit2_3.1-20210910-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20210910-1build1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../03-libfido2-1_1.10.0-1_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.10.0-1) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../04-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../05-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../06-libxext6_2%3a1.3.4-1build1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1build1) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../07-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../08-openssh-client_1%3a8.9p1-3ubuntu0.13_amd64.deb ...
+Unpacking openssh-client (1:8.9p1-3ubuntu0.13) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../09-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../10-xauth_1%3a1.1-1build2_amd64.deb ...
+Unpacking xauth (1:1.1-1build2) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../11-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../12-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../13-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../14-liberror-perl_0.17029-1_all.deb ...
+Unpacking liberror-perl (0.17029-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../15-git-man_1%3a2.34.1-1ubuntu1.15_all.deb ...
+Unpacking git-man (1:2.34.1-1ubuntu1.15) ...
+Selecting previously unselected package git.
+Preparing to unpack .../16-git_1%3a2.34.1-1ubuntu1.15_amd64.deb ...
+Unpacking git (1:2.34.1-1ubuntu1.15) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up less (590-1ubuntu0.22.04.3) ...
+Setting up libxext6:amd64 (2:1.3.4-1build1) ...
+Setting up liberror-perl (0.17029-1) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up git-man (1:2.34.1-1ubuntu1.15) ...
+Setting up libfido2-1:amd64 (1.10.0-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up openssh-client (1:8.9p1-3ubuntu0.13) ...
+update-alternatives: using /usr/bin/ssh to provide /usr/bin/rsh (rsh) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rsh.1.gz because associated file /usr/share/man/man1/ssh.1.gz (of link group rsh) doesn't exist
+update-alternatives: using /usr/bin/slogin to provide /usr/bin/rlogin (rlogin) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rlogin.1.gz because associated file /usr/share/man/man1/slogin.1.gz (of link group rlogin) doesn't exist
+update-alternatives: using /usr/bin/scp to provide /usr/bin/rcp (rcp) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rcp.1.gz because associated file /usr/share/man/man1/scp.1.gz (of link group rcp) doesn't exist
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up git (1:2.34.1-1ubuntu1.15) ...
+Setting up xauth (1:1.1-1build2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 6]
+$ pip3 install -r requirements-dev.txt
+Exit Code: 0
+Output:
+Collecting https://github.com/jorisvandenbossche/pydata-sphinx-theme/archive/refs/heads/v0.16.1+dismissable-announcement-banner.zip (from -r requirements-dev.txt (line 89))
+  Using cached https://github.com/jorisvandenbossche/pydata-sphinx-theme/archive/refs/heads/v0.16.1+dismissable-announcement-banner.zip
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: pip in /usr/lib/python3/dist-packages (from -r requirements-dev.txt (line 4)) (22.0.2)
+Collecting versioneer[toml]
+  Downloading versioneer-0.29-py3-none-any.whl (46 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.8/46.8 KB 368.5 kB/s eta 0:00:00
+Collecting cython<4.0.0a0
+  Downloading cython-3.2.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 6.1 MB/s eta 0:00:00
+Collecting meson[ninja]==1.2.1
+  Downloading meson-1.2.1-py3-none-any.whl (962 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 962.5/962.5 KB 53.4 MB/s eta 0:00:00
+Collecting meson-python==0.13.1
+  Downloading meson_python-0.13.1-py3-none-any.whl (79 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.5/79.5 KB 17.0 MB/s eta 0:00:00
+Collecting pytest>=8.3.4
+  Downloading pytest-9.0.2-py3-none-any.whl (374 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 374.8/374.8 KB 33.3 MB/s eta 0:00:00
+Collecting pytest-cov
+  Downloading pytest_cov-7.0.0-py3-none-any.whl (22 kB)
+Collecting pytest-xdist>=3.6.1
+  Downloading pytest_xdist-3.8.0-py3-none-any.whl (46 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.4/46.4 KB 10.4 MB/s eta 0:00:00
+Collecting pytest-qt>=4.4.0
+  Downloading pytest_qt-4.5.0-py3-none-any.whl (37 kB)
+Collecting pytest-localserver
+  Downloading pytest_localserver-0.10.0-py3-none-any.whl (19 kB)
+Collecting PyQt5>=5.15.9
+  Downloading PyQt5-5.15.11-cp38-abi3-manylinux_2_17_x86_64.whl (8.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.2/8.2 MB 17.3 MB/s eta 0:00:00
+Collecting coverage
+  Downloading coverage-7.13.1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (247 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 KB 39.6 MB/s eta 0:00:00
+Collecting python-dateutil
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 KB 34.8 MB/s eta 0:00:00
+Collecting numpy<3
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 23.0 MB/s eta 0:00:00
+Collecting adbc-driver-postgresql>=1.2.0
+  Downloading adbc_driver_postgresql-1.10.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 45.9 MB/s eta 0:00:00
+Collecting adbc-driver-sqlite>=1.2.0
+  Downloading adbc_driver_sqlite-1.10.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 5.6 MB/s eta 0:00:00
+Collecting beautifulsoup4>=4.12.3
+  Downloading beautifulsoup4-4.14.3-py3-none-any.whl (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.7/107.7 KB 26.3 MB/s eta 0:00:00
+Collecting bottleneck>=1.4.2
+  Downloading bottleneck-1.6.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (371 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 371.5/371.5 KB 82.6 MB/s eta 0:00:00
+Collecting fastparquet>=2024.11.0
+  Downloading fastparquet-2025.12.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 36.0 MB/s eta 0:00:00
+Collecting fsspec>=2024.10.0
+  Downloading fsspec-2026.1.0-py3-none-any.whl (201 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 201.8/201.8 KB 3.3 MB/s eta 0:00:00
+Collecting html5lib>=1.1
+  Downloading html5lib-1.1-py2.py3-none-any.whl (112 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 112.2/112.2 KB 26.2 MB/s eta 0:00:00
+Collecting hypothesis>=6.116.0
+  Downloading hypothesis-6.150.2-py3-none-any.whl (542 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 542.7/542.7 KB 24.4 MB/s eta 0:00:00
+Collecting gcsfs>=2024.10.0
+  Downloading gcsfs-2026.1.0-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.5/48.5 KB 12.4 MB/s eta 0:00:00
+Collecting jinja2>=3.1.5
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 KB 29.0 MB/s eta 0:00:00
+Collecting lxml>=5.3.0
+  Downloading lxml-6.0.2-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 31.2 MB/s eta 0:00:00
+Collecting matplotlib>=3.9.3
+  Downloading matplotlib-3.10.8-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 31.7 MB/s eta 0:00:00
+Collecting numba>=0.60.0
+  Downloading numba-0.63.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 46.3 MB/s eta 0:00:00
+Collecting numexpr>=2.10.2
+  Downloading numexpr-2.14.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (440 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 440.2/440.2 KB 23.8 MB/s eta 0:00:00
+Collecting openpyxl>=3.1.5
+  Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 250.9/250.9 KB 20.2 MB/s eta 0:00:00
+Collecting odfpy>=1.4.1
+  Downloading odfpy-1.4.1.tar.gz (717 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 717.0/717.0 KB 28.8 MB/s eta 0:00:00
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting psycopg2-binary>=2.9.10
+  Downloading psycopg2_binary-2.9.11-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 14.0 MB/s eta 0:00:00
+Collecting pyarrow>=13.0.0
+  Downloading pyarrow-23.0.0-cp310-cp310-manylinux_2_28_x86_64.whl (47.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.5/47.5 MB 18.7 MB/s eta 0:00:00
+Collecting pyiceberg>=0.8.1
+  Downloading pyiceberg-0.10.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (906 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 906.1/906.1 KB 37.3 MB/s eta 0:00:00
+Collecting pymysql>=1.1.1
+  Downloading pymysql-1.1.2-py3-none-any.whl (45 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.3/45.3 KB 11.6 MB/s eta 0:00:00
+Collecting pyreadstat>=1.2.8
+  Downloading pyreadstat-1.3.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.0/3.0 MB 20.2 MB/s eta 0:00:00
+Collecting tables>=3.10.1
+  Downloading tables-3.10.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (7.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.6/7.6 MB 21.8 MB/s eta 0:00:00
+Collecting python-calamine>=0.3.0
+  Downloading python_calamine-0.6.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (935 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 935.4/935.4 KB 33.1 MB/s eta 0:00:00
+Collecting pytz>=2024.2
+  Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 KB 4.6 MB/s eta 0:00:00
+Collecting pyxlsb>=1.0.10
+  Downloading pyxlsb-1.0.10-py2.py3-none-any.whl (23 kB)
+Collecting s3fs>=2024.10.0
+  Downloading s3fs-2026.1.0-py3-none-any.whl (30 kB)
+Collecting scipy>=1.14.1
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 19.5 MB/s eta 0:00:00
+Collecting SQLAlchemy>=2.0.36
+  Downloading sqlalchemy-2.0.46-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 42.2 MB/s eta 0:00:00
+Collecting tabulate>=0.9.0
+  Downloading tabulate-0.9.0-py3-none-any.whl (35 kB)
+Collecting xarray>=2024.10.0
+  Downloading xarray-2025.6.1-py3-none-any.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 34.9 MB/s eta 0:00:00
+Collecting xlrd>=2.0.1
+  Downloading xlrd-2.0.2-py2.py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 KB 19.5 MB/s eta 0:00:00
+Collecting xlsxwriter>=3.2.0
+  Downloading xlsxwriter-3.2.9-py3-none-any.whl (175 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 175.3/175.3 KB 1.0 MB/s eta 0:00:00
+Collecting zstandard>=0.23.0
+  Downloading zstandard-0.25.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 3.8 MB/s eta 0:00:00
+Collecting dask
+  Downloading dask-2026.1.1-py3-none-any.whl (1.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 18.1 MB/s eta 0:00:00
+Collecting seaborn
+  Downloading seaborn-0.13.2-py3-none-any.whl (294 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 294.9/294.9 KB 29.0 MB/s eta 0:00:00
+Collecting ipython
+  Downloading ipython-8.38.0-py3-none-any.whl (831 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 831.8/831.8 KB 29.9 MB/s eta 0:00:00
+Collecting moto
+  Downloading moto-5.1.20-py3-none-any.whl (6.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.4/6.4 MB 35.7 MB/s eta 0:00:00
+Collecting asv>=0.6.1
+  Downloading asv-0.6.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (253 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 253.8/253.8 KB 35.0 MB/s eta 0:00:00
+Collecting flake8==7.1.0
+  Downloading flake8-7.1.0-py2.py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.6/57.6 KB 3.1 MB/s eta 0:00:00
+Collecting mypy==1.17.1
+  Downloading mypy-1.17.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (12.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.7/12.7 MB 29.9 MB/s eta 0:00:00
+Collecting tokenize-rt
+  Downloading tokenize_rt-6.2.0-py2.py3-none-any.whl (6.0 kB)
+Collecting pre-commit>=4.2.0
+  Downloading pre_commit-4.5.1-py2.py3-none-any.whl (226 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.4/226.4 KB 10.0 MB/s eta 0:00:00
+Collecting gitpython
+  Downloading gitpython-3.1.46-py3-none-any.whl (208 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.6/208.6 KB 17.3 MB/s eta 0:00:00
+Collecting natsort
+  Downloading natsort-8.4.0-py3-none-any.whl (38 kB)
+Collecting pickleshare
+  Downloading pickleshare-0.7.5-py2.py3-none-any.whl (6.9 kB)
+Collecting numpydoc
+  Downloading numpydoc-1.10.0-py3-none-any.whl (69 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.3/69.3 KB 16.0 MB/s eta 0:00:00
+Collecting pytest-cython
+  Downloading pytest_cython-0.3.1-py2.py3-none-any.whl (5.8 kB)
+Collecting sphinx
+  Downloading sphinx-8.1.3-py3-none-any.whl (3.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 28.7 MB/s eta 0:00:00
+Collecting sphinx-design
+  Downloading sphinx_design-0.6.1-py3-none-any.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 36.6 MB/s eta 0:00:00
+Collecting sphinx-copybutton
+  Downloading sphinx_copybutton-0.5.2-py3-none-any.whl (13 kB)
+Collecting scipy-stubs
+  Downloading scipy_stubs-1.15.3.0-py3-none-any.whl (459 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 459.1/459.1 KB 35.1 MB/s eta 0:00:00
+Collecting types-python-dateutil
+  Downloading types_python_dateutil-2.9.0.20251115-py3-none-any.whl (18 kB)
+Collecting types-PyMySQL
+  Downloading types_pymysql-1.1.0.20251220-py3-none-any.whl (23 kB)
+Collecting types-pytz
+  Downloading types_pytz-2025.2.0.20251108-py3-none-any.whl (10 kB)
+Collecting types-PyYAML
+  Downloading types_pyyaml-6.0.12.20250915-py3-none-any.whl (20 kB)
+Collecting types-setuptools
+  Downloading types_setuptools-80.9.0.20251223-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.3/64.3 KB 17.3 MB/s eta 0:00:00
+Collecting nbconvert>=7.11.0
+  Downloading nbconvert-7.16.6-py3-none-any.whl (258 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 258.5/258.5 KB 35.4 MB/s eta 0:00:00
+Collecting nbsphinx
+  Downloading nbsphinx-0.9.8-py3-none-any.whl (31 kB)
+Collecting pandoc
+  Downloading pandoc-2.4.tar.gz (34 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting ipywidgets
+  Downloading ipywidgets-8.1.8-py3-none-any.whl (139 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.8/139.8 KB 19.4 MB/s eta 0:00:00
+Collecting nbformat
+  Downloading nbformat-5.10.4-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.5/78.5 KB 10.0 MB/s eta 0:00:00
+Collecting notebook>=7.0.6
+  Downloading notebook-7.5.2-py3-none-any.whl (14.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.5/14.5 MB 30.6 MB/s eta 0:00:00
+Collecting ipykernel
+  Downloading ipykernel-7.1.0-py3-none-any.whl (117 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.0/118.0 KB 17.8 MB/s eta 0:00:00
+Collecting markdown
+  Downloading markdown-3.10.1-py3-none-any.whl (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.7/107.7 KB 15.6 MB/s eta 0:00:00
+Collecting feedparser
+  Downloading feedparser-6.0.12-py3-none-any.whl (81 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.5/81.5 KB 9.8 MB/s eta 0:00:00
+Collecting pyyaml
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 KB 22.9 MB/s eta 0:00:00
+Collecting requests
+  Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.7/64.7 KB 14.9 MB/s eta 0:00:00
+Collecting pygments
+  Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+Collecting jupyterlite-core
+  Downloading jupyterlite_core-0.7.1-py3-none-any.whl (16.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.2/16.2 MB 24.5 MB/s eta 0:00:00
+Collecting jupyterlite-pyodide-kernel
+  Downloading jupyterlite_pyodide_kernel-0.7.0-py3-none-any.whl (555 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 555.8/555.8 KB 23.5 MB/s eta 0:00:00
+Collecting tzdata>=2023.3
+  Downloading tzdata-2025.3-py2.py3-none-any.whl (348 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 348.5/348.5 KB 17.9 MB/s eta 0:00:00
+Collecting ninja>=1.8.2
+  Downloading ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (180 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 180.7/180.7 KB 38.5 MB/s eta 0:00:00
+Collecting pyproject-metadata>=0.7.1
+  Using cached pyproject_metadata-0.10.0-py3-none-any.whl (19 kB)
+Collecting tomli>=1.0.0
+  Using cached tomli-2.4.0-py3-none-any.whl (14 kB)
+Collecting mccabe<0.8.0,>=0.7.0
+  Downloading mccabe-0.7.0-py2.py3-none-any.whl (7.3 kB)
+Collecting pycodestyle<2.13.0,>=2.12.0
+  Downloading pycodestyle-2.12.1-py2.py3-none-any.whl (31 kB)
+Collecting pyflakes<3.3.0,>=3.2.0
+  Downloading pyflakes-3.2.0-py2.py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.7/62.7 KB 10.7 MB/s eta 0:00:00
+Collecting pathspec>=0.9.0
+  Downloading pathspec-1.0.3-py3-none-any.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.0/55.0 KB 12.1 MB/s eta 0:00:00
+Collecting typing_extensions>=4.6.0
+  Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 KB 9.7 MB/s eta 0:00:00
+Collecting mypy_extensions>=1.0.0
+  Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Collecting pluggy<2,>=1.5
+  Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Collecting iniconfig>=1.0.1
+  Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Collecting packaging>=22
+  Using cached packaging-26.0-py3-none-any.whl (74 kB)
+Collecting exceptiongroup>=1
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Collecting execnet>=2.1
+  Downloading execnet-2.1.2-py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 KB 9.7 MB/s eta 0:00:00
+Collecting werkzeug>=0.10
+  Downloading werkzeug-3.1.5-py3-none-any.whl (225 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 225.0/225.0 KB 33.0 MB/s eta 0:00:00
+Collecting PyQt5-Qt5<5.16.0,>=5.15.2
+  Downloading pyqt5_qt5-5.15.18-py3-none-manylinux2014_x86_64.whl (60.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 16.9 MB/s eta 0:00:00
+Collecting PyQt5-sip<13,>=12.15
+  Downloading pyqt5_sip-12.18.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.whl (271 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 271.5/271.5 KB 24.8 MB/s eta 0:00:00
+Collecting six>=1.5
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting importlib-resources>=1.3
+  Downloading importlib_resources-6.5.2-py3-none-any.whl (37 kB)
+Collecting adbc-driver-manager
+  Downloading adbc_driver_manager-1.10.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 34.9 MB/s eta 0:00:00
+Collecting soupsieve>=1.6.1
+  Downloading soupsieve-2.8.3-py3-none-any.whl (37 kB)
+Collecting cramjam>=2.3
+  Downloading cramjam-2.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 32.9 MB/s eta 0:00:00
+Collecting pandas>=1.5.0
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 31.4 MB/s eta 0:00:00
+Collecting webencodings
+  Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Collecting sortedcontainers<3.0.0,>=2.1.0
+  Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Collecting decorator>4.1.2
+  Downloading decorator-5.2.1-py3-none-any.whl (9.2 kB)
+Collecting google-cloud-storage>=3.7.0
+  Downloading google_cloud_storage-3.8.0-py3-none-any.whl (312 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 312.4/312.4 KB 9.7 MB/s eta 0:00:00
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1
+  Downloading aiohttp-3.13.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 29.6 MB/s eta 0:00:00
+Collecting google-auth-oauthlib
+  Downloading google_auth_oauthlib-1.2.4-py3-none-any.whl (19 kB)
+Collecting google-auth>=1.2
+  Downloading google_auth-2.47.0-py3-none-any.whl (234 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 234.9/234.9 KB 47.0 MB/s eta 0:00:00
+Collecting google-cloud-storage-control
+  Downloading google_cloud_storage_control-1.9.0-py3-none-any.whl (87 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.8/87.8 KB 18.7 MB/s eta 0:00:00
+Collecting MarkupSafe>=2.0
+  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Collecting pillow>=8
+  Downloading pillow-12.1.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.0/7.0 MB 34.2 MB/s eta 0:00:00
+Collecting cycler>=0.10
+  Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting pyparsing>=3
+  Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 KB 11.6 MB/s eta 0:00:00
+Collecting contourpy>=1.0.1
+  Downloading contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 KB 16.5 MB/s eta 0:00:00
+Collecting kiwisolver>=1.3.1
+  Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 29.3 MB/s eta 0:00:00
+Collecting fonttools>=4.22.0
+  Downloading fonttools-4.61.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 32.8 MB/s eta 0:00:00
+Collecting llvmlite<0.47,>=0.46.0dev0
+  Downloading llvmlite-0.46.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (56.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 17.7 MB/s eta 0:00:00
+Collecting et-xmlfile
+  Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+Collecting defusedxml
+  Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Collecting tenacity<10.0.0,>=8.2.3
+  Downloading tenacity-9.1.2-py3-none-any.whl (28 kB)
+Collecting cachetools<7.0,>=5.5
+  Downloading cachetools-6.2.4-py3-none-any.whl (11 kB)
+Collecting pyroaring<2.0.0,>=1.0.0
+  Downloading pyroaring-1.0.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 29.1 MB/s eta 0:00:00
+Collecting mmh3<6.0.0,>=4.0.0
+  Downloading mmh3-5.2.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (101 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.2/101.2 KB 37.4 MB/s eta 0:00:00
+Collecting click<9.0.0,>=7.1.1
+  Downloading click-8.3.1-py3-none-any.whl (108 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.3/108.3 KB 24.6 MB/s eta 0:00:00
+Collecting rich<15.0.0,>=10.11.0
+  Using cached rich-14.2.0-py3-none-any.whl (243 kB)
+Collecting strictyaml<2.0.0,>=1.7.0
+  Downloading strictyaml-1.7.3-py3-none-any.whl (123 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 123.9/123.9 KB 33.8 MB/s eta 0:00:00
+Collecting pydantic!=2.4.0,!=2.4.1,<3.0,>=2.0
+  Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 KB 21.4 MB/s eta 0:00:00
+Collecting narwhals>=2.0
+  Downloading narwhals-2.15.0-py3-none-any.whl (432 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 432.9/432.9 KB 20.9 MB/s eta 0:00:00
+Collecting blosc2>=2.3.0
+  Downloading blosc2-3.12.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 26.5 MB/s eta 0:00:00
+Collecting py-cpuinfo
+  Downloading py_cpuinfo-9.0.0-py3-none-any.whl (22 kB)
+Collecting aiobotocore<4.0.0,>=2.5.4
+  Downloading aiobotocore-3.1.1-py3-none-any.whl (87 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.7/87.7 KB 16.7 MB/s eta 0:00:00
+Collecting greenlet>=1
+  Downloading greenlet-3.3.0-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (586 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 586.9/586.9 KB 40.8 MB/s eta 0:00:00
+Collecting importlib_metadata>=4.13.0
+  Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+Collecting toolz>=0.12.0
+  Downloading toolz-1.1.0-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.1/58.1 KB 10.3 MB/s eta 0:00:00
+Collecting partd>=1.4.0
+  Downloading partd-1.4.2-py3-none-any.whl (18 kB)
+Collecting cloudpickle>=3.0.0
+  Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Collecting pexpect>4.3
+  Downloading pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.8/63.8 KB 11.8 MB/s eta 0:00:00
+Collecting matplotlib-inline
+  Downloading matplotlib_inline-0.2.1-py3-none-any.whl (9.5 kB)
+Collecting jedi>=0.16
+  Downloading jedi-0.19.2-py2.py3-none-any.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 16.5 MB/s eta 0:00:00
+Collecting traitlets>=5.13.0
+  Downloading traitlets-5.14.3-py3-none-any.whl (85 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.4/85.4 KB 16.3 MB/s eta 0:00:00
+Collecting stack_data
+  Downloading stack_data-0.6.3-py3-none-any.whl (24 kB)
+Collecting prompt_toolkit<3.1.0,>=3.0.41
+  Downloading prompt_toolkit-3.0.52-py3-none-any.whl (391 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 391.4/391.4 KB 39.1 MB/s eta 0:00:00
+Collecting botocore!=1.35.45,!=1.35.46,>=1.20.88
+  Downloading botocore-1.42.32-py3-none-any.whl (14.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.6/14.6 MB 27.8 MB/s eta 0:00:00
+Collecting cryptography>=35.0.0
+  Downloading cryptography-46.0.3-cp38-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 32.3 MB/s eta 0:00:00
+Collecting xmltodict
+  Downloading xmltodict-1.0.2-py3-none-any.whl (13 kB)
+Collecting boto3>=1.9.201
+  Downloading boto3-1.42.32-py3-none-any.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.6/140.6 KB 12.8 MB/s eta 0:00:00
+Collecting responses!=0.25.5,>=0.15.0
+  Downloading responses-0.25.8-py3-none-any.whl (34 kB)
+Collecting json5
+  Downloading json5-0.13.0-py3-none-any.whl (36 kB)
+Collecting build
+  Downloading build-1.4.0-py3-none-any.whl (24 kB)
+Collecting asv-runner>=v0.2.1
+  Downloading asv_runner-0.2.1-py3-none-any.whl (47 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.7/47.7 KB 4.9 MB/s eta 0:00:00
+Collecting pympler
+  Downloading Pympler-1.1-py3-none-any.whl (165 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 165.8/165.8 KB 27.8 MB/s eta 0:00:00
+Collecting virtualenv
+  Downloading virtualenv-20.36.1-py3-none-any.whl (6.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.0/6.0 MB 33.7 MB/s eta 0:00:00
+Collecting cfgv>=2.0.0
+  Downloading cfgv-3.5.0-py2.py3-none-any.whl (7.4 kB)
+Collecting identify>=1.0.0
+  Dow
+
+[... truncated ...]
+
+~=4.0.14
+  Downloading widgetsnbextension-4.0.15-py3-none-any.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 33.5 MB/s eta 0:00:00
+Collecting comm>=0.1.3
+  Downloading comm-0.2.3-py3-none-any.whl (7.3 kB)
+Collecting fastjsonschema>=2.15
+  Downloading fastjsonschema-2.21.2-py3-none-any.whl (24 kB)
+Collecting jsonschema>=2.6
+  Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 KB 24.0 MB/s eta 0:00:00
+Collecting notebook-shim<0.3,>=0.2
+  Downloading notebook_shim-0.2.4-py3-none-any.whl (13 kB)
+Collecting tornado>=6.2.0
+  Downloading tornado-6.5.4-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (445 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 445.3/445.3 KB 43.2 MB/s eta 0:00:00
+Collecting jupyterlab<4.6,>=4.5.2
+  Downloading jupyterlab-4.5.2-py3-none-any.whl (12.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 32.3 MB/s eta 0:00:00
+Collecting jupyterlab-server<3,>=2.28.0
+  Downloading jupyterlab_server-2.28.0-py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.8/59.8 KB 15.9 MB/s eta 0:00:00
+Collecting jupyter-server<3,>=2.4.0
+  Downloading jupyter_server-2.17.0-py3-none-any.whl (388 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 388.2/388.2 KB 46.5 MB/s eta 0:00:00
+Collecting psutil>=5.7
+  Downloading psutil-7.2.1-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (154 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 154.7/154.7 KB 52.4 MB/s eta 0:00:00
+Collecting pyzmq>=25
+  Downloading pyzmq-27.1.0-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (854 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 854.1/854.1 KB 20.3 MB/s eta 0:00:00
+Collecting jupyter-client>=8.0.0
+  Downloading jupyter_client-8.8.0-py3-none-any.whl (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.4/107.4 KB 3.7 MB/s eta 0:00:00
+Collecting debugpy>=1.6.5
+  Downloading debugpy-1.8.19-cp310-cp310-manylinux_2_34_x86_64.whl (3.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 29.5 MB/s eta 0:00:00
+Collecting nest-asyncio>=1.4
+  Downloading nest_asyncio-1.6.0-py3-none-any.whl (5.2 kB)
+Collecting sgmllib3k
+  Downloading sgmllib3k-1.0.0.tar.gz (5.8 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting idna<4,>=2.5
+  Downloading idna-3.11-py3-none-any.whl (71 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.0/71.0 KB 17.1 MB/s eta 0:00:00
+Collecting urllib3<3,>=1.21.1
+  Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 KB 33.8 MB/s eta 0:00:00
+Collecting certifi>=2017.4.17
+  Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 152.9/152.9 KB 32.3 MB/s eta 0:00:00
+Collecting charset_normalizer<4,>=2
+  Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (153 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.6/153.6 KB 40.9 MB/s eta 0:00:00
+Collecting doit<1,>=0.34
+  Downloading doit-0.36.0-py3-none-any.whl (85 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.9/85.9 KB 19.0 MB/s eta 0:00:00
+Collecting pkginfo
+  Downloading pkginfo-1.12.1.2-py3-none-any.whl (32 kB)
+Collecting accessible-pygments
+  Downloading accessible_pygments-0.0.5-py3-none-any.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 40.9 MB/s eta 0:00:00
+Collecting botocore!=1.35.45,!=1.35.46,>=1.20.88
+  Downloading botocore-1.42.30-py3-none-any.whl (14.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.6/14.6 MB 28.2 MB/s eta 0:00:00
+Collecting multidict<7.0.0,>=6.0.0
+  Downloading multidict-6.7.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (241 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 241.7/241.7 KB 23.5 MB/s eta 0:00:00
+Collecting jmespath<2.0.0,>=0.7.1
+  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Collecting wrapt<3.0.0,>=1.10.10
+  Downloading wrapt-2.0.1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (113 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.7/113.7 KB 27.2 MB/s eta 0:00:00
+Collecting aioitertools<1.0.0,>=0.5.1
+  Downloading aioitertools-0.13.0-py3-none-any.whl (24 kB)
+Collecting aiosignal>=1.4.0
+  Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Collecting propcache>=0.2.0
+  Downloading propcache-0.4.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (196 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.9/196.9 KB 61.4 MB/s eta 0:00:00
+Collecting async-timeout<6.0,>=4.0
+  Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Collecting attrs>=17.3.0
+  Downloading attrs-25.4.0-py3-none-any.whl (67 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.6/67.6 KB 16.2 MB/s eta 0:00:00
+Collecting yarl<2.0,>=1.17.0
+  Downloading yarl-1.22.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (346 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 347.0/347.0 KB 24.0 MB/s eta 0:00:00
+Collecting frozenlist>=1.1.1
+  Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (219 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 219.5/219.5 KB 59.6 MB/s eta 0:00:00
+Collecting aiohappyeyeballs>=2.5.0
+  Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+Collecting tinycss2<1.5,>=1.1.0
+  Downloading tinycss2-1.4.0-py3-none-any.whl (26 kB)
+Collecting ndindex
+  Downloading ndindex-1.10.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (495 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 495.7/495.7 KB 53.0 MB/s eta 0:00:00
+Collecting msgpack
+  Downloading msgpack-1.1.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (406 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 406.1/406.1 KB 51.7 MB/s eta 0:00:00
+Collecting platformdirs
+  Downloading platformdirs-4.5.1-py3-none-any.whl (18 kB)
+Collecting boto3>=1.9.201
+  Downloading boto3-1.42.31-py3-none-any.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.6/140.6 KB 48.4 MB/s eta 0:00:00
+  Downloading boto3-1.42.30-py3-none-any.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.6/140.6 KB 46.3 MB/s eta 0:00:00
+Collecting s3transfer<0.17.0,>=0.16.0
+  Downloading s3transfer-0.16.0-py3-none-any.whl (86 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.8/86.8 KB 22.4 MB/s eta 0:00:00
+Collecting cffi>=2.0.0
+  Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.5/216.5 KB 62.7 MB/s eta 0:00:00
+Collecting smmap<6,>=3.0.1
+  Downloading smmap-5.0.2-py3-none-any.whl (24 kB)
+Collecting pyasn1-modules>=0.2.1
+  Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.3/181.3 KB 6.6 MB/s eta 0:00:00
+Collecting rsa<5,>=3.1.4
+  Downloading rsa-4.9.1-py3-none-any.whl (34 kB)
+Collecting google-resumable-media<3.0.0,>=2.7.2
+  Downloading google_resumable_media-2.8.0-py3-none-any.whl (81 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.3/81.3 KB 18.8 MB/s eta 0:00:00
+Collecting google-crc32c<2.0.0,>=1.1.3
+  Downloading google_crc32c-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (33 kB)
+Collecting google-api-core<3.0.0,>=2.27.0
+  Downloading google_api_core-2.29.0-py3-none-any.whl (173 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 173.9/173.9 KB 43.3 MB/s eta 0:00:00
+Collecting google-cloud-core<3.0.0,>=2.4.2
+  Downloading google_cloud_core-2.5.0-py3-none-any.whl (29 kB)
+Collecting zipp>=3.20
+  Downloading zipp-3.23.0-py3-none-any.whl (10 kB)
+Collecting parso<0.9.0,>=0.8.4
+  Downloading parso-0.8.5-py2.py3-none-any.whl (106 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 106.7/106.7 KB 26.8 MB/s eta 0:00:00
+Collecting rpds-py>=0.25.0
+  Downloading rpds_py-0.30.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 390.5/390.5 KB 34.0 MB/s eta 0:00:00
+Collecting jsonschema-specifications>=2023.03.6
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Collecting referencing>=0.28.4
+  Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Collecting prometheus-client>=0.9
+  Downloading prometheus_client-0.24.1-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.1/64.1 KB 17.2 MB/s eta 0:00:00
+Collecting overrides>=5.0
+  Downloading overrides-7.7.0-py3-none-any.whl (17 kB)
+Collecting jupyter-events>=0.11.0
+  Downloading jupyter_events-0.12.0-py3-none-any.whl (19 kB)
+Collecting terminado>=0.8.3
+  Downloading terminado-0.18.1-py3-none-any.whl (14 kB)
+Collecting websocket-client>=1.7
+  Downloading websocket_client-1.9.0-py3-none-any.whl (82 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.6/82.6 KB 19.3 MB/s eta 0:00:00
+Collecting send2trash>=1.8.2
+  Downloading send2trash-2.1.0-py3-none-any.whl (17 kB)
+Collecting jupyter-server-terminals>=0.4.4
+  Downloading jupyter_server_terminals-0.5.4-py3-none-any.whl (13 kB)
+Collecting argon2-cffi>=21.1
+  Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Collecting anyio>=3.1.0
+  Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.6/113.6 KB 17.6 MB/s eta 0:00:00
+Collecting async-lru>=1.0.0
+  Downloading async_lru-2.1.0-py3-none-any.whl (6.9 kB)
+Collecting httpx<1,>=0.25.0
+  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 KB 16.1 MB/s eta 0:00:00
+Requirement already satisfied: setuptools>=41.1.0 in /usr/lib/python3/dist-packages (from jupyterlab<4.6,>=4.5.2->notebook>=7.0.6->-r requirements-dev.txt (line 79)) (59.6.0)
+Collecting jupyter-lsp>=2.0.0
+  Downloading jupyter_lsp-2.3.0-py3-none-any.whl (76 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76.7/76.7 KB 17.5 MB/s eta 0:00:00
+Collecting locket
+  Downloading locket-1.0.0-py2.py3-none-any.whl (4.4 kB)
+Collecting ptyprocess>=0.5
+  Downloading ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+Collecting wcwidth
+  Downloading wcwidth-0.3.0-py3-none-any.whl (85 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.5/85.5 KB 20.4 MB/s eta 0:00:00
+Collecting typing-inspection>=0.4.2
+  Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Collecting pydantic-core==2.41.5
+  Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 39.8 MB/s eta 0:00:00
+Collecting annotated-types>=0.6.0
+  Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Collecting markdown-it-py>=2.2.0
+  Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Collecting distlib<1,>=0.3.7
+  Downloading distlib-0.4.0-py2.py3-none-any.whl (469 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 469.0/469.0 KB 38.0 MB/s eta 0:00:00
+Collecting filelock<4,>=3.20.1
+  Downloading filelock-3.20.3-py3-none-any.whl (16 kB)
+Collecting pyproject_hooks
+  Downloading pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)
+Collecting requests-oauthlib>=0.7.0
+  Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Collecting proto-plus<2.0.0,>=1.22.3
+  Downloading proto_plus-1.27.0-py3-none-any.whl (50 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.2/50.2 KB 14.1 MB/s eta 0:00:00
+Collecting grpcio<2.0.0,>=1.33.2
+  Downloading grpcio-1.76.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 35.0 MB/s eta 0:00:00
+Collecting protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<7.0.0,>=3.20.2
+  Downloading protobuf-6.33.4-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 KB 50.9 MB/s eta 0:00:00
+Collecting grpc-google-iam-v1<1.0.0,>=0.14.0
+  Downloading grpc_google_iam_v1-0.14.3-py3-none-any.whl (32 kB)
+Collecting asttokens>=2.1.0
+  Downloading asttokens-3.0.1-py3-none-any.whl (27 kB)
+Collecting executing>=1.2.0
+  Downloading executing-2.2.1-py2.py3-none-any.whl (28 kB)
+Collecting pure-eval
+  Downloading pure_eval-0.2.3-py3-none-any.whl (11 kB)
+Collecting argon2-cffi-bindings
+  Downloading argon2_cffi_bindings-25.1.0-cp39-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (87 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.1/87.1 KB 9.4 MB/s eta 0:00:00
+Collecting pycparser
+  Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 KB 12.6 MB/s eta 0:00:00
+Collecting googleapis-common-protos<2.0.0,>=1.56.2
+  Downloading googleapis_common_protos-1.72.0-py3-none-any.whl (297 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 297.5/297.5 KB 45.0 MB/s eta 0:00:00
+Collecting grpcio-status<2.0.0,>=1.33.2
+  Downloading grpcio_status-1.76.0-py3-none-any.whl (14 kB)
+Collecting httpcore==1.*
+  Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 KB 25.4 MB/s eta 0:00:00
+Collecting h11>=0.16
+  Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Collecting python-json-logger>=2.0.4
+  Downloading python_json_logger-4.0.0-py3-none-any.whl (15 kB)
+Collecting rfc3339-validator
+  Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+Collecting rfc3986-validator>=0.1.1
+  Downloading rfc3986_validator-0.1.1-py2.py3-none-any.whl (4.2 kB)
+Collecting mdurl~=0.1
+  Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Collecting pyasn1<0.7.0,>=0.6.1
+  Downloading pyasn1-0.6.2-py3-none-any.whl (83 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83.4/83.4 KB 15.2 MB/s eta 0:00:00
+Collecting oauthlib>=3.0.0
+  Downloading oauthlib-3.3.1-py3-none-any.whl (160 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 160.1/160.1 KB 14.4 MB/s eta 0:00:00
+Collecting uri-template
+  Downloading uri_template-1.3.0-py3-none-any.whl (11 kB)
+Collecting webcolors>=24.6.0
+  Downloading webcolors-25.10.0-py3-none-any.whl (14 kB)
+Collecting fqdn
+  Downloading fqdn-1.5.1-py3-none-any.whl (9.1 kB)
+Collecting rfc3987-syntax>=1.1.0
+  Downloading rfc3987_syntax-1.1.0-py3-none-any.whl (8.0 kB)
+Collecting jsonpointer>1.13
+  Downloading jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+Collecting isoduration
+  Downloading isoduration-20.11.0-py3-none-any.whl (11 kB)
+Collecting lark>=1.2.2
+  Downloading lark-1.3.1-py3-none-any.whl (113 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 KB 45.0 MB/s eta 0:00:00
+Collecting arrow>=0.15.0
+  Downloading arrow-1.4.0-py3-none-any.whl (68 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.8/68.8 KB 17.4 MB/s eta 0:00:00
+Building wheels for collected packages: odfpy, pandoc, pydata-sphinx-theme, sgmllib3k
+  Building wheel for odfpy (setup.py): started
+  Building wheel for odfpy (setup.py): finished with status 'done'
+  Created wheel for odfpy: filename=odfpy-1.4.1-py2.py3-none-any.whl size=160692 sha256=6f2a1518bd59f62539a073611d68751508c657ec09a9fcaa122d88d1112d22f2
+  Stored in directory: /root/.cache/pip/wheels/c8/2e/95/90d94fe33903786937f3b8c33dd88807f792359c6424b40469
+  Building wheel for pandoc (setup.py): started
+  Building wheel for pandoc (setup.py): finished with status 'done'
+  Created wheel for pandoc: filename=pandoc-2.4-py3-none-any.whl size=34818 sha256=a447e76969a1e7ec5f58ffc16e1b26361e8491d219f7a90ac85e1d067e685159
+  Stored in directory: /root/.cache/pip/wheels/14/79/8c/5d7a023cc8df1aa0381c1739d69da18ae7f90c08b2dc9a1bf5
+  Building wheel for pydata-sphinx-theme (pyproject.toml): started
+  Building wheel for pydata-sphinx-theme (pyproject.toml): finished with status 'done'
+  Created wheel for pydata-sphinx-theme: filename=pydata_sphinx_theme-0.16.1-py3-none-any.whl size=6705093 sha256=05341d8231a1430995d4a4d24af25c0cc289e09bd6bc9d20b4be2e6c3059979e
+  Stored in directory: /root/.cache/pip/wheels/9e/bb/27/3b942b564a2436c98cd1073baf4ff023a5b14f9021351c1b8b
+  Building wheel for sgmllib3k (setup.py): started
+  Building wheel for sgmllib3k (setup.py): finished with status 'done'
+  Created wheel for sgmllib3k: filename=sgmllib3k-1.0.0-py3-none-any.whl size=6066 sha256=070814931bebd04d3f61139e9e3ae35f3bdccd691b9055b05321d506e16019f7
+  Stored in directory: /root/.cache/pip/wheels/f0/69/93/a47e9d621be168e9e33c7ce60524393c0b92ae83cf6c6e89c5
+Successfully built odfpy pandoc pydata-sphinx-theme sgmllib3k
+Installing collected packages: webencodings, sortedcontainers, sgmllib3k, pyxlsb, pytz, pyroaring, PyQt5-Qt5, py-cpuinfo, pure-eval, ptyprocess, ply, pickleshare, fastjsonschema, distlib, zstandard, zipp, xmltodict, xlsxwriter, xlrd, wrapt, widgetsnbextension, websocket-client, webcolors, wcwidth, versioneer, urllib3, uri-template, tzdata, typing_extensions, types-setuptools, types-PyYAML, types-pytz, types-python-dateutil, types-PyMySQL, traitlets, tornado, toolz, tomli, tokenize-rt, tinycss2, tenacity, tabulate, sphinxcontrib-serializinghtml, sphinxcontrib-qthelp, sphinxcontrib-jsmath, sphinxcontrib-htmlhelp, sphinxcontrib-devhelp, sphinxcontrib-applehelp, soupsieve, snowballstemmer, smmap, six, send2trash, rpds-py, rfc3986-validator, pyzmq, pyyaml, python-json-logger, python-calamine, PyQt5-sip, pyproject_hooks, pyparsing, pymysql, pympler, pygments, pyflakes, pycparser, pycodestyle, pyasn1, pyarrow, psycopg2-binary, psutil, protobuf, propcache, prometheus-client, plumbum, pluggy, platformdirs, pkginfo, pillow, pexpect, pathspec, parso, pandocfilters, packaging, overrides, oauthlib, numpy, nodeenv, ninja, nest-asyncio, ndindex, natsort, narwhals, mypy_extensions, msgpack, mmh3, meson, mdurl, mccabe, MarkupSafe, markdown, lxml, locket, llvmlite, lark, kiwisolver, jupyterlab_widgets, jupyterlab-pygments, jsonpointer, json5, jmespath, iniconfig, importlib-resources, imagesize, idna, identify, h11, greenlet, google-crc32c, fsspec, frozenlist, fqdn, fonttools, filelock, feedparser, executing, execnet, et-xmlfile, docutils, defusedxml, decorator, debugpy, cython, cycler, cramjam, coverage, comm, cloudpickle, click, charset_normalizer, cfgv, certifi, cachetools, bleach, babel, attrs, async-timeout, asttokens, annotated-types, alabaster, aioitertools, aiohappyeyeballs, werkzeug, virtualenv, typing-inspection, terminado, stack_data, SQLAlchemy, scipy, rsa, rfc3987-syntax, rfc3339-validator, requests, referencing, python-dateutil, pyreadstat, PyQt5, pyproject-metadata, pydantic-core, pyasn1-modules, proto-plus, prompt_toolkit, partd, pandoc, optype, openpyxl, odfpy, numexpr, numba, mypy, multidict, mistune, matplotlib-inline, markdown-it-py, jupyter-core, jinja2, jedi, importlib_metadata, httpcore, html5lib, grpcio, googleapis-common-protos, google-resumable-media, gitdb, flake8, exceptiongroup, contourpy, cffi, build, bottleneck, beautifulsoup4, async-lru, aiosignal, adbc-driver-manager, accessible-pygments, yarl, strictyaml, sphinx, scipy-stubs, rich, responses, requests-oauthlib, pytest-localserver, pytest, pydantic, pre-commit, pandas, meson-python, matplotlib, jupyter-server-terminals, jupyter-client, jsonschema-specifications, ipython, hypothesis, grpcio-status, google-auth, gitpython, doit, dask, cryptography, botocore, blosc2, asv-runner, arrow, argon2-cffi-bindings, anyio, adbc-driver-sqlite, adbc-driver-postgresql, xarray, tables, sphinx-design, sphinx-copybutton, seaborn, s3transfer, pytest-xdist, pytest-qt, pytest-cython, pytest-cov, pyiceberg, pydata-sphinx-theme, numpydoc, jupyterlite-core, jsonschema, isoduration, ipywidgets, ipykernel, httpx, grpc-google-iam-v1, google-auth-oauthlib, google-api-core, fastparquet, asv, argon2-cffi, aiohttp, nbformat, jupyterlite-pyodide-kernel, google-cloud-core, boto3, aiobotocore, s3fs, nbclient, moto, jupyter-events, google-cloud-storage-control, google-cloud-storage, nbconvert, gcsfs, nbsphinx, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook
+Successfully installed MarkupSafe-3.0.3 PyQt5-5.15.11 PyQt5-Qt5-5.15.18 PyQt5-sip-12.18.0 SQLAlchemy-2.0.46 accessible-pygments-0.0.5 adbc-driver-manager-1.10.0 adbc-driver-postgresql-1.10.0 adbc-driver-sqlite-1.10.0 aiobotocore-3.1.1 aiohappyeyeballs-2.6.1 aiohttp-3.13.3 aioitertools-0.13.0 aiosignal-1.4.0 alabaster-1.0.0 annotated-types-0.7.0 anyio-4.12.1 argon2-cffi-25.1.0 argon2-cffi-bindings-25.1.0 arrow-1.4.0 asttokens-3.0.1 asv-0.6.5 asv-runner-0.2.1 async-lru-2.1.0 async-timeout-5.0.1 attrs-25.4.0 babel-2.17.0 beautifulsoup4-4.14.3 bleach-6.3.0 blosc2-3.12.2 boto3-1.42.30 botocore-1.42.30 bottleneck-1.6.0 build-1.4.0 cachetools-6.2.4 certifi-2026.1.4 cffi-2.0.0 cfgv-3.5.0 charset_normalizer-3.4.4 click-8.3.1 cloudpickle-3.1.2 comm-0.2.3 contourpy-1.3.2 coverage-7.13.1 cramjam-2.11.0 cryptography-46.0.3 cycler-0.12.1 cython-3.2.4 dask-2026.1.1 debugpy-1.8.19 decorator-5.2.1 defusedxml-0.7.1 distlib-0.4.0 docutils-0.21.2 doit-0.36.0 et-xmlfile-2.0.0 exceptiongroup-1.3.1 execnet-2.1.2 executing-2.2.1 fastjsonschema-2.21.2 fastparquet-2025.12.0 feedparser-6.0.12 filelock-3.20.3 flake8-7.1.0 fonttools-4.61.1 fqdn-1.5.1 frozenlist-1.8.0 fsspec-2026.1.0 gcsfs-2026.1.0 gitdb-4.0.12 gitpython-3.1.46 google-api-core-2.29.0 google-auth-2.47.0 google-auth-oauthlib-1.2.4 google-cloud-core-2.5.0 google-cloud-storage-3.8.0 google-cloud-storage-control-1.9.0 google-crc32c-1.8.0 google-resumable-media-2.8.0 googleapis-common-protos-1.72.0 greenlet-3.3.0 grpc-google-iam-v1-0.14.3 grpcio-1.76.0 grpcio-status-1.76.0 h11-0.16.0 html5lib-1.1 httpcore-1.0.9 httpx-0.28.1 hypothesis-6.150.2 identify-2.6.16 idna-3.11 imagesize-1.4.1 importlib-resources-6.5.2 importlib_metadata-8.7.1 iniconfig-2.3.0 ipykernel-7.1.0 ipython-8.38.0 ipywidgets-8.1.8 isoduration-20.11.0 jedi-0.19.2 jinja2-3.1.6 jmespath-1.0.1 json5-0.13.0 jsonpointer-3.0.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-client-8.8.0 jupyter-core-5.9.1 jupyter-events-0.12.0 jupyter-lsp-2.3.0 jupyter-server-2.17.0 jupyter-server-terminals-0.5.4 jupyterlab-4.5.2 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.0 jupyterlab_widgets-3.0.16 jupyterlite-core-0.7.1 jupyterlite-pyodide-kernel-0.7.0 kiwisolver-1.4.9 lark-1.3.1 llvmlite-0.46.0 locket-1.0.0 lxml-6.0.2 markdown-3.10.1 markdown-it-py-4.0.0 matplotlib-3.10.8 matplotlib-inline-0.2.1 mccabe-0.7.0 mdurl-0.1.2 meson-1.2.1 meson-python-0.13.1 mistune-3.2.0 mmh3-5.2.0 moto-5.1.20 msgpack-1.1.2 multidict-6.7.0 mypy-1.17.1 mypy_extensions-1.1.0 narwhals-2.15.0 natsort-8.4.0 nbclient-0.10.4 nbconvert-7.16.6 nbformat-5.10.4 nbsphinx-0.9.8 ndindex-1.10.1 nest-asyncio-1.6.0 ninja-1.13.0 nodeenv-1.10.0 notebook-7.5.2 notebook-shim-0.2.4 numba-0.63.1 numexpr-2.14.1 numpy-2.2.6 numpydoc-1.10.0 oauthlib-3.3.1 odfpy-1.4.1 openpyxl-3.1.5 optype-0.9.3 overrides-7.7.0 packaging-26.0 pandas-2.3.3 pandoc-2.4 pandocfilters-1.5.1 parso-0.8.5 partd-1.4.2 pathspec-1.0.3 pexpect-4.9.0 pickleshare-0.7.5 pillow-12.1.0 pkginfo-1.12.1.2 platformdirs-4.5.1 pluggy-1.6.0 plumbum-1.10.0 ply-3.11 pre-commit-4.5.1 prometheus-client-0.24.1 prompt_toolkit-3.0.52 propcache-0.4.1 proto-plus-1.27.0 protobuf-6.33.4 psutil-7.2.1 psycopg2-binary-2.9.11 ptyprocess-0.7.0 pure-eval-0.2.3 py-cpuinfo-9.0.0 pyarrow-23.0.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pycodestyle-2.12.1 pycparser-3.0 pydantic-2.12.5 pydantic-core-2.41.5 pydata-sphinx-theme-0.16.1 pyflakes-3.2.0 pygments-2.19.2 pyiceberg-0.10.0 pympler-1.1 pymysql-1.1.2 pyparsing-3.3.2 pyproject-metadata-0.10.0 pyproject_hooks-1.2.0 pyreadstat-1.3.2 pyroaring-1.0.3 pytest-9.0.2 pytest-cov-7.0.0 pytest-cython-0.3.1 pytest-localserver-0.10.0 pytest-qt-4.5.0 pytest-xdist-3.8.0 python-calamine-0.6.1 python-dateutil-2.9.0.post0 python-json-logger-4.0.0 pytz-2025.2 pyxlsb-1.0.10 pyyaml-6.0.3 pyzmq-27.1.0 referencing-0.37.0 requests-2.32.5 requests-oauthlib-2.0.0 responses-0.25.8 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rfc3987-syntax-1.1.0 rich-14.2.0 rpds-py-0.30.0 rsa-4.9.1 s3fs-2026.1.0 s3transfer-0.16.0 scipy-1.15.3 scipy-stubs-1.15.3.0 seaborn-0.13.2 send2trash-2.1.0 sgmllib3k-1.0.0 six-1.17.0 smmap-5.0.2 snowballstemmer-3.0.1 sortedcontainers-2.4.0 soupsieve-2.8.3 sphinx-8.1.3 sphinx-copybutton-0.5.2 sphinx-design-0.6.1 sphinxcontrib-applehelp-2.0.0 sphinxcontrib-devhelp-2.0.0 sphinxcontrib-htmlhelp-2.1.0 sphinxcontrib-jsmath-1.0.1 sphinxcontrib-qthelp-2.0.0 sphinxcontrib-serializinghtml-2.0.0 stack_data-0.6.3 strictyaml-1.7.3 tables-3.10.1 tabulate-0.9.0 tenacity-9.1.2 terminado-0.18.1 tinycss2-1.4.0 tokenize-rt-6.2.0 tomli-2.4.0 toolz-1.1.0 tornado-6.5.4 traitlets-5.14.3 types-PyMySQL-1.1.0.20251220 types-PyYAML-6.0.12.20250915 types-python-dateutil-2.9.0.20251115 types-pytz-2025.2.0.20251108 types-setuptools-80.9.0.20251223 typing-inspection-0.4.2 typing_extensions-4.15.0 tzdata-2025.3 uri-template-1.3.0 urllib3-2.6.3 versioneer-0.29 virtualenv-20.36.1 wcwidth-0.3.0 webcolors-25.10.0 webencodings-0.5.1 websocket-client-1.9.0 werkzeug-3.1.5 widgetsnbextension-4.0.15 wrapt-2.0.1 xarray-2025.6.1 xlrd-2.0.2 xlsxwriter-3.2.9 xmltodict-1.0.2 yarl-1.22.0 zipp-3.23.0 zstandard-0.25.0
+----------------------------------------
+
+[Command 7]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:44: in <module>
+    import pandas.core.config_init  # pyright: ignore[reportUnusedImport] # noqa: F401
+pandas/core/config_init.py:31: in <module>
+    from pandas.errors import Pandas4Warning
+pandas/errors/__init__.py:12: in <module>
+    from pandas._libs.tslibs import (
+pandas/_libs/__init__.py:16: in <module>
+    import pandas._libs.pandas_parser  # isort: skip # type: ignore[reportUnusedImport]
+E   ModuleNotFoundError: No module named 'pandas._libs.pandas_parser'
+----------------------------------------
+
+[Command 8]
+$ pip3 install --upgrade setuptools wheel
+Exit Code: 0
+Output:
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (59.6.0)
+Collecting setuptools
+  Using cached setuptools-80.10.1-py3-none-any.whl (1.1 MB)
+Requirement already satisfied: wheel in /usr/lib/python3/dist-packages (0.37.1)
+Collecting wheel
+  Downloading wheel-0.46.3-py3-none-any.whl (30 kB)
+Requirement already satisfied: packaging>=24.0 in /usr/local/lib/python3.10/dist-packages (from wheel) (26.0)
+Installing collected packages: wheel, setuptools
+  Attempting uninstall: wheel
+    Found existing installation: wheel 0.37.1
+    Not uninstalling wheel at /usr/lib/python3/dist-packages, outside environment /usr
+    Can't uninstall 'wheel'. No files were found to uninstall.
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 59.6.0
+    Not uninstalling setuptools at /usr/lib/python3/dist-packages, outside environment /usr
+    Can't uninstall 'setuptools'. No files were found to uninstall.
+Successfully installed setuptools-80.10.1 wheel-0.46.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 9]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+/usr/local/lib/python3.10/dist-packages/pytest_cython/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:44: in <module>
+    import pandas.core.config_init  # pyright: ignore[reportUnusedImport] # noqa: F401
+pandas/core/config_init.py:31: in <module>
+    from pandas.errors import Pandas4Warning
+pandas/errors/__init__.py:12: in <module>
+    from pandas._libs.tslibs import (
+pandas/_libs/__init__.py:16: in <module>
+    import pandas._libs.pandas_parser  # isort: skip # type: ignore[reportUnusedImport]
+E   ModuleNotFoundError: No module named 'pandas._libs.pandas_parser'
+----------------------------------------
+
+[Command 10]
+$ pip3 install --upgrade cython
+Exit Code: 0
+Output:
+Requirement already satisfied: cython in /usr/local/lib/python3.10/dist-packages (3.2.4)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 11]
+$ pip3 install --force-reinstall pandas
+Exit Code: 0
+Output:
+Collecting pandas
+  Using cached pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+Collecting numpy>=1.22.4
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Collecting pytz>=2020.1
+  Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Collecting tzdata>=2022.7
+  Using cached tzdata-2025.3-py2.py3-none-any.whl (348 kB)
+Collecting python-dateutil>=2.8.2
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting six>=1.5
+  Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pytz, tzdata, six, numpy, python-dateutil, pandas
+  Attempting uninstall: pytz
+    Found existing installation: pytz 2025.2
+    Uninstalling pytz-2025.2:
+      Successfully uninstalled pytz-2025.2
+  Attempting uninstall: tzdata
+    Found existing installation: tzdata 2025.3
+    Uninstalling tzdata-2025.3:
+      Successfully uninstalled tzdata-2025.3
+  Attempting uninstall: six
+    Found existing installation: six 1.17.0
+    Uninstalling six-1.17.0:
+      Successfully uninstalled six-1.17.0
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.2.6
+    Uninstalling numpy-2.2.6:
+      Successfully uninstalled numpy-2.2.6
+  Attempting uninstall: python-dateutil
+    Found existing installation: python-dateutil 2.9.0.post0
+    Uninstalling python-dateutil-2.9.0.post0:
+      Successfully uninstalled python-dateutil-2.9.0.post0
+  Attempting uninstall: pandas
+    Found existing installation: pandas 2.3.3
+    Uninstalling pandas-2.3.3:
+      Successfully uninstalled pandas-2.3.3
+Successfully installed numpy-2.2.6 pandas-2.3.3 python-dateutil-2.9.0.post0 pytz-2025.2 six-1.17.0 tzdata-2025.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 12]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+/usr/local/lib/python3.10/dist-packages/pytest_cython/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:44: in <module>
+    import pandas.core.config_init  # pyright: ignore[reportUnusedImport] # noqa: F401
+pandas/core/config_init.py:31: in <module>
+    from pandas.errors import Pandas4Warning
+pandas/errors/__init__.py:12: in <module>
+    from pandas._libs.tslibs import (
+pandas/_libs/__init__.py:16: in <module>
+    import pandas._libs.pandas_parser  # isort: skip # type: ignore[reportUnusedImport]
+E   ModuleNotFoundError: No module named 'pandas._libs.pandas_parser'
+----------------------------------------
+
+[Command 13]
+$ pip3 install --force-reinstall -v pandas
+Exit Code: 0
+Output:
+Using pip 22.0.2 from /usr/lib/python3/dist-packages/pip (python 3.10)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/3c/ff/75db8b415d580e9125afdbb4aa4a480935ddc071dfc30d0a2a668e3cebcf/pandas-3.0.0rc0.tar.gz#sha256=ac699b803f83f54c877fe11f0e563c5862808ff08471d64281ecd13056207ca4 (from https://pypi.org/simple/pandas/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/5a/c5/f2825785a7323c8d7ea4f38ca9827ddfc39b85daacaac65478f9c7b8883f/pandas-3.0.0rc1.tar.gz#sha256=76bfc5790d0b713d082a0b2094d6e4af7399bfb3dd6207cc7046fe4de73c09de (from https://pypi.org/simple/pandas/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/11/1f/08274a71f6198b47fa6abb92c99ab87bfa088c3fca71b467a874c7a8db47/pandas-3.0.0rc2.tar.gz#sha256=729cd21b8387d9cba48ab357d2eea72215af6b631440fa00b2cb8ea5f83c7dbc (from https://pypi.org/simple/pandas/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/de/da/b1dc0481ab8d55d0f46e343cfe67d4551a0e14fcee52bd38ca1bd73258d8/pandas-3.0.0.tar.gz#sha256=0facf7e87d38f721f0af46fe70d97373a37701b1c09f7ed7aeeb292ade5c050f (from https://pypi.org/simple/pandas/) (requires-python:>=3.11)
+Collecting pandas
+  Using cached pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+Collecting tzdata>=2022.7
+  Using cached tzdata-2025.3-py2.py3-none-any.whl (348 kB)
+Collecting python-dateutil>=2.8.2
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting pytz>=2020.1
+  Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/f3/db/8e12381333aea300890829a0a36bfa738cac95475d88982d538725143fd9/numpy-2.3.0.tar.gz#sha256=581f87f9e9e9db2cba2141400e160e9dd644ee248788d6f90636eeb8fd9260a6 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/2e/19/d7c972dfe90a353dbd3efbbe1d14a5951de80c99c9dc1b93cd998d51dc0f/numpy-2.3.1.tar.gz#sha256=1ec9ae20a4226da374362cca3c62cd753faf2f951440b0e3b98e93c235441d2b (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/37/7d/3fec4199c5ffb892bed55cff901e4f39a58c81df9c44c280499e92cad264/numpy-2.3.2.tar.gz#sha256=e0486a11ec30cdecb53f184d496d1c6a20786c81e55e41640270130056f8ee48 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/d0/19/95b3d357407220ed24c139018d2518fab0a61a948e68286a25f1a4d049ff/numpy-2.3.3.tar.gz#sha256=ddc7c39727ba62b80dfdbedf400d1c10ddfa8eefbd7ec8dcb118be8b56d31029 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/b5/f4/098d2270d52b41f1bd7db9fc288aaa0400cb48c2a3e2af6fa365d9720947/numpy-2.3.4.tar.gz#sha256=a7d018bfedb375a8d979ac758b120ba846a7fe764911a64465fd87b8729f4a6a (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/76/65/21b3bc86aac7b8f2862db1e808f1ea22b028e30a225a34a5ede9bf8678f2/numpy-2.3.5.tar.gz#sha256=784db1dcdab56bf0517743e746dfb0f885fc68d948aba86eeec2cba234bdf1c0 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/12/02/7111f298e24a44d6fa4b75b47d93eccf444e5afbcee5b04aac760ee48935/numpy-2.4.0rc1.tar.gz#sha256=658096d9a274d5a44ed22f4ccf6ca1e59e098decc0f6040e9ae7d5a932ec3168 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/a4/7a/6a3d14e205d292b738db449d0de649b373a59edb0d0b4493821d0a3e8718/numpy-2.4.0.tar.gz#sha256=6e504f7b16118198f138ef31ba24d985b124c2c469fe8467007cf30fd992f934 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+  Link requires a different Python (3.10.12 not in: '>=3.11'): https://files.pythonhosted.org/packages/24/62/ae72ff66c0f1fd959925b4c11f8c2dea61f47f6acaea75a08512cdfe3fed/numpy-2.4.1.tar.gz#sha256=a1ceafc5042451a858231588a104093474c6a5c57dcc724841f5c888d237d690 (from https://pypi.org/simple/numpy/) (requires-python:>=3.11)
+Collecting numpy>=1.22.4
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Collecting six>=1.5
+  Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pytz, tzdata, six, numpy, python-dateutil, pandas
+  Attempting uninstall: pytz
+    Found existing installation: pytz 2025.2
+    Uninstalling pytz-2025.2:
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/pytz-2025.2.dist-info/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/pytz/
+      Successfully uninstalled pytz-2025.2
+  Attempting uninstall: tzdata
+    Found existing installation: tzdata 2025.3
+    Uninstalling tzdata-2025.3:
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/tzdata-2025.3.dist-info/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/tzdata/
+      Successfully uninstalled tzdata-2025.3
+  Attempting uninstall: six
+    Found existing installation: six 1.17.0
+    Uninstalling six-1.17.0:
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/__pycache__/six.cpython-310.pyc
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/six-1.17.0.dist-info/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/six.py
+      Successfully uninstalled six-1.17.0
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.2.6
+    Uninstalling numpy-2.2.6:
+      Removing file or directory /usr/local/bin/f2py
+      Removing file or directory /usr/local/bin/numpy-config
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/numpy-2.2.6.dist-info/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/numpy.libs/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/numpy/
+      Successfully uninstalled numpy-2.2.6
+  changing mode of /usr/local/bin/f2py to 755
+  changing mode of /usr/local/bin/numpy-config to 755
+  Attempting uninstall: python-dateutil
+    Found existing installation: python-dateutil 2.9.0.post0
+    Uninstalling python-dateutil-2.9.0.post0:
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/dateutil/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/python_dateutil-2.9.0.post0.dist-info/
+      Successfully uninstalled python-dateutil-2.9.0.post0
+  Attempting uninstall: pandas
+    Found existing installation: pandas 2.3.3
+    Uninstalling pandas-2.3.3:
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/pandas-2.3.3.dist-info/
+      Removing file or directory /usr/local/lib/python3.10/dist-packages/pandas/
+      Successfully uninstalled pandas-2.3.3
+Successfully installed numpy-2.2.6 pandas-2.3.3 python-dateutil-2.9.0.post0 pytz-2025.2 six-1.17.0 tzdata-2025.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 14]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+/usr/local/lib/python3.10/dist-packages/pytest_cython/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:44: in <module>
+    import pandas.core.config_init  # pyright: ignore[reportUnusedImport] # noqa: F401
+pandas/core/config_init.py:31: in <module>
+    from pandas.errors import Pandas4Warning
+pandas/errors/__init__.py:12: in <module>
+    from pandas._libs.tslibs import (
+pandas/_libs/__init__.py:16: in <module>
+    import pandas._libs.pandas_parser  # isort: skip # type: ignore[reportUnusedImport]
+E   ModuleNotFoundError: No module named 'pandas._libs.pandas_parser'
+----------------------------------------
+
+[Command 15]
+$ pip3 install --no-cache-dir pandas
+Exit Code: 0
+Output:
+Requirement already satisfied: pandas in /usr/local/lib/python3.10/dist-packages (2.3.3)
+Requirement already satisfied: numpy>=1.22.4 in /usr/local/lib/python3.10/dist-packages (from pandas) (2.2.6)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.10/dist-packages (from pandas) (2025.3)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 16]
+$ pip3 uninstall -y pandas
+Exit Code: 0
+Output:
+Found existing installation: pandas 2.3.3
+Uninstalling pandas-2.3.3:
+  Successfully uninstalled pandas-2.3.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 17]
+$ pip3 install --no-cache-dir pandas
+Exit Code: 0
+Output:
+Collecting pandas
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 35.1 MB/s eta 0:00:00
+Requirement already satisfied: numpy>=1.22.4 in /usr/local/lib/python3.10/dist-packages (from pandas) (2.2.6)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas) (2025.2)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.10/dist-packages (from pandas) (2025.3)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Installing collected packages: pandas
+Successfully installed pandas-2.3.3
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 18]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+/usr/local/lib/python3.10/dist-packages/pytest_cython/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:44: in <module>
+    import pandas.core.config_init  # pyright: ignore[reportUnusedImport] # noqa: F401
+pandas/core/config_init.py:31: in <module>
+    from pandas.errors import Pandas4Warning
+pandas/errors/__init__.py:12: in <module>
+    from pandas._libs.tslibs import (
+pandas/_libs/__init__.py:16: in <module>
+    import pandas._libs.pandas_parser  # isort: skip # type: ignore[reportUnusedImport]
+E   ModuleNotFoundError: No module named 'pandas._libs.pandas_parser'
+----------------------------------------
+
+[Command 19]
+$ pip3 uninstall -y numpy pandas python-dateutil pytz tzdata six
+Exit Code: 0
+Output:
+Found existing installation: numpy 2.2.6
+Uninstalling numpy-2.2.6:
+  Successfully uninstalled numpy-2.2.6
+Found existing installation: pandas 2.3.3
+Uninstalling pandas-2.3.3:
+  Successfully uninstalled pandas-2.3.3
+Found existing installation: python-dateutil 2.9.0.post0
+Uninstalling python-dateutil-2.9.0.post0:
+  Successfully uninstalled python-dateutil-2.9.0.post0
+Found existing installation: pytz 2025.2
+Uninstalling pytz-2025.2:
+  Successfully uninstalled pytz-2025.2
+Found existing installation: tzdata 2025.3
+Uninstalling tzdata-2025.3:
+  Successfully uninstalled tzdata-2025.3
+Found existing installation: six 1.17.0
+Uninstalling six-1.17.0:
+  Successfully uninstalled six-1.17.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 20]
+$ pip3 install pandas==1.5.3
+Exit Code: 0
+Output:
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x7ab5bd761f60>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /simple/pandas/
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x7ab5bd761ae0>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /simple/pandas/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x7ab5bd7629b0>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /simple/pandas/
+Collecting pandas==1.5.3
+  Downloading pandas-1.5.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.1/12.1 MB 22.6 MB/s eta 0:00:00
+Collecting pytz>=2020.1
+  Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Collecting python-dateutil>=2.8.1
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting numpy>=1.21.0
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Collecting six>=1.5
+  Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pytz, six, numpy, python-dateutil, pandas
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+arrow 1.4.0 requires tzdata; python_version >= "3.9", which is not installed.
+xarray 2025.6.1 requires pandas>=2.1, but you have pandas 1.5.3 which is incompatible.
+Successfully installed numpy-2.2.6 pandas-1.5.3 python-dateutil-2.9.0.post0 pytz-2025.2 six-1.17.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 21]
+$ pip3 install numpy==1.23.5 python-dateutil==2.8.2 pytz==2020.1 tzdata==2022.7 six==1.16.0
+Exit Code: 0
+Output:
+Collecting numpy==1.23.5
+  Downloading numpy-1.23.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.1/17.1 MB 23.9 MB/s eta 0:00:00
+Collecting python-dateutil==2.8.2
+  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 KB 14.3 MB/s eta 0:00:00
+Collecting pytz==2020.1
+  Downloading pytz-2020.1-py2.py3-none-any.whl (510 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 510.2/510.2 KB 23.9 MB/s eta 0:00:00
+Collecting tzdata==2022.7
+  Downloading tzdata-2022.7-py2.py3-none-any.whl (340 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 340.1/340.1 KB 38.4 MB/s eta 0:00:00
+Collecting six==1.16.0
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pytz, tzdata, six, numpy, python-dateutil
+  Attempting uninstall: pytz
+    Found existing installation: pytz 2025.2
+    Uninstalling pytz-2025.2:
+      Successfully uninstalled pytz-2025.2
+  Attempting uninstall: six
+    Found existing installation: six 1.17.0
+    Uninstalling six-1.17.0:
+      Successfully uninstalled six-1.17.0
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.2.6
+    Uninstalling numpy-2.2.6:
+      Successfully uninstalled numpy-2.2.6
+  Attempting uninstall: python-dateutil
+    Found existing installation: python-dateutil 2.9.0.post0
+    Uninstalling python-dateutil-2.9.0.post0:
+      Successfully uninstalled python-dateutil-2.9.0.post0
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+xarray 2025.6.1 requires numpy>=1.24, but you have numpy 1.23.5 which is incompatible.
+xarray 2025.6.1 requires pandas>=2.1, but you have pandas 1.5.3 which is incompatible.
+blosc2 3.12.2 requires numpy>=1.26, but you have numpy 1.23.5 which is incompatible.
+Successfully installed numpy-1.23.5 python-dateutil-2.8.2 pytz-2020.1 six-1.16.0 tzdata-2022.7
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 22]
+$ pytest --tb=short
+Exit Code: 4
+Output:
+/usr/local/lib/python3.10/dist-packages/pytest_cython/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution
+ImportError while loading conftest '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/pandas/conftest.py'.
+pandas/__init__.py:27: in <module>
+    raise ImportError(
+E   ImportError: C extension: None not built. If you want to import pandas from the source directory, you may need to run 'python -m pip install -ve . --no-build-isolation -Ceditable-verbose=true' to build the C extensions first.
+----------------------------------------
+
+[Command 23]
+$ pip3 install -e .
+Exit Code: 1
+Output:
+Obtaining file:///workspace/pandas-dev__pandas%40e49e355cad462cb7b50f794bd2828d1c13938a1b
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing editable metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [66 lines of output]
+      + meson setup --reconfigure /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310 -Dbuildtype=release -Db_ndebug=if-release -Db_vscrt=md --vsenv --native-file=/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-python-native-file.ini
+      Cleaning... 0 files.
+      WARNING: Regenerating configuration from scratch.
+      Reason: Coredata file '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-private/coredata.dat' references functions or classes that don't exist. This probably means that it was generated with an old version of meson.
+      The Meson build system
+      Version: 1.10.1
+      Source dir: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      Build dir: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310
+      Build type: native build
+      Project name: pandas
+      Project version: dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      C compiler for the host machine: cc (gcc 11.4.0 "cc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+      C linker for the host machine: cc ld.bfd 2.38
+      C++ compiler for the host machine: c++ (gcc 11.4.0 "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+      C++ linker for the host machine: c++ ld.bfd 2.38
+      Cython compiler for the host machine: cython (cython 3.2.4)
+      Host machine cpu family: x86_64
+      Host machine cpu: x86_64
+      Program python found: YES (/usr/bin/python3)
+      Program cython found: YES (/usr/local/bin/cython)
+      Did not find pkg-config by name 'pkg-config'
+      Found pkg-config: NO
+      Run-time dependency python found: YES 3.10
+      Configuring free_threading_config.pxi using configuration
+      Build targets in project: 56
+      
+      pandas dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      
+        User defined options
+          Native files: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-python-native-file.ini
+          b_ndebug    : if-release
+          b_vscrt     : md
+          buildtype   : release
+          vsenv       : true
+      
+      Found ninja-1.13.0.git.kitware.jobserver-pipe-1 at /usr/local/bin/ninja
+      
+      Visual Studio environment is needed to run Ninja. It is recommended to use Meson wrapper:
+      /usr/local/bin/meson compile -C .
+      Traceback (most recent call last):
+        File "/usr/lib/python3/dist-packages/pip/_vendor/pep517/in_process/_in_process.py", line 177, in prepare_metadata_for_build_editable
+          hook = backend.prepare_metadata_for_build_editable
+      AttributeError: module 'mesonpy' has no attribute 'prepare_metadata_for_build_editable'
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "/usr/lib/python3/dist-packages/pip/_vendor/pep517/in_process/_in_process.py", line 363, in <module>
+          main()
+        File "/usr/lib/python3/dist-packages/pip/_vendor/pep517/in_process/_in_process.py", line 345, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+        File "/usr/lib/python3/dist-packages/pip/_vendor/pep517/in_process/_in_process.py", line 186, in prepare_metadata_for_build_editable
+          whl_basename = build_hook(metadata_directory, config_settings)
+        File "/tmp/pip-build-env-21fl0ker/overlay/local/lib/python3.10/dist-packages/mesonpy/__init__.py", line 1203, in wrapper
+          return func(*args, **kwargs)
+        File "/tmp/pip-build-env-21fl0ker/overlay/local/lib/python3.10/dist-packages/mesonpy/__init__.py", line 1274, in build_editable
+          with _project(config_settings) as project:
+        File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+          return next(self.gen)
+        File "/tmp/pip-build-env-21fl0ker/overlay/local/lib/python3.10/dist-packages/mesonpy/__init__.py", line 1122, in _project
+          yield Project(source_dir, build_dir, meson_args, editable_verbose)
+        File "/tmp/pip-build-env-21fl0ker/overlay/local/lib/python3.10/dist-packages/mesonpy/__init__.py", line 802, in __init__
+          self._metadata.version = packaging.version.Version(version)
+        File "/tmp/pip-build-env-21fl0ker/overlay/local/lib/python3.10/dist-packages/packaging/version.py", line 361, in __init__
+          raise InvalidVersion(f"Invalid version: {version!r}")
+      packaging.version.InvalidVersion: Invalid version: 'dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b'
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+----------------------------------------
+
+[Command 24]
+$ pip3 install meson meson-python
+Exit Code: 0
+Output:
+Requirement already satisfied: meson in /usr/local/lib/python3.10/dist-packages (1.2.1)
+Requirement already satisfied: meson-python in /usr/local/lib/python3.10/dist-packages (0.13.1)
+Requirement already satisfied: pyproject-metadata>=0.7.1 in /usr/local/lib/python3.10/dist-packages (from meson-python) (0.10.0)
+Requirement already satisfied: tomli>=1.0.0 in /usr/local/lib/python3.10/dist-packages (from meson-python) (2.4.0)
+Requirement already satisfied: packaging>=23.2 in /usr/local/lib/python3.10/dist-packages (from pyproject-metadata>=0.7.1->meson-python) (26.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+----------------------------------------
+
+[Command 25]
+$ pip3 install -e . --no-build-isolation
+Exit Code: 1
+Output:
+Obtaining file:///workspace/pandas-dev__pandas%40e49e355cad462cb7b50f794bd2828d1c13938a1b
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing editable metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [41 lines of output]
+      + meson setup --reconfigure /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310 -Dbuildtype=release -Db_ndebug=if-release -Db_vscrt=md --vsenv --native-file=/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-python-native-file.ini
+      Cleaning... 0 files.
+      WARNING: Regenerating configuration from scratch.
+      Reason: Coredata file '/workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-private/coredata.dat' references functions or classes that don't exist. This probably means that it was generated with an old version of meson. Try running from the source directory meson setup /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310 --wipe
+      The Meson build system
+      Version: 1.2.1
+      Source dir: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      Build dir: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310
+      Build type: native build
+      Project name: pandas
+      Project version: dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      C compiler for the host machine: cc (gcc 11.4.0 "cc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+      C linker for the host machine: cc ld.bfd 2.38
+      C++ compiler for the host machine: c++ (gcc 11.4.0 "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+      C++ linker for the host machine: c++ ld.bfd 2.38
+      Cython compiler for the host machine: cython (cython 3.2.4)
+      Host machine cpu family: x86_64
+      Host machine cpu: x86_64
+      Program python found: YES (/usr/bin/python3)
+      Program cython found: YES (/usr/local/bin/cython)
+      Did not find pkg-config by name 'pkg-config'
+      Found Pkg-config: NO
+      Run-time dependency python found: YES 3.10
+      Configuring free_threading_config.pxi using configuration
+      Build targets in project: 56
+      
+      pandas dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b
+      
+        User defined options
+          Native files: /workspace/pandas-dev__pandas@e49e355cad462cb7b50f794bd2828d1c13938a1b/build/cp310/meson-python-native-file.ini
+          buildtype   : release
+          vsenv       : True
+          b_ndebug    : if-release
+          b_vscrt     : md
+      
+      Found ninja-1.13.0.git.kitware.jobserver-pipe-1 at /usr/local/bin/ninja
+      
+      Visual Studio environment is needed to run Ninja. It is recommended to use Meson wrapper:
+      /usr/local/bin/meson compile -C .
+      
+      meson-python: error: Unsupported Python version 3.10.12, expected >=3.11
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+----------------------------------------
+

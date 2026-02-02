@@ -1,0 +1,2162 @@
+# Setup Log for dmlc/xgboost@278c3443601b95ea9465f935517bcf4c101951e4
+# Issue/PR Number: 11912
+# Generated at: 2026-01-23T14:06:45.143791
+================================================================================
+
+[Command 1]
+$ ls -la
+Exit Code: 0
+Output:
+total 396
+drwxrwxr-x 20 1002 1002   4096 Jan 22 15:55 .
+drwxr-xr-x  3 root root   4096 Jan 23 06:02 ..
+-rw-rw-r--  1 1002 1002   5763 Jan 22 15:49 .clang-format
+-rw-rw-r--  1 1002 1002   1999 Jan 22 15:49 .clang-tidy
+-rw-rw-r--  1 1002 1002    141 Jan 22 15:49 .editorconfig
+drwxrwxr-x  8 1002 1002   4096 Jan 23 06:02 .git
+-rw-rw-r--  1 1002 1002    269 Jan 22 15:49 .gitattributes
+drwxrwxr-x  3 1002 1002   4096 Jan 22 15:49 .github
+-rw-rw-r--  1 1002 1002   1764 Jan 22 15:49 .gitignore
+-rw-rw-r--  1 1002 1002    195 Jan 22 15:49 .gitmodules
+-rw-rw-r--  1 1002 1002    709 Jan 22 15:49 .readthedocs.yaml
+-rw-rw-r--  1 1002 1002    619 Jan 22 15:49 CITATION
+-rw-r--r--  1 root root  18796 Jan 22 15:55 CMakeCache.txt
+drwxr-xr-x  5 root root   4096 Jan 22 15:55 CMakeFiles
+-rw-rw-r--  1 1002 1002  18030 Jan 22 15:49 CMakeLists.txt
+-rw-rw-r--  1 1002 1002   6382 Jan 22 15:49 CONTRIBUTORS.md
+-rw-rw-r--  1 1002 1002  11349 Jan 22 15:49 LICENSE
+-rw-rw-r--  1 1002 1002 210271 Jan 22 15:49 NEWS.md
+drwxrwxr-x 10 1002 1002   4096 Jan 22 15:49 R-package
+-rw-rw-r--  1 1002 1002   4577 Jan 22 15:49 README.md
+-rw-rw-r--  1 1002 1002    879 Jan 22 15:49 SECURITY.md
+drwxrwxr-x  2 1002 1002   4096 Jan 22 15:49 amalgamation
+drwxrwxr-x  3 1002 1002   4096 Jan 22 15:49 cmake
+drwxrwxr-x 12 1002 1002   4096 Jan 22 15:49 demo
+drwxrwxr-x  2 1002 1002   4096 Jan 22 15:49 dev
+drwxrwxr-x  2 1002 1002   4096 Jan 22 15:49 dmlc-core
+drwxrwxr-x 10 1002 1002   4096 Jan 22 15:49 doc
+drwxrwxr-x  2 1002 1002   4096 Jan 22 15:49 gputreeshap
+drwxrwxr-x  3 1002 1002   4096 Jan 22 15:49 include
+drwxrwxr-x  7 1002 1002   4096 Jan 22 15:49 jvm-packages
+drwxrwxr-x  6 1002 1002   4096 Jan 22 15:49 ops
+drwxrwxr-x  7 1002 1002   4096 Jan 22 15:55 plugin
+drwxrwxr-x  4 1002 1002   4096 Jan 22 15:49 python-package
+drwxrwxr-x 14 1002 1002   4096 Jan 22 15:55 src
+drwxrwxr-x  7 1002 1002   4096 Jan 22 15:49 tests
+----------------------------------------
+
+[Command 2]
+$ cat README.md
+Exit Code: 0
+Output:
+<img src="https://xgboost.ai/images/logo/xgboost-logo-trimmed.png" width=200/> eXtreme Gradient Boosting
+===========
+
+[![XGBoost-CI](https://github.com/dmlc/xgboost/workflows/XGBoost%20CI/badge.svg?branch=master)](https://github.com/dmlc/xgboost/actions)
+[![Documentation Status](https://readthedocs.org/projects/xgboost/badge/?version=latest)](https://xgboost.readthedocs.org)
+[![GitHub license](https://dmlc.github.io/img/apache2.svg)](./LICENSE)
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version/xgboost)](https://cran.r-project.org/web/packages/xgboost)
+[![PyPI version](https://badge.fury.io/py/xgboost.svg)](https://pypi.python.org/pypi/xgboost/)
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost)
+[![Optuna](https://img.shields.io/badge/Optuna-integrated-blue)](https://optuna.org)
+[![Twitter](https://img.shields.io/badge/@XGBoostProject--_.svg?style=social&logo=twitter)](https://twitter.com/XGBoostProject)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/dmlc/xgboost/badge)](https://api.securityscorecards.dev/projects/github.com/dmlc/xgboost)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/comet-ml/comet-examples/blob/master/integrations/model-training/xgboost/notebooks/how_to_use_comet_with_xgboost_tutorial.ipynb)
+
+[Community](https://xgboost.ai/community) |
+[Documentation](https://xgboost.readthedocs.org) |
+[Resources](demo/README.md) |
+[Contributors](CONTRIBUTORS.md) |
+[Release Notes](https://xgboost.readthedocs.io/en/latest/changes/index.html)
+
+XGBoost is an optimized distributed gradient boosting library designed to be highly ***efficient***, ***flexible*** and ***portable***.
+It implements machine learning algorithms under the [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework.
+XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way.
+The same code runs on major distributed environment (Kubernetes, Hadoop, SGE, Dask, Spark, PySpark) and can solve problems beyond billions of examples.
+
+License
+-------
+© Contributors, 2021. Licensed under an [Apache-2](https://github.com/dmlc/xgboost/blob/master/LICENSE) license.
+
+Contribute to XGBoost
+---------------------
+XGBoost has been developed and used by a group of active community members. Your help is very valuable to make the package better for everyone.
+Checkout the [Community Page](https://xgboost.ai/community).
+
+Reference
+---------
+- Tianqi Chen and Carlos Guestrin. [XGBoost: A Scalable Tree Boosting System](https://arxiv.org/abs/1603.02754). In 22nd SIGKDD Conference on Knowledge Discovery and Data Mining, 2016
+- XGBoost originates from research project at University of Washington.
+
+Sponsors
+--------
+Become a sponsor and get a logo here. See details at [Sponsoring the XGBoost Project](https://xgboost.ai/sponsors). The funds are used to defray the cost of continuous integration and testing infrastructure (https://xgboost-ci.net).
+
+## Open Source Collective sponsors
+[![Backers on Open Collective](https://opencollective.com/xgboost/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/xgboost/sponsors/badge.svg)](#sponsors)
+
+### Sponsors
+[[Become a sponsor](https://opencollective.com/xgboost#sponsor)]
+
+<a href="https://www.nvidia.com/en-us/" target="_blank"><img src="https://raw.githubusercontent.com/xgboost-ai/xgboost-ai.github.io/master/images/sponsors/nvidia.jpg" alt="NVIDIA" width="72" height="72"></a>
+<a href="https://www.comet.com/site/?utm_source=xgboost&utm_medium=github&utm_content=readme" target="_blank"><img src="https://cdn.comet.ml/img/notebook_logo.png" height="72"></a>
+<a href="https://opencollective.com/tomislav1" target="_blank"><img src="https://images.opencollective.com/tomislav1/avatar/256.png" height="72"></a>
+<a href="https://databento.com/?utm_source=xgboost&utm_medium=sponsor&utm_content=display"><img src="https://raw.githubusercontent.com/xgboost-ai/xgboost-ai.github.io/refs/heads/master/images/sponsors/databento.png" height="72"></a>
+<a href="https://www.intel.com/" target="_blank"><img src="https://images.opencollective.com/intel-corporation/2fa85c1/logo/256.png" width="72" height="72"></a>
+
+### Backers
+[[Become a backer](https://opencollective.com/xgboost#backer)]
+
+<a href="https://opencollective.com/xgboost#backers" target="_blank"><img src="https://opencollective.com/xgboost/backers.svg?width=890"></a>
+----------------------------------------
+
+[Command 3]
+$ cat CMakeLists.txt
+Exit Code: 0
+Output:
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
+if(PLUGIN_SYCL)
+  string(REPLACE " -isystem ${CONDA_PREFIX}/include" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
+
+project(xgboost LANGUAGES CXX C VERSION 3.2.0)
+include(cmake/Utils.cmake)
+list(APPEND CMAKE_MODULE_PATH "${xgboost_SOURCE_DIR}/cmake/modules")
+
+# These policies are already set from 3.18 but we still need to set the policy
+# default variables here for lower minimum versions in the submodules
+set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0076 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0079 NEW)
+
+message(STATUS "CMake version ${CMAKE_VERSION}")
+
+# Check compiler versions
+# Use recent compilers to ensure that std::filesystem is available
+if(MSVC)
+  if(MSVC_VERSION LESS 1920)
+    message(FATAL_ERROR "Need Visual Studio 2019 or newer to build XGBoost")
+  endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "8.1")
+    message(FATAL_ERROR "Need GCC 8.1 or newer to build XGBoost")
+  endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "11.0")
+    message(FATAL_ERROR "Need Xcode 11.0 (AppleClang 11.0) or newer to build XGBoost")
+  endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+    message(FATAL_ERROR "Need Clang 9.0 or newer to build XGBoost")
+  endif()
+endif()
+
+include(${xgboost_SOURCE_DIR}/cmake/PrefetchIntrinsics.cmake)
+find_prefetch_intrinsics()
+include(${xgboost_SOURCE_DIR}/cmake/Version.cmake)
+write_version()
+set_default_configuration_release()
+
+#-- Options
+include(CMakeDependentOption)
+
+## User options
+option(BUILD_C_DOC "Build documentation for C APIs using Doxygen." OFF)
+option(USE_OPENMP "Build with OpenMP support." ON)
+option(BUILD_STATIC_LIB "Build static library" OFF)
+option(BUILD_DEPRECATED_CLI "Build the deprecated command line interface" OFF)
+option(FORCE_SHARED_CRT "Build with dynamic CRT on Windows (/MD)" OFF)
+option(BUILD_WITH_GIT_HASH "Add a short git hash to the build info." OFF)
+## Bindings
+option(JVM_BINDINGS "Build JVM bindings" OFF)
+option(R_LIB "Build shared library for R package" OFF)
+## Dev
+option(USE_DEBUG_OUTPUT "Dump internal training results like gradients and predictions to stdout.
+Should only be used for debugging." OFF)
+option(FORCE_COLORED_OUTPUT "Force colored output from compilers, useful when ninja is used instead of make." OFF)
+option(ENABLE_ALL_WARNINGS "Enable all compiler warnings. Only effective for GCC/Clang" OFF)
+option(LOG_CAPI_INVOCATION "Log all C API invocations for debugging" OFF)
+option(GOOGLE_TEST "Build google tests" OFF)
+option(USE_DMLC_GTEST "Use google tests bundled with dmlc-core submodule" OFF)
+option(USE_DEVICE_DEBUG "Generate CUDA device debug info." OFF)
+option(USE_NVTX "Build with cuda profiling annotations. Developers only." OFF)
+set(NVTX_HEADER_DIR "" CACHE PATH "Path to the stand-alone nvtx header")
+option(HIDE_CXX_SYMBOLS "Build shared library and hide all C++ symbols" OFF)
+option(KEEP_BUILD_ARTIFACTS_IN_BINARY_DIR "Output build artifacts in CMake binary dir" OFF)
+## CUDA
+option(USE_CUDA  "Build with GPU acceleration" OFF)
+option(USE_NCCL  "Build with NCCL to enable distributed GPU support." OFF)
+option(USE_NVCOMP "Build with nvcomp to enable sparse data compression. (experimental)" OFF)
+# This is specifically designed for PyPI binary release and should be disabled for most of the cases.
+option(USE_DLOPEN_NCCL "Whether to load nccl dynamically." OFF)
+option(BUILD_WITH_SHARED_NCCL "Build with shared NCCL library." OFF)
+
+if(USE_CUDA)
+  if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES AND NOT DEFINED ENV{CUDAARCHS})
+    set(GPU_COMPUTE_VER "" CACHE STRING
+      "Semicolon separated list of compute versions to be built against, e.g. '35;61'")
+  else()
+    # Clear any cached values from previous runs
+    unset(GPU_COMPUTE_VER)
+    unset(GPU_COMPUTE_VER CACHE)
+  endif()
+endif()
+
+# CUDA device LTO was introduced in CMake v3.25 and requires host LTO to also be enabled but can still
+# be explicitly disabled allowing for LTO on host only, host and device, or neither, but device-only LTO
+# is not a supproted configuration
+cmake_dependent_option(USE_CUDA_LTO
+  "Enable link-time optimization for CUDA device code"
+  "${CMAKE_INTERPROCEDURAL_OPTIMIZATION}"
+  "CMAKE_VERSION VERSION_GREATER_EQUAL 3.25;USE_CUDA;CMAKE_INTERPROCEDURAL_OPTIMIZATION"
+  OFF)
+## Sanitizers
+option(USE_SANITIZER "Use santizer flags" OFF)
+option(SANITIZER_PATH "Path to sanitizes.")
+set(ENABLED_SANITIZERS "address" "leak" CACHE STRING
+  "Semicolon separated list of sanitizer names. E.g 'address;leak'. Supported sanitizers are
+address, leak, undefined and thread.")
+## Plugins
+option(PLUGIN_RMM "Build with RAPIDS Memory Manager (RMM)" OFF)
+option(PLUGIN_FEDERATED "Build with Federated Learning" OFF)
+## TODO: 1. Add check if DPC++ compiler is used for building
+option(PLUGIN_SYCL "SYCL plugin" OFF)
+option(ADD_PKGCONFIG "Add xgboost.pc into system." ON)
+
+#-- Checks for building XGBoost
+if(USE_DEBUG_OUTPUT AND (NOT (CMAKE_BUILD_TYPE MATCHES Debug)))
+  message(SEND_ERROR "Do not enable `USE_DEBUG_OUTPUT' with release build.")
+endif()
+if(USE_NVTX AND (NOT USE_CUDA))
+  message(SEND_ERROR "`USE_NVTX` must be enabled with `USE_CUDA` flag.")
+endif()
+if(USE_NVTX)
+  if(CMAKE_VERSION VERSION_LESS "3.25.0")
+    # CUDA:nvtx3 target is added in 3.25
+    message("cmake >= 3.25 is required for NVTX.")
+  endif()
+endif()
+if(USE_NCCL AND (NOT USE_CUDA))
+  message(SEND_ERROR "`USE_NCCL` must be enabled with `USE_CUDA` flag.")
+endif()
+if(USE_NVCOMP AND (NOT USE_CUDA))
+  message(SEND_ERROR "`USE_NVCOMP` must be enabled with `USE_CUDA` flag.")
+endif()
+if(USE_DEVICE_DEBUG AND (NOT USE_CUDA))
+  message(SEND_ERROR "`USE_DEVICE_DEBUG` must be enabled with `USE_CUDA` flag.")
+endif()
+if(BUILD_WITH_SHARED_NCCL AND (NOT USE_NCCL))
+  message(SEND_ERROR "Build XGBoost with -DUSE_NCCL=ON to enable BUILD_WITH_SHARED_NCCL.")
+endif()
+if(USE_DLOPEN_NCCL AND (NOT USE_NCCL))
+  message(SEND_ERROR "Build XGBoost with -DUSE_NCCL=ON to enable USE_DLOPEN_NCCL.")
+endif()
+if(USE_DLOPEN_NCCL AND (NOT (CMAKE_SYSTEM_NAME STREQUAL "Linux")))
+  message(SEND_ERROR "`USE_DLOPEN_NCCL` supports only Linux at the moment.")
+endif()
+if(JVM_BINDINGS AND R_LIB)
+  message(SEND_ERROR "`R_LIB' is not compatible with `JVM_BINDINGS' as they both have customized configurations.")
+endif()
+if(R_LIB AND GOOGLE_TEST)
+  message(
+    WARNING
+    "Some C++ tests will fail with `R_LIB` enabled, as R package redirects some functions to R runtime implementation."
+  )
+endif()
+if(R_LIB AND USE_NCCL)
+  message(SEND_ERROR "`R_LIB` doesn't support distributed computing with NCCL yet.")
+endif()
+if(PLUGIN_RMM AND NOT (USE_CUDA))
+  message(SEND_ERROR "`PLUGIN_RMM` must be enabled with `USE_CUDA` flag.")
+endif()
+if(PLUGIN_RMM AND NOT ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")))
+  message(SEND_ERROR "`PLUGIN_RMM` must be used with GCC or Clang compiler.")
+endif()
+if(PLUGIN_RMM AND NOT (CMAKE_SYSTEM_NAME STREQUAL "Linux"))
+  message(SEND_ERROR "`PLUGIN_RMM` must be used with Linux.")
+endif()
+if(ENABLE_ALL_WARNINGS)
+  if((NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang") AND (NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
+    message(SEND_ERROR "ENABLE_ALL_WARNINGS is only available for Clang and GCC.")
+  endif()
+endif()
+if(BUILD_STATIC_LIB AND (R_LIB OR JVM_BINDINGS))
+  message(SEND_ERROR "Cannot build a static library libxgboost.a when R or JVM packages are enabled.")
+endif()
+if(PLUGIN_FEDERATED)
+  if(CMAKE_CROSSCOMPILING)
+    message(SEND_ERROR "Cannot cross compile with federated learning support")
+  endif()
+  if(BUILD_STATIC_LIB)
+    message(SEND_ERROR "Cannot build static lib with federated learning support")
+  endif()
+  if(R_LIB OR JVM_BINDINGS)
+    message(SEND_ERROR "Cannot enable federated learning support when R or JVM packages are enabled.")
+  endif()
+  if(WIN32)
+    message(SEND_ERROR "Federated learning not supported for Windows platform")
+  endif()
+endif()
+
+#-- Removed options
+if(USE_AVX)
+  message(SEND_ERROR  "The option `USE_AVX` is deprecated as experimental AVX features have been removed from XGBoost.")
+endif()
+if(PLUGIN_LZ4)
+  message(SEND_ERROR  "The option `PLUGIN_LZ4` is removed from XGBoost.")
+endif()
+if(RABIT_BUILD_MPI)
+  message(SEND_ERROR "The option `RABIT_BUILD_MPI` has been removed from XGBoost.")
+endif()
+if(USE_S3)
+  message(SEND_ERROR "The option `USE_S3` has been removed from XGBoost")
+endif()
+if(USE_AZURE)
+  message(SEND_ERROR "The option `USE_AZURE` has been removed from XGBoost")
+endif()
+if(USE_HDFS)
+  message(SEND_ERROR "The option `USE_HDFS` has been removed from XGBoost")
+endif()
+if(PLUGIN_DENSE_PARSER)
+  message(SEND_ERROR "The option `PLUGIN_DENSE_PARSER` has been removed from XGBoost.")
+endif()
+if(BUILD_DEPRECATED_CLI)
+  message(SEND_ERROR  "The option `BUILD_DEPRECATED_CLI` is removed from XGBoost.")
+endif()
+
+#-- Sanitizer
+if(USE_SANITIZER)
+  include(cmake/Sanitizer.cmake)
+  enable_sanitizers("${ENABLED_SANITIZERS}")
+endif()
+
+if(USE_CUDA)
+  set(USE_OPENMP ON CACHE BOOL "CUDA requires OpenMP" FORCE)
+  # `export CXX=' is ignored by CMake CUDA.
+  if(NOT DEFINED CMAKE_CUDA_HOST_COMPILER AND NOT DEFINED ENV{CUDAHOSTCXX})
+    set(CMAKE_CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER} CACHE FILEPATH
+      "The compiler executable to use when compiling host code for CUDA or HIP language files.")
+    mark_as_advanced(CMAKE_CUDA_HOST_COMPILER)
+    message(STATUS "Configured CUDA host compiler: ${CMAKE_CUDA_HOST_COMPILER}")
+  endif()
+
+  if(NOT DEFINED CMAKE_CUDA_RUNTIME_LIBRARY)
+    set(CMAKE_CUDA_RUNTIME_LIBRARY Static)
+  endif()
+
+  enable_language(CUDA)
+  if(${CMAKE_CUDA_COMPILER_VERSION} VERSION_LESS 11.0)
+    message(FATAL_ERROR "CUDA version must be at least 11.0!")
+  endif()
+  if(DEFINED GPU_COMPUTE_VER)
+    compute_cmake_cuda_archs("${GPU_COMPUTE_VER}")
+  endif()
+
+  find_package(CUDAToolkit REQUIRED)
+endif()
+
+if(USE_NVCOMP)
+  find_package(nvcomp REQUIRED)
+  if(${CMAKE_CUDA_COMPILER_VERSION} VERSION_LESS 12.8)
+    message(SEND_ERROR "NVComp support requires CUDA >= 12.8")
+  endif()
+endif()
+
+
+if(FORCE_COLORED_OUTPUT AND (CMAKE_GENERATOR STREQUAL "Ninja") AND
+    ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR
+      (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")))
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always")
+endif()
+
+if(NOT (CMAKE_SYSTEM_NAME STREQUAL "Emscripten"))
+  find_package(Threads REQUIRED)
+endif()
+
+# -- OpenMP
+include(cmake/FindOpenMPMacOS.cmake)
+if(USE_OPENMP)
+  if(APPLE)
+    find_openmp_macos()
+  else()
+    find_package(OpenMP REQUIRED)
+  endif()
+endif()
+
+# Add for IBM i
+if(${CMAKE_SYSTEM_NAME} MATCHES "OS400")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+  set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> -X64 qc <TARGET> <OBJECTS>")
+endif()
+
+if(USE_NCCL)
+  find_package(Nccl REQUIRED)
+endif()
+
+if(MSVC)
+  if(FORCE_SHARED_CRT)
+    message(STATUS "XGBoost: Using dynamically linked MSVC runtime...")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  else()
+    message(STATUS "XGBoost: Using statically linked MSVC runtime...")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  endif()
+endif()
+
+# dmlc-core
+set(DMLC_FORCE_SHARED_CRT ${FORCE_SHARED_CRT})
+add_subdirectory(${xgboost_SOURCE_DIR}/dmlc-core)
+
+if(MSVC)
+  if(TARGET dmlc_unit_tests)
+    target_compile_options(
+        dmlc_unit_tests PRIVATE
+        -D_CRT_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE
+    )
+  endif()
+endif()
+
+# core xgboost
+add_subdirectory(${xgboost_SOURCE_DIR}/src)
+target_link_libraries(objxgboost PUBLIC dmlc)
+
+# Link -lstdc++fs for GCC 8.x
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+  target_link_libraries(objxgboost PUBLIC stdc++fs)
+endif()
+
+# Exports some R specific definitions and objects
+if(R_LIB)
+  add_subdirectory(${xgboost_SOURCE_DIR}/R-package)
+endif()
+
+# This creates its own shared library `xgboost4j'.
+if(JVM_BINDINGS)
+  add_subdirectory(${xgboost_SOURCE_DIR}/jvm-packages)
+endif()
+
+# Plugin
+add_subdirectory(${xgboost_SOURCE_DIR}/plugin)
+
+if(PLUGIN_RMM)
+  find_package(rmm REQUIRED)
+
+  # Patch the rmm targets so they reference the static cudart
+  # Remove this patch once RMM stops specifying cudart requirement
+  # (since RMM is a header-only library, it should not specify cudart in its CMake config)
+  get_target_property(rmm_link_libs rmm::rmm INTERFACE_LINK_LIBRARIES)
+  list(REMOVE_ITEM rmm_link_libs CUDA::cudart)
+  list(APPEND rmm_link_libs CUDA::cudart_static)
+  set_target_properties(rmm::rmm PROPERTIES INTERFACE_LINK_LIBRARIES "${rmm_link_libs}")
+
+  # Pick up patched CCCL from RMM
+elseif(USE_CUDA)
+  # If using CUDA and not RMM, search for CCCL.
+  find_package(CCCL CONFIG)
+  if(CCCL_FOUND)
+    message(STATUS "Standalone CCCL found.")
+  else()
+    message(STATUS "Standalone CCCL not found. Attempting to use CCCL from CUDA Toolkit...")
+    find_package(CCCL CONFIG
+      HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+    if(NOT CCCL_FOUND)
+      message(STATUS "Could not locate CCCL from CUDA Toolkit. Using Thrust and CUB from CUDA Toolkit...")
+      find_package(libcudacxx CONFIG REQUIRED
+        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+      find_package(CUB CONFIG REQUIRED
+        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+      find_package(Thrust CONFIG REQUIRED
+        HINTS ${CUDAToolkit_LIBRARY_DIR}/cmake)
+      thrust_create_target(Thrust HOST CPP DEVICE CUDA)
+      add_library(CCCL::CCCL INTERFACE IMPORTED GLOBAL)
+      target_link_libraries(CCCL::CCCL INTERFACE libcudacxx::libcudacxx CUB::CUB Thrust)
+    endif()
+  endif()
+  # Define guard macros to prevent windows.h from conflicting with winsock2.h
+  if(WIN32)
+    target_compile_definitions(CCCL::CCCL INTERFACE NOMINMAX WIN32_LEAN_AND_MEAN _WINSOCKAPI_)
+  endif()
+endif()
+
+if(PLUGIN_SYCL)
+  set(CMAKE_CXX_LINK_EXECUTABLE
+      "icpx <FLAGS> <CMAKE_CXX_LINK_FLAGS> -qopenmp <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
+  set(CMAKE_CXX_CREATE_SHARED_LIBRARY
+      "icpx -shared <CMAKE_SHARED_LIBRARY_CXX_FLAGS> -qopenmp <LANGUAGE_COMPILE_FLAGS> \
+      <CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS> <SONAME_FLAG>,<TARGET_SONAME> \
+      -o <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+endif()
+
+#-- library
+if(BUILD_STATIC_LIB)
+  add_library(xgboost STATIC)
+else()
+  add_library(xgboost SHARED)
+endif()
+target_link_libraries(xgboost PRIVATE objxgboost)
+target_include_directories(xgboost
+  INTERFACE
+  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+#-- End shared library
+
+# Common setup for all targets
+foreach(target xgboost objxgboost dmlc)
+  xgboost_target_properties(${target})
+  xgboost_target_link_libraries(${target})
+  xgboost_target_defs(${target})
+endforeach()
+
+if(JVM_BINDINGS)
+  xgboost_target_properties(xgboost4j)
+  xgboost_target_link_libraries(xgboost4j)
+  xgboost_target_defs(xgboost4j)
+endif()
+
+if(USE_OPENMP AND APPLE AND NOT BUILD_STATIC_LIB)
+  patch_openmp_path_macos(xgboost libxgboost)
+endif()
+
+if(KEEP_BUILD_ARTIFACTS_IN_BINARY_DIR)
+  set_output_directory(xgboost ${xgboost_BINARY_DIR}/lib)
+else()
+  set_output_directory(xgboost ${xgboost_SOURCE_DIR}/lib)
+endif()
+
+#-- Installing XGBoost
+if(R_LIB)
+  include(cmake/RPackageInstallTargetSetup.cmake)
+  set_target_properties(xgboost PROPERTIES PREFIX "")
+  if(APPLE)
+    set_target_properties(xgboost PROPERTIES SUFFIX ".so")
+  endif()
+  setup_rpackage_install_target(xgboost "${CMAKE_CURRENT_BINARY_DIR}/R-package-install")
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/dummy_inst")
+endif()
+if(MINGW)
+  set_target_properties(xgboost PROPERTIES PREFIX "")
+endif()
+
+if(BUILD_C_DOC)
+  include(cmake/Doc.cmake)
+  run_doxygen()
+endif()
+
+include(CPack)
+
+include(GNUInstallDirs)
+# Install all headers.  Please note that currently the C++ headers does not form an "API".
+install(DIRECTORY ${xgboost_SOURCE_DIR}/include/xgboost
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Install libraries. If `xgboost` is a static lib, specify `objxgboost` also, to avoid the
+# following error:
+#
+#  > install(EXPORT ...) includes target "xgboost" which requires target "objxgboost" that is not
+#  > in any export set.
+#
+# https://github.com/dmlc/xgboost/issues/6085
+if(BUILD_STATIC_LIB)
+  set(INSTALL_TARGETS xgboost objxgboost dmlc)
+else()
+  set(INSTALL_TARGETS xgboost)
+endif()
+
+install(TARGETS ${INSTALL_TARGETS}
+  EXPORT XGBoostTargets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  INCLUDES DESTINATION ${LIBLEGACY_INCLUDE_DIRS})
+install(EXPORT XGBoostTargets
+  FILE XGBoostTargets.cmake
+  NAMESPACE xgboost::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/xgboost)
+
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+  ${CMAKE_CURRENT_LIST_DIR}/cmake/xgboost-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/xgboost-config.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/xgboost)
+write_basic_package_version_file(
+  ${CMAKE_BINARY_DIR}/cmake/xgboost-config-version.cmake
+  VERSION ${XGBOOST_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+install(
+  FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/xgboost-config.cmake
+  ${CMAKE_BINARY_DIR}/cmake/xgboost-config-version.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/xgboost)
+
+#-- Test
+if(GOOGLE_TEST)
+  enable_testing()
+  # Unittests.
+  add_executable(testxgboost)
+  target_link_libraries(testxgboost PRIVATE objxgboost)
+  xgboost_target_properties(testxgboost)
+  xgboost_target_link_libraries(testxgboost)
+  xgboost_target_defs(testxgboost)
+
+  add_subdirectory(${xgboost_SOURCE_DIR}/tests/cpp)
+
+  add_test(
+    NAME TestXGBoostLib
+    COMMAND testxgboost
+    WORKING_DIRECTORY ${xgboost_BINARY_DIR})
+endif()
+
+# Add xgboost.pc
+if(ADD_PKGCONFIG)
+  configure_file(${xgboost_SOURCE_DIR}/cmake/xgboost.pc.in ${xgboost_BINARY_DIR}/xgboost.pc @ONLY)
+
+  install(
+    FILES ${xgboost_BINARY_DIR}/xgboost.pc
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+endif()
+----------------------------------------
+
+[Command 4]
+$ apt-get update && apt-get install -y build-essential cmake g++
+Exit Code: 0
+Output:
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6205 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [61.5 kB]
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3640 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1292 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6486 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1604 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3971 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.7 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [37.2 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.8 MB in 14s (3227 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu bzip2 ca-certificates
+  cmake-data cpp cpp-11 dh-elpa-helper dirmngr dpkg-dev emacsen-common
+  fakeroot fontconfig-config fonts-dejavu-core g++-11 gcc gcc-11 gcc-11-base
+  gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server
+  gpgconf gpgsm libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libarchive13 libasan6 libassuan0 libatomic1
+  libbinutils libbrotli1 libbsd0 libc-dev-bin libc-devtools libc6 libc6-dev
+  libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl4 libdeflate0
+  libdpkg-perl libexpat1 libfakeroot libfile-fcntllock-perl libfontconfig1
+  libfreetype6 libgcc-11-dev libgd3 libgdbm-compat4 libgdbm6 libgomp1 libicu70
+  libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjsoncpp25 libksba8
+  libldap-2.5-0 libldap-common liblocale-gettext-perl liblsan0 libmd0 libmpc3
+  libmpfr6 libnghttp2-14 libnpth0 libnsl-dev libperl5.34 libpng16-16 libpsl5
+  libquadmath0 libreadline8 librhash0 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libsqlite3-0 libssh-4 libstdc++-11-dev libtiff5
+  libtirpc-dev libtsan0 libubsan1 libuv1 libwebp7 libx11-6 libx11-data libxau6
+  libxcb1 libxdmcp6 libxml2 libxpm4 linux-libc-dev lto-disabled-list make
+  manpages manpages-dev netbase openssl patch perl perl-modules-5.34
+  pinentry-curses publicsuffix readline-common rpcsvc-proto ucf xz-utils
+Suggested packages:
+  binutils-doc bzip2-doc cmake-doc ninja-build cmake-format cpp-doc
+  gcc-11-locales dbus-user-session libpam-systemd pinentry-gnome3 tor
+  debian-keyring g++-multilib g++-11-multilib gcc-11-doc gcc-multilib autoconf
+  automake libtool flex bison gdb gcc-doc gcc-11-multilib parcimonie
+  xloadimage scdaemon lrzip glibc-doc locales git bzr libgd-tools gdbm-l10n
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql
+  libstdc++-11-doc make-doc man-browser ed diffutils-doc perl-doc
+  libterm-readline-gnu-perl | libterm-readline-perl-perl
+  libtap-harness-archive-perl pinentry-doc readline-doc
+Recommended packages:
+  libnss-nis libnss-nisplus
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu build-essential bzip2
+  ca-certificates cmake cmake-data cpp cpp-11 dh-elpa-helper dirmngr dpkg-dev
+  emacsen-common fakeroot fontconfig-config fonts-dejavu-core g++ g++-11 gcc
+  gcc-11 gcc-11-base gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client
+  gpg-wks-server gpgconf gpgsm libalgorithm-diff-perl
+  libalgorithm-diff-xs-perl libalgorithm-merge-perl libarchive13 libasan6
+  libassuan0 libatomic1 libbinutils libbrotli1 libbsd0 libc-dev-bin
+  libc-devtools libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libcurl4
+  libdeflate0 libdpkg-perl libexpat1 libfakeroot libfile-fcntllock-perl
+  libfontconfig1 libfreetype6 libgcc-11-dev libgd3 libgdbm-compat4 libgdbm6
+  libgomp1 libicu70 libisl23 libitm1 libjbig0 libjpeg-turbo8 libjpeg8
+  libjsoncpp25 libksba8 libldap-2.5-0 libldap-common liblocale-gettext-perl
+  liblsan0 libmd0 libmpc3 libmpfr6 libnghttp2-14 libnpth0 libnsl-dev
+  libperl5.34 libpng16-16 libpsl5 libquadmath0 libreadline8 librhash0 librtmp1
+  libsasl2-2 libsasl2-modules libsasl2-modules-db libsqlite3-0 libssh-4
+  libstdc++-11-dev libtiff5 libtirpc-dev libtsan0 libubsan1 libuv1 libwebp7
+  libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxml2 libxpm4
+  linux-libc-dev lto-disabled-list make manpages manpages-dev netbase openssl
+  patch perl perl-modules-5.34 pinentry-curses publicsuffix readline-common
+  rpcsvc-proto ucf xz-utils
+The following packages will be upgraded:
+  libc6
+1 upgraded, 121 newly installed, 0 to remove and 2 not upgraded.
+Need to get 108 MB of archives.
+After this operation, 367 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.12 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblocale-gettext-perl amd64 1.07-4build3 [17.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.5 [2977 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.5 [4797 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.5 [232 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.20 [1185 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20240203~22.04.1 [162 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libexpat1 amd64 2.4.7-1ubuntu0.6 [92.1 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsqlite3-0 amd64 3.37.2-2ubuntu0.5 [643 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxml2 amd64 2.9.13+dfsg-1ubuntu0.11 [765 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libnghttp2-14 amd64 1.43.0-1ubuntu0.2 [76.9 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpng16-16 amd64 1.6.37-3ubuntu0.3 [192 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpsl5 amd64 0.21.0-1.2build2 [58.4 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxau6 amd64 1:1.0.9-1build5 [7634 B]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu5 [10.9 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxcb1 amd64 1.14-3ubuntu3 [49.0 kB]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-data all 2:1.7.5-1ubuntu0.3 [120 kB]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libx11-6 amd64 2:1.7.5-1ubuntu0.3 [667 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages all 5.10-1ubuntu1 [1375 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main amd64 publicsuffix all 20211207.1025-1 [129 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 xz-utils amd64 5.2.5-2ubuntu1 [84.8 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbinutils amd64 2.38-4ubuntu2.12 [663 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf-nobfd0 amd64 2.38-4ubuntu2.12 [108 kB]
+Get:35 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libctf0 amd64 2.38-4ubuntu2.12 [103 kB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
+Get:38 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-dev-bin amd64 2.35-0ubuntu3.12 [20.3 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-libc-dev amd64 5.15.0-164.174 [1325 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrypt-dev amd64 1:4.4.27-1 [112 kB]
+Get:41 http://archive.ubuntu.com/ubuntu jammy/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu6 [68.5 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtirpc-dev amd64 1.3.2-2ubuntu0.1 [192 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnsl-dev amd64 1.3.0-2build2 [71.3 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6-dev amd64 2.35-0ubuntu3.12 [2101 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-base amd64 11.4.0-1ubuntu1~22.04.2 [20.8 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy/main amd64 libisl23 amd64 0.24-2build1 [727 kB]
+Get:47 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpfr6 amd64 4.1.0-3build3 [1425 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmpc3 amd64 1.2.1-2build1 [46.9 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.2 [10.0 MB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcc1-0 amd64 12.3.0-1ubuntu1~22.04.2 [48.3 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1 amd64 12.3.0-1ubuntu1~22.04.2 [127 kB]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1 amd64 12.3.0-1ubuntu1~22.04.2 [30.2 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1 amd64 12.3.0-1ubuntu1~22.04.2 [10.4 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6 amd64 11.4.0-1ubuntu1~22.04.2 [2283 kB]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0 amd64 12.3.0-1ubuntu1~22.04.2 [1069 kB]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0 amd64 11.4.0-1ubuntu1~22.04.2 [2262 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1 amd64 12.3.0-1ubuntu1~22.04.2 [976 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libquadmath0 amd64 12.3.0-1ubuntu1~22.04.2 [154 kB]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2517 kB]
+Get:61 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11 amd64 11.4.0-1ubuntu1~22.04.2 [20.1 MB]
+Get:62 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc amd64 4:11.2.0-1ubuntu1 [5112 B]
+Get:63 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++-11-dev amd64 11.4.0-1ubuntu1~22.04.2 [2101 kB]
+Get:64 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 g++-11 amd64 11.4.0-1ubuntu1~22.04.2 [11.4 MB]
+Get:65 http://archive.ubuntu.com/ubuntu jammy/main amd64 g++ amd64 4:11.2.0-1ubuntu1 [1412 B]
+Get:66 http://archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Get:67 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdpkg-perl all 1.21.1ubuntu2.6 [237 kB]
+Get:68 http://archive.ubuntu.com/ubuntu jammy/main amd64 bzip2 amd64 1.0.8-5build1 [34.8 kB]
+Get:69 http://archive.ubuntu.com/ubuntu jammy/main amd64 patch amd64 2.7.6-7build2 [109 kB]
+Get:70 http://archive.ubuntu.com/ubuntu jammy/main amd64 lto-disabled-list all 24 [12.5 kB]
+Get:71 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dpkg-dev all 1.21.1ubuntu2.6 [922 kB]
+Get:72 http://archive.ubuntu.com/ubuntu jammy/main amd64 build-essential amd64 12.9ubuntu3 [4744 B]
+Get:73 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libarchive13 amd64 3.6.0-1ubuntu1.5 [368 kB]
+Get:74 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbrotli1 amd64 1.0.9-2build6 [315 kB]
+Get:75 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:76 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:77 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.19+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:78 http://archive.ubuntu.com/ubuntu jammy/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build4 [58.2 kB]
+Get:79 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssh-4 amd64 0.9.6-2ubuntu0.22.04.5 [187 kB]
+Get:80 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
+Get:81 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjsoncpp25 amd64 1.9.5-3 [80.0 kB]
+Get:82 http://archive.ubuntu.com/ubuntu jammy/main amd64 librhash0 amd64 1.4.2-1ubuntu1 [125 kB]
+Get:83 http://archive.ubuntu.com/ubuntu jammy/main amd64 dh-elpa-helper all 2.0.9ubuntu1 [7610 B]
+Get:84 http://archive.ubuntu.com/ubuntu jammy/main amd64 emacsen-common all 3.0.4 [14.9 kB]
+Get:85 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake-data all 3.22.1-1ubuntu1.22.04.2 [1913 kB]
+Get:86 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cmake amd64 3.22.1-1ubuntu1.22.04.2 [5010 kB]
+Get:87 http://archive.ubuntu.com/ubuntu jammy/main amd64 libassuan0 amd64 2.5.5-1build1 [38.2 kB]
+Get:88 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgconf amd64 2.2.27-3ubuntu2.5 [94.3 kB]
+Get:89 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libksba8 amd64 1.6.0-2ubuntu0.2 [119 kB]
+Get:90 http://archive.ubuntu.com/ubuntu jammy/main amd64 libnpth0 amd64 1.6-3build2 [8664 B]
+Get:91 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 dirmngr amd64 2.2.27-3ubuntu2.5 [293 kB]
+Get:92 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfakeroot amd64 1.28-1ubuntu1 [31.5 kB]
+Get:93 http://archive.ubuntu.com/ubuntu jammy/main amd64 fakeroot amd64 1.28-1ubuntu1 [60.4 kB]
+Get:94 http://archive.ubuntu.com/ubuntu jammy/main amd64 fonts-dejavu-core all 2.37-2build1 [1041 kB]
+Get:95 http://archive.ubuntu.com/ubuntu jammy/main amd64 fontconfig-config all 2.13.1-4.2ubuntu5 [29.1 kB]
+Get:96 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-l10n all 2.2.27-3ubuntu2.5 [54.5 kB]
+Get:97 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg-utils amd64 2.2.27-3ubuntu2.5 [309 kB]
+Get:98 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg amd64 2.2.27-3ubuntu2.5 [519 kB]
+Get:99 http://archive.ubuntu.com/ubuntu jammy/main amd64 pinentry-curses amd64 1.1.1-1build2 [34.4 kB]
+Get:100 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-agent amd64 2.2.27-3ubuntu2.5 [209 kB]
+Get:101 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-client amd64 2.2.27-3ubuntu2.5 [62.7 kB]
+Get:102 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpg-wks-server amd64 2.2.27-3ubuntu2.5 [57.6 kB]
+Get:103 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gpgsm amd64 2.2.27-3ubuntu2.5 [197 kB]
+Get:104 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gnupg all 2.2.27-3ubuntu2.5 [315 kB]
+Get:105 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-perl all 1.201-1 [41.8 kB]
+Get:106 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-diff-xs-perl amd64 0.04-6build3 [11.9 kB]
+Get:107 http://archive.ubuntu.com/ubuntu jammy/main amd64 libalgorithm-merge-perl all 0.08-3 [12.0 kB]
+Get:108 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libfreetype6 amd64 2.11.1+dfsg-1ubuntu0.3 [388 kB]
+Get:109 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfontconfig1 amd64 2.13.1-4.2ubuntu5 [131 kB]
+Get:110 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg-turbo8 amd64 2.1.2-0ubuntu1 [134 kB]
+Get:111 http://archive.ubuntu.com/ubuntu jammy/main amd64 libjpeg8 amd64 8c-2ubuntu10 [2264 B]
+Get:112 http://archive.ubuntu.com/ubuntu jammy/main amd64 libdeflate0 amd64 1.10-2 [70.9 kB]
+Get:113 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjbig0 amd64 2.1-3.1ubuntu0.22.04.1 [29.2 kB]
+Get:114 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libwebp7 amd64 1.2.2-2ubuntu0.22.04.2 [206 kB]
+Get:115 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtiff5 amd64 4.3.0-6ubuntu0.12 [185 kB]
+Get:116 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libxpm4 amd64 1:3.5.12-1ubuntu0.22.04.2 [36.7 kB]
+Get:117 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgd3 amd64 2.3.0-2ubuntu2.3 [129 kB]
+Get:118 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-devtools amd64 2.35-0ubuntu3.12 [28.9 kB]
+Get:119 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfile-fcntllock-perl amd64 0.22-3build7 [33.9 kB]
+Get:120 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.19+dfsg-0ubuntu0.22.04.1 [16.1 kB]
+Get:121 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:122 http://archive.ubuntu.com/ubuntu jammy/main amd64 manpages-dev all 5.10-1ubuntu1 [2309 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 108 MB in 29s (3692 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.12_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.35-0ubuntu3.12) over (2.35-0ubuntu3.11) ...
+Setting up libc6:amd64 (2.35-0ubuntu3.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.34.0 /usr/local/share/perl/5.34.0 /usr/lib/x86_64-linux-gnu/perl5/5.34 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.34 /usr/share/perl/5.34 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package liblocale-gettext-perl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../000-liblocale-gettext-perl_1.07-4build3_amd64.deb ...
+Unpacking liblocale-gettext-perl (1.07-4build3) ...
+Selecting previously unselected package perl-modules-5.34.
+Preparing to unpack .../001-perl-modules-5.34_5.34.0-3ubuntu1.5_all.deb ...
+Unpacking perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package libgdbm6:amd64.
+Preparing to unpack .../002-libgdbm6_1.23-1_amd64.deb ...
+Unpacking libgdbm6:amd64 (1.23-1) ...
+Selecting previously unselected package libgdbm-compat4:amd64.
+Preparing to unpack .../003-libgdbm-compat4_1.23-1_amd64.deb ...
+Unpacking libgdbm-compat4:amd64 (1.23-1) ...
+Selecting previously unselected package libperl5.34:amd64.
+Preparing to unpack .../004-libperl5.34_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../005-perl_5.34.0-3ubuntu1.5_amd64.deb ...
+Unpacking perl (5.34.0-3ubuntu1.5) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../006-openssl_3.0.2-0ubuntu1.20_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.20) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../007-ca-certificates_20240203~22.04.1_all.deb ...
+Unpacking ca-certificates (20240203~22.04.1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../008-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../009-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../010-libexpat1_2.4.7-1ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Selecting previously unselected package libicu70:amd64.
+Preparing to unpack .../011-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../012-readline-common_8.1.2-1_all.deb ...
+Unpacking readline-common (8.1.2-1) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../013-libreadline8_8.1.2-1_amd64.deb ...
+Unpacking libreadline8:amd64 (8.1.2-1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../014-libsqlite3-0_3.37.2-2ubuntu0.5_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../015-libxml2_2.9.13+dfsg-1ubuntu0.11_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../016-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../017-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../018-libnghttp2-14_1.43.0-1ubuntu0.2_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Selecting previously unselected package libpng16-16:amd64.
+Preparing to unpack .../019-libpng16-16_1.6.37-3ubuntu0.3_amd64.deb ...
+Unpacking libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../020-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package libuv1:amd64.
+Preparing to unpack .../021-libuv1_1.43.0-1ubuntu0.1_amd64.deb ...
+Unpacking libuv1:amd64 (1.43.0-1ubuntu0.1)
+
+[... truncated ...]
+
+ypt-dev_1%3a4.4.27-1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.27-1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../039-rpcsvc-proto_1.4.2-0ubuntu6_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu6) ...
+Selecting previously unselected package libtirpc-dev:amd64.
+Preparing to unpack .../040-libtirpc-dev_1.3.2-2ubuntu0.1_amd64.deb ...
+Unpacking libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Selecting previously unselected package libnsl-dev:amd64.
+Preparing to unpack .../041-libnsl-dev_1.3.0-2build2_amd64.deb ...
+Unpacking libnsl-dev:amd64 (1.3.0-2build2) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../042-libc6-dev_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Selecting previously unselected package gcc-11-base:amd64.
+Preparing to unpack .../043-gcc-11-base_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../044-libisl23_0.24-2build1_amd64.deb ...
+Unpacking libisl23:amd64 (0.24-2build1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../045-libmpfr6_4.1.0-3build3_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.1.0-3build3) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../046-libmpc3_1.2.1-2build1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.2.1-2build1) ...
+Selecting previously unselected package cpp-11.
+Preparing to unpack .../047-cpp-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../048-cpp_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../049-libcc1-0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../050-libgomp1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../051-libitm1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../052-libatomic1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libasan6:amd64.
+Preparing to unpack .../053-libasan6_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../054-liblsan0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../055-libtsan0_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../056-libubsan1_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../057-libquadmath0_12.3.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package libgcc-11-dev:amd64.
+Preparing to unpack .../058-libgcc-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc-11.
+Preparing to unpack .../059-gcc-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../060-gcc_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package libstdc++-11-dev:amd64.
+Preparing to unpack .../061-libstdc++-11-dev_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++-11.
+Preparing to unpack .../062-g++-11_11.4.0-1ubuntu1~22.04.2_amd64.deb ...
+Unpacking g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../063-g++_4%3a11.2.0-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:11.2.0-1ubuntu1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../064-make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../065-libdpkg-perl_1.21.1ubuntu2.6_all.deb ...
+Unpacking libdpkg-perl (1.21.1ubuntu2.6) ...
+Selecting previously unselected package bzip2.
+Preparing to unpack .../066-bzip2_1.0.8-5build1_amd64.deb ...
+Unpacking bzip2 (1.0.8-5build1) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../067-patch_2.7.6-7build2_amd64.deb ...
+Unpacking patch (2.7.6-7build2) ...
+Selecting previously unselected package lto-disabled-list.
+Preparing to unpack .../068-lto-disabled-list_24_all.deb ...
+Unpacking lto-disabled-list (24) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../069-dpkg-dev_1.21.1ubuntu2.6_all.deb ...
+Unpacking dpkg-dev (1.21.1ubuntu2.6) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../070-build-essential_12.9ubuntu3_amd64.deb ...
+Unpacking build-essential (12.9ubuntu3) ...
+Selecting previously unselected package libarchive13:amd64.
+Preparing to unpack .../071-libarchive13_3.6.0-1ubuntu1.5_amd64.deb ...
+Unpacking libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../072-libbrotli1_1.0.9-2build6_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.0.9-2build6) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../073-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../074-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../075-libldap-2.5-0_2.5.19+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../076-librtmp1_2.4+20151223.gitfa8646d.1-2build4_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../077-libssh-4_0.9.6-2ubuntu0.22.04.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../078-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package libjsoncpp25:amd64.
+Preparing to unpack .../079-libjsoncpp25_1.9.5-3_amd64.deb ...
+Unpacking libjsoncpp25:amd64 (1.9.5-3) ...
+Selecting previously unselected package librhash0:amd64.
+Preparing to unpack .../080-librhash0_1.4.2-1ubuntu1_amd64.deb ...
+Unpacking librhash0:amd64 (1.4.2-1ubuntu1) ...
+Selecting previously unselected package dh-elpa-helper.
+Preparing to unpack .../081-dh-elpa-helper_2.0.9ubuntu1_all.deb ...
+Unpacking dh-elpa-helper (2.0.9ubuntu1) ...
+Selecting previously unselected package emacsen-common.
+Preparing to unpack .../082-emacsen-common_3.0.4_all.deb ...
+Unpacking emacsen-common (3.0.4) ...
+Selecting previously unselected package cmake-data.
+Preparing to unpack .../083-cmake-data_3.22.1-1ubuntu1.22.04.2_all.deb ...
+Unpacking cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../084-cmake_3.22.1-1ubuntu1.22.04.2_amd64.deb ...
+Unpacking cmake (3.22.1-1ubuntu1.22.04.2) ...
+Selecting previously unselected package libassuan0:amd64.
+Preparing to unpack .../085-libassuan0_2.5.5-1build1_amd64.deb ...
+Unpacking libassuan0:amd64 (2.5.5-1build1) ...
+Selecting previously unselected package gpgconf.
+Preparing to unpack .../086-gpgconf_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgconf (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libksba8:amd64.
+Preparing to unpack .../087-libksba8_1.6.0-2ubuntu0.2_amd64.deb ...
+Unpacking libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Selecting previously unselected package libnpth0:amd64.
+Preparing to unpack .../088-libnpth0_1.6-3build2_amd64.deb ...
+Unpacking libnpth0:amd64 (1.6-3build2) ...
+Selecting previously unselected package dirmngr.
+Preparing to unpack .../089-dirmngr_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking dirmngr (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libfakeroot:amd64.
+Preparing to unpack .../090-libfakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.28-1ubuntu1) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../091-fakeroot_1.28-1ubuntu1_amd64.deb ...
+Unpacking fakeroot (1.28-1ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../092-fonts-dejavu-core_2.37-2build1_all.deb ...
+Unpacking fonts-dejavu-core (2.37-2build1) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../093-fontconfig-config_2.13.1-4.2ubuntu5_all.deb ...
+Unpacking fontconfig-config (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package gnupg-l10n.
+Preparing to unpack .../094-gnupg-l10n_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg-utils.
+Preparing to unpack .../095-gnupg-utils_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gnupg-utils (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg.
+Preparing to unpack .../096-gpg_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package pinentry-curses.
+Preparing to unpack .../097-pinentry-curses_1.1.1-1build2_amd64.deb ...
+Unpacking pinentry-curses (1.1.1-1build2) ...
+Selecting previously unselected package gpg-agent.
+Preparing to unpack .../098-gpg-agent_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-agent (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-client.
+Preparing to unpack .../099-gpg-wks-client_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpg-wks-server.
+Preparing to unpack .../100-gpg-wks-server_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gpgsm.
+Preparing to unpack .../101-gpgsm_2.2.27-3ubuntu2.5_amd64.deb ...
+Unpacking gpgsm (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package gnupg.
+Preparing to unpack .../102-gnupg_2.2.27-3ubuntu2.5_all.deb ...
+Unpacking gnupg (2.2.27-3ubuntu2.5) ...
+Selecting previously unselected package libalgorithm-diff-perl.
+Preparing to unpack .../103-libalgorithm-diff-perl_1.201-1_all.deb ...
+Unpacking libalgorithm-diff-perl (1.201-1) ...
+Selecting previously unselected package libalgorithm-diff-xs-perl.
+Preparing to unpack .../104-libalgorithm-diff-xs-perl_0.04-6build3_amd64.deb ...
+Unpacking libalgorithm-diff-xs-perl (0.04-6build3) ...
+Selecting previously unselected package libalgorithm-merge-perl.
+Preparing to unpack .../105-libalgorithm-merge-perl_0.08-3_all.deb ...
+Unpacking libalgorithm-merge-perl (0.08-3) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../106-libfreetype6_2.11.1+dfsg-1ubuntu0.3_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../107-libfontconfig1_2.13.1-4.2ubuntu5_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../108-libjpeg-turbo8_2.1.2-0ubuntu1_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../109-libjpeg8_8c-2ubuntu10_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu10) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../110-libdeflate0_1.10-2_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.10-2) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../111-libjbig0_2.1-3.1ubuntu0.22.04.1_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../112-libwebp7_1.2.2-2ubuntu0.22.04.2_amd64.deb ...
+Unpacking libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Selecting previously unselected package libtiff5:amd64.
+Preparing to unpack .../113-libtiff5_4.3.0-6ubuntu0.12_amd64.deb ...
+Unpacking libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../114-libxpm4_1%3a3.5.12-1ubuntu0.22.04.2_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../115-libgd3_2.3.0-2ubuntu2.3_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../116-libc-devtools_2.35-0ubuntu3.12_amd64.deb ...
+Unpacking libc-devtools (2.35-0ubuntu3.12) ...
+Selecting previously unselected package libfile-fcntllock-perl.
+Preparing to unpack .../117-libfile-fcntllock-perl_0.22-3build7_amd64.deb ...
+Unpacking libfile-fcntllock-perl (0.22-3build7) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../118-libldap-common_2.5.19+dfsg-0ubuntu0.22.04.1_all.deb ...
+Unpacking libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../119-libsasl2-modules_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../120-manpages-dev_5.10-1ubuntu1_all.deb ...
+Unpacking manpages-dev (5.10-1ubuntu1) ...
+Setting up libksba8:amd64 (1.6.0-2ubuntu0.2) ...
+Setting up libexpat1:amd64 (2.4.7-1ubuntu0.6) ...
+Setting up gcc-11-base:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libxau6:amd64 (1:1.0.9-1build5) ...
+Setting up lto-disabled-list (24) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up manpages (5.10-1ubuntu1) ...
+Setting up libbrotli1:amd64 (1.0.9-2build6) ...
+Setting up libsqlite3-0:amd64 (3.37.2-2ubuntu0.5) ...
+Setting up libsasl2-modules:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up binutils-common:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnghttp2-14:amd64 (1.43.0-1ubuntu0.2) ...
+Setting up libdeflate0:amd64 (1.10-2) ...
+Setting up linux-libc-dev:amd64 (5.15.0-164.174) ...
+Setting up libctf-nobfd0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libnpth0:amd64 (1.6-3build2) ...
+Setting up libassuan0:amd64 (2.5.5-1build1) ...
+Setting up libgomp1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up perl-modules-5.34 (5.34.0-3ubuntu1.5) ...
+Setting up bzip2 (1.0.8-5build1) ...
+Setting up libldap-common (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up libjbig0:amd64 (2.1-3.1ubuntu0.22.04.1) ...
+Setting up libfakeroot:amd64 (1.28-1ubuntu1) ...
+Setting up libasan6:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up fakeroot (1.28-1ubuntu1) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/fakeroot.1.gz because associated file /usr/share/man/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/faked.1.gz because associated file /usr/share/man/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/fakeroot.1.gz because associated file /usr/share/man/es/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/es/man1/faked.1.gz because associated file /usr/share/man/es/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/fakeroot.1.gz because associated file /usr/share/man/fr/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/faked.1.gz because associated file /usr/share/man/fr/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/fakeroot.1.gz because associated file /usr/share/man/sv/man1/fakeroot-sysv.1.gz (of link group fakeroot) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/sv/man1/faked.1.gz because associated file /usr/share/man/sv/man1/faked-sysv.1.gz (of link group fakeroot) doesn't exist
+Setting up libtirpc-dev:amd64 (1.3.2-2ubuntu0.1) ...
+Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu6) ...
+Setting up emacsen-common (3.0.4) ...
+Setting up libx11-data (2:1.7.5-1ubuntu0.3) ...
+Setting up make (4.3-4.1build1) ...
+Setting up libmpfr6:amd64 (4.1.0-3build3) ...
+Setting up gnupg-l10n (2.2.27-3ubuntu2.5) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build4) ...
+Setting up dh-elpa-helper (2.0.9ubuntu1) ...
+Setting up xz-utils (5.2.5-2ubuntu1) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+Setting up libquadmath0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libpng16-16:amd64 (1.6.37-3ubuntu0.3) ...
+Setting up libmpc3:amd64 (1.2.1-2build1) ...
+Setting up libatomic1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up patch (2.7.6-7build2) ...
+Setting up libjsoncpp25:amd64 (1.9.5-3) ...
+Setting up fonts-dejavu-core (2.37-2build1) ...
+Setting up ucf (3.0043) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libjpeg-turbo8:amd64 (2.1.2-0ubuntu1) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libssh-4:amd64 (0.9.6-2ubuntu0.22.04.5) ...
+Setting up libwebp7:amd64 (1.2.2-2ubuntu0.22.04.2) ...
+Setting up libubsan1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up libnsl-dev:amd64 (1.3.0-2build2) ...
+Setting up librhash0:amd64 (1.4.2-1ubuntu1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.27-1) ...
+Setting up netbase (6.3) ...
+Setting up cmake-data (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libbinutils:amd64 (2.38-4ubuntu2.12) ...
+Setting up libisl23:amd64 (0.24-2build1) ...
+Setting up libc-dev-bin (2.35-0ubuntu3.12) ...
+Setting up openssl (3.0.2-0ubuntu1.20) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up readline-common (8.1.2-1) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up libcc1-0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up liblocale-gettext-perl (1.07-4build3) ...
+Setting up liblsan0:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libitm1:amd64 (12.3.0-1ubuntu1~22.04.2) ...
+Setting up libgdbm6:amd64 (1.23-1) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up libtsan0:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libctf0:amd64 (2.38-4ubuntu2.12) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu10) ...
+Setting up pinentry-curses (1.1.1-1build2) ...
+Setting up cpp-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up manpages-dev (5.10-1ubuntu1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu5) ...
+Setting up libxcb1:amd64 (1.14-3ubuntu3) ...
+Setting up fontconfig-config (2.13.1-4.2ubuntu5) ...
+Setting up libreadline8:amd64 (8.1.2-1) ...
+Setting up libldap-2.5-0:amd64 (2.5.19+dfsg-0ubuntu0.22.04.1) ...
+Setting up ca-certificates (20240203~22.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+146 added, 0 removed; done.
+Setting up libfreetype6:amd64 (2.11.1+dfsg-1ubuntu0.3) ...
+Setting up libgdbm-compat4:amd64 (1.23-1) ...
+Setting up libgcc-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cpp (4:11.2.0-1ubuntu1) ...
+Setting up gpgconf (2.2.27-3ubuntu2.5) ...
+Setting up libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up libc6-dev:amd64 (2.35-0ubuntu3.12) ...
+Setting up libx11-6:amd64 (2:1.7.5-1ubuntu0.3) ...
+Setting up libtiff5:amd64 (4.3.0-6ubuntu0.12) ...
+Setting up libfontconfig1:amd64 (2.13.1-4.2ubuntu5) ...
+Setting up libxml2:amd64 (2.9.13+dfsg-1ubuntu0.11) ...
+Setting up gpg (2.2.27-3ubuntu2.5) ...
+Setting up gnupg-utils (2.2.27-3ubuntu2.5) ...
+Setting up binutils-x86-64-linux-gnu (2.38-4ubuntu2.12) ...
+Setting up libperl5.34:amd64 (5.34.0-3ubuntu1.5) ...
+Setting up gpg-agent (2.2.27-3ubuntu2.5) ...
+Setting up libxpm4:amd64 (1:3.5.12-1ubuntu0.22.04.2) ...
+Setting up libarchive13:amd64 (3.6.0-1ubuntu1.5) ...
+Setting up gpgsm (2.2.27-3ubuntu2.5) ...
+Setting up binutils (2.38-4ubuntu2.12) ...
+Setting up dirmngr (2.2.27-3ubuntu2.5) ...
+Setting up perl (5.34.0-3ubuntu1.5) ...
+Setting up libgd3:amd64 (2.3.0-2ubuntu2.3) ...
+Setting up libdpkg-perl (1.21.1ubuntu2.6) ...
+Setting up libstdc++-11-dev:amd64 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up gpg-wks-server (2.2.27-3ubuntu2.5) ...
+Setting up gcc-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+Setting up libc-devtools (2.35-0ubuntu3.12) ...
+Setting up gpg-wks-client (2.2.27-3ubuntu2.5) ...
+Setting up g++-11 (11.4.0-1ubuntu1~22.04.2) ...
+Setting up libfile-fcntllock-perl (0.22-3build7) ...
+Setting up libalgorithm-diff-perl (1.201-1) ...
+Setting up gcc (4:11.2.0-1ubuntu1) ...
+Setting up dpkg-dev (1.21.1ubuntu2.6) ...
+Setting up g++ (4:11.2.0-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+Setting up gnupg (2.2.27-3ubuntu2.5) ...
+Setting up build-essential (12.9ubuntu3) ...
+Setting up libalgorithm-diff-xs-perl (0.04-6build3) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+Processing triggers for ca-certificates (20240203~22.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+----------------------------------------
+
+[Command 5]
+$ cmake .
+Exit Code: 1
+Output:
+-- CMake version 3.22.1
+-- xgboost VERSION: 3.2.0
+CMake Warning (dev) at /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake:84 (message):
+  Policy CMP0127 is not set: cmake_dependent_option() supports full Condition
+  Syntax.  Run "cmake --help-policy CMP0127" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+Call Stack (most recent call first):
+  CMakeLists.txt:95 (cmake_dependent_option)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Error at CMakeLists.txt:295 (add_subdirectory):
+  The source directory
+
+    /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core
+
+  does not contain a CMakeLists.txt file.
+
+
+CMake Error at cmake/Utils.cmake:185 (set_target_properties):
+  set_target_properties Can not find target to add properties to: dmlc
+Call Stack (most recent call first):
+  CMakeLists.txt:392 (xgboost_target_properties)
+
+
+CMake Error at cmake/Utils.cmake:271 (target_link_libraries):
+  Cannot specify link libraries for target "dmlc" which is not built by this
+  project.
+Call Stack (most recent call first):
+  CMakeLists.txt:393 (xgboost_target_link_libraries)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/CMakeFiles/CMakeOutput.log".
+----------------------------------------
+
+[Command 6]
+$ ls -la dmlc-core
+Exit Code: 0
+Output:
+total 8
+drwxrwxr-x  2 1002 1002 4096 Jan 22 15:49 .
+drwxrwxr-x 20 1002 1002 4096 Jan 23 06:03 ..
+----------------------------------------
+
+[Command 7]
+$ git submodule update --init --recursive
+Exit Code: 127
+Output:
+/bin/bash: line 25: git: command not found
+----------------------------------------
+
+[Command 8]
+$ apt-get install -y git
+Exit Code: 0
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl libfido2-1
+  libxext6 libxmuu1 openssh-client xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui
+  gitk gitweb git-cvs git-mediawiki git-svn keychain libpam-ssh monkeysphere
+  ssh-askpass
+The following NEW packages will be installed:
+  git git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl
+  libfido2-1 libxext6 libxmuu1 openssh-client xauth
+0 upgraded, 12 newly installed, 0 to remove and 2 not upgraded.
+Need to get 5750 kB of archives.
+After this operation, 26.1 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 less amd64 590-1ubuntu0.22.04.3 [142 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcbor0.8 amd64 0.8.0-2ubuntu1 [24.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libedit2 amd64 3.1-20210910-1build1 [96.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libfido2-1 amd64 1.10.0-1 [82.8 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxext6 amd64 2:1.3.4-1build1 [31.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libxmuu1 amd64 2:1.1.3-3 [10.2 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssh-client amd64 1:8.9p1-3ubuntu0.13 [903 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 xauth amd64 1:1.1-1build2 [27.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl3-gnutls amd64 7.81.0-1ubuntu1.21 [284 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 liberror-perl all 0.17029-1 [26.5 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git-man all 1:2.34.1-1ubuntu1.15 [955 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 git amd64 1:2.34.1-1ubuntu1.15 [3166 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 5750 kB in 4s (1316 kB/s)
+Selecting previously unselected package less.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 17137 files and directories currently installed.)
+Preparing to unpack .../00-less_590-1ubuntu0.22.04.3_amd64.deb ...
+Unpacking less (590-1ubuntu0.22.04.3) ...
+Selecting previously unselected package libcbor0.8:amd64.
+Preparing to unpack .../01-libcbor0.8_0.8.0-2ubuntu1_amd64.deb ...
+Unpacking libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../02-libedit2_3.1-20210910-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20210910-1build1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../03-libfido2-1_1.10.0-1_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.10.0-1) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../04-libxext6_2%3a1.3.4-1build1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1build1) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../05-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../06-openssh-client_1%3a8.9p1-3ubuntu0.13_amd64.deb ...
+Unpacking openssh-client (1:8.9p1-3ubuntu0.13) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../07-xauth_1%3a1.1-1build2_amd64.deb ...
+Unpacking xauth (1:1.1-1build2) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../08-libcurl3-gnutls_7.81.0-1ubuntu1.21_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../09-liberror-perl_0.17029-1_all.deb ...
+Unpacking liberror-perl (0.17029-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../10-git-man_1%3a2.34.1-1ubuntu1.15_all.deb ...
+Unpacking git-man (1:2.34.1-1ubuntu1.15) ...
+Selecting previously unselected package git.
+Preparing to unpack .../11-git_1%3a2.34.1-1ubuntu1.15_amd64.deb ...
+Unpacking git (1:2.34.1-1ubuntu1.15) ...
+Setting up libcbor0.8:amd64 (0.8.0-2ubuntu1) ...
+Setting up libedit2:amd64 (3.1-20210910-1build1) ...
+Setting up less (590-1ubuntu0.22.04.3) ...
+Setting up libxext6:amd64 (2:1.3.4-1build1) ...
+Setting up libcurl3-gnutls:amd64 (7.81.0-1ubuntu1.21) ...
+Setting up liberror-perl (0.17029-1) ...
+Setting up git-man (1:2.34.1-1ubuntu1.15) ...
+Setting up libfido2-1:amd64 (1.10.0-1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up openssh-client (1:8.9p1-3ubuntu0.13) ...
+update-alternatives: using /usr/bin/ssh to provide /usr/bin/rsh (rsh) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rsh.1.gz because associated file /usr/share/man/man1/ssh.1.gz (of link group rsh) doesn't exist
+update-alternatives: using /usr/bin/slogin to provide /usr/bin/rlogin (rlogin) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rlogin.1.gz because associated file /usr/share/man/man1/slogin.1.gz (of link group rlogin) doesn't exist
+update-alternatives: using /usr/bin/scp to provide /usr/bin/rcp (rcp) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/rcp.1.gz because associated file /usr/share/man/man1/scp.1.gz (of link group rcp) doesn't exist
+Setting up git (1:2.34.1-1ubuntu1.15) ...
+Setting up xauth (1:1.1-1build2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.11) ...
+----------------------------------------
+
+[Command 9]
+$ git submodule update --init --recursive
+Exit Code: 128
+Output:
+fatal: detected dubious ownership in repository at '/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4
+----------------------------------------
+
+[Command 10]
+$ git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 11]
+$ git submodule update --init --recursive
+Exit Code: 1
+Output:
+Submodule 'dmlc-core' (https://github.com/dmlc/dmlc-core) registered for path 'dmlc-core'
+Submodule 'gputreeshap' (https://github.com/rapidsai/gputreeshap.git) registered for path 'gputreeshap'
+Cloning into '/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core'...
+Cloning into '/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/gputreeshap'...
+Submodule path 'dmlc-core': checked out '8986b0598df709117570984571476c3614f55724'
+fatal: detected dubious ownership in repository at '/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core
+Submodule path 'gputreeshap': checked out '40eae8c4c45974705f8053e4d3d05b88e3cfaefd'
+fatal: detected dubious ownership in repository at '/workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/gputreeshap'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/gputreeshap
+fatal: Failed to recurse into submodule path 'dmlc-core'
+fatal: Failed to recurse into submodule path 'gputreeshap'
+----------------------------------------
+
+[Command 12]
+$ git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 13]
+$ git config --global --add safe.directory /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/gputreeshap
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 14]
+$ git submodule update --init --recursive
+Exit Code: 0
+Output:
+
+----------------------------------------
+
+[Command 15]
+$ cmake .
+Exit Code: 0
+Output:
+-- CMake version 3.22.1
+-- xgboost VERSION: 3.2.0
+CMake Warning (dev) at /usr/share/cmake-3.22/Modules/CMakeDependentOption.cmake:84 (message):
+  Policy CMP0127 is not set: cmake_dependent_option() supports full Condition
+  Syntax.  Run "cmake --help-policy CMP0127" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+Call Stack (most recent call first):
+  CMakeLists.txt:95 (cmake_dependent_option)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found OpenMP_C: -fopenmp (found version "4.5") 
+-- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+-- Looking for clock_gettime in rt
+-- Looking for clock_gettime in rt - found
+-- Looking for fopen64
+-- Looking for fopen64 - not found
+-- Looking for C++ include cxxabi.h
+-- Looking for C++ include cxxabi.h - found
+-- Looking for nanosleep
+-- Looking for nanosleep - found
+-- Looking for backtrace
+-- Looking for backtrace - found
+-- backtrace facility detected in default set of libraries
+-- Found Backtrace: /usr/include  
+-- /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4/dmlc-core/cmake/build_config.h.in -> include/dmlc/build_config.h
+-- Performing Test SUPPORT_MSSE2
+-- Performing Test SUPPORT_MSSE2 - Success
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/dmlc__xgboost@278c3443601b95ea9465f935517bcf4c101951e4
+----------------------------------------
+
+[Command 16]
+$ make -j$(nproc)
+Exit Code: 0
+Output:
+[  1%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/recordio.cc.o
+[  2%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/recordio_split.cc.o
+[  2%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/config.cc.o
+[  3%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/data.cc.o
+[  5%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/filesys.cc.o
+[  5%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/local_filesys.cc.o
+[  6%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io.cc.o
+[  7%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/line_split.cc.o
+[  8%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/indexed_recordio_split.cc.o
+[  8%] Building CXX object dmlc-core/CMakeFiles/dmlc.dir/src/io/input_split_base.cc.o
+[  9%] Linking CXX static library libdmlc.a
+[  9%] Built target dmlc
+[ 10%] Building CXX object src/CMakeFiles/objxgboost.dir/c_api/c_api.cc.o
+[ 10%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/in_memory_handler.cc.o
+[ 11%] Building CXX object src/CMakeFiles/objxgboost.dir/c_api/coll_c_api.cc.o
+[ 12%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/allgather.cc.o
+[ 12%] Building CXX object src/CMakeFiles/objxgboost.dir/c_api/c_api_error.cc.o
+[ 14%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/comm_group.cc.o
+[ 14%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/allreduce.cc.o
+[ 16%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/socket.cc.o
+[ 16%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/nccl_stub.cc.o
+[ 17%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/broadcast.cc.o
+[ 18%] Building CXX object src/CMakeFiles/objxgboost.dir/common/column_matrix.cc.o
+[ 18%] Building CXX object src/CMakeFiles/objxgboost.dir/common/charconv.cc.o
+[ 19%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/coll.cc.o
+[ 29%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/loop.cc.o
+[ 22%] Building CXX object src/CMakeFiles/objxgboost.dir/common/common.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/ranking_utils.cc.o
+[ 36%] Building CXX object src/CMakeFiles/objxgboost.dir/common/numa_topo.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/comm.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/host_device_vector.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/json.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/tracker.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/cuda_dr_utils.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/cuda_rt_utils.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/param_array.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/cache_manager.cc.o
+[ 38%] Building CXX object src/CMakeFiles/objxgboost.dir/common/hist_util.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/error_msg.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/collective/result.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/io.cc.o
+[ 38%] Building CXX object src/CMakeFiles/objxgboost.dir/common/numeric.cc.o
+[ 38%] Building CXX object src/CMakeFiles/objxgboost.dir/common/linalg_op.cc.o
+[ 32%] Building CXX object src/CMakeFiles/objxgboost.dir/common/optional_weight.cc.o
+[ 38%] Building CXX object src/CMakeFiles/objxgboost.dir/common/quantile.cc.o
+[ 38%] Building CXX object src/CMakeFiles/objxgboost.dir/common/pseudo_huber.cc.o
+[ 39%] Building CXX object src/CMakeFiles/objxgboost.dir/common/stats.cc.o
+[ 39%] Building CXX object src/CMakeFiles/objxgboost.dir/common/survival_util.cc.o
+[ 40%] Building CXX object src/CMakeFiles/objxgboost.dir/common/quantile_loss_utils.cc.o
+[ 41%] Building CXX object src/CMakeFiles/objxgboost.dir/data/array_interface.cc.o
+[ 42%] Building CXX object src/CMakeFiles/objxgboost.dir/common/random.cc.o
+[ 43%] Building CXX object src/CMakeFiles/objxgboost.dir/common/threading_utils.cc.o
+[ 44%] Building CXX object src/CMakeFiles/objxgboost.dir/data/data.cc.o
+[ 45%] Building CXX object src/CMakeFiles/objxgboost.dir/data/extmem_quantile_dmatrix.cc.o
+[ 46%] Building CXX object src/CMakeFiles/objxgboost.dir/common/timer.cc.o
+[ 47%] Building CXX object src/CMakeFiles/objxgboost.dir/common/version.cc.o
+[ 48%] Building CXX object src/CMakeFiles/objxgboost.dir/data/adapter.cc.o
+[ 50%] Building CXX object src/CMakeFiles/objxgboost.dir/data/file_iterator.cc.o
+[ 50%] Building CXX object src/CMakeFiles/objxgboost.dir/context.cc.o
+[ 51%] Building CXX object src/CMakeFiles/objxgboost.dir/data/iterative_dmatrix.cc.o
+[ 51%] Building CXX object src/CMakeFiles/objxgboost.dir/data/batch_utils.cc.o
+[ 52%] Building CXX object src/CMakeFiles/objxgboost.dir/data/cat_container.cc.o
+[ 53%] Building CXX object src/CMakeFiles/objxgboost.dir/data/ellpack_page.cc.o
+[ 53%] Building CXX object src/CMakeFiles/objxgboost.dir/data/gradient_index.cc.o
+[ 55%] Building CXX object src/CMakeFiles/objxgboost.dir/data/gradient_index_page_source.cc.o
+[ 55%] Building CXX object src/CMakeFiles/objxgboost.dir/data/gradient_index_format.cc.o
+[ 56%] Building CXX object src/CMakeFiles/objxgboost.dir/data/proxy_dmatrix.cc.o
+[ 57%] Building CXX object src/CMakeFiles/objxgboost.dir/data/quantile_dmatrix.cc.o
+[ 58%] Building CXX object src/CMakeFiles/objxgboost.dir/data/simple_dmatrix.cc.o
+[ 59%] Building CXX object src/CMakeFiles/objxgboost.dir/data/sparse_page_source.cc.o
+[ 59%] Building CXX object src/CMakeFiles/objxgboost.dir/data/sparse_page_dmatrix.cc.o
+[ 60%] Building CXX object src/CMakeFiles/objxgboost.dir/data/validation.cc.o
+[ 61%] Building CXX object src/CMakeFiles/objxgboost.dir/gbm/gblinear.cc.o
+[ 62%] Building CXX object src/CMakeFiles/objxgboost.dir/gbm/gblinear_model.cc.o
+[ 65%] Building CXX object src/CMakeFiles/objxgboost.dir/data/sparse_page_raw_format.cc.o
+[ 65%] Building CXX object src/CMakeFiles/objxgboost.dir/global_config.cc.o
+[ 65%] Building CXX object src/CMakeFiles/objxgboost.dir/gbm/gbtree_model.cc.o
+[ 67%] Building CXX object src/CMakeFiles/objxgboost.dir/linear/linear_updater.cc.o
+[ 67%] Building CXX object src/CMakeFiles/objxgboost.dir/learner.cc.o
+[ 68%] Building CXX object src/CMakeFiles/objxgboost.dir/linear/updater_coordinate.cc.o
+[ 69%] Building CXX object src/CMakeFiles/objxgboost.dir/linear/updater_shotgun.cc.o
+[ 69%] Building CXX object src/CMakeFiles/objxgboost.dir/gbm/gbtree.cc.o
+[ 71%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/elementwise_metric.cc.o
+[ 71%] Building CXX object src/CMakeFiles/objxgboost.dir/gbm/gbm.cc.o
+[ 71%] Building CXX object src/CMakeFiles/objxgboost.dir/logging.cc.o
+[ 73%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/rank_metric.cc.o
+[ 73%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/aft_obj.cc.o
+[ 74%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/auc.cc.o
+[ 75%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/init_estimation.cc.o
+[ 76%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/metric.cc.o
+[ 77%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/hinge.cc.o
+[ 78%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/multiclass_metric.cc.o
+[ 79%] Building CXX object src/CMakeFiles/objxgboost.dir/metric/survival_metric.cc.o
+[ 80%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/lambdarank_obj.cc.o
+[ 80%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/adaptive.cc.o
+[ 80%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/quantile_obj.cc.o
+[ 82%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/regression_obj.cc.o
+[ 83%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/multiclass_obj.cc.o
+[ 83%] Building CXX object src/CMakeFiles/objxgboost.dir/objective/objective.cc.o
+[ 84%] Building CXX object src/CMakeFiles/objxgboost.dir/predictor/predictor.cc.o
+[ 85%] Building CXX object src/CMakeFiles/objxgboost.dir/predictor/treeshap.cc.o
+[ 86%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/constraints.cc.o
+[ 87%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/hist/hist_param.cc.o
+[ 87%] Building CXX object src/CMakeFiles/objxgboost.dir/predictor/cpu_predictor.cc.o
+[ 88%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/hist/histogram.cc.o
+[ 89%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/multi_target_tree_model.cc.o
+[ 90%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/tree_model.cc.o
+[ 91%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/tree_updater.cc.o
+[ 92%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/fit_stump.cc.o
+[ 93%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_colmaker.cc.o
+[ 95%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_prune.cc.o
+[ 95%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/tree_view.cc.o
+[ 95%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_approx.cc.o
+[ 96%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_sync.cc.o
+[ 97%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_quantile_hist.cc.o
+[ 98%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/param.cc.o
+[ 99%] Building CXX object src/CMakeFiles/objxgboost.dir/tree/updater_refresh.cc.o
+[ 99%] Built target objxgboost
+[100%] Linking CXX shared library lib/libxgboost.so
+[100%] Built target xgboost
+----------------------------------------
+
+[Command 17]
+$ make test
+Exit Code: 2
+Output:
+make: *** No rule to make target 'test'.  Stop.
+----------------------------------------
+
+[Command 18]
+$ ctest
+Exit Code: 0
+Output:
+*********************************
+No test configuration file found!
+*********************************
+Usage
+
+  ctest [options]
+----------------------------------------
+
+[Command 19]
+$ ls -la tests
+Exit Code: 0
+Output:
+total 36
+drwxrwxr-x  7 1002 1002 4096 Jan 22 15:49 .
+drwxrwxr-x 21 1002 1002 4096 Jan 23 06:04 ..
+-rw-rw-r--  1 1002 1002  821 Jan 22 15:49 README.md
+drwxrwxr-x 14 1002 1002 4096 Jan 22 15:49 cpp
+-rw-rw-r--  1 1002 1002  119 Jan 22 15:49 pytest.ini
+drwxrwxr-x  2 1002 1002 4096 Jan 22 15:49 python
+drwxrwxr-x  2 1002 1002 4096 Jan 22 15:49 python-gpu
+drwxrwxr-x  2 1002 1002 4096 Jan 22 15:49 python-sycl
+drwxrwxr-x  8 1002 1002 4096 Jan 22 15:49 test_distributed
+----------------------------------------
+
+[Command 20]
+$ cd tests/cpp && make test
+Exit Code: 2
+Output:
+make: *** No rule to make target 'test'.  Stop.
+----------------------------------------
+
+[Command 21]
+$ cd tests/python && pytest
+Exit Code: 1
+Output:
+/bin/bash: line 81: cd: tests/python: No such file or directory
+----------------------------------------
+
+[Command 22]
+$ cd tests/python-gpu && pytest
+Exit Code: 1
+Output:
+/bin/bash: line 85: cd: tests/python-gpu: No such file or directory
+----------------------------------------
+
+[Command 23]
+$ cd tests/python-sycl && pytest
+Exit Code: 1
+Output:
+/bin/bash: line 89: cd: tests/python-sycl: No such file or directory
+----------------------------------------
+
+[Command 24]
+$ cd tests/test_distributed && make test
+Exit Code: 1
+Output:
+/bin/bash: line 93: cd: tests/test_distributed: No such file or directory
+----------------------------------------
+
+[Command 25]
+$ cd tests/cpp && ls -la
+Exit Code: 1
+Output:
+/bin/bash: line 97: cd: tests/cpp: No such file or directory
+----------------------------------------
+
+[Command 26]
+$ ls -la tests/cpp
+Exit Code: 2
+Output:
+ls: cannot access 'tests/cpp': No such file or directory
+----------------------------------------
+
+[Command 27]
+$ ls -la tests/python
+Exit Code: 2
+Output:
+ls: cannot access 'tests/python': No such file or directory
+----------------------------------------
+
+[Command 28]
+$ ls -la tests/python-gpu
+Exit Code: 2
+Output:
+ls: cannot access 'tests/python-gpu': No such file or directory
+----------------------------------------
+
+[Command 29]
+$ ls -la tests/python-sycl
+Exit Code: 2
+Output:
+ls: cannot access 'tests/python-sycl': No such file or directory
+----------------------------------------
+
+[Command 30]
+$ ls -la tests/test_distributed
+Exit Code: 2
+Output:
+ls: cannot access 'tests/test_distributed': No such file or directory
+----------------------------------------
+
+[Command 31]
+$ ls -la tests
+Exit Code: 2
+Output:
+ls: cannot access 'tests': No such file or directory
+----------------------------------------
+
+[Command 32]
+$ ls -la
+Exit Code: 0
+Output:
+total 256
+drwxrwxr-x 14 1002 1002  4096 Jan 22 15:49 .
+drwxrwxr-x  7 1002 1002  4096 Jan 22 15:49 ..
+-rw-rw-r--  1 1002 1002  2749 Jan 22 15:49 CMakeLists.txt
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 c_api
+-rw-rw-r--  1 1002 1002   628 Jan 22 15:49 categorical_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 collective
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 common
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 data
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 encoder
+-rw-rw-r--  1 1002 1002  2057 Jan 22 15:49 filesystem.cc
+-rw-rw-r--  1 1002 1002   730 Jan 22 15:49 filesystem.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 gbm
+-rw-rw-r--  1 1002 1002 29052 Jan 22 15:49 helpers.cc
+-rw-rw-r--  1 1002 1002   665 Jan 22 15:49 helpers.cu
+-rw-rw-r--  1 1002 1002 17974 Jan 22 15:49 helpers.h
+-rw-rw-r--  1 1002 1002  3563 Jan 22 15:49 histogram_helpers.cu
+-rw-rw-r--  1 1002 1002  2605 Jan 22 15:49 histogram_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 linear
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 metric
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 objective
+-rw-rw-r--  1 1002 1002  1623 Jan 22 15:49 objective_helpers.cc
+-rw-rw-r--  1 1002 1002  1605 Jan 22 15:49 objective_helpers.h
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:49 plugin
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 predictor
+-rw-rw-r--  1 1002 1002  3526 Jan 22 15:49 test_cache.cc
+-rw-rw-r--  1 1002 1002  4159 Jan 22 15:49 test_context.cc
+-rw-rw-r--  1 1002 1002  3042 Jan 22 15:49 test_context.cu
+-rw-rw-r--  1 1002 1002  1620 Jan 22 15:49 test_global_config.cc
+-rw-rw-r--  1 1002 1002  3697 Jan 22 15:49 test_helpers.cc
+-rw-rw-r--  1 1002 1002  2812 Jan 22 15:49 test_histogram_helpers.cu
+-rw-rw-r--  1 1002 1002 29338 Jan 22 15:49 test_learner.cc
+-rw-rw-r--  1 1002 1002  1435 Jan 22 15:49 test_learner.cu
+-rw-rw-r--  1 1002 1002  1710 Jan 22 15:49 test_logging.cc
+-rw-rw-r--  1 1002 1002   488 Jan 22 15:49 test_main.cc
+-rw-rw-r--  1 1002 1002  5597 Jan 22 15:49 test_multi_target.cc
+-rw-rw-r--  1 1002 1002 28518 Jan 22 15:49 test_serialization.cc
+-rw-rw-r--  1 1002 1002   185 Jan 22 15:49 test_serialization.h
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:49 tree
+----------------------------------------
+
+[Command 33]
+$ cd tests/cpp && ls -la
+Exit Code: 1
+Output:
+/bin/bash: line 129: cd: tests/cpp: No such file or directory
+----------------------------------------
+
+[Command 34]
+$ cd tests/test_distributed && ls -la
+Exit Code: 1
+Output:
+/bin/bash: line 133: cd: tests/test_distributed: No such file or directory
+----------------------------------------
+
+[Command 35]
+$ ls -la tests/test_distributed
+Exit Code: 2
+Output:
+ls: cannot access 'tests/test_distributed': No such file or directory
+----------------------------------------
+
+[Command 36]
+$ ls -la tests
+Exit Code: 2
+Output:
+ls: cannot access 'tests': No such file or directory
+----------------------------------------
+
+[Command 37]
+$ ls -la
+Exit Code: 0
+Output:
+total 256
+drwxrwxr-x 14 1002 1002  4096 Jan 22 15:49 .
+drwxrwxr-x  7 1002 1002  4096 Jan 22 15:49 ..
+-rw-rw-r--  1 1002 1002  2749 Jan 22 15:49 CMakeLists.txt
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 c_api
+-rw-rw-r--  1 1002 1002   628 Jan 22 15:49 categorical_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 collective
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 common
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 data
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 encoder
+-rw-rw-r--  1 1002 1002  2057 Jan 22 15:49 filesystem.cc
+-rw-rw-r--  1 1002 1002   730 Jan 22 15:49 filesystem.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 gbm
+-rw-rw-r--  1 1002 1002 29052 Jan 22 15:49 helpers.cc
+-rw-rw-r--  1 1002 1002   665 Jan 22 15:49 helpers.cu
+-rw-rw-r--  1 1002 1002 17974 Jan 22 15:49 helpers.h
+-rw-rw-r--  1 1002 1002  3563 Jan 22 15:49 histogram_helpers.cu
+-rw-rw-r--  1 1002 1002  2605 Jan 22 15:49 histogram_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 linear
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 metric
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 objective
+-rw-rw-r--  1 1002 1002  1623 Jan 22 15:49 objective_helpers.cc
+-rw-rw-r--  1 1002 1002  1605 Jan 22 15:49 objective_helpers.h
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:49 plugin
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 predictor
+-rw-rw-r--  1 1002 1002  3526 Jan 22 15:49 test_cache.cc
+-rw-rw-r--  1 1002 1002  4159 Jan 22 15:49 test_context.cc
+-rw-rw-r--  1 1002 1002  3042 Jan 22 15:49 test_context.cu
+-rw-rw-r--  1 1002 1002  1620 Jan 22 15:49 test_global_config.cc
+-rw-rw-r--  1 1002 1002  3697 Jan 22 15:49 test_helpers.cc
+-rw-rw-r--  1 1002 1002  2812 Jan 22 15:49 test_histogram_helpers.cu
+-rw-rw-r--  1 1002 1002 29338 Jan 22 15:49 test_learner.cc
+-rw-rw-r--  1 1002 1002  1435 Jan 22 15:49 test_learner.cu
+-rw-rw-r--  1 1002 1002  1710 Jan 22 15:49 test_logging.cc
+-rw-rw-r--  1 1002 1002   488 Jan 22 15:49 test_main.cc
+-rw-rw-r--  1 1002 1002  5597 Jan 22 15:49 test_multi_target.cc
+-rw-rw-r--  1 1002 1002 28518 Jan 22 15:49 test_serialization.cc
+-rw-rw-r--  1 1002 1002   185 Jan 22 15:49 test_serialization.h
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:49 tree
+----------------------------------------
+
+[Command 38]
+$ make test
+Exit Code: 2
+Output:
+make: *** No rule to make target 'test'.  Stop.
+----------------------------------------
+
+[Command 39]
+$ ctest
+Exit Code: 0
+Output:
+*********************************
+No test configuration file found!
+*********************************
+Usage
+
+  ctest [options]
+----------------------------------------
+
+[Command 40]
+$ ls -la tests/cpp
+Exit Code: 2
+Output:
+ls: cannot access 'tests/cpp': No such file or directory
+----------------------------------------
+
+[Command 41]
+$ ls -la tests/test_distributed
+Exit Code: 2
+Output:
+ls: cannot access 'tests/test_distributed': No such file or directory
+----------------------------------------
+
+[Command 42]
+$ ls -la tests
+Exit Code: 2
+Output:
+ls: cannot access 'tests': No such file or directory
+----------------------------------------
+
+[Command 43]
+$ ls -la
+Exit Code: 0
+Output:
+total 256
+drwxrwxr-x 14 1002 1002  4096 Jan 22 15:49 .
+drwxrwxr-x  7 1002 1002  4096 Jan 22 15:49 ..
+-rw-rw-r--  1 1002 1002  2749 Jan 22 15:49 CMakeLists.txt
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 c_api
+-rw-rw-r--  1 1002 1002   628 Jan 22 15:49 categorical_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 collective
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 common
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 data
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 encoder
+-rw-rw-r--  1 1002 1002  2057 Jan 22 15:49 filesystem.cc
+-rw-rw-r--  1 1002 1002   730 Jan 22 15:49 filesystem.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 gbm
+-rw-rw-r--  1 1002 1002 29052 Jan 22 15:49 helpers.cc
+-rw-rw-r--  1 1002 1002   665 Jan 22 15:49 helpers.cu
+-rw-rw-r--  1 1002 1002 17974 Jan 22 15:49 helpers.h
+-rw-rw-r--  1 1002 1002  3563 Jan 22 15:49 histogram_helpers.cu
+-rw-rw-r--  1 1002 1002  2605 Jan 22 15:49 histogram_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 linear
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 metric
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 objective
+-rw-rw-r--  1 1002 1002  1623 Jan 22 15:49 objective_helpers.cc
+-rw-rw-r--  1 1002 1002  1605 Jan 22 15:49 objective_helpers.h
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:49 plugin
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 predictor
+-rw-rw-r--  1 1002 1002  3526 Jan 22 15:49 test_cache.cc
+-rw-rw-r--  1 1002 1002  4159 Jan 22 15:49 test_context.cc
+-rw-rw-r--  1 1002 1002  3042 Jan 22 15:49 test_context.cu
+-rw-rw-r--  1 1002 1002  1620 Jan 22 15:49 test_global_config.cc
+-rw-rw-r--  1 1002 1002  3697 Jan 22 15:49 test_helpers.cc
+-rw-rw-r--  1 1002 1002  2812 Jan 22 15:49 test_histogram_helpers.cu
+-rw-rw-r--  1 1002 1002 29338 Jan 22 15:49 test_learner.cc
+-rw-rw-r--  1 1002 1002  1435 Jan 22 15:49 test_learner.cu
+-rw-rw-r--  1 1002 1002  1710 Jan 22 15:49 test_logging.cc
+-rw-rw-r--  1 1002 1002   488 Jan 22 15:49 test_main.cc
+-rw-rw-r--  1 1002 1002  5597 Jan 22 15:49 test_multi_target.cc
+-rw-rw-r--  1 1002 1002 28518 Jan 22 15:49 test_serialization.cc
+-rw-rw-r--  1 1002 1002   185 Jan 22 15:49 test_serialization.h
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:49 tree
+----------------------------------------
+
+[Command 44]
+$ make -C tests/cpp
+Exit Code: 2
+Output:
+make: *** tests/cpp: No such file or directory.  Stop.
+----------------------------------------
+
+[Command 45]
+$ make -C tests/test_distributed
+Exit Code: 2
+Output:
+make: *** tests/test_distributed: No such file or directory.  Stop.
+----------------------------------------
+
+[Command 46]
+$ ls -la tests
+Exit Code: 2
+Output:
+ls: cannot access 'tests': No such file or directory
+----------------------------------------
+
+[Command 47]
+$ ls -la
+Exit Code: 0
+Output:
+total 256
+drwxrwxr-x 14 1002 1002  4096 Jan 22 15:49 .
+drwxrwxr-x  7 1002 1002  4096 Jan 22 15:49 ..
+-rw-rw-r--  1 1002 1002  2749 Jan 22 15:49 CMakeLists.txt
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 c_api
+-rw-rw-r--  1 1002 1002   628 Jan 22 15:49 categorical_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 collective
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 common
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 data
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 encoder
+-rw-rw-r--  1 1002 1002  2057 Jan 22 15:49 filesystem.cc
+-rw-rw-r--  1 1002 1002   730 Jan 22 15:49 filesystem.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 gbm
+-rw-rw-r--  1 1002 1002 29052 Jan 22 15:49 helpers.cc
+-rw-rw-r--  1 1002 1002   665 Jan 22 15:49 helpers.cu
+-rw-rw-r--  1 1002 1002 17974 Jan 22 15:49 helpers.h
+-rw-rw-r--  1 1002 1002  3563 Jan 22 15:49 histogram_helpers.cu
+-rw-rw-r--  1 1002 1002  2605 Jan 22 15:49 histogram_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 linear
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 metric
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 objective
+-rw-rw-r--  1 1002 1002  1623 Jan 22 15:49 objective_helpers.cc
+-rw-rw-r--  1 1002 1002  1605 Jan 22 15:49 objective_helpers.h
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:49 plugin
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 predictor
+-rw-rw-r--  1 1002 1002  3526 Jan 22 15:49 test_cache.cc
+-rw-rw-r--  1 1002 1002  4159 Jan 22 15:49 test_context.cc
+-rw-rw-r--  1 1002 1002  3042 Jan 22 15:49 test_context.cu
+-rw-rw-r--  1 1002 1002  1620 Jan 22 15:49 test_global_config.cc
+-rw-rw-r--  1 1002 1002  3697 Jan 22 15:49 test_helpers.cc
+-rw-rw-r--  1 1002 1002  2812 Jan 22 15:49 test_histogram_helpers.cu
+-rw-rw-r--  1 1002 1002 29338 Jan 22 15:49 test_learner.cc
+-rw-rw-r--  1 1002 1002  1435 Jan 22 15:49 test_learner.cu
+-rw-rw-r--  1 1002 1002  1710 Jan 22 15:49 test_logging.cc
+-rw-rw-r--  1 1002 1002   488 Jan 22 15:49 test_main.cc
+-rw-rw-r--  1 1002 1002  5597 Jan 22 15:49 test_multi_target.cc
+-rw-rw-r--  1 1002 1002 28518 Jan 22 15:49 test_serialization.cc
+-rw-rw-r--  1 1002 1002   185 Jan 22 15:49 test_serialization.h
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:49 tree
+----------------------------------------
+
+[Command 48]
+$ make -C tests/cpp
+Exit Code: 2
+Output:
+make: *** tests/cpp: No such file or directory.  Stop.
+----------------------------------------
+
+[Command 49]
+$ make -C tests/test_distributed
+Exit Code: 2
+Output:
+make: *** tests/test_distributed: No such file or directory.  Stop.
+----------------------------------------
+
+[Command 50]
+$ ls -la tests
+Exit Code: 2
+Output:
+ls: cannot access 'tests': No such file or directory
+----------------------------------------
+
+[Command 51]
+$ ls -la
+Exit Code: 0
+Output:
+total 256
+drwxrwxr-x 14 1002 1002  4096 Jan 22 15:49 .
+drwxrwxr-x  7 1002 1002  4096 Jan 22 15:49 ..
+-rw-rw-r--  1 1002 1002  2749 Jan 22 15:49 CMakeLists.txt
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 c_api
+-rw-rw-r--  1 1002 1002   628 Jan 22 15:49 categorical_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 collective
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 common
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 data
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 encoder
+-rw-rw-r--  1 1002 1002  2057 Jan 22 15:49 filesystem.cc
+-rw-rw-r--  1 1002 1002   730 Jan 22 15:49 filesystem.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 gbm
+-rw-rw-r--  1 1002 1002 29052 Jan 22 15:49 helpers.cc
+-rw-rw-r--  1 1002 1002   665 Jan 22 15:49 helpers.cu
+-rw-rw-r--  1 1002 1002 17974 Jan 22 15:49 helpers.h
+-rw-rw-r--  1 1002 1002  3563 Jan 22 15:49 histogram_helpers.cu
+-rw-rw-r--  1 1002 1002  2605 Jan 22 15:49 histogram_helpers.h
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 linear
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 metric
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 objective
+-rw-rw-r--  1 1002 1002  1623 Jan 22 15:49 objective_helpers.cc
+-rw-rw-r--  1 1002 1002  1605 Jan 22 15:49 objective_helpers.h
+drwxrwxr-x  3 1002 1002  4096 Jan 22 15:49 plugin
+drwxrwxr-x  2 1002 1002  4096 Jan 22 15:49 predictor
+-rw-rw-r--  1 1002 1002  3526 Jan 22 15:49 test_cache.cc
+-rw-rw-r--  1 1002 1002  4159 Jan 22 15:49 test_context.cc
+-rw-rw-r--  1 1002 1002  3042 Jan 22 15:49 test_context.cu
+-rw-rw-r--  1 1002 1002  1620 Jan 22 15:49 test_global_config.cc
+-rw-rw-r--  1 1002 1002  3697 Jan 22 15:49 test_helpers.cc
+-rw-rw-r--  1 1002 1002  2812 Jan 22 15:49 test_histogram_helpers.cu
+-rw-rw-r--  1 1002 1002 29338 Jan 22 15:49 test_learner.cc
+-rw-rw-r--  1 1002 1002  1435 Jan 22 15:49 test_learner.cu
+-rw-rw-r--  1 1002 1002  1710 Jan 22 15:49 test_logging.cc
+-rw-rw-r--  1 1002 1002   488 Jan 22 15:49 test_main.cc
+-rw-rw-r--  1 1002 1002  5597 Jan 22 15:49 test_multi_target.cc
+-rw-rw-r--  1 1002 1002 28518 Jan 22 15:49 test_serialization.cc
+-rw-rw-r--  1 1002 1002   185 Jan 22 15:49 test_serialization.h
+drwxrwxr-x  4 1002 1002  4096 Jan 22 15:49 tree
+----------------------------------------
+
+[Command 52]
+$ make -C tests/cpp
+Exit Code: 2
+Output:
+make: *** tests/cpp: No such file or directory.  Stop.
+----------------------------------------
+
+[Command 53]
+$ make -C tests/test_distributed
+Exit Code: 2
+Output:
+make: *** tests/test_distributed: No such file or directory.  Stop.
+----------------------------------------
+
