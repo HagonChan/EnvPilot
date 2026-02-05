@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 基础目录
-BASE_DIR="trajectories_PrepareScript/deepseek-v3_memory_top10_backup_1"
+BASE_DIR="/home/hagon/Project/EnvPilot/trajectories_PrepareScript/deepseek-v3_baseline"
 REPORT_FILE="${BASE_DIR}/llm_judge/report.json"
 
 # 检查 jq 是否安装
