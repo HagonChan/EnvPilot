@@ -1,0 +1,11 @@
+ls -la
+open "package.json"
+node --version && npm --version
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+apt-get update && apt-get install -y curl
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+apt install nodejs -y
+node --version && npm --version
+npm ci
+npm install
+npm test
