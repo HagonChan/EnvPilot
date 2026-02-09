@@ -1,22 +1,31 @@
 ls -la
-open "README.md"
-find_file '*.yml' .github
-find_file '*.yml' .azure-pipelines
+ls -la .github/workflows
+ls -la .azure-pipelines
 open ".azure-pipelines/azure-pipelines.yml"
-open "pyproject.toml"
 open "requirements.txt"
-apt-get update && apt-get install -y python3-dev build-essential
-apt-get install -y python3-dev build-essential
-apt-get install -y python3-pip
-python3 --version
-python3 -m venv venv
-apt-get install -y python3.10-venv
-python3 -m venv venv
-source venv/bin/activate && pip install -r requirements.txt
-pip install -e .
 open "pyproject.toml"
-edit 'requires-python = ">=3.12"' 'requires-python = ">=3.10"'
+python -m venv venv
+apt-get update && apt-get install -y python3.12 python3.12-venv
+add-apt-repository ppa:deadsnakes/ppa -y && apt-get update && apt-get install -y python3.12 python3.12-venv
+apt-get install -y software-properties-common
+add-apt-repository ppa:deadsnakes/ppa -y && apt-get update && apt-get install -y python3.12 python3.12-venv
+python3.12 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 pip install -e .
 open ".azure-pipelines/azure-pipelines.yml"
-find_file '*.sh' .azure-pipelines
-
+cat .azure-pipelines/azure-pipelines.yml
+ls -la
+open "Makefile"
+ls -la test
+ls -la test/units
+open "test/units/requirements.txt"
+cat test/units/requirements.txt
+pip install -r test/units/requirements.txt
+cd test/units && pytest
+pip install pytest
+cd test/units && pytest
+pwd
+pytest
+pip install pytest-mock
+pytest

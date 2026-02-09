@@ -1,15 +1,17 @@
 ls -la
 ls -la .github/workflows
 open ".github/workflows/test-all.yml"
-apt-get update && apt-get install -y build-essential clang cmake make python3 python3-pip libssl-dev zlib1g-dev libicu-dev openjdk-17-jdk android-sdk cocoapods
-apt-get install -y build-essential clang cmake make python3 python3-pip libssl-dev zlib1g-dev libicu-dev openjdk-17-jdk android-sdk
-gem install cocoapods
-apt-get install -y ruby ruby-dev
-gem install cocoapods
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+open "package.json"
+node --version
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
+curl -o node-v20.19.4-linux-x64.tar.xz https://nodejs.org/dist/v20.19.4/node-v20.19.4-linux-x64.tar.xz && tar -xf node-v20.19.4-linux-x64.tar.xz && cp -r node-v20.19.4-linux-x64/* /usr/local/
 apt-get install -y curl
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-nvm install 20.19.4 && nvm use 20.19.4
+curl -o node-v20.19.4-linux-x64.tar.xz https://nodejs.org/dist/v20.19.4/node-v20.19.4-linux-x64.tar.xz && tar -xf node-v20.19.4-linux-x64.tar.xz && cp -r node-v20.19.4-linux-x64/* /usr/local/
+apt-get install -y xz-utils
+curl -o node-v20.19.4-linux-x64.tar.xz https://nodejs.org/dist/v20.19.4/node-v20.19.4-linux-x64.tar.xz && tar -xf node-v20.19.4-linux-x64.tar.xz && cp -r node-v20.19.4-linux-x64/* /usr/local/
+node --version
+yarn --version
 npm install -g yarn
-
+yarn --version
+yarn install
+yarn test
